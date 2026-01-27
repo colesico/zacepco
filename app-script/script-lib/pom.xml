@@ -34,6 +34,9 @@
         <!-- Colesico -->
         <colesico.version>6.0.0-SNAPSHOT</colesico.version>
 
+        <!-- SnakeYaml -->
+        <snakeyaml.version>2.5</snakeyaml.version>
+
      </properties>
 
     <dependencies>
@@ -72,6 +75,13 @@
                     <artifactId>commons-lang3</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+
+        <!-- SnakeYaml -->
+        <dependency>
+            <groupId>org.yaml</groupId>
+            <artifactId>snakeyaml</artifactId>
+            <version>${snakeyaml.version}</version>
         </dependency>
 
     </dependencies>
@@ -154,7 +164,7 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
-                            <mainClass>colesico.zacepco.Application</mainClass>
+                            <mainClass>colesico.zacepco.script.lib.Application</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
