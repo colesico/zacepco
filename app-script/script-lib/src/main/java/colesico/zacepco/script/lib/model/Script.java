@@ -6,9 +6,9 @@ package colesico.zacepco.script.lib.model;
 public class Script {
 
     /**
-     * Script model version (1.0.0... etc)
+     * Script data model version (1.0.0... etc)
      */
-    public String modelVersion;
+    public String model;
 
     /**
      * Meta information
@@ -18,27 +18,27 @@ public class Script {
     /**
      * Miscellaneous definitions
      */
-    public MiscellaneousDefinition miscellaneous;
+    public MiscellaneousDef miscellaneous;
 
     /**
      * Characters
      */
-    public PersonagesDefinition personages;
+    public PersonageDictionary personages;
 
     /**
      * Locations
      */
-    public LocationsDefinition locations;
+    public LocationDictionary locations;
 
     /**
      * Artifacts
      */
-    public ArtifactsDefinition artifacts;
+    public ArtifactDictionary artifacts;
 
     /**
      * Location search
      */
-    public SearchDefinition search;
+    public SearchSpec search;
 
     /**
      * Character interrogation
@@ -48,5 +48,5 @@ public class Script {
     /**
      * Clue expertise
      */
-    public ExpertiseDefinition expertise;
+    public ExpertiseSpec expertise;
 }

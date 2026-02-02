@@ -2,6 +2,9 @@ package colesico.zacepco.script.lib.model;
 
 import java.util.List;
 
-public class SearchDefinition {
+/**
+ * Search specification
+ */
+public class SearchSpec {
     public List<SearchLocation> locations;
 }

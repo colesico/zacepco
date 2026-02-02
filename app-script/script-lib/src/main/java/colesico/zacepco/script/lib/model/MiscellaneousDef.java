@@ -1,9 +1,9 @@
 package colesico.zacepco.script.lib.model;
 
 /**
- * Miscellaneous game definitions
+ * Miscellaneous  definition
  */
-public class MiscellaneousDefinition {
+public class MiscellaneousDef {
 
     /**
      * Crime duration in ticks

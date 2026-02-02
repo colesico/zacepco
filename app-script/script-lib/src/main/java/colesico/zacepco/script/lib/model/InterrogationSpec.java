@@ -2,6 +2,9 @@ package colesico.zacepco.script.lib.model;
 
 import java.util.List;
 
-public class InterrogationDefinition {
+/**
+ * Interrogation specification
+ */
+public class InterrogationSpec {
     public List<InterrogationPersonage> personages;
 }

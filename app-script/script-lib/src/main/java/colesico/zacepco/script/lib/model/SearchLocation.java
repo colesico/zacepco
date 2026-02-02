@@ -25,5 +25,5 @@ public class SearchLocation {
     /**
      * Artifact definitions
      */
-    public List<SearchArtefact> artifacts;
+    public List<SearchArtifact> artifacts;
 }

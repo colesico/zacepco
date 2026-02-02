@@ -3,9 +3,9 @@ package colesico.zacepco.script.lib.model;
 import java.util.List;
 
 /**
- * Clues expertise
+ * Clue expertise specification
  */
-public class ExpertiseDefinition {
+public class ExpertiseSpec {
 
     /**
      * Expertise cost  (resources amount)
