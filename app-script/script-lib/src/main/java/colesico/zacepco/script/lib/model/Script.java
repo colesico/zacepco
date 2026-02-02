@@ -15,7 +15,7 @@ public class Script {
     /**
      * Script common information
      */
-    public Metainf metainf;
+    public MetaInf metainf;
 
     /**
      * Miscellaneous definitions
@@ -23,7 +23,7 @@ public class Script {
     public Definitions definitions;
 
     /**
-     * Game characters
+     * Game  characters
      */
     public List<Personage> personages;
 
@@ -32,5 +32,16 @@ public class Script {
      */
     public List<Location> locations;
 
+    /**
+     * Artifacts definitions
+     */
+    public List<Artifact> artifacts;
+
+
     public List<ArtifactParams> artifactParams;
+
+    /**
+     * Location search definitions
+     */
+    public LocationSearch search;
 }

@@ -4,7 +4,7 @@ package colesico.zacepco.script.lib.model;
 /**
  * Script general info
  */
-public class Metainf {
+public class MetaInf {
 
     /**
      * Script id
