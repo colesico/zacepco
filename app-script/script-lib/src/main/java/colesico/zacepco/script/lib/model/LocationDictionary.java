@@ -10,13 +10,13 @@ public class LocationDictionary {
     /**
      * Locations graph definition
      */
-    public List<Location> dictionary;
+    public List<Location> items;
 
-    public List<Location> getDictionary() {
-        return dictionary;
+    public List<Location> getItems() {
+        return items;
     }
 
-    public void setDictionary(List<Location> dictionary) {
-        this.dictionary = dictionary;
+    public void setItems(List<Location> items) {
+        this.items = items;
     }
 }

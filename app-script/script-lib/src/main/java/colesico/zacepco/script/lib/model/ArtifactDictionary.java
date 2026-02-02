@@ -10,13 +10,13 @@ public class ArtifactDictionary {
     /**
      * Artifacts definitions
      */
-    public List<Artifact> dictionary;
+    public List<Artifact> items;
 
-    public List<Artifact> getDictionary() {
-        return dictionary;
+    public List<Artifact> getItems() {
+        return items;
     }
 
-    public void setDictionary(List<Artifact> dictionary) {
-        this.dictionary = dictionary;
+    public void setItems(List<Artifact> items) {
+        this.items = items;
     }
 }

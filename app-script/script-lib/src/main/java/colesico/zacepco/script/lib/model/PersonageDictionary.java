@@ -7,13 +7,13 @@ import java.util.List;
  */
 public class PersonageDictionary {
 
-    public List<Personage> dictionary;
+    public List<Personage> items;
 
-    public List<Personage> getDictionary() {
-        return dictionary;
+    public List<Personage> getItems() {
+        return items;
     }
 
-    public void setDictionary(List<Personage> dictionary) {
-        this.dictionary = dictionary;
+    public void setItems(List<Personage> items) {
+        this.items = items;
     }
 }
