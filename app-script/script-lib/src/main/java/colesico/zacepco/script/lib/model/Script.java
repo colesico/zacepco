@@ -1,7 +1,5 @@
 package colesico.zacepco.script.lib.model;
 
-import java.util.List;
-
 /**
  * Script model
  */
@@ -20,28 +18,30 @@ public class Script {
     /**
      * Miscellaneous definitions
      */
-    public Definitions definitions;
+    public ScriptMiscellaneous miscellaneous;
 
     /**
-     * Game  characters
+     * Characters definitions
      */
-    public List<Personage> personages;
+    public ScriptPersonages personages;
 
     /**
-     * Locations graph
+     * Locations definition
      */
-    public List<Location> locations;
+    public ScriptLocations locations;
 
     /**
      * Artifacts definitions
      */
-    public List<Artifact> artifacts;
-
-
-    public List<ArtifactParams> artifactParams;
+    public ScriptArtifacts artifacts;
 
     /**
      * Location search definitions
      */
     public LocationSearch search;
+
+    /**
+     * Character interrogation
+     */
+    public PersonageInterrogation interrogation;
 }

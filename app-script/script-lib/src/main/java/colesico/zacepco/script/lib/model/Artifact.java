@@ -1,6 +1,6 @@
 package colesico.zacepco.script.lib.model;
 
-import java.util.List;
+import java.util.Map;
 
 public class Artifact {
 
@@ -10,7 +10,7 @@ public class Artifact {
 
     public String description;
 
-    public List<String> params;
+    public Map<String,String> params;
 
     public Integer getId() {
         return id;
@@ -36,11 +36,11 @@ public class Artifact {
         this.description = description;
     }
 
-    public List<String> getParams() {
+    public Map<String, String> getParams() {
         return params;
     }
 
-    public void setParams(List<String> params) {
+    public void setParams(Map<String, String> params) {
         this.params = params;
     }
 }

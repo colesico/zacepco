@@ -18,7 +18,8 @@ public class Location {
     public List<Integer> passages;
 
     /**
-     * Hidden passages
+     * Hidden passages.
+     * Location IDs where the passages lead from this location
      */
     public List<Integer> hiddenPassages;
 
