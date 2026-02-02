@@ -7,13 +7,13 @@ import java.util.List;
  */
 public class ScriptPersonages {
 
-    public List<Personage> list;
+    public List<Personage> items;
 
-    public List<Personage> getList() {
-        return list;
+    public List<Personage> getItems() {
+        return items;
     }
 
-    public void setList(List<Personage> list) {
-        this.list = list;
+    public void setItems(List<Personage> items) {
+        this.items = items;
     }
 }

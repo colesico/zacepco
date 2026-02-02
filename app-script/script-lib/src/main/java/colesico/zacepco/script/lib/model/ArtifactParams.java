@@ -4,19 +4,22 @@ import java.util.Map;
 
 public class ArtifactParams {
 
-    public Integer artifactId;
+    /**
+     * Artifact id
+     */
+    public Integer artifact;
 
     /**
      * Param values
      */
     public Map<String,String> params;
 
-    public Integer getArtifactId() {
-        return artifactId;
+    public Integer getArtifact() {
+        return artifact;
     }
 
-    public void setArtifactId(Integer artifactId) {
-        this.artifactId = artifactId;
+    public void setArtifact(Integer artifact) {
+        this.artifact = artifact;
     }
 
     public Map<String, String> getParams() {

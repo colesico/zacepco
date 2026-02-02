@@ -7,7 +7,7 @@ import java.util.List;
  */
 public class Location {
 
-    public Integer id;
+    public String id;
 
     public String name;
 
@@ -28,11 +28,11 @@ public class Location {
      */
     public Boolean hidden;
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 

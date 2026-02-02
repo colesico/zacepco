@@ -15,9 +15,5 @@ public class ScriptMiscellaneous {
      */
     public Integer budget;
 
-    /**
-     * Evidence expertise cost  (resources amount)
-     */
-    public ExpertiseCost expertiseCost;
 
 }

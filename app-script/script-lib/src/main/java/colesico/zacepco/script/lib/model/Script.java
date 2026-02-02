@@ -8,10 +8,10 @@ public class Script {
     /**
      * Script model version (1.0.0... etc)
      */
-    public String script;
+    public String modelVersion;
 
     /**
-     * Script common information
+     * Meta information
      */
     public MetaInf metainf;
 
@@ -21,27 +21,32 @@ public class Script {
     public ScriptMiscellaneous miscellaneous;
 
     /**
-     * Characters definitions
+     * Characters
      */
     public ScriptPersonages personages;
 
     /**
-     * Locations definition
+     * Locations
      */
     public ScriptLocations locations;
 
     /**
-     * Artifacts definitions
+     * Artifacts
      */
     public ScriptArtifacts artifacts;
 
     /**
-     * Location search definitions
+     * Location search
      */
-    public LocationSearch search;
+    public SearchDefinition search;
 
     /**
      * Character interrogation
      */
     public PersonageInterrogation interrogation;
+
+    /**
+     * Clue expertise
+     */
+    public Expertise expertise;
 }

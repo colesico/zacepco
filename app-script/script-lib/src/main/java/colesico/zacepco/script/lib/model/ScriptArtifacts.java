@@ -7,5 +7,13 @@ public class ScriptArtifacts {
     /**
      * Artifacts definitions
      */
-    public List<Artifact> artifacts;
+    public List<Artifact> items;
+
+    public List<Artifact> getItems() {
+        return items;
+    }
+
+    public void setItems(List<Artifact> items) {
+        this.items = items;
+    }
 }

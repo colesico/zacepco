@@ -10,13 +10,13 @@ public class ScriptLocations {
     /**
      * Locations graph definition
      */
-    public List<Location> list;
+    public List<Location> items;
 
-    public List<Location> getList() {
-        return list;
+    public List<Location> getItems() {
+        return items;
     }
 
-    public void setList(List<Location> list) {
-        this.list = list;
+    public void setItems(List<Location> items) {
+        this.items = items;
     }
 }

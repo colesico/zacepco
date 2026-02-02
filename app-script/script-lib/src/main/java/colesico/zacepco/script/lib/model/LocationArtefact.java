@@ -2,14 +2,14 @@ package colesico.zacepco.script.lib.model;
 
 
 /**
- * Location artifact for search
+ * Location artifact to search
  */
 public class LocationArtefact {
 
     /**
      * Search focus
      */
-    public SignificantEntities focus;
+    public Significative focus;
 
     /**
      * Threshold decrement
@@ -24,18 +24,18 @@ public class LocationArtefact {
     /**
      * Artifact
      */
-    public Integer artifactId;
+    public Integer artifact;
 
     /**
      * Bonus for artifact discovery
      */
     public Integer bonus;
 
-    public SignificantEntities getFocus() {
+    public Significative getFocus() {
         return focus;
     }
 
-    public void setFocus(SignificantEntities focus) {
+    public void setFocus(Significative focus) {
         this.focus = focus;
     }
 
@@ -55,12 +55,12 @@ public class LocationArtefact {
         this.threshold = threshold;
     }
 
-    public Integer getArtifactId() {
-        return artifactId;
+    public Integer getArtifact() {
+        return artifact;
     }
 
-    public void setArtifactId(Integer artifactId) {
-        this.artifactId = artifactId;
+    public void setArtifact(Integer artifact) {
+        this.artifact = artifact;
     }
 
     public Integer getBonus() {

@@ -3,18 +3,18 @@ package colesico.zacepco.script.lib.model;
 import java.util.List;
 
 /**
- * Location search definition
+ * Location search
  */
 public class LocationSearch {
     /**
      * Location to be search
      */
-    public Integer locationId;
+    public Integer location;
 
     /**
      * Base search cost
      */
-    public Integer baseCost;
+    public Integer cost;
 
     /**
      * Extra cost for thoroughness

@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Significant entities  for location search/interrogation/expertise
  */
-public class SignificantEntities {
+public class Significative {
 
     public List<Integer> personage;
     public List<Integer> location;
