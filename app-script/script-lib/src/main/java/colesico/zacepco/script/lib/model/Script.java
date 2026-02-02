@@ -18,7 +18,7 @@ public class Script {
     /**
      * Miscellaneous definitions
      */
-    public MiscellaneousDef miscellaneous;
+    public Miscellaneous miscellaneous;
 
     /**
      * Characters
@@ -43,7 +43,7 @@ public class Script {
     /**
      * Character interrogation
      */
-    public InterrogationPersonage interrogation;
+    public InterrogationSpec interrogation;
 
     /**
      * Clue expertise

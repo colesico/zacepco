@@ -12,9 +12,9 @@ public class SearchArtifact {
     public Significative focus;
 
     /**
-     * Threshold decrement
+     * Threshold shift
      */
-    public Integer delta;
+    public Integer shift;
 
     /**
      * Artifact discovery threshold

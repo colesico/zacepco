@@ -1,11 +1,13 @@
 package colesico.zacepco.script.lib.model;
 
+import java.util.Objects;
+
 /**
  * Game character
  */
 public class Personage {
 
-    public Integer id;
+    public EntityId id;
 
     /**
      * Personage name
@@ -22,11 +24,11 @@ public class Personage {
      */
     public Boolean hidden;
 
-    public Integer getId() {
+    public EntityId getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(EntityId id) {
         this.id = id;
     }
 
@@ -52,5 +54,26 @@ public class Personage {
 
     public void setHidden(Boolean hidden) {
         this.hidden = hidden;
+    }
+
+    @Override
+    public String toString() {
+        return "Personage{" +
+                "name='" + name + '\'' +
+                ", id=" + id +
+                ", hidden=" + hidden +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Personage personage = (Personage) o;
+        return Objects.equals(id, personage.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
     }
 }
