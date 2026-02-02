@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Personages definitions
  */
-public class ScriptPersonages {
+public class PersonagesDefinition {
 
     public List<Personage> items;
 

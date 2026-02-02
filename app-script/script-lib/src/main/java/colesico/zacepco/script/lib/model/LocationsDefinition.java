@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Game field
  */
-public class ScriptLocations {
+public class LocationsDefinition {
 
     /**
      * Locations graph definition

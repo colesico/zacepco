@@ -18,22 +18,22 @@ public class Script {
     /**
      * Miscellaneous definitions
      */
-    public ScriptMiscellaneous miscellaneous;
+    public MiscellaneousDefinition miscellaneous;
 
     /**
      * Characters
      */
-    public ScriptPersonages personages;
+    public PersonagesDefinition personages;
 
     /**
      * Locations
      */
-    public ScriptLocations locations;
+    public LocationsDefinition locations;
 
     /**
      * Artifacts
      */
-    public ScriptArtifacts artifacts;
+    public ArtifactsDefinition artifacts;
 
     /**
      * Location search
@@ -43,10 +43,10 @@ public class Script {
     /**
      * Character interrogation
      */
-    public PersonageInterrogation interrogation;
+    public InterrogationPersonage interrogation;
 
     /**
      * Clue expertise
      */
-    public Expertise expertise;
+    public ExpertiseDefinition expertise;
 }

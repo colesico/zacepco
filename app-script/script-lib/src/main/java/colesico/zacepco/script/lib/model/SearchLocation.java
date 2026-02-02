@@ -5,7 +5,8 @@ import java.util.List;
 /**
  * Location search
  */
-public class LocationSearch {
+public class SearchLocation {
+
     /**
      * Location to be search
      */
@@ -24,5 +25,5 @@ public class LocationSearch {
     /**
      * Artifact definitions
      */
-    public List<LocationArtefact> artifacts;
+    public List<SearchArtefact> artifacts;
 }

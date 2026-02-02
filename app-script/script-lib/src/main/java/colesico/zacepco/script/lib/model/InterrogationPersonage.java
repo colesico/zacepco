@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Personage interrogation
  */
-public class PersonageInterrogation {
+public class InterrogationPersonage {
 
     /**
      * Personage Id

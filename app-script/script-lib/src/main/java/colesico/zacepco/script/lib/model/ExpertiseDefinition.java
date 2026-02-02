@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Clues expertise
  */
-public class Expertise {
+public class ExpertiseDefinition {
 
     /**
      * Expertise cost  (resources amount)
@@ -15,5 +15,5 @@ public class Expertise {
     /**
      * Clues to be examined
      */
-    public List<ClueExpertise> clues;
+    public List<ExpertiseClue> clues;
 }

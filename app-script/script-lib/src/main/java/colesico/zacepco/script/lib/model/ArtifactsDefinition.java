@@ -2,7 +2,7 @@ package colesico.zacepco.script.lib.model;
 
 import java.util.List;
 
-public class ScriptArtifacts {
+public class ArtifactsDefinition {
 
     /**
      * Artifacts definitions

@@ -4,7 +4,7 @@ package colesico.zacepco.script.lib.model;
 /**
  * Location artifact to search
  */
-public class LocationArtefact {
+public class SearchArtefact {
 
     /**
      * Search focus
