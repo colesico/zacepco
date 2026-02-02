@@ -6,7 +6,31 @@ import java.util.List;
  * Script model
  */
 public class Script {
-    public Metadata metadata;
+
+    /**
+     * Script model version (1.0.0... etc)
+     */
+    public String script;
+
+    /**
+     * Script common information
+     */
+    public Metainf metainf;
+
+    /**
+     * Miscellaneous definitions
+     */
+    public Definitions definitions;
+
+    /**
+     * Game characters
+     */
     public List<Personage> personages;
+
+    /**
+     * Locations graph
+     */
     public List<Location> locations;
+
+    public List<ArtifactParams> artifactParams;
 }
