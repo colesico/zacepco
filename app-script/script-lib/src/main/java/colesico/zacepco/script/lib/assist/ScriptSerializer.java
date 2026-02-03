@@ -11,11 +11,11 @@ import java.io.OutputStreamWriter;
 import java.nio.charset.StandardCharsets;
 
 @Singleton
-public class ScriptIO {
+public class ScriptSerializer {
 
     private Provider<Yaml> yamlProvider;
 
-    public ScriptIO(Provider<Yaml> yamlProvider) {
+    public ScriptSerializer(Provider<Yaml> yamlProvider) {
         this.yamlProvider = yamlProvider;
     }
 

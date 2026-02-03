@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * locations dictionary
  */
-public class LocationDictionary {
+public class LocationDict {
 
     /**
      * Locations graph definition

@@ -21,7 +21,7 @@ public class Artifact {
     /**
      * Is artifact unrelated to the crime
      */
-    public Boolean irrelevant;
+    public Boolean unrelated;
 
     /**
      * Is artifact custom
@@ -60,12 +60,12 @@ public class Artifact {
         this.params = params;
     }
 
-    public Boolean getIrrelevant() {
-        return irrelevant;
+    public Boolean getUnrelated() {
+        return unrelated;
     }
 
-    public void setIrrelevant(Boolean irrelevant) {
-        this.irrelevant = irrelevant;
+    public void setUnrelated(Boolean unrelated) {
+        this.unrelated = unrelated;
     }
 
     public Boolean getCustom() {

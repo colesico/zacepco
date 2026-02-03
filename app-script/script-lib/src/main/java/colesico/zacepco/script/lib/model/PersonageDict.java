@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Personages dictionary
  */
-public class PersonageDictionary {
+public class PersonageDict {
 
     public List<Personage> items;
 

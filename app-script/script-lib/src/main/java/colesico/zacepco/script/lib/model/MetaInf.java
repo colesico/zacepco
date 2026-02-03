@@ -1,6 +1,8 @@
 package colesico.zacepco.script.lib.model;
 
 
+import java.time.LocalDate;
+
 /**
  * Script general info
  */
@@ -25,6 +27,11 @@ public class MetaInf {
      * Script licence name i.e. CC BY 4.0
      */
     public String licence;
+
+    /**
+     * Script creation date
+     */
+    public LocalDate created;
 
     /**
      * Estimated difficulty level

@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Artifacts dictionary
  */
-public class ArtifactDictionary {
+public class ArtifactDict {
 
     /**
      * Artifacts definitions

@@ -6,9 +6,9 @@ package colesico.zacepco.script.lib.model;
 public class Script {
 
     /**
-     * Script data model version (1.0.0... etc)
+     * Script schema version (1.. etc)
      */
-    public Integer model;
+    public Integer schema;
 
     /**
      * Script id
@@ -23,27 +23,27 @@ public class Script {
     /**
      * Meta information
      */
-    public MetaInf metainf;
+    public MetaInf meta;
 
     /**
      * Miscellaneous definitions
      */
-    public Miscellaneous miscellaneous;
+    public Miscellaneous misc;
 
     /**
      * Characters
      */
-    public PersonageDictionary personages;
+    public PersonageDict personages;
 
     /**
      * Locations
      */
-    public LocationDictionary locations;
+    public LocationDict locations;
 
     /**
      * Artifacts
      */
-    public ArtifactDictionary artifacts;
+    public ArtifactDict artifacts;
 
     /**
      * Location search
