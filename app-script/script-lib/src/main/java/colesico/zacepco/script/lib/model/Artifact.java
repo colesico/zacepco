@@ -2,6 +2,9 @@ package colesico.zacepco.script.lib.model;
 
 import java.util.Map;
 
+/**
+ * Artifact model
+ */
 public class Artifact {
 
     public EntityId id;

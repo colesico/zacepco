@@ -8,9 +8,14 @@ import java.util.List;
 public class ExpertiseSpec {
 
     /**
-     * Expertise cost  (resources amount)
+     * Initial expertise cost  (resources amount)
      */
-    public ExpertiseCost cost;
+    public Integer cost;
+
+    /**
+     * Subsequent expertises cost
+     */
+    public Integer costSub;
 
     /**
      * Clues to be examined

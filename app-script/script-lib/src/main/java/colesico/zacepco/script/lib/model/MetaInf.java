@@ -7,16 +7,6 @@ package colesico.zacepco.script.lib.model;
 public class MetaInf {
 
     /**
-     * Script id
-     */
-    public String id;
-
-    /**
-     * Script version (1..N)
-     */
-    public Integer version;
-
-    /**
      * Script name
      */
     public String name;
@@ -50,22 +40,6 @@ public class MetaInf {
      * Recommended players number  (from-to)
      */
     public Integer[] playersNum;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public Integer getVersion() {
-        return version;
-    }
-
-    public void setVersion(Integer version) {
-        this.version = version;
-    }
 
     public String getName() {
         return name;

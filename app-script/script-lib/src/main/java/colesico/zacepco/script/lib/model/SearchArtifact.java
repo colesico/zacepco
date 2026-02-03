@@ -1,15 +1,17 @@
 package colesico.zacepco.script.lib.model;
 
 
+import java.util.List;
+
 /**
  * Location artifact to search
  */
 public class SearchArtifact {
 
     /**
-     * Search focus
+     * Entities on which search is focused
      */
-    public Significative focus;
+    public List<EntityId> focus;
 
     /**
      * Threshold shift
@@ -22,29 +24,29 @@ public class SearchArtifact {
     public Integer threshold;
 
     /**
-     * Artifact
+     * Target artifacts
      */
-    public Integer artifact;
+    public List<EntityId> artifacts;
 
     /**
-     * Bonus for artifact discovery
+     * Bonus rate for artifact discovery
      */
     public Integer bonus;
 
-    public Significative getFocus() {
+    public List<EntityId> getFocus() {
         return focus;
     }
 
-    public void setFocus(Significative focus) {
+    public void setFocus(List<EntityId> focus) {
         this.focus = focus;
     }
 
-    public Integer getDelta() {
-        return delta;
+    public Integer getShift() {
+        return shift;
     }
 
-    public void setDelta(Integer delta) {
-        this.delta = delta;
+    public void setShift(Integer shift) {
+        this.shift = shift;
     }
 
     public Integer getThreshold() {
@@ -55,12 +57,12 @@ public class SearchArtifact {
         this.threshold = threshold;
     }
 
-    public Integer getArtifact() {
-        return artifact;
+    public List<EntityId> getArtifacts() {
+        return artifacts;
     }
 
-    public void setArtifact(Integer artifact) {
-        this.artifact = artifact;
+    public void setArtifacts(List<EntityId> artifacts) {
+        this.artifacts = artifacts;
     }
 
     public Integer getBonus() {

@@ -17,7 +17,7 @@ public class InterrogationPersonage {
      */
     public Integer cost;
 
-    public List<PersonageArtifact> artifacts;
+    public List<InterrogationArtifact> artifacts;
 
     public Integer getPresonage() {
         return presonage;

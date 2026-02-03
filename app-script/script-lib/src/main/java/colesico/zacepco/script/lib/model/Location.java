@@ -3,7 +3,7 @@ package colesico.zacepco.script.lib.model;
 import java.util.List;
 
 /**
- * Game field location
+ * Location model
  */
 public class Location {
 
@@ -12,16 +12,21 @@ public class Location {
     public String name;
 
     /**
+     * Location description
+     */
+    public String description;
+
+    /**
      * General passages.
      * Location IDs where the passages lead from this location
      */
-    public List<Integer> passages;
+    public List<EntityId> passages;
 
     /**
      * Hidden passages.
      * Location IDs where the passages lead from this location
      */
-    public List<Integer> hiddenPassages;
+    public List<EntityId> hiddenPassages;
 
     /**
      * Hidden location or not
@@ -44,19 +49,27 @@ public class Location {
         this.name = name;
     }
 
-    public List<Integer> getPassages() {
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public List<EntityId> getPassages() {
         return passages;
     }
 
-    public void setPassages(List<Integer> passages) {
+    public void setPassages(List<EntityId> passages) {
         this.passages = passages;
     }
 
-    public List<Integer> getHiddenPassages() {
+    public List<EntityId> getHiddenPassages() {
         return hiddenPassages;
     }
 
-    public void setHiddenPassages(List<Integer> hiddenPassages) {
+    public void setHiddenPassages(List<EntityId> hiddenPassages) {
         this.hiddenPassages = hiddenPassages;
     }
 

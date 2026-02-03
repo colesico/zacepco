@@ -4,42 +4,42 @@ import java.util.Objects;
 
 public final class EntityId {
 
-    public final IdCode code;
-    public final Integer number;
+    public final IdType type;
+    public final String value;
 
-    public EntityId(IdCode code, Integer number) {
-        this.code = code;
-        this.number = number;
+    public EntityId(IdType type, String value) {
+        this.type = type;
+        this.value = value;
     }
 
-    public static EntityId parse(String entityIdStr){
-        char code = entityIdStr.charAt(0);
-        String number = entityIdStr.substring(1);
-        return new EntityId(IdCode.fromCode(code),Integer.parseInt(number));
+    public static EntityId of(String entityId){
+        char type = entityId.charAt(0);
+        String value = entityId.substring(1);
+        return new EntityId(IdType.of(type),value);
     }
 
-    public IdCode getCode() {
-        return code;
+    public IdType getType() {
+        return type;
     }
 
-    public Integer getNumber() {
-        return number;
+    public String getValue() {
+        return value;
     }
 
     @Override
     public String toString() {
-        return "" + code + number;
+        return "" + type + value;
     }
 
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         EntityId entityId = (EntityId) o;
-        return code == entityId.code && Objects.equals(number, entityId.number);
+        return type == entityId.type && Objects.equals(value, entityId.value);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(code, number);
+        return Objects.hash(type, value);
     }
 }

@@ -8,7 +8,17 @@ public class Script {
     /**
      * Script data model version (1.0.0... etc)
      */
-    public String model;
+    public Integer model;
+
+    /**
+     * Script id
+     */
+    public String id;
+
+    /**
+     * Script version (1..N)
+     */
+    public Integer version;
 
     /**
      * Meta information
