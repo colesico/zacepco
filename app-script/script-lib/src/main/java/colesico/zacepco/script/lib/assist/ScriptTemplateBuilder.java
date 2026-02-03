@@ -10,7 +10,7 @@ public class ScriptTemplateBuilder {
     public Script build(){
         script = new Script();
 
-        script.meta = new MetaInf();
+        script.meta = new Metadata();
 
         script.misc = new Miscellaneous();
 

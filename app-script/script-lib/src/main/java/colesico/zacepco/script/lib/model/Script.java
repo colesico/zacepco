@@ -1,29 +1,14 @@
 package colesico.zacepco.script.lib.model;
 
 /**
- * Script model
+ * Script document
  */
 public class Script {
 
     /**
-     * Script schema version (1.. etc)
-     */
-    public Integer schema;
-
-    /**
-     * Script id
-     */
-    public String id;
-
-    /**
-     * Script version (1..N)
-     */
-    public Integer version;
-
-    /**
      * Meta information
      */
-    public MetaInf meta;
+    public Metadata meta;
 
     /**
      * Miscellaneous definitions

@@ -1,16 +1,14 @@
-schema: 1
-id: demo
-version: 1
-
 meta:
+  schema: 1
+  id: 1
   name: Сценарий преступления
   description: |
     Это учебный сценарий преступления.
     На его базе можно создать свою историю.
-
   authors: [ Иванов И.И. ]
   licence: CC BY 4.0
   created: 2025-01-01
+  version: 1
   difficulty: 0
   estimatedTime: [ 30,40 ]
   playersNum: [ 1,3 ]
