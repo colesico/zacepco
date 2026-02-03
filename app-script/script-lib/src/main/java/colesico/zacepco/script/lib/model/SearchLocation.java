@@ -12,18 +12,34 @@ public class SearchLocation {
      */
     public Integer location;
 
-    /**
-     * Base search cost
-     */
-    public Integer cost;
-
-    /**
-     * Extra cost for thoroughness
-     */
-    public Integer detailedCost;
+    public SearchCost cost;
 
     /**
      * Artifact definitions
      */
     public List<SearchArtifact> artifacts;
+
+    public Integer getLocation() {
+        return location;
+    }
+
+    public void setLocation(Integer location) {
+        this.location = location;
+    }
+
+    public SearchCost getCost() {
+        return cost;
+    }
+
+    public void setCost(SearchCost cost) {
+        this.cost = cost;
+    }
+
+    public List<SearchArtifact> getArtifacts() {
+        return artifacts;
+    }
+
+    public void setArtifacts(List<SearchArtifact> artifacts) {
+        this.artifacts = artifacts;
+    }
 }

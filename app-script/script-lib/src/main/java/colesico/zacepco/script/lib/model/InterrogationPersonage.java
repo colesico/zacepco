@@ -13,7 +13,7 @@ public class InterrogationPersonage {
     public Integer presonage;
 
     /**
-     * Interrogation  cost  (resource)
+     * Interrogation cost  (resource)
      */
     public Integer cost;
 

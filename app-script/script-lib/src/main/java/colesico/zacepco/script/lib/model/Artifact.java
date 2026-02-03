@@ -13,6 +13,9 @@ public class Artifact {
 
     public String description;
 
+    /**
+     * Artifact parameters
+     */
     public Map<String,EntityId> params;
 
     /**
@@ -20,4 +23,56 @@ public class Artifact {
      */
     public Boolean irrelevant;
 
+    /**
+     * Is artifact custom
+     */
+    public Boolean custom;
+
+    public EntityId getId() {
+        return id;
+    }
+
+    public void setId(EntityId id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Map<String, EntityId> getParams() {
+        return params;
+    }
+
+    public void setParams(Map<String, EntityId> params) {
+        this.params = params;
+    }
+
+    public Boolean getIrrelevant() {
+        return irrelevant;
+    }
+
+    public void setIrrelevant(Boolean irrelevant) {
+        this.irrelevant = irrelevant;
+    }
+
+    public Boolean getCustom() {
+        return custom;
+    }
+
+    public void setCustom(Boolean custom) {
+        this.custom = custom;
+    }
 }

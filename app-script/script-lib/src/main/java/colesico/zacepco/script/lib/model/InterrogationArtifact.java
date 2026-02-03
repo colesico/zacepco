@@ -5,11 +5,6 @@ import java.util.List;
 public class InterrogationArtifact {
 
     /**
-     * Personage id
-     */
-    public EntityId personage;
-
-    /**
      * Entities on which interrogation is focused
      */
     public List<EntityId> focus;

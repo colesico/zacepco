@@ -7,4 +7,12 @@ import java.util.List;
  */
 public class InterrogationSpec {
     public List<InterrogationPersonage> personages;
+
+    public List<InterrogationPersonage> getPersonages() {
+        return personages;
+    }
+
+    public void setPersonages(List<InterrogationPersonage> personages) {
+        this.personages = personages;
+    }
 }

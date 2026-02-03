@@ -8,17 +8,20 @@ import java.util.List;
 public class ExpertiseSpec {
 
     /**
-     * Initial expertise cost  (resources amount)
+     * Expertise cost  (resources amount)
      */
-    public Integer cost;
-
-    /**
-     * Subsequent expertises cost
-     */
-    public Integer costSub;
+    public ExpertiseCost cost;
 
     /**
      * Clues to be examined
      */
     public List<ExpertiseClue> clues;
+
+    public ExpertiseCost getCost() {
+        return cost;
+    }
+
+    public void setCost(ExpertiseCost cost) {
+        this.cost = cost;
+    }
 }

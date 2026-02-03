@@ -5,10 +5,9 @@ import java.util.List;
 public class ExpertiseClue {
 
    /**
-    * Clues  to be analysis
+    * Entities to be analysis (two or more)
     */
-   public EntityId clueA;
-   public EntityId clueB;
+   public List<EntityId> clues;
 
    /**
     * Ancillary clues to help discover additional clue associations
@@ -35,20 +34,12 @@ public class ExpertiseClue {
     */
    public Integer bonus;
 
-   public EntityId getClueA() {
-      return clueA;
+   public List<EntityId> getClues() {
+      return clues;
    }
 
-   public void setClueA(EntityId clueA) {
-      this.clueA = clueA;
-   }
-
-   public EntityId getClueB() {
-      return clueB;
-   }
-
-   public void setClueB(EntityId clueB) {
-      this.clueB = clueB;
+   public void setClues(List<EntityId> clues) {
+      this.clues = clues;
    }
 
    public List<EntityId> getAncillaries() {

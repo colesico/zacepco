@@ -19,4 +19,5 @@ public class ArtifactDictionary {
     public void setItems(List<Artifact> items) {
         this.items = items;
     }
+
 }

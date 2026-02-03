@@ -2,9 +2,19 @@ package colesico.zacepco.script.lib.model;
 
 import java.util.Objects;
 
+/**
+ * Game entity identifier
+ */
 public final class EntityId {
 
+    /**
+     * Entity type
+     */
     public final IdType type;
+
+    /**
+     * Id value
+     */
     public final String value;
 
     public EntityId(IdType type, String value) {

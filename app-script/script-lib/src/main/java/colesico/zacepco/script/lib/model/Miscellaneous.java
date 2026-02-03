@@ -15,5 +15,19 @@ public class Miscellaneous {
      */
     public Integer budget;
 
+    public Integer getDuration() {
+        return duration;
+    }
 
+    public void setDuration(Integer duration) {
+        this.duration = duration;
+    }
+
+    public Integer getBudget() {
+        return budget;
+    }
+
+    public void setBudget(Integer budget) {
+        this.budget = budget;
+    }
 }
