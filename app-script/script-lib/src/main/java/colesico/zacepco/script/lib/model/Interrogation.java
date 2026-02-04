@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Interrogation specification
  */
-public class InterrogationSpec {
+public class Interrogation {
     public List<InterrogationPersonage> personages;
 
     public List<InterrogationPersonage> getPersonages() {

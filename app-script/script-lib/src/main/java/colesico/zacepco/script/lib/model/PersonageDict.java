@@ -7,13 +7,13 @@ import java.util.List;
  */
 public class PersonageDict {
 
-    public List<Personage> items;
+    public List<Personage> suspects;
 
-    public List<Personage> getItems() {
-        return items;
+    public List<Personage> getSuspects() {
+        return suspects;
     }
 
-    public void setItems(List<Personage> items) {
-        this.items = items;
+    public void setSuspects(List<Personage> suspects) {
+        this.suspects = suspects;
     }
 }

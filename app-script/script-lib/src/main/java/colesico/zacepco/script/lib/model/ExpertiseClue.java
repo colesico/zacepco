@@ -12,7 +12,7 @@ public class ExpertiseClue {
    /**
     * Ancillary clues to help discover additional clue associations
     */
-   public List<EntityId>  ancillaries;
+   public List<EntityId> focus;
 
    /**
     * Threshold shift
@@ -42,12 +42,12 @@ public class ExpertiseClue {
       this.clues = clues;
    }
 
-   public List<EntityId> getAncillaries() {
-      return ancillaries;
+   public List<EntityId> getFocus() {
+      return focus;
    }
 
-   public void setAncillaries(List<EntityId> ancillaries) {
-      this.ancillaries = ancillaries;
+   public void setFocus(List<EntityId> focus) {
+      this.focus = focus;
    }
 
    public Integer getShift() {

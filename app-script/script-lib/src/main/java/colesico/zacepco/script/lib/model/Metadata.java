@@ -7,15 +7,6 @@ import java.time.LocalDate;
  * Script general info
  */
 public class Metadata {
-    /**
-     * Document schema version (1.. etc)
-     */
-    public Integer schema;
-
-    /**
-     * Document id
-     */
-    public String id;
 
     /**
      * Document version (1..N)

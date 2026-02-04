@@ -1,6 +1,8 @@
-meta:
+script:
   schema: 1
   id: 1
+
+meta:
   name: Сценарий преступления
   description: |
     Это учебный сценарий преступления.
@@ -18,7 +20,7 @@ misc:
   budget: 9
 
 personages:
-  items:
+  suspects:
     - id: P1
       name: Кончита
       dossier: |
@@ -29,7 +31,11 @@ personages:
       dossier: |
         Крайне линив. Одиваетсянебрежно.
 
-locations:
-  items:
+scene:
+  dim:
+    cols: 3
+    rows: 2
+
+  locations:
     - id: L1
       name: Кабинет

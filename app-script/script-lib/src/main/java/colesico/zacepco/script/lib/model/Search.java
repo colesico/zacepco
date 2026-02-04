@@ -5,6 +5,6 @@ import java.util.List;
 /**
  * Search specification
  */
-public class SearchSpec {
+public class Search {
     public List<SearchLocation> locations;
 }

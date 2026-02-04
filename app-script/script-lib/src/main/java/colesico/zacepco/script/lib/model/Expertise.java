@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Clue expertise specification
  */
-public class ExpertiseSpec {
+public class Expertise {
 
     /**
      * Expertise cost  (resources amount)

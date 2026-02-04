@@ -6,6 +6,11 @@ package colesico.zacepco.script.lib.model;
 public class Script {
 
     /**
+     * Script document data
+     */
+    public ScriptHeader script;
+
+    /**
      * Meta information
      */
     public Metadata meta;
@@ -23,7 +28,7 @@ public class Script {
     /**
      * Locations
      */
-    public LocationDict locations;
+    public Scene board;
 
     /**
      * Artifacts
@@ -33,15 +38,15 @@ public class Script {
     /**
      * Location search
      */
-    public SearchSpec search;
+    public Search search;
 
     /**
      * Character interrogation
      */
-    public InterrogationSpec interrogation;
+    public Interrogation interrogation;
 
     /**
      * Clue expertise
      */
-    public ExpertiseSpec expertise;
+    public Expertise expertise;
 }
