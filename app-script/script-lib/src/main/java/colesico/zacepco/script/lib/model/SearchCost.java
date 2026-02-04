@@ -3,28 +3,28 @@ package colesico.zacepco.script.lib.model;
 public class SearchCost {
 
     /**
-     * Base search cost
+     * Standard search cost
      */
-    public Integer base;
+    public Integer standard;
 
     /**
-     * Extra cost for thoroughness
+     * Advanced search cost
      */
-    public Integer detailed;
+    public Integer advanced;
 
-    public Integer getBase() {
-        return base;
+    public Integer getStandard() {
+        return standard;
     }
 
-    public void setBase(Integer base) {
-        this.base = base;
+    public void setStandard(Integer standard) {
+        this.standard = standard;
     }
 
-    public Integer getDetailed() {
-        return detailed;
+    public Integer getAdvanced() {
+        return advanced;
     }
 
-    public void setDetailed(Integer detailed) {
-        this.detailed = detailed;
+    public void setAdvanced(Integer advanced) {
+        this.advanced = advanced;
     }
 }

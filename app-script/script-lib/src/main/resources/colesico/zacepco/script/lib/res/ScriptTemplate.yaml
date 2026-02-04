@@ -20,22 +20,37 @@ misc:
   budget: 9
 
 personages:
-  suspects:
-    - id: P1
-      name: Кончита
-      dossier: |
-        Работает горинчной в отеле.
-        Одевается соблазнительно, кокетлива.
-    - id: P2
-      name: Садовник
-      dossier: |
-        Крайне линив. Одиваетсянебрежно.
+  - id: P1
+    name: Кончита
+    dossier: |
+      Работает горинчной в отеле.
+      Одевается соблазнительно, кокетлива.
 
-scene:
-  dim:
-    cols: 3
-    rows: 2
+  - id: P2
+    name: Садовник
+    dossier: |
+      Крайне ленив. Одиваетсянебрежно.
 
-  locations:
+locations:
     - id: L1
       name: Кабинет
+      description: |
+        Мрачный кабинет с темными тенями
+      pos:
+        col: 1
+        row: 4
+
+clues:
+  - id: X1
+    name: Окурок сигареты
+    description: |
+
+
+search:
+  - location: L3
+    cost:
+      standard: 5
+      advanced: 7
+    clues:
+      - focus: []
+      -

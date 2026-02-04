@@ -1,5 +1,7 @@
 package colesico.zacepco.script.lib.model;
 
+import java.util.List;
+
 /**
  * Script document
  */
@@ -23,17 +25,17 @@ public class Script {
     /**
      * Characters
      */
-    public PersonageDict personages;
+    public List<Personage> personages;
 
     /**
-     * Locations
+     * Locations graph definition
      */
-    public Scene board;
+    public List<Location> locations;
 
     /**
-     * Artifacts
+     * Clues
      */
-    public ArtifactDict artifacts;
+    public List<Clue> clues;
 
     /**
      * Location search

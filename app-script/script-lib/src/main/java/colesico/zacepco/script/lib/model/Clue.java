@@ -5,7 +5,7 @@ import java.util.Map;
 /**
  * Artifact model
  */
-public class Artifact {
+public class Clue {
 
     public EntityId id;
 

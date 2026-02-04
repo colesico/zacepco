@@ -10,7 +10,7 @@ public class SearchLocation {
     /**
      * Location to be search
      */
-    public Integer location;
+    public EntityId location;
 
     public SearchCost cost;
 

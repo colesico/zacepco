@@ -7,12 +7,7 @@ public class ExpertiseClue {
    /**
     * Entities to be analysis (two or more)
     */
-   public List<EntityId> clues;
-
-   /**
-    * Ancillary clues to help discover additional clue associations
-    */
-   public List<EntityId> focus;
+   public List<EntityId> entities;
 
    /**
     * Threshold shift
