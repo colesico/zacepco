@@ -4,10 +4,8 @@ public enum IdType {
 
     PERSONAGE('P'),
     LOCATION('L'),
-    ARTIFACT('A'),
-    TIME('T'),
-    CUSTOM_ARTIFACT('C'),
-    VIRTUAL_ARTIFACT('#');
+    CLUE('С'),
+    TIME('T');
 
     private final Character type;
 
@@ -23,10 +21,8 @@ public enum IdType {
         return switch (code) {
             case 'P' -> IdType.PERSONAGE;
             case 'L' -> IdType.LOCATION;
-            case 'A' -> IdType.ARTIFACT;
+            case 'C' -> IdType.CLUE;
             case 'T' -> IdType.TIME;
-            case 'C' -> IdType.CUSTOM_ARTIFACT;
-            case '#' -> IdType.VIRTUAL_ARTIFACT;
             default -> null;
         };
     }

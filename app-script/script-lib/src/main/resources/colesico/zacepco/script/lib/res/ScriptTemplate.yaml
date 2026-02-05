@@ -21,7 +21,7 @@ misc:
 
 personages:
   - id: P1
-    name: Кончита
+    name: Горничную
     dossier: |
       Работает горинчной в отеле.
       Одевается соблазнительно, кокетлива.
@@ -31,7 +31,12 @@ personages:
     dossier: |
       Крайне ленив. Одиваетсянебрежно.
 
-locations:
+scene:
+  dim:
+    cols: 3
+    rows: 2
+
+  locations:
     - id: L1
       name: Кабинет
       description: |
@@ -40,17 +45,51 @@ locations:
         col: 1
         row: 4
 
-clues:
-  - id: X1
-    name: Окурок сигареты
-    description: |
+  passages:
+    - from: L1
+      to: L2
+      hidden: true
+    - from: L1
+      to: L3
 
+clues:
+  - id: С1
+    name: Окурок
+    details: |
+      Окурок сигареты марки Camel
+  - id: C3
+    name: Записка
+    details: Приходи в С1 (Гостинная) в T4 такт
+    unrelated: true
+  - id: C6
+    name: Показание
+    details: Находился в L4 (Библиотека) и видел там P1 Горничная
 
 search:
-  - location: L3
-    cost:
-      standard: 5
-      advanced: 7
-    clues:
-      - focus: []
-      -
+  focusLimit: 3
+  locations:
+    - location: L3
+      cost: 7
+      clues:
+        - focus: [ C3,P5,T2 ]
+          threshold: 8
+          clue: C5
+          points: 2
+
+interrogation:
+  focusLimit: 3
+  personages:
+    - id: P1
+      cost: 5
+      clues:
+        - focus: [ T4,P1,L4 ]
+          clue: C6
+          points: 3
+
+expertise:
+  cost: 4
+  focusLimit: 3
+  links:
+    - focus: [ C1,C2,P3,L4 ]
+      threshold: 3
+      points: 5
