@@ -66,30 +66,30 @@ clues:
     details: Находился в L4 (Библиотека) и видел там P1 Горничная
 
 search:
+  cost: 3
+  points: 2
   focusLimit: 3
   locations:
     - location: L3
-      cost: 7
       clues:
         - focus: [ C3,P5,T2 ]
           threshold: 8
           clue: C5
-          points: 2
 
 interrogation:
+  cost: 4
+  points: 3
   focusLimit: 3
   personages:
     - id: P1
-      cost: 5
       clues:
         - focus: [ T4,P1,L4 ]
           clue: C6
-          points: 3
 
 expertise:
-  cost: 4
+  cost: 5
+  points: 5
   focusLimit: 3
   links:
     - focus: [ C1,C2,P3,L4 ]
       threshold: 3
-      points: 5
