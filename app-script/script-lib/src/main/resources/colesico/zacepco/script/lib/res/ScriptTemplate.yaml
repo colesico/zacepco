@@ -41,16 +41,12 @@ scene:
       name: Кабинет
       description: |
         Мрачный кабинет с темными тенями
-      pos:
-        col: 1
-        row: 4
+      pos: { col: 1, row: 4 }
 
   passages:
-    - from: L1
-      to: L2
+    - locations: [L1, L2]
       hidden: true
-    - from: L1
-      to: L3
+    - locations: [L1, L3]
 
 clues:
   - id: С1
@@ -93,3 +89,4 @@ expertise:
   links:
     - focus: [ C1,C2,P3,L4 ]
       threshold: 3
+      clue: C6
