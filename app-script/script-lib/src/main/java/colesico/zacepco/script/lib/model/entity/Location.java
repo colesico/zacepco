@@ -1,15 +1,11 @@
-package colesico.zacepco.script.lib.model;
+package colesico.zacepco.script.lib.model.entity;
 
 import java.util.List;
 
 /**
  * Location model
  */
-public class Location {
-
-    public EntityId id;
-
-    public String name;
+public class Location extends Entity {
 
     /**
      * Location description
@@ -32,22 +28,6 @@ public class Location {
      * Hidden location or not
      */
     public Boolean hidden;
-
-    public EntityId getId() {
-        return id;
-    }
-
-    public void setId(EntityId id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public String getDescription() {
         return description;

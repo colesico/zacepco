@@ -6,4 +6,5 @@ module zacepco.script.lib {
 
     exports colesico.zacepco.script.lib.model;
     exports colesico.zacepco.script.lib.assist;
+    exports colesico.zacepco.script.lib.model.entity;
 }

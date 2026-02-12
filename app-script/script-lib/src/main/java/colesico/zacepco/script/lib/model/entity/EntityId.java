@@ -1,9 +1,9 @@
-package colesico.zacepco.script.lib.model;
+package colesico.zacepco.script.lib.model.entity;
 
 import java.util.Objects;
 
 /**
- * Game entity identifier
+ * Entity identifier
  */
 public final class EntityId {
 
@@ -38,7 +38,7 @@ public final class EntityId {
 
     @Override
     public String toString() {
-        return "" + type + value;
+        return type + value;
     }
 
     @Override

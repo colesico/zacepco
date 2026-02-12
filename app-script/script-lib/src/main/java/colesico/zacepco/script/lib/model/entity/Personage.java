@@ -1,4 +1,4 @@
-package colesico.zacepco.script.lib.model;
+package colesico.zacepco.script.lib.model.entity;
 
 import java.util.Objects;
 

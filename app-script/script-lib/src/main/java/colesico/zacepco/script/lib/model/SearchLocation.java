@@ -1,5 +1,7 @@
 package colesico.zacepco.script.lib.model;
 
+import colesico.zacepco.script.lib.model.entity.EntityId;
+
 import java.util.List;
 
 /**

@@ -1,5 +1,9 @@
 package colesico.zacepco.script.lib.model;
 
+import colesico.zacepco.script.lib.model.entity.Clue;
+import colesico.zacepco.script.lib.model.entity.Location;
+import colesico.zacepco.script.lib.model.entity.Personage;
+
 import java.util.List;
 
 /**
