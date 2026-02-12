@@ -1,4 +1,4 @@
-package colesico.zacepco.script.lib.model;
+package colesico.zacepco.script.lib.model.search;
 
 import java.util.List;
 

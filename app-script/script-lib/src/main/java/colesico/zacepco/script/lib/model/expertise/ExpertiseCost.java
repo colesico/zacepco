@@ -1,4 +1,4 @@
-package colesico.zacepco.script.lib.model;
+package colesico.zacepco.script.lib.model.expertise;
 
 public class ExpertiseCost {
 

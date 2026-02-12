@@ -3,6 +3,9 @@ package colesico.zacepco.script.lib.model;
 import colesico.zacepco.script.lib.model.entity.Clue;
 import colesico.zacepco.script.lib.model.entity.Location;
 import colesico.zacepco.script.lib.model.entity.Personage;
+import colesico.zacepco.script.lib.model.expertise.Expertise;
+import colesico.zacepco.script.lib.model.interrogation.Interrogation;
+import colesico.zacepco.script.lib.model.search.Search;
 
 import java.util.List;
 

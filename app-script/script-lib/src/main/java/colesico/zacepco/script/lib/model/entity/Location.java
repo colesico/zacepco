@@ -29,6 +29,19 @@ public class Location extends Entity {
      */
     public Boolean hidden;
 
+    /**
+     * Location position on scene grid
+     */
+    public Cell cell;
+
+    public Cell getCell() {
+        return cell;
+    }
+
+    public void setCell(Cell cell) {
+        this.cell = cell;
+    }
+
     public String getDescription() {
         return description;
     }

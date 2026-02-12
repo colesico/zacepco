@@ -1,6 +1,9 @@
 package colesico.zacepco.script.lib.assist;
 
 import colesico.zacepco.script.lib.model.*;
+import colesico.zacepco.script.lib.model.expertise.Expertise;
+import colesico.zacepco.script.lib.model.interrogation.Interrogation;
+import colesico.zacepco.script.lib.model.search.Search;
 
 public class ScriptTemplateBuilder {
 

@@ -1,4 +1,4 @@
-package colesico.zacepco.script.lib.model;
+package colesico.zacepco.script.lib.model.interrogation;
 
 import colesico.zacepco.script.lib.model.entity.EntityId;
 

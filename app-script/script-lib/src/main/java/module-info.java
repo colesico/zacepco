@@ -7,4 +7,7 @@ module zacepco.script.lib {
     exports colesico.zacepco.script.lib.model;
     exports colesico.zacepco.script.lib.assist;
     exports colesico.zacepco.script.lib.model.entity;
+    exports colesico.zacepco.script.lib.model.search;
+    exports colesico.zacepco.script.lib.model.interrogation;
+    exports colesico.zacepco.script.lib.model.expertise;
 }

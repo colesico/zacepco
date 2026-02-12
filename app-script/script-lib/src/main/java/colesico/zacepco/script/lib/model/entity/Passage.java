@@ -1,21 +1,21 @@
 package colesico.zacepco.script.lib.model.entity;
 
-import java.util.Set;
+import java.util.List;
 
 public class Passage {
-    
-    public Set<EntityId> locations;
+
+    public List<EntityId> locations;
 
     /**
      * Is hidden passage
      */
     public boolean hidden;
 
-    public Set<EntityId> getLocations() {
+    public List<EntityId> getLocations() {
         return locations;
     }
 
-    public void setLocations(Set<EntityId> locations) {
+    public void setLocations(List<EntityId> locations) {
         this.locations = locations;
     }
 
@@ -25,5 +25,12 @@ public class Passage {
 
     public void setHidden(boolean hidden) {
         this.hidden = hidden;
+    }
+
+    @Override
+    public String toString() {
+        return "Passage{" +
+                "locations=" + locations +
+                '}';
     }
 }

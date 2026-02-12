@@ -1,18 +1,11 @@
 package colesico.zacepco.script.lib.model.entity;
 
-import java.util.Objects;
+import java.util.List;
 
 /**
  * Game character
  */
-public class Personage {
-
-    public EntityId id;
-
-    /**
-     * Personage name
-     */
-    public String name;
+public class Personage extends Entity {
 
     /**
      * Brief personage dossier
@@ -24,21 +17,10 @@ public class Personage {
      */
     public Boolean hidden;
 
-    public EntityId getId() {
-        return id;
-    }
-
-    public void setId(EntityId id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
+    /**
+     * Track of personage movement across locations for each  time tick
+     */
+    public List<EntityId> track;
 
     public String getDossier() {
         return dossier;
@@ -56,24 +38,4 @@ public class Personage {
         this.hidden = hidden;
     }
 
-    @Override
-    public String toString() {
-        return "Personage{" +
-                "name='" + name + '\'' +
-                ", id=" + id +
-                ", hidden=" + hidden +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        Personage personage = (Personage) o;
-        return Objects.equals(id, personage.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(id);
-    }
 }
