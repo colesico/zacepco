@@ -13,4 +13,5 @@ module zacepco.script.lib {
     exports colesico.zacepco.script.lib.model.expertise;
     exports colesico.zacepco.script.lib.model.script;
     exports colesico.zacepco.script.lib.model.common;
+    exports colesico.zacepco.script.lib.model.inestigation;
 }

@@ -1,6 +1,4 @@
-package colesico.zacepco.script.lib.model.interrogation;
-
-import colesico.zacepco.script.lib.model.common.InvestigationAction;
+package colesico.zacepco.script.lib.model.inestigation;
 
 import java.util.List;
 

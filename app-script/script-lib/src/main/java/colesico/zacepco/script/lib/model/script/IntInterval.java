@@ -1,4 +1,4 @@
-package colesico.zacepco.script.lib.model.common;
+package colesico.zacepco.script.lib.model.script;
 
 /**
  * Integer interval

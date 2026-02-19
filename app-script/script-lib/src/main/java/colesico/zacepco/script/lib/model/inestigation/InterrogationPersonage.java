@@ -1,6 +1,5 @@
-package colesico.zacepco.script.lib.model.interrogation;
+package colesico.zacepco.script.lib.model.inestigation;
 
-import colesico.zacepco.script.lib.model.common.FocusedClue;
 import colesico.zacepco.script.lib.model.entity.PersonageId;
 
 import java.util.List;

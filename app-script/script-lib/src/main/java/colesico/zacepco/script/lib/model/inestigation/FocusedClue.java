@@ -1,4 +1,4 @@
-package colesico.zacepco.script.lib.model.common;
+package colesico.zacepco.script.lib.model.inestigation;
 
 import colesico.zacepco.script.lib.model.entity.ClueId;
 import colesico.zacepco.script.lib.model.entity.EntityId;

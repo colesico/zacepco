@@ -1,7 +1,4 @@
-package colesico.zacepco.script.lib.model.expertise;
-
-import colesico.zacepco.script.lib.model.common.FocusedClue;
-import colesico.zacepco.script.lib.model.common.InvestigationAction;
+package colesico.zacepco.script.lib.model.inestigation;
 
 import java.util.List;
 

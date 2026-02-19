@@ -1,6 +1,5 @@
-package colesico.zacepco.script.lib.model.search;
+package colesico.zacepco.script.lib.model.inestigation;
 
-import colesico.zacepco.script.lib.model.common.FocusedClue;
 import colesico.zacepco.script.lib.model.entity.LocationId;
 
 import java.util.List;
