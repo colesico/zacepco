@@ -164,7 +164,7 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
-                            <mainClass>colesico.zacepco.script.lib.Application</mainClass>
+                            <mainClass>colesico.zacepco.script.spec.Application</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
