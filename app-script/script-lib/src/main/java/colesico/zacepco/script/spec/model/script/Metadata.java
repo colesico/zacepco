@@ -32,7 +32,7 @@ public class Metadata {
     /**
      * Script creation date
      */
-    public Date created;
+    public LocalDate created;
 
     /**
      * Script content version (1..N)
@@ -86,11 +86,11 @@ public class Metadata {
         this.licence = licence;
     }
 
-    public Date getCreated() {
+    public LocalDate getCreated() {
         return created;
     }
 
-    public void setCreated(Date created) {
+    public void setCreated(LocalDate created) {
         this.created = created;
     }
 

@@ -6,6 +6,7 @@ public class Passage {
      * Related locations
      */
     public LocationId from;
+
     public LocationId to;
 
     /**

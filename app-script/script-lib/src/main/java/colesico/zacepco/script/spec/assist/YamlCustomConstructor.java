@@ -1,9 +1,6 @@
 package colesico.zacepco.script.spec.assist;
 
-import colesico.zacepco.script.spec.model.entity.Entity;
-import colesico.zacepco.script.spec.model.entity.EntityId;
-import colesico.zacepco.script.spec.model.entity.LocationId;
-import colesico.zacepco.script.spec.model.entity.PersonageId;
+import colesico.zacepco.script.spec.model.entity.*;
 import org.yaml.snakeyaml.LoaderOptions;
 import org.yaml.snakeyaml.constructor.AbstractConstruct;
 import org.yaml.snakeyaml.constructor.Construct;
@@ -18,17 +15,21 @@ public class YamlCustomConstructor extends Constructor {
 
     public YamlCustomConstructor() {
         super(new LoaderOptions());
-        this.yamlConstructors.put(new Tag(EntityId.class), new ConstructEntity());
-        this.yamlConstructors.put(new Tag(PersonageId.class), new ConstructEntity());
-        this.yamlConstructors.put(new Tag(LocationId.class), new ConstructEntity());
     }
 
     @Override
     protected Construct getConstructor(Node node) {
-        // Если узел распознан как дата (TIMESTAMP), отдаем наш парсер
+
+        // Если узел распознан как дата (TIMESTAMP)
         if (Tag.TIMESTAMP.equals(node.getTag())) {
             return new ConstructLocalDate();
         }
+
+        // У поля супер тип EntityId?
+        if (EntityId.class.isAssignableFrom(node.getType())) {
+            return new ConstructEntityId();
+        }
+
         return super.getConstructor(node);
     }
 
@@ -41,7 +42,7 @@ public class YamlCustomConstructor extends Constructor {
         }
     }
 
-    static class ConstructEntity extends AbstractConstruct {
+    static class ConstructEntityId extends AbstractConstruct {
         @Override
         public Object construct(Node node) {
             String value = ((ScalarNode) node).getValue();
