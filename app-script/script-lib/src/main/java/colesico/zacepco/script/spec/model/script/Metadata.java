@@ -2,6 +2,7 @@ package colesico.zacepco.script.spec.model.script;
 
 
 import java.time.LocalDate;
+import java.util.Date;
 
 /**
  * Script general info
@@ -31,7 +32,7 @@ public class Metadata {
     /**
      * Script creation date
      */
-    public LocalDate created;
+    public Date created;
 
     /**
      * Script content version (1..N)
@@ -85,11 +86,11 @@ public class Metadata {
         this.licence = licence;
     }
 
-    public LocalDate getCreated() {
+    public Date getCreated() {
         return created;
     }
 
-    public void setCreated(LocalDate created) {
+    public void setCreated(Date created) {
         this.created = created;
     }
 

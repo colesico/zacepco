@@ -11,4 +11,8 @@ module colesico.zacepco.script.spec {
     exports colesico.zacepco.script.spec.model.script;
     exports colesico.zacepco.script.spec.model.entity;
     exports colesico.zacepco.script.spec.model.inestigation;
+
+    opens colesico.zacepco.script.spec.model.script;
+    opens colesico.zacepco.script.spec.model.entity;
+    opens colesico.zacepco.script.spec.model.inestigation;
 }

@@ -2,9 +2,12 @@ package colesico.zacepco.script.spec.test;
 
 import colesico.framework.ioc.Ioc;
 import colesico.framework.ioc.IocBuilder;
-import colesico.zacepco.script.spec.assist.ScriptSerializer;
+import colesico.zacepco.script.spec.assist.ScriptReader;
+import colesico.zacepco.script.spec.model.script.Script;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+
+import java.io.File;
 
 public class ScriptLoadTest {
 
@@ -17,8 +20,10 @@ public class ScriptLoadTest {
 
     @Test
     public void testLoadScript() {
-        ScriptSerializer serializer = ioc.instance(ScriptSerializer.class);
-       // serializer.deserialize();
+        ScriptReader reader = ioc.instance(ScriptReader.class);
+        System.out.println("Working Directory = " + System.getProperty("user.dir"));
+        var scriptFile = "../../docs/ScriptTemplate.yaml";
+        Script script = reader.read(new File(scriptFile));
     }
 
 }
