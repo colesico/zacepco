@@ -2,6 +2,7 @@ package colesico.zacepco.script.spec.assist;
 
 import colesico.zacepco.script.spec.model.entity.*;
 import org.yaml.snakeyaml.DumperOptions;
+import org.yaml.snakeyaml.introspector.Property;
 import org.yaml.snakeyaml.nodes.Node;
 import org.yaml.snakeyaml.nodes.Tag;
 import org.yaml.snakeyaml.representer.Represent;
@@ -9,6 +10,8 @@ import org.yaml.snakeyaml.representer.Representer;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 public class YamlCustomRepresenter  extends Representer {
     public YamlCustomRepresenter(DumperOptions options) {
@@ -19,6 +22,12 @@ public class YamlCustomRepresenter  extends Representer {
         this.representers.put(ClueId.class, new RepresentEntityId());
         this.representers.put(TimeId.class, new RepresentEntityId());
         this.representers.put(EntityId.class, new RepresentEntityId());
+    }
+
+    @Override
+    protected Set<Property> getProperties(Class<? extends Object> type) {
+        // Получаем свойства через PropertyUtils и сохраняем их в LinkedHashSet (сохраняет порядок вставки)
+        return new LinkedHashSet<>(getPropertyUtils().getProperties(type));
     }
 
     private class RepresentLocalDate implements Represent {

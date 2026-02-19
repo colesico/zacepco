@@ -13,6 +13,7 @@ import org.yaml.snakeyaml.TypeDescription;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.Constructor;
 import org.yaml.snakeyaml.introspector.BeanAccess;
+import org.yaml.snakeyaml.introspector.PropertyUtils;
 import org.yaml.snakeyaml.representer.Representer;
 
 @Producer
@@ -22,18 +23,8 @@ public class ScriptProducer {
 
     public Yaml getYaml() {
         Constructor constructor = new YamlCustomConstructor();
-
         DumperOptions dumperOptions  = new DumperOptions();
-        dumperOptions.setDefaultFlowStyle(DumperOptions.FlowStyle.BLOCK);
-        dumperOptions.setAllowReadOnlyProperties(true);
-        dumperOptions.setCanonical(true);
-        dumperOptions.setIndent(4);
-
         Representer representer = new YamlCustomRepresenter(dumperOptions);
-        representer.getPropertyUtils().setBeanAccess(BeanAccess.FIELD);
-        representer.getPropertyUtils().setSkipMissingProperties(true);
-        representer.getPropertyUtils().setAllowReadOnlyProperties(true);
-
         return new Yaml(constructor,representer);
     }
 }
