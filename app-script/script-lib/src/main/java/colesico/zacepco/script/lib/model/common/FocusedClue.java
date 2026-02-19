@@ -1,24 +1,23 @@
-package colesico.zacepco.script.lib.model.interrogation;
+package colesico.zacepco.script.lib.model.common;
 
 import colesico.zacepco.script.lib.model.entity.ClueId;
 import colesico.zacepco.script.lib.model.entity.EntityId;
 
 import java.util.List;
 
-public class InterrogationClue {
-
+public class FocusedClue {
     /**
-     * Entities on which interrogation is focused
+     * Entities on which search is focused
      */
     public List<EntityId> focus;
 
     /**
-     * Resistance to the psychological pressure of a detective
+     * Clue discovery threshold
      */
     public Integer threshold;
 
     /**
-     * Personage target clue
+     * Target clue
      */
     public ClueId clue;
 

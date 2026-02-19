@@ -1,14 +1,9 @@
 package colesico.zacepco.script.lib.model.entity;
 
 /**
- * Location model
+ * Scene location
  */
 public class Location extends Entity<LocationId> {
-
-    /**
-     * Location description
-     */
-    public String description;
 
     /**
      * Hidden location or not
@@ -18,15 +13,7 @@ public class Location extends Entity<LocationId> {
     /**
      * Location position on scene grid
      */
-    public Pos pos;
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
+    public LocationPos pos;
 
     public Boolean getHidden() {
         return hidden;
@@ -36,11 +23,11 @@ public class Location extends Entity<LocationId> {
         this.hidden = hidden;
     }
 
-    public Pos getCell() {
+    public LocationPos getCell() {
         return pos;
     }
 
-    public void setCell(Pos pos) {
+    public void setCell(LocationPos pos) {
         this.pos = pos;
     }
 }

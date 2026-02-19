@@ -1,5 +1,6 @@
 package colesico.zacepco.script.lib.model.interrogation;
 
+import colesico.zacepco.script.lib.model.common.FocusedClue;
 import colesico.zacepco.script.lib.model.entity.PersonageId;
 
 import java.util.List;
@@ -12,23 +13,23 @@ public class InterrogationPersonage {
     /**
      * Personage Id
      */
-    public PersonageId presonage;
+    public PersonageId personage;
 
-    public List<InterrogationClue> clues;
+    public List<FocusedClue> clues;
 
-    public PersonageId getPresonage() {
-        return presonage;
+    public PersonageId getPersonage() {
+        return personage;
     }
 
-    public void setPresonage(PersonageId presonage) {
-        this.presonage = presonage;
+    public void setPersonage(PersonageId personage) {
+        this.personage = personage;
     }
 
-    public List<InterrogationClue> getClues() {
+    public List<FocusedClue> getClues() {
         return clues;
     }
 
-    public void setClues(List<InterrogationClue> clues) {
+    public void setClues(List<FocusedClue> clues) {
         this.clues = clues;
     }
 }

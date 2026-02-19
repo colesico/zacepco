@@ -9,7 +9,7 @@ import java.util.Objects;
 public abstract class Entity<ID extends EntityId> {
 
     /**
-     * Entity GUID
+     * Entity unique ID
      */
     public ID id;
 
@@ -17,6 +17,13 @@ public abstract class Entity<ID extends EntityId> {
      * Short name
      */
     public String name;
+
+    /**
+     * Detailed description.
+     * Entity identifiers can be specified in the description for references.
+     * The identifier is specified starting with a '$' prefix.
+     */
+    public String description;
 
     public ID getId() {
         return id;
@@ -32,6 +39,14 @@ public abstract class Entity<ID extends EntityId> {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Override

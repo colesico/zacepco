@@ -1,5 +1,6 @@
 package colesico.zacepco.script.lib.model.search;
 
+import colesico.zacepco.script.lib.model.common.FocusedClue;
 import colesico.zacepco.script.lib.model.entity.LocationId;
 
 import java.util.List;
@@ -17,7 +18,7 @@ public class SearchLocation {
     /**
      * Clues definitions
      */
-    public List<SearchClue> clues;
+    public List<FocusedClue> clues;
 
     public LocationId getLocation() {
         return location;
@@ -27,11 +28,11 @@ public class SearchLocation {
         this.location = location;
     }
 
-    public List<SearchClue> getClues() {
+    public List<FocusedClue> getClues() {
         return clues;
     }
 
-    public void setClues(List<SearchClue> clues) {
+    public void setClues(List<FocusedClue> clues) {
         this.clues = clues;
     }
 }

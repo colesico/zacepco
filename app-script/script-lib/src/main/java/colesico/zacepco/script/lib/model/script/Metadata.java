@@ -1,5 +1,7 @@
-package colesico.zacepco.script.lib.model;
+package colesico.zacepco.script.lib.model.script;
 
+
+import colesico.zacepco.script.lib.model.common.IntInterval;
 
 import java.time.LocalDate;
 

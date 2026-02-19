@@ -1,7 +1,7 @@
 package colesico.zacepco.script.lib.assist;
 
 import  module org.yaml.snakeyaml;
-import colesico.zacepco.script.lib.model.Script;
+import colesico.zacepco.script.lib.model.script.Script;
 import jakarta.inject.Provider;
 import jakarta.inject.Singleton;
 

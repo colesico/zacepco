@@ -4,9 +4,9 @@ import java.util.Objects;
 
 /**
  * Grid position
- * @see Grid
+ * @see SceneSize
  */
-public class Pos {
+public class LocationPos {
 
     /**
      * Column number
@@ -37,7 +37,7 @@ public class Pos {
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
-        Pos pos = (Pos) o;
+        LocationPos pos = (LocationPos) o;
         return Objects.equals(col, pos.col) && Objects.equals(row, pos.row);
     }
 

@@ -1,27 +1,25 @@
 package colesico.zacepco.script.lib.model.expertise;
 
+import colesico.zacepco.script.lib.model.common.FocusedClue;
+import colesico.zacepco.script.lib.model.common.InvestigationAction;
+
 import java.util.List;
 
 /**
  * Clue expertise specification
  */
-public class Expertise {
-
-    /**
-     * Expertise cost  (resources amount)
-     */
-    public ExpertiseCost cost;
+public class Expertise extends InvestigationAction {
 
     /**
      * Clues to be examined
      */
-    public List<ExpertiseClue> clues;
+    public List<FocusedClue> clues;
 
-    public ExpertiseCost getCost() {
-        return cost;
+    public List<FocusedClue> getClues() {
+        return clues;
     }
 
-    public void setCost(ExpertiseCost cost) {
-        this.cost = cost;
+    public void setClues(List<FocusedClue> clues) {
+        this.clues = clues;
     }
 }

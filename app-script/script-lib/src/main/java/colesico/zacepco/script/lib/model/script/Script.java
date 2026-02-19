@@ -1,8 +1,8 @@
-package colesico.zacepco.script.lib.model;
+package colesico.zacepco.script.lib.model.script;
 
 import colesico.zacepco.script.lib.model.entity.Clue;
-import colesico.zacepco.script.lib.model.entity.Location;
 import colesico.zacepco.script.lib.model.entity.Personage;
+import colesico.zacepco.script.lib.model.entity.Scene;
 import colesico.zacepco.script.lib.model.expertise.Expertise;
 import colesico.zacepco.script.lib.model.interrogation.Interrogation;
 import colesico.zacepco.script.lib.model.search.Search;
@@ -30,17 +30,17 @@ public class Script {
     public Miscellaneous misc;
 
     /**
-     * Characters
+     * Characters dictionary
      */
     public List<Personage> personages;
 
     /**
-     * Locations graph definition
+     * Scene
      */
-    public List<Location> locations;
+    public Scene scene;
 
     /**
-     * Clues
+     * Clues dictionary
      */
     public List<Clue> clues;
 

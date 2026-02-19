@@ -1,10 +1,10 @@
 package colesico.zacepco.script.lib.model.entity;
 
 /**
- * Grid size in cells
- * @see Pos
+ * Scene size
+ * @see LocationPos
  */
-public class Grid {
+public class SceneSize {
 
     public Integer rows;
     public Integer cols;

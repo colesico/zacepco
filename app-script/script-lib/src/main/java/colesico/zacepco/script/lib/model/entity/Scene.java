@@ -5,20 +5,26 @@ import java.util.List;
 public class Scene {
 
     /**
-     * Scene grid size
+     * Scene size
      */
-    public Grid dim;
+    public SceneSize size;
 
+    /**
+     * Locations dictionary
+     */
     public List<Location> locations;
 
+    /**
+     * Passages dictionary
+     */
     public List<Passage> passages;
 
-    public Grid getDim() {
-        return dim;
+    public SceneSize getSize() {
+        return size;
     }
 
-    public void setDim(Grid dim) {
-        this.dim = dim;
+    public void setSize(SceneSize size) {
+        this.size = size;
     }
 
     public List<Location> getLocations() {
