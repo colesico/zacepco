@@ -27,4 +27,12 @@ public class ScriptHeader {
     public void setId(String id) {
         this.id = id;
     }
+
+    @Override
+    public String toString() {
+        return "ScriptHeader{" +
+                "schema=" + schema +
+                ", id='" + id + '\'' +
+                '}';
+    }
 }

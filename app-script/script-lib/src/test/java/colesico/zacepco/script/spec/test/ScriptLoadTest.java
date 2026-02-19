@@ -3,6 +3,7 @@ package colesico.zacepco.script.spec.test;
 import colesico.framework.ioc.Ioc;
 import colesico.framework.ioc.IocBuilder;
 import colesico.zacepco.script.spec.assist.ScriptReader;
+import colesico.zacepco.script.spec.assist.ScriptWriter;
 import colesico.zacepco.script.spec.model.script.Script;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -24,6 +25,8 @@ public class ScriptLoadTest {
         System.out.println("Working Directory = " + System.getProperty("user.dir"));
         var scriptFile = "../../docs/ScriptTemplate.yaml";
         Script script = reader.read(new File(scriptFile));
+        ScriptWriter writer = ioc.instance(ScriptWriter.class);
+        System.out.println(writer.write(script));
     }
 
 }

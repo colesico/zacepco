@@ -143,4 +143,11 @@ public class Script {
     public void setAnswers(Answers answers) {
         this.answers = answers;
     }
+
+    @Override
+    public String toString() {
+        return "Script{" +
+                "script=" + script +
+                '}';
+    }
 }

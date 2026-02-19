@@ -23,11 +23,11 @@ public class Location extends Entity<LocationId> {
         this.hidden = hidden;
     }
 
-    public LocationPos getCell() {
+    public LocationPos getPos() {
         return pos;
     }
 
-    public void setCell(LocationPos pos) {
+    public void setPos(LocationPos pos) {
         this.pos = pos;
     }
 }

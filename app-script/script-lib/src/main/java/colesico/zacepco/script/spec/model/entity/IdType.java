@@ -7,18 +7,18 @@ public enum IdType {
     CLUE('С'),
     TIME('T');
 
-    private final Character type;
+    private final Character code;
 
-    IdType(Character type) {
-        this.type = type;
+    IdType(Character code) {
+        this.code = code;
     }
 
     public Character code() {
-        return type;
+        return code;
     }
 
-    public static IdType of(char type) {
-        return switch (type) {
+    public static IdType of(char code) {
+        return switch (code) {
             case 'P' -> IdType.PERSONAGE;
             case 'L' -> IdType.LOCATION;
             case 'C' -> IdType.CLUE;
@@ -29,6 +29,6 @@ public enum IdType {
 
     @Override
     public String toString() {
-        return "" + type;
+        return "" + code;
     }
 }
