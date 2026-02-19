@@ -3,13 +3,19 @@ package colesico.zacepco.script.lib.model.entity;
 import java.util.Objects;
 
 /**
- * Grid cell
+ * Grid position
  * @see Grid
  */
-public class Cell {
+public class Pos {
 
+    /**
+     * Column number
+     */
     public Integer col;
 
+    /**
+     * Row number
+     */
     public Integer row;
 
     public Integer getCol() {
@@ -31,8 +37,8 @@ public class Cell {
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
-        Cell cell = (Cell) o;
-        return Objects.equals(col, cell.col) && Objects.equals(row, cell.row);
+        Pos pos = (Pos) o;
+        return Objects.equals(col, pos.col) && Objects.equals(row, pos.row);
     }
 
     @Override

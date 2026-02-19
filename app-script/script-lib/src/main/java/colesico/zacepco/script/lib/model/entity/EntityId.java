@@ -1,11 +1,13 @@
 package colesico.zacepco.script.lib.model.entity;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.Objects;
 
 /**
  * Entity identifier
  */
-public final class EntityId {
+abstract public sealed class EntityId permits PersonageId, ClueId, LocationId, TimeId {
 
     /**
      * Entity type
@@ -17,15 +19,32 @@ public final class EntityId {
      */
     public final String value;
 
-    public EntityId(IdType type, String value) {
+    protected EntityId(IdType type, String value) {
+        if (StringUtils.isBlank(value)) {
+            throw new RuntimeException("Empty id value");
+        }
+        if (type == null) {
+            throw new RuntimeException("Id type is null");
+        }
         this.type = type;
         this.value = value;
     }
 
-    public static EntityId of(String entityId){
-        char type = entityId.charAt(0);
+    public static EntityId parse(String entityId) {
+        if (StringUtils.isBlank(entityId)) {
+            return null;
+        }
+        IdType type = IdType.of(entityId.charAt(0));
+        if (type == null) {
+            throw new RuntimeException("Unknown entity type for id: " + entityId);
+        }
         String value = entityId.substring(1);
-        return new EntityId(IdType.of(type),value);
+        return switch (type) {
+            case PERSONAGE -> new PersonageId(value);
+            case LOCATION -> new LocationId(value);
+            case CLUE -> new ClueId(value);
+            case TIME -> new TimeId(value);
+        };
     }
 
     public IdType getType() {

@@ -2,7 +2,7 @@ package colesico.zacepco.script.lib.model.entity;
 
 /**
  * Grid size in cells
- * @see Cell
+ * @see Pos
  */
 public class Grid {
 

@@ -6,23 +6,23 @@ import java.util.Objects;
  * Abstract entity model.
  * This class must be extended by specific entities.
  */
-public abstract class Entity {
+public abstract class Entity<ID extends EntityId> {
 
     /**
-     * Entity Id
+     * Entity GUID
      */
-    public EntityId id;
+    public ID id;
 
     /**
      * Short name
      */
     public String name;
 
-    public EntityId getId() {
+    public ID getId() {
         return id;
     }
 
-    public void setId(EntityId id) {
+    public void setId(ID id) {
         this.id = id;
     }
 
@@ -37,7 +37,7 @@ public abstract class Entity {
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
-        Entity entity = (Entity) o;
+        Entity<?> entity = (Entity<?>) o;
         return Objects.equals(id, entity.id);
     }
 

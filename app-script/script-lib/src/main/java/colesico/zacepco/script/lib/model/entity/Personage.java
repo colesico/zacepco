@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Game character
  */
-public class Personage extends Entity {
+public class Personage extends Entity<PersonageId> {
 
     /**
      * Brief personage dossier
@@ -20,7 +20,7 @@ public class Personage extends Entity {
     /**
      * Track of personage movement across locations for each  time tick
      */
-    public List<EntityId> track;
+    public List<LocationId> track;
 
     public String getDossier() {
         return dossier;
@@ -38,4 +38,11 @@ public class Personage extends Entity {
         this.hidden = hidden;
     }
 
+    public List<LocationId> getTrack() {
+        return track;
+    }
+
+    public void setTrack(List<LocationId> track) {
+        this.track = track;
+    }
 }

@@ -1,5 +1,7 @@
 package colesico.zacepco.script.lib.model.interrogation;
 
+import colesico.zacepco.script.lib.model.entity.PersonageId;
+
 import java.util.List;
 
 /**
@@ -10,20 +12,23 @@ public class InterrogationPersonage {
     /**
      * Personage Id
      */
-    public Integer presonage;
+    public PersonageId presonage;
 
-    /**
-     * Interrogation cost  (resource)
-     */
-    public Integer cost;
+    public List<InterrogationClue> clues;
 
-    public List<InterrogationArtifact> artifacts;
-
-    public Integer getPresonage() {
+    public PersonageId getPresonage() {
         return presonage;
     }
 
-    public void setPresonage(Integer presonage) {
+    public void setPresonage(PersonageId presonage) {
         this.presonage = presonage;
+    }
+
+    public List<InterrogationClue> getClues() {
+        return clues;
+    }
+
+    public void setClues(List<InterrogationClue> clues) {
+        this.clues = clues;
     }
 }

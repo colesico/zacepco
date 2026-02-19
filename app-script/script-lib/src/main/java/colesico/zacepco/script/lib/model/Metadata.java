@@ -9,11 +9,6 @@ import java.time.LocalDate;
 public class Metadata {
 
     /**
-     * Document version (1..N)
-     */
-    public Integer version;
-
-    /**
      * Script name
      */
     public String name;
@@ -39,19 +34,24 @@ public class Metadata {
     public LocalDate created;
 
     /**
+     * Script content version (1..N)
+     */
+    public Integer version;
+
+    /**
      * Estimated difficulty level
      */
     public Double difficulty;
 
     /**
-     * Estimated time to play (from-to) in minutes
+     * Estimated  time to play in minutes  (min-max)
      */
-    public Integer[] estimatedTime;
+    public IntInterval estimatedTime;
 
     /**
-     * Recommended players number  (from-to)
+     * Recommended players number  (min-max)
      */
-    public Integer[] playersNum;
+    public IntInterval playersNum;
 
     public String getName() {
         return name;
@@ -85,6 +85,22 @@ public class Metadata {
         this.licence = licence;
     }
 
+    public LocalDate getCreated() {
+        return created;
+    }
+
+    public void setCreated(LocalDate created) {
+        this.created = created;
+    }
+
+    public Integer getVersion() {
+        return version;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
+    }
+
     public Double getDifficulty() {
         return difficulty;
     }
@@ -93,19 +109,19 @@ public class Metadata {
         this.difficulty = difficulty;
     }
 
-    public Integer[] getEstimatedTime() {
+    public IntInterval getEstimatedTime() {
         return estimatedTime;
     }
 
-    public void setEstimatedTime(Integer[] estimatedTime) {
+    public void setEstimatedTime(IntInterval estimatedTime) {
         this.estimatedTime = estimatedTime;
     }
 
-    public Integer[] getPlayersNum() {
+    public IntInterval getPlayersNum() {
         return playersNum;
     }
 
-    public void setPlayersNum(Integer[] playersNum) {
+    public void setPlayersNum(IntInterval playersNum) {
         this.playersNum = playersNum;
     }
 }

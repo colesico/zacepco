@@ -1,41 +1,48 @@
 package colesico.zacepco.script.lib.model.entity;
 
+import java.util.List;
+
 /**
  * Clue model
  */
-public class Clue extends Entity {
+public class Clue extends Entity<ClueId> {
 
     /**
      * Detailed description.
      * Entity identifiers can be specified in the description for references.
      * The identifier is specified starting with a '$' prefix.
      */
-    public String details;
+    public String description;
 
     /**
-     * False artifact - unrelated to the crime
+     * False clue or not
      */
-    public Boolean unrelated;
+    public Boolean falsity;
 
     /**
-     * Importance for the investigation
+     * Entities to be open along with this clue
+     */
+    public List<EntityId> open;
+
+    /**
+     * Importance  assessment for the investigation
      */
     public Double importance;
 
-    public String getDetails() {
-        return details;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDetails(String details) {
-        this.details = details;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public Boolean getUnrelated() {
-        return unrelated;
+    public Boolean getFalsity() {
+        return falsity;
     }
 
-    public void setUnrelated(Boolean unrelated) {
-        this.unrelated = unrelated;
+    public void setFalsity(Boolean falsity) {
+        this.falsity = falsity;
     }
 
     public Double getImportance() {
@@ -44,5 +51,13 @@ public class Clue extends Entity {
 
     public void setImportance(Double importance) {
         this.importance = importance;
+    }
+
+    public List<EntityId> getOpen() {
+        return open;
+    }
+
+    public void setOpen(List<EntityId> open) {
+        this.open = open;
     }
 }

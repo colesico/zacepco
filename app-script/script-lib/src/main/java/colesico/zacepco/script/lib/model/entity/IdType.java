@@ -17,13 +17,18 @@ public enum IdType {
         return type;
     }
 
-    public static IdType of(char code) {
-        return switch (code) {
+    public static IdType of(char type) {
+        return switch (type) {
             case 'P' -> IdType.PERSONAGE;
             case 'L' -> IdType.LOCATION;
             case 'C' -> IdType.CLUE;
             case 'T' -> IdType.TIME;
             default -> null;
         };
+    }
+
+    @Override
+    public String toString() {
+        return "" + type;
     }
 }

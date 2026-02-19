@@ -1,6 +1,6 @@
 package colesico.zacepco.script.lib.model.search;
 
-import colesico.zacepco.script.lib.model.entity.EntityId;
+import colesico.zacepco.script.lib.model.entity.LocationId;
 
 import java.util.List;
 
@@ -12,36 +12,26 @@ public class SearchLocation {
     /**
      * Location to be search
      */
-    public EntityId location;
-
-    public SearchCost cost;
+    public LocationId location;
 
     /**
-     * Artifact definitions
+     * Clues definitions
      */
-    public List<SearchArtifact> artifacts;
+    public List<SearchClue> clues;
 
-    public Integer getLocation() {
+    public LocationId getLocation() {
         return location;
     }
 
-    public void setLocation(Integer location) {
+    public void setLocation(LocationId location) {
         this.location = location;
     }
 
-    public SearchCost getCost() {
-        return cost;
+    public List<SearchClue> getClues() {
+        return clues;
     }
 
-    public void setCost(SearchCost cost) {
-        this.cost = cost;
-    }
-
-    public List<SearchArtifact> getArtifacts() {
-        return artifacts;
-    }
-
-    public void setArtifacts(List<SearchArtifact> artifacts) {
-        this.artifacts = artifacts;
+    public void setClues(List<SearchClue> clues) {
+        this.clues = clues;
     }
 }
