@@ -5,15 +5,15 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 /**
- * package resource helper
+ * Package resource helper
  */
 public class PackageResource {
 
     /**
      * Resource path
      */
-    private final ResourcePath path;
-    private final PackageManager packageManager;
+    protected final ResourcePath path;
+    protected final PackageManager packageManager;
 
     public PackageResource(ResourcePath path, PackageManager packageManager) {
         this.path = path;

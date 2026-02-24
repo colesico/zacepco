@@ -4,6 +4,8 @@ import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
@@ -26,7 +28,7 @@ abstract public class PackageManager implements Closeable {
     abstract public InputStream getInputStream(ResourcePath resourcePath) throws IOException;
 
     /**
-     *  Remove resource
+     * Remove resource
      */
     abstract public void remove(ResourcePath resourcePath);
 
@@ -64,6 +66,12 @@ abstract public class PackageManager implements Closeable {
                 }
                 zos.closeEntry();
             }
+        }
+    }
+
+    public void write(Path file) throws IOException {
+        try (OutputStream os = Files.newOutputStream(file)) {
+            write(os);
         }
     }
 
