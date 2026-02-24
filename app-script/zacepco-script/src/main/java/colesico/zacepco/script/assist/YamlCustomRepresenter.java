@@ -1,7 +1,6 @@
 package colesico.zacepco.script.assist;
 
 import colesico.zacepco.script.model.entity.*;
-import colesico.zacepco.script.model.entity.*;
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.introspector.Property;
 import org.yaml.snakeyaml.nodes.Node;
@@ -44,8 +43,8 @@ public class YamlCustomRepresenter  extends Representer {
         @Override
         public Node representData(Object data) {
             EntityId entityId = (EntityId) data;
-            String value = entityId.asString();
-            return representScalar(Tag.STR, value);
+            String id = entityId.getId();
+            return representScalar(Tag.STR, id);
         }
     }
 }

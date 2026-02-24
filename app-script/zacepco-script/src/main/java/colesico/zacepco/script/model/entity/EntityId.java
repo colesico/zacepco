@@ -12,14 +12,14 @@ abstract public sealed class EntityId permits PersonageId, ClueId, LocationId, T
     /**
      * Entity type
      */
-    public final IdType type;
+    protected final EntityType type;
 
     /**
      * Id value
      */
-    public final String value;
+    protected final String value;
 
-    protected EntityId(IdType type, String value) {
+    protected EntityId(EntityType type, String value) {
         if (StringUtils.isBlank(value)) {
             throw new RuntimeException("Empty id value");
         }
@@ -34,7 +34,7 @@ abstract public sealed class EntityId permits PersonageId, ClueId, LocationId, T
         if (StringUtils.isBlank(entityId)) {
             return null;
         }
-        IdType type = IdType.of(entityId.charAt(0));
+        EntityType type = EntityType.of(entityId.charAt(0));
         if (type == null) {
             throw new RuntimeException("Unknown entity type for id: " + entityId);
         }
@@ -47,11 +47,11 @@ abstract public sealed class EntityId permits PersonageId, ClueId, LocationId, T
         };
     }
 
-    public String asString(){
+    public String getId(){
         return type.code()+value;
     }
 
-    public IdType getType() {
+    public EntityType getType() {
         return type;
     }
 

@@ -7,6 +7,7 @@ import org.yaml.snakeyaml.Yaml;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.nio.charset.StandardCharsets;
 
@@ -22,6 +23,16 @@ public class ScriptWriter {
     public void write(Script script, OutputStreamWriter osw) {
         Yaml yaml = yamlProvider.get();
         yaml.dump(script, osw);
+    }
+
+    public void write(Script script, OutputStream os) {
+        Yaml yaml = yamlProvider.get();
+        try (OutputStreamWriter osw = new OutputStreamWriter(os)) {
+            yaml.dump(script, osw);
+            osw.flush();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public String write(Script script) {

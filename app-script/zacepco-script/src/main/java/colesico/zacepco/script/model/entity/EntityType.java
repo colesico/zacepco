@@ -1,6 +1,6 @@
 package colesico.zacepco.script.model.entity;
 
-public enum IdType {
+public enum EntityType {
 
     PERSONAGE('P'),
     LOCATION('L'),
@@ -9,7 +9,7 @@ public enum IdType {
 
     private final Character code;
 
-    IdType(Character code) {
+    EntityType(Character code) {
         this.code = code;
     }
 
@@ -17,12 +17,12 @@ public enum IdType {
         return code;
     }
 
-    public static IdType of(char code) {
+    public static EntityType of(char code) {
         return switch (code) {
-            case 'P' -> IdType.PERSONAGE;
-            case 'L' -> IdType.LOCATION;
-            case 'C' -> IdType.CLUE;
-            case 'T' -> IdType.TIME;
+            case 'P' -> EntityType.PERSONAGE;
+            case 'L' -> EntityType.LOCATION;
+            case 'C' -> EntityType.CLUE;
+            case 'T' -> EntityType.TIME;
             default -> null;
         };
     }

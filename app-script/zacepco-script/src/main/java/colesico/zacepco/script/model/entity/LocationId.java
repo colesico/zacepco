@@ -2,12 +2,12 @@ package colesico.zacepco.script.model.entity;
 
 public final class LocationId extends EntityId{
 
-    private LocationId(IdType type, String value) {
-        super(IdType.LOCATION, value);
+    private LocationId(EntityType type, String value) {
+        super(EntityType.LOCATION, value);
     }
 
     public LocationId(String value) {
-        super(IdType.LOCATION, value);
+        super(EntityType.LOCATION, value);
     }
 
 }

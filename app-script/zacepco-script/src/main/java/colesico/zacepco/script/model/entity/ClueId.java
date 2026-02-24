@@ -2,12 +2,12 @@ package colesico.zacepco.script.model.entity;
 
 public final class ClueId extends EntityId {
 
-    private ClueId(IdType type, String value) {
-        super(IdType.CLUE, value);
+    private ClueId(EntityType type, String value) {
+        super(EntityType.CLUE, value);
     }
 
     public ClueId(String value) {
-        super(IdType.CLUE, value);
+        super(EntityType.CLUE, value);
     }
 
 }
