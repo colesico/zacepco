@@ -5,10 +5,13 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 /**
- * Resource file helper
+ * package resource helper
  */
 public class PackageResource {
 
+    /**
+     * Resource path
+     */
     private final ResourcePath path;
     private final PackageManager packageManager;
 
@@ -18,7 +21,7 @@ public class PackageResource {
     }
 
     /**
-     * Resource file path inside script package
+     * Resource path inside script package
      */
     public ResourcePath getPath() {
         return path;

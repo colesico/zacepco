@@ -7,7 +7,6 @@ module colesico.zacepco.script {
 
     exports colesico.zacepco.script.ioc;
 
-    exports colesico.zacepco.script.assist;
     exports colesico.zacepco.script.pkg;
     exports colesico.zacepco.script.model.script;
     exports colesico.zacepco.script.model.entity;

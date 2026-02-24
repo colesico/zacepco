@@ -1,4 +1,4 @@
-package colesico.zacepco.script.assist;
+package colesico.zacepco.script.pkg;
 
 import module org.yaml.snakeyaml;
 import colesico.zacepco.script.model.script.Script;

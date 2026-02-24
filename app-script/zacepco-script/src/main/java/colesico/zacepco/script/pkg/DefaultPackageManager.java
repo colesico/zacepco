@@ -6,12 +6,11 @@ import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Comparator;
-import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
-public class FilePackageManager extends PackageManager {
+public class DefaultPackageManager extends PackageManager {
 
     protected final Path workingDir;
 
@@ -19,10 +18,10 @@ public class FilePackageManager extends PackageManager {
 
     protected AtomicLong idCounter = new AtomicLong(0);
 
-    public FilePackageManager() {
+    public DefaultPackageManager() {
         try {
             Path systemTemp = Path.of(System.getProperty("java.io.tmpdir"));
-            Path subDir = systemTemp.resolve(FilePackageManager.class.getCanonicalName().toLowerCase());
+            Path subDir = systemTemp.resolve(DefaultPackageManager.class.getCanonicalName().toLowerCase());
             Files.createDirectories(subDir);
             workingDir = Files.createTempDirectory(subDir, "pkg_");
         } catch (IOException e) {
@@ -30,7 +29,7 @@ public class FilePackageManager extends PackageManager {
         }
     }
 
-    public FilePackageManager(Path workingDir) {
+    public DefaultPackageManager(Path workingDir) {
         this.workingDir = workingDir;
     }
 

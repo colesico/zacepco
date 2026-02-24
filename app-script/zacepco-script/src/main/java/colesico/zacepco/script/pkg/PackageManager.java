@@ -8,6 +8,9 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
+/**
+ * Script zip package manager
+ */
 abstract public class PackageManager implements Closeable {
 
     /**
@@ -22,13 +25,15 @@ abstract public class PackageManager implements Closeable {
      */
     abstract public InputStream getInputStream(ResourcePath resourcePath) throws IOException;
 
+    /**
+     *  Remove resource
+     */
     abstract public void remove(ResourcePath resourcePath);
 
     /**
      * List all package resources
      */
     abstract public ResourcePath[] listResources();
-
 
     /**
      * Load zip package

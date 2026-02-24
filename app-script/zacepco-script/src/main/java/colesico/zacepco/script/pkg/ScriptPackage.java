@@ -6,6 +6,9 @@ import colesico.zacepco.script.model.entity.EntityType;
 import java.io.Closeable;
 import java.io.IOException;
 
+/**
+ * cript zip package helper
+ */
 public class ScriptPackage implements Closeable {
 
     static final String SCRIPT_DOC = "script.yaml";
@@ -21,10 +24,16 @@ public class ScriptPackage implements Closeable {
         this.packageManager = packageManager;
     }
 
+    /**
+     *  Returns package manager
+     */
     public PackageManager getPackageManager() {
         return packageManager;
     }
 
+    /**
+     * Returns script resource helper
+     */
     public PackageResource getScript() {
         return new PackageResource(ResourcePath.of(SCRIPT_DOC), packageManager);
     }

@@ -4,6 +4,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Objects;
 
+/**
+ * Package resource path
+ */
 public final class ResourcePath {
 
     private final String value;
