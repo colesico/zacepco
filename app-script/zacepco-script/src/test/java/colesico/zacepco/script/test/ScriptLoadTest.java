@@ -9,7 +9,6 @@ import org.testng.annotations.Test;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
@@ -26,17 +25,17 @@ public class ScriptLoadTest {
     public void testLoadScript() throws IOException {
         ScriptReader reader = ioc.instance(ScriptReader.class);
         System.out.println("Working Directory = " + System.getProperty("user.dir"));
+
         var scriptFile = "../../docs/ScriptTemplate.yaml";
         Script script = reader.read(new File(scriptFile));
 
         try (ScriptPackage scriptPackage = ioc.instance(ScriptPackage.class)) {
-            PackageScriptResource scriptResource = scriptPackage.getScript();
+            ScriptResource scriptResource = scriptPackage.getScript();
             ScriptWriter writer = ioc.instance(ScriptWriter.class);
             scriptResource.setScript(script,writer);
 
             Path zip = Files.createTempFile("zacepco-", ".zip");
             scriptPackage.getPackageManager().write(zip);
-
         }
 
     }

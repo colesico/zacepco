@@ -6,8 +6,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-public class PackageScriptResource extends PackageResource {
-    public PackageScriptResource(ResourcePath path, PackageManager packageManager) {
+public class ScriptResource extends PackageResource {
+    public ScriptResource(ResourcePath path, PackageManager packageManager) {
         super(path, packageManager);
     }
 

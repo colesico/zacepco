@@ -34,8 +34,8 @@ public class ScriptPackage implements Closeable {
     /**
      * Returns script resource helper
      */
-    public PackageScriptResource getScript() {
-        return new PackageScriptResource(ResourcePath.of(SCRIPT_DOC), packageManager);
+    public ScriptResource getScript() {
+        return new ScriptResource(ResourcePath.of(SCRIPT_DOC), packageManager);
     }
 
     public PackageResource getPoster() {
