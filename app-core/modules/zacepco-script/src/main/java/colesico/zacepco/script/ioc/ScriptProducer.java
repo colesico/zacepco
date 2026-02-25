@@ -2,6 +2,7 @@ package colesico.zacepco.script.ioc;
 
 import colesico.framework.ioc.production.Produce;
 import colesico.framework.ioc.production.Producer;
+import colesico.zacepco.script.model.script.Script;
 import colesico.zacepco.script.pkg.ScriptWriter;
 import colesico.zacepco.script.pkg.YamlCustomConstructor;
 import colesico.zacepco.script.pkg.ScriptReader;
@@ -12,6 +13,7 @@ import colesico.zacepco.script.pkg.ScriptPackage;
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.Constructor;
+import org.yaml.snakeyaml.nodes.Tag;
 import org.yaml.snakeyaml.representer.Representer;
 
 @Producer
@@ -23,8 +25,11 @@ public class ScriptProducer {
 
     public Yaml getYaml() {
         Constructor constructor = new YamlCustomConstructor();
+
         DumperOptions dumperOptions = new DumperOptions();
         Representer representer = new YamlCustomRepresenter(dumperOptions);
+        representer.addClassTag(Script.class, Tag.MAP);
+
         return new Yaml(constructor, representer);
     }
 }
