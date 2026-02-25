@@ -31,11 +31,10 @@ public class ScriptTest {
 
         try (ScriptPackage scriptPackage = ioc.instance(ScriptPackage.class)) {
             ScriptResource scriptResource = scriptPackage.getScript();
-            ScriptWriter writer = ioc.instance(ScriptWriter.class);
-            scriptResource.setScript(script,writer);
+            scriptResource.setScript(script);
 
-            Path zip = Paths.get(System.getProperty("user.dir"));
-            scriptPackage.getPackageManager().write(zip.resolve("target/script.zsp.zip"));
+            Path targetPath = Paths.get(System.getProperty("user.dir"));
+            scriptPackage.getPackageManager().write(targetPath.resolve("target/script.zsp.zip"));
         }
 
     }

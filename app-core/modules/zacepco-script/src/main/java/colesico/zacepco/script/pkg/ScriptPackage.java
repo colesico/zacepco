@@ -2,6 +2,7 @@ package colesico.zacepco.script.pkg;
 
 import colesico.zacepco.script.model.entity.EntityId;
 import colesico.zacepco.script.model.entity.EntityType;
+import jakarta.inject.Provider;
 
 import java.io.Closeable;
 import java.io.IOException;
@@ -19,13 +20,20 @@ public class ScriptPackage implements Closeable {
     static final String ENTITY_TMPL_IMG = "template.png";
 
     final PackageManager packageManager;
+    final Provider<ScriptReader> readerProvider;
+    final Provider<ScriptWriter> writerProvider;
 
-    public ScriptPackage(PackageManager packageManager) {
+    public ScriptPackage(PackageManager packageManager,
+                         Provider<ScriptReader> readerProvider,
+                         Provider<ScriptWriter> writerProvider) {
+
         this.packageManager = packageManager;
+        this.readerProvider = readerProvider;
+        this.writerProvider = writerProvider;
     }
 
     /**
-     *  Returns package manager
+     * Returns package manager
      */
     public PackageManager getPackageManager() {
         return packageManager;
@@ -35,7 +43,11 @@ public class ScriptPackage implements Closeable {
      * Returns script resource helper
      */
     public ScriptResource getScript() {
-        return new ScriptResource(ResourcePath.of(SCRIPT_DOC), packageManager);
+        return new ScriptResource(
+                ResourcePath.of(SCRIPT_DOC),
+                packageManager,
+                readerProvider,
+                writerProvider);
     }
 
     public PackageResource getPoster() {
