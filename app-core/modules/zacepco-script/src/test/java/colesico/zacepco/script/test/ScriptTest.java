@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class ScriptTest {
 
@@ -24,7 +25,6 @@ public class ScriptTest {
     @Test
     public void testLoadScript() throws IOException {
         ScriptReader reader = ioc.instance(ScriptReader.class);
-        System.out.println("Working Directory = " + System.getProperty("user.dir"));
 
         var scriptFile = "../../../docs/script.yaml";
         Script script = reader.read(new File(scriptFile));
@@ -34,8 +34,8 @@ public class ScriptTest {
             ScriptWriter writer = ioc.instance(ScriptWriter.class);
             scriptResource.setScript(script,writer);
 
-            Path zip = Files.createTempFile("zacepco-", ".zip");
-            scriptPackage.getPackageManager().write(zip);
+            Path zip = Paths.get(System.getProperty("user.dir"));
+            scriptPackage.getPackageManager().write(zip.resolve("target/script.zsp.zip"));
         }
 
     }
