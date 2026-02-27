@@ -22,7 +22,7 @@ public class Script {
     /**
      * Meta information
      */
-    public Metadata meta;
+    public ScriptMeta meta;
 
     /**
      * Miscellaneous definitions
@@ -72,11 +72,11 @@ public class Script {
         this.script = script;
     }
 
-    public Metadata getMeta() {
+    public ScriptMeta getMeta() {
         return meta;
     }
 
-    public void setMeta(Metadata meta) {
+    public void setMeta(ScriptMeta meta) {
         this.meta = meta;
     }
 

@@ -6,12 +6,12 @@ import java.time.LocalDate;
 /**
  * Script general info
  */
-public class Metadata {
+public class ScriptMeta {
 
     /**
-     * Script name
+     * Script title
      */
-    public String name;
+    public String title;
 
     /**
      * Crime brief description
@@ -53,12 +53,12 @@ public class Metadata {
      */
     public IntInterval playersNum;
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getDescription() {

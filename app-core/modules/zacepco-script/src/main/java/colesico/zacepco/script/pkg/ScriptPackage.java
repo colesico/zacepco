@@ -8,7 +8,7 @@ import java.io.Closeable;
 import java.io.IOException;
 
 /**
- * cript zip package helper
+ * Script zip package helper
  */
 public class ScriptPackage implements Closeable {
 

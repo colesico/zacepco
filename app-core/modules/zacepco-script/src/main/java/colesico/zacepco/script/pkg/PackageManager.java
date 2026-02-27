@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.function.Consumer;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
@@ -40,11 +41,16 @@ abstract public class PackageManager implements Closeable {
     /**
      * Load zip package
      */
-    public void load(InputStream is) throws IOException {
+    public void load(InputStream is, Consumer<ResourcePath> pathValidator) throws IOException {
+        if (pathValidator == null) {
+            pathValidator = resourcePath -> {
+            };
+        }
         try (ZipInputStream zis = new ZipInputStream(is)) {
             ZipEntry zipEntry;
             while ((zipEntry = zis.getNextEntry()) != null) {
                 ResourcePath resourcePath = ResourcePath.of(zipEntry.getName());
+                pathValidator.accept(resourcePath);
                 try (OutputStream os = getOutputStream(resourcePath)) {
                     zis.transferTo(os);
                 }

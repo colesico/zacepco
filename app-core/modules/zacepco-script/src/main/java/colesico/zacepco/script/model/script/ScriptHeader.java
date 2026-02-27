@@ -3,36 +3,36 @@ package colesico.zacepco.script.model.script;
 public class ScriptHeader {
 
     /**
-     * Script schema version (1.. etc)
+     * Script schema version (https://semver.org/)
      */
-    public Integer schema;
+    public String schema;
 
     /**
-     * Script id
+     * Universally Unique Identifier
      */
-    public String id;
+    public String uuid;
 
-    public Integer getSchema() {
+    public String getSchema() {
         return schema;
     }
 
-    public void setSchema(Integer schema) {
+    public void setSchema(String schema) {
         this.schema = schema;
     }
 
-    public String getId() {
-        return id;
+    public String getUuid() {
+        return uuid;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 
     @Override
     public String toString() {
         return "ScriptHeader{" +
                 "schema=" + schema +
-                ", id='" + id + '\'' +
+                ", uuid='" + uuid + '\'' +
                 '}';
     }
 }
