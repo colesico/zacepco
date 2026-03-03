@@ -23,15 +23,18 @@ public class Investigation {
     @Column
     public Long scriptId;
 
+    @Column
     public Date createdAt;
 
     /**
      * Current resource amount
      */
+    @Column
     public Integer resource;
 
     /**
      * Investigation owner user
      */
+    @Column
     public String owner;
 }

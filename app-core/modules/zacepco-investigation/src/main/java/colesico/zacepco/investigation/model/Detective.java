@@ -18,6 +18,12 @@ public class Detective {
     @Column
     private Integer points;
 
+    /**
+     * Entity owner
+     */
+    @Column
+    private String owner;
+
     public Long getId() {
         return id;
     }
