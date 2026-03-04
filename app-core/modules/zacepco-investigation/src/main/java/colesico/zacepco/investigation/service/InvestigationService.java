@@ -9,7 +9,7 @@ public class InvestigationService {
 
     public Investigation createInvestigation(Long scriptId){
         Investigation inv = new Investigation();
-        inv.status = InvestigationStatus.NEW;
+        inv.setStatus(InvestigationStatus.NEW);
         return inv;
     }
 
