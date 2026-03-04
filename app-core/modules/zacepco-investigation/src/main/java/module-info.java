@@ -12,6 +12,6 @@ module colesico.zacepco.investigation {
     exports colesico.zacepco.investigation.ioc;
     exports colesico.zacepco.investigation.model;
     exports colesico.zacepco.investigation.dao;
-
+    exports colesico.zacepco.investigation.service;
 
 }

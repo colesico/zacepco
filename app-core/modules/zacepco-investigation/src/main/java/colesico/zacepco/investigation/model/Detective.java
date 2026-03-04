@@ -3,26 +3,32 @@ package colesico.zacepco.investigation.model;
 import colesico.framework.jdbirec.Column;
 import colesico.framework.jdbirec.Record;
 
+/**
+ * A detective involved in the investigation
+ */
 @Record(table = "detectives")
 public class Detective {
 
     @Column
     private Long id;
 
+    /**
+     * User who can play detective role
+     */
     @Column
-    private String user;
+    private Long  playerId;
 
+    /**
+     * Investigation ref
+     */
     @Column
     private Long investigationId;
 
-    @Column
-    private Integer points;
-
     /**
-     * Entity owner
+     * Number of points awarded to a detective in an investigation
      */
     @Column
-    private String owner;
+    private Integer points;
 
     public Long getId() {
         return id;
@@ -32,12 +38,12 @@ public class Detective {
         this.id = id;
     }
 
-    public String getUser() {
-        return user;
+    public Long getPlayerId() {
+        return playerId;
     }
 
-    public void setUser(String user) {
-        this.user = user;
+    public void setPlayerId(Long playerId) {
+        this.playerId = playerId;
     }
 
     public Long getInvestigationId() {
