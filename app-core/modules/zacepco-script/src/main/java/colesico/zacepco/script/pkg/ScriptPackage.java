@@ -16,7 +16,6 @@ public class ScriptPackage implements Closeable {
     static final String SCRIPT_DOC = "script.yaml";
     static final String POSTER_IMG = "script.png";
 
-    static final String ENTITY_DIR_SUFFIX = "-resources";
     static final String ENTITY_IMG_SUFFIX = ".png";
     static final String ENTITY_TMPL_IMG = "template.png";
 
@@ -56,12 +55,12 @@ public class ScriptPackage implements Closeable {
     }
 
     public PackageResource getEntityImage(EntityId entityId) {
-        String path = entityId.getType().code() + ENTITY_DIR_SUFFIX + "/" + entityId.getValue() + ENTITY_IMG_SUFFIX;
+        String path = entityId.getType().code() + "/" + entityId.getValue() + ENTITY_IMG_SUFFIX;
         return new PackageResource(ResourcePath.of(path), packageManager);
     }
 
     public PackageResource getEntityTemplateImage(EntityType entityType) {
-        String path = entityType.code() + ENTITY_DIR_SUFFIX + "/" + ENTITY_TMPL_IMG;
+        String path = entityType.code() + "/" + ENTITY_TMPL_IMG;
         return new PackageResource(ResourcePath.of(path), packageManager);
     }
 
