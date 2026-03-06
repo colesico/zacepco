@@ -47,7 +47,11 @@ public class ScriptTest {
             for (ResourcePath rp:resList){
                 System.out.println("resource: "+rp.value());
             }
+
+            Path targetPath = Paths.get(System.getProperty("user.dir"));
+            scriptPackage.write(targetPath.resolve("target/default.zsp.zip").toFile());
         }
+
 
     }
 
