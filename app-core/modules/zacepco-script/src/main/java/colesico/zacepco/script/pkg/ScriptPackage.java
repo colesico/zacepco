@@ -6,7 +6,8 @@ import jakarta.inject.Provider;
 
 import java.io.*;
 import java.nio.file.Files;
-import java.nio.file.Path;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Script zip package helper
@@ -18,6 +19,13 @@ public class ScriptPackage implements Closeable {
 
     static final String ENTITY_IMG_SUFFIX = ".png";
     static final String ENTITY_TMPL_IMG = "template.png";
+
+    protected static final Pattern[] validResources = {
+            Pattern.compile("^script.yaml$"),
+            Pattern.compile("^L/L\\d+.png$"),
+            Pattern.compile("^P/P\\d+.png$"),
+            Pattern.compile("^C/C\\d+.png$")
+    };
 
     final PackageManager packageManager;
     final Provider<ScriptReader> readerProvider;
@@ -80,8 +88,14 @@ public class ScriptPackage implements Closeable {
         }
     }
 
-    protected void validate(ResourcePath resourcePath) {
-
+    protected void validate(ResourcePath resourcePath){
+        for (Pattern pattern : validResources) {
+            Matcher matcher = pattern.matcher(resourcePath.value());
+            if (matcher.matches()) {
+                return;
+            }
+        }
+        throw new RuntimeException("Invalid script package resource path: " + resourcePath);
     }
 
     public void load(InputStream is) throws IOException {
