@@ -21,10 +21,9 @@ public class ScriptPackage implements Closeable {
     static final String ENTITY_TMPL_IMG = "template.png";
 
     protected static final Pattern[] validResources = {
-            Pattern.compile("^script.yaml$"),
-            Pattern.compile("^L/L\\d+.png$"),
-            Pattern.compile("^P/P\\d+.png$"),
-            Pattern.compile("^C/C\\d+.png$")
+            Pattern.compile("^script.(yaml|png)$"),
+            Pattern.compile("^(L/L|P/P|C/C)\\d+.png$"),
+            Pattern.compile("^[PCL]/template.png$"),
     };
 
     final PackageManager packageManager;
