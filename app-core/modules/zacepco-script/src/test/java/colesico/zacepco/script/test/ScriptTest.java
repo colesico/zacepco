@@ -9,7 +9,6 @@ import org.testng.annotations.Test;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -23,7 +22,7 @@ public class ScriptTest {
     }
 
     @Test
-    public void testLoadScript() throws IOException {
+    public void testCreateScriptPackage() throws IOException {
         ScriptReader reader = ioc.instance(ScriptReader.class);
 
         var scriptFile = "../../../docs/script.yaml";
@@ -34,7 +33,20 @@ public class ScriptTest {
             scriptResource.setScript(script);
 
             Path targetPath = Paths.get(System.getProperty("user.dir"));
-            scriptPackage.getPackageManager().write(targetPath.resolve("target/script.zsp.zip"));
+            scriptPackage.write(targetPath.resolve("target/script.zsp.zip").toFile());
+        }
+
+    }
+
+    @Test
+    public void testLoadScriptPackage() throws IOException {
+        var packageFile = "../../../scripts/default.zip";
+        try (ScriptPackage scriptPackage = ioc.instance(ScriptPackage.class)) {
+            scriptPackage.load(new File(packageFile));
+            var resList  = scriptPackage.getPackageManager().listResources();
+            for (ResourcePath rp:resList){
+                System.out.println("resource: "+rp.value());
+            }
         }
 
     }

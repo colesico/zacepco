@@ -16,6 +16,8 @@ import java.util.zip.ZipOutputStream;
  */
 abstract public class PackageManager implements Closeable {
 
+    protected static final int MAX_ZIP_ENTRIES = 1024;
+
     /**
      * Get resource output stream for writing resource content
      * The stream must be explicitly closed after use.
@@ -48,7 +50,14 @@ abstract public class PackageManager implements Closeable {
         }
         try (ZipInputStream zis = new ZipInputStream(is)) {
             ZipEntry zipEntry;
+            int entriesCount = 0;
             while ((zipEntry = zis.getNextEntry()) != null) {
+                if (++entriesCount > MAX_ZIP_ENTRIES) {
+                    throw new IOException("Too many zip entries. Max = " + MAX_ZIP_ENTRIES);
+                }
+                if (zipEntry.isDirectory()) {
+                    continue;
+                }
                 ResourcePath resourcePath = ResourcePath.of(zipEntry.getName());
                 pathValidator.accept(resourcePath);
                 try (OutputStream os = getOutputStream(resourcePath)) {
@@ -72,12 +81,6 @@ abstract public class PackageManager implements Closeable {
                 }
                 zos.closeEntry();
             }
-        }
-    }
-
-    public void write(Path file) throws IOException {
-        try (OutputStream os = Files.newOutputStream(file)) {
-            write(os);
         }
     }
 

@@ -4,8 +4,9 @@ import colesico.zacepco.script.model.entity.EntityId;
 import colesico.zacepco.script.model.entity.EntityType;
 import jakarta.inject.Provider;
 
-import java.io.Closeable;
-import java.io.IOException;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 /**
  * Script zip package helper
@@ -15,7 +16,7 @@ public class ScriptPackage implements Closeable {
     static final String SCRIPT_DOC = "script.yaml";
     static final String POSTER_IMG = "script.png";
 
-    static final String ENTITY_DIR_PREFIX = "entity_";
+    static final String ENTITY_DIR_SUFFIX = "-resources";
     static final String ENTITY_IMG_SUFFIX = ".png";
     static final String ENTITY_TMPL_IMG = "template.png";
 
@@ -55,13 +56,37 @@ public class ScriptPackage implements Closeable {
     }
 
     public PackageResource getEntityImage(EntityId entityId) {
-        String path = ENTITY_DIR_PREFIX + entityId.getType().code() + "/" + entityId.getValue() + ENTITY_IMG_SUFFIX;
+        String path = entityId.getType().code() + ENTITY_DIR_SUFFIX + "/" + entityId.getValue() + ENTITY_IMG_SUFFIX;
         return new PackageResource(ResourcePath.of(path), packageManager);
     }
 
     public PackageResource getEntityTemplateImage(EntityType entityType) {
-        String path = ENTITY_DIR_PREFIX + entityType.code() + "/" + ENTITY_TMPL_IMG;
+        String path = entityType.code() + ENTITY_DIR_SUFFIX + "/" + ENTITY_TMPL_IMG;
         return new PackageResource(ResourcePath.of(path), packageManager);
+    }
+
+    public void write(File scriptPackage) throws IOException {
+        try (OutputStream os = Files.newOutputStream(scriptPackage.toPath())) {
+            packageManager.write(os);
+        }
+    }
+
+    public void write(OutputStream os) throws IOException {
+        packageManager.write(os);
+    }
+
+    public void load(File scriptPackage) throws IOException {
+        try (InputStream is = Files.newInputStream(scriptPackage.toPath())) {
+            packageManager.load(is, this::validate);
+        }
+    }
+
+    protected void validate(ResourcePath resourcePath) {
+
+    }
+
+    public void load(InputStream is) throws IOException {
+        packageManager.load(is, this::validate);
     }
 
     @Override

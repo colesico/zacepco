@@ -34,12 +34,20 @@ public class DefaultPackageManager extends PackageManager {
     }
 
     protected Path resolveResourceFile(String path) {
-        return workingDir.resolve(path);
+        try {
+            var fullPath = workingDir.resolve(path);
+            if (!fullPath.startsWith(workingDir)) {
+                throw new RuntimeException("Script package slip detected!");
+            }
+            return fullPath;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public OutputStream getOutputStream(ResourcePath resourcePath) throws IOException {
-        String key = resourcesMap.computeIfAbsent(resourcePath, k -> Long.toString(idCounter.get()));
+        String key = resourcesMap.computeIfAbsent(resourcePath, k -> Long.toString(idCounter.getAndIncrement()));
         Path path = resolveResourceFile(key);
         return Files.newOutputStream(path);
     }

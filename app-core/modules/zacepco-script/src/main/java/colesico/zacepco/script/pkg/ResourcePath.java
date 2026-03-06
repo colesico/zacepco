@@ -16,7 +16,7 @@ public final class ResourcePath {
     }
 
     public static ResourcePath of(String path) {
-        return new ResourcePath(Paths.get(path).normalize().toString());
+        return new ResourcePath(path);
     }
 
     public String value() {
