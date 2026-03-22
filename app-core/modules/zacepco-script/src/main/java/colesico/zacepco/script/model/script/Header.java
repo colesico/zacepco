@@ -1,9 +1,9 @@
 package colesico.zacepco.script.model.script;
 
-public class ScriptHeader {
+public class Header {
 
     /**
-     * Script schema version (https://semver.org/)
+     * Script schema version (<a href="https://semver.org/">SemVer</a>)
      */
     public String schema;
 
@@ -30,7 +30,7 @@ public class ScriptHeader {
 
     @Override
     public String toString() {
-        return "ScriptHeader{" +
+        return "Header{" +
                 "schema=" + schema +
                 ", uuid='" + uuid + '\'' +
                 '}';

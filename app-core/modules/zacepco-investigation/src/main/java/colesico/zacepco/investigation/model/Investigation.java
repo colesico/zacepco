@@ -28,16 +28,23 @@ public class Investigation {
 
     /**
      * Script ref
+     *
      * @see ScriptRef
      */
     @Column
     private Long scriptId;
 
     /**
+     * Script title
+     */
+    @Column
+    private String scriptTitle;
+
+    /**
      * When investigation entity was created
      */
     @Column
-    private Date createdAt;
+    private Date created;
 
     /**
      * Current amount of resource for investigation
@@ -77,12 +84,12 @@ public class Investigation {
         this.scriptId = scriptId;
     }
 
-    public Date getCreatedAt() {
-        return createdAt;
+    public Date getCreated() {
+        return created;
     }
 
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
+    public void setCreated(Date created) {
+        this.created = created;
     }
 
     public Integer getResource() {
@@ -91,5 +98,13 @@ public class Investigation {
 
     public void setResource(Integer resource) {
         this.resource = resource;
+    }
+
+    public String getScriptTitle() {
+        return scriptTitle;
+    }
+
+    public void setScriptTitle(String scriptTitle) {
+        this.scriptTitle = scriptTitle;
     }
 }

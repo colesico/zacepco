@@ -10,23 +10,33 @@ import java.util.List;
 @Service
 public class ScriptService {
 
-    public ScriptRef importScript(InputStream is) {
+    /**
+     * Import script package
+     *
+     * @return script reference id
+     */
+    public Long create(InputStream scriptPkg) {
         return null;
     }
 
-    public void removeScript(Long id) {
+    /**
+     * Remove script reference
+     */
+    public void remove(Long id) {
 
     }
 
-    public ScriptRef getScriptReference(Long id) {
+    /**
+     * Get scrip reference by id
+     */
+    public ScriptRef get(Long id) {
         return null;
     }
 
-    public Script getScript(Long id) {
-        return null;
-    }
-
-    public List<ScriptRef> listScriptReferences(long limit, long offset) {
+    /**
+     * List script references
+     */
+    public List<ScriptRef> list(long limit, long offset) {
         return null;
     }
 }

@@ -1,12 +1,10 @@
-package colesico.zacepco.script.model.script;
+package colesico.zacepco.investigation.model;
 
+import colesico.zacepco.script.model.script.IntInterval;
 
 import java.time.LocalDate;
 
-/**
- * Script general info
- */
-public class ScriptMeta {
+public class ScriptMetaRef {
 
     /**
      * Script title

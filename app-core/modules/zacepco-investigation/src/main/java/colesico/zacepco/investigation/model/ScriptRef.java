@@ -1,6 +1,7 @@
 package colesico.zacepco.investigation.model;
 
 import colesico.framework.jdbirec.Column;
+import colesico.framework.jdbirec.Composition;
 import colesico.framework.jdbirec.Record;
 
 import java.util.Date;
@@ -21,25 +22,16 @@ public class ScriptRef {
     private Long userId;
 
     /**
-     * Universal Unique ID from script header
+     * Reference creation date
      */
     @Column
-    private String uuid;
-
-    @Column
-    private String title;
-
-    @Column
-    private String description;
-
-    @Column
-    private String[] authors;
+    private Date created;
 
     /**
-     * Reference entity creation date
+     * Meta data reference
      */
-    @Column
-    private Date createdAt;
+    @Composition
+    private ScriptMetaRef meta;
 
     public Long getId() {
         return id;
@@ -57,43 +49,20 @@ public class ScriptRef {
         this.userId = userId;
     }
 
-    public String getUuid() {
-        return uuid;
+
+    public Date getCreated() {
+        return created;
     }
 
-    public void setUuid(String uuid) {
-        this.uuid = uuid;
+    public void setCreated(Date created) {
+        this.created = created;
     }
 
-    public String getTitle() {
-        return title;
+    public ScriptMetaRef getMeta() {
+        return meta;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String[] getAuthors() {
-        return authors;
-    }
-
-    public void setAuthors(String[] authors) {
-        this.authors = authors;
-    }
-
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
+    public void setMeta(ScriptMetaRef meta) {
+        this.meta = meta;
     }
 }

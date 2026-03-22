@@ -15,14 +15,14 @@ import java.util.List;
 public class Script {
 
     /**
-     * Script document data
+     * Script header
      */
-    public ScriptHeader script;
+    public Header script;
 
     /**
      * Meta information
      */
-    public ScriptMeta meta;
+    public Metadata meta;
 
     /**
      * Miscellaneous definitions
@@ -64,19 +64,19 @@ public class Script {
      */
     public Answers answers;
 
-    public ScriptHeader getScript() {
+    public Header getScript() {
         return script;
     }
 
-    public void setScript(ScriptHeader script) {
+    public void setScript(Header script) {
         this.script = script;
     }
 
-    public ScriptMeta getMeta() {
+    public Metadata getMeta() {
         return meta;
     }
 
-    public void setMeta(ScriptMeta meta) {
+    public void setMeta(Metadata meta) {
         this.meta = meta;
     }
 

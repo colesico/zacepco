@@ -16,7 +16,7 @@ public class Detective {
      * User who can play detective role
      */
     @Column
-    private Long  playerId;
+    private Long userId;
 
     /**
      * Investigation ref
@@ -30,6 +30,12 @@ public class Detective {
     @Column
     private Integer points;
 
+    /**
+     * Amount of resource spent
+     */
+    @Column
+    private Integer resourceSpent;
+
     public Long getId() {
         return id;
     }
@@ -38,12 +44,12 @@ public class Detective {
         this.id = id;
     }
 
-    public Long getPlayerId() {
-        return playerId;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setPlayerId(Long playerId) {
-        this.playerId = playerId;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public Long getInvestigationId() {
@@ -60,5 +66,13 @@ public class Detective {
 
     public void setPoints(Integer points) {
         this.points = points;
+    }
+
+    public Integer getResourceSpent() {
+        return resourceSpent;
+    }
+
+    public void setResourceSpent(Integer resourceSpent) {
+        this.resourceSpent = resourceSpent;
     }
 }
