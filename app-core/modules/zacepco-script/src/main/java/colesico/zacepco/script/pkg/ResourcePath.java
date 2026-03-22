@@ -19,6 +19,10 @@ public final class ResourcePath {
         return new ResourcePath(path);
     }
 
+    public static ResourcePath of(Path path) {
+        return new ResourcePath(path.toString());
+    }
+
     public String value() {
         return value;
     }

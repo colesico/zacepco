@@ -46,7 +46,7 @@ public class PackageResource {
     /**
      * Remove resource file from package
      */
-    public void remove() {
+    public void remove() throws IOException{
         packageManager.remove(path);
     }
 

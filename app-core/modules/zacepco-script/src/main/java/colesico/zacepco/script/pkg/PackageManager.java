@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Collection;
 import java.util.function.Consumer;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
@@ -33,12 +34,12 @@ abstract public class PackageManager implements Closeable {
     /**
      * Remove resource
      */
-    abstract public void remove(ResourcePath resourcePath);
+    abstract public void remove(ResourcePath resourcePath) throws IOException;
 
     /**
      * List all package resources
      */
-    abstract public ResourcePath[] listResources();
+    abstract public Collection<ResourcePath> listResources() throws IOException;
 
     /**
      * Load zip package
