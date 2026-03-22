@@ -4,8 +4,6 @@ import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.Collection;
 import java.util.function.Consumer;
 import java.util.zip.ZipEntry;
@@ -23,13 +21,13 @@ abstract public class PackageManager implements Closeable {
      * Get resource output stream for writing resource content
      * The stream must be explicitly closed after use.
      */
-    abstract public OutputStream getOutputStream(ResourcePath resourcePath) throws IOException;
+    abstract public OutputStream outputStream(ResourcePath resourcePath) throws IOException;
 
     /**
      * Get resource input stream for reading resource content
      * The stream must be explicitly closed after use.
      */
-    abstract public InputStream getInputStream(ResourcePath resourcePath) throws IOException;
+    abstract public InputStream inputStream(ResourcePath resourcePath) throws IOException;
 
     /**
      * Remove resource
@@ -39,7 +37,7 @@ abstract public class PackageManager implements Closeable {
     /**
      * List all package resources
      */
-    abstract public Collection<ResourcePath> listResources() throws IOException;
+    abstract public Collection<ResourcePath> list() throws IOException;
 
     /**
      * Load zip package
@@ -61,7 +59,7 @@ abstract public class PackageManager implements Closeable {
                 }
                 ResourcePath resourcePath = ResourcePath.of(zipEntry.getName());
                 pathValidator.accept(resourcePath);
-                try (OutputStream os = getOutputStream(resourcePath)) {
+                try (OutputStream os = outputStream(resourcePath)) {
                     zis.transferTo(os);
                 }
                 zis.closeEntry();
@@ -74,10 +72,10 @@ abstract public class PackageManager implements Closeable {
      */
     public void write(OutputStream os) throws IOException {
         try (ZipOutputStream zos = new ZipOutputStream(os)) {
-            for (ResourcePath resourcePath : listResources()) {
+            for (ResourcePath resourcePath : list()) {
                 ZipEntry entry = new ZipEntry(resourcePath.value());
                 zos.putNextEntry(entry);
-                try (InputStream is = getInputStream(resourcePath)) {
+                try (InputStream is = inputStream(resourcePath)) {
                     is.transferTo(zos);
                 }
                 zos.closeEntry();

@@ -22,14 +22,14 @@ public class ScriptResource extends PackageResource {
         this.writerProvider = writerProvider;
     }
 
-    public Script getScript() throws IOException {
-        try (InputStream is = getInputStream()) {
+    public Script read() throws IOException {
+        try (InputStream is = inputStream()) {
             return readerProvider.get().read(is);
         }
     }
 
-    public void setScript(Script script) throws IOException {
-        try (OutputStream os = getOutputStream()) {
+    public void write(Script script) throws IOException {
+        try (OutputStream os = outputStream()) {
             writerProvider.get().write(script, os);
         }
     }

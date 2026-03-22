@@ -42,14 +42,14 @@ public class ScriptPackage implements Closeable {
     /**
      * Returns package manager
      */
-    public PackageManager getPackageManager() {
+    public PackageManager packageManager() {
         return packageManager;
     }
 
     /**
      * Returns script resource helper
      */
-    public ScriptResource getScript() {
+    public ScriptResource script() {
         return new ScriptResource(
                 ResourcePath.of(SCRIPT_DOC),
                 packageManager,
@@ -57,16 +57,16 @@ public class ScriptPackage implements Closeable {
                 writerProvider);
     }
 
-    public PackageResource getPoster() {
+    public PackageResource poster() {
         return new PackageResource(ResourcePath.of(POSTER_IMG), packageManager);
     }
 
-    public PackageResource getEntityImage(EntityId entityId) {
+    public PackageResource entityImage(EntityId entityId) {
         String path = entityId.getType().code() + "/" + entityId.getValue() + ENTITY_IMG_SUFFIX;
         return new PackageResource(ResourcePath.of(path), packageManager);
     }
 
-    public PackageResource getEntityTemplateImage(EntityType entityType) {
+    public PackageResource entityTemplateImage(EntityType entityType) {
         String path = entityType.code() + "/" + ENTITY_TMPL_IMG;
         return new PackageResource(ResourcePath.of(path), packageManager);
     }

@@ -29,8 +29,8 @@ public class ScriptTest {
         Script script = reader.read(new File(scriptFile));
 
         try (ScriptPackage scriptPackage = ioc.instance(ScriptPackage.class)) {
-            ScriptResource scriptResource = scriptPackage.getScript();
-            scriptResource.setScript(script);
+            ScriptResource scriptResource = scriptPackage.script();
+            scriptResource.write(script);
 
             Path targetPath = Paths.get(System.getProperty("user.dir"));
             scriptPackage.write(targetPath.resolve("target/script.zsp.zip").toFile());
@@ -43,7 +43,7 @@ public class ScriptTest {
         var packageFile = "../../../scripts/default.zip";
         try (ScriptPackage scriptPackage = ioc.instance(ScriptPackage.class)) {
             scriptPackage.load(new File(packageFile));
-            var resList  = scriptPackage.getPackageManager().listResources();
+            var resList  = scriptPackage.packageManager().list();
             for (ResourcePath rp:resList){
                 System.out.println("resource: "+rp.value());
             }

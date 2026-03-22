@@ -23,7 +23,7 @@ public class PackageResource {
     /**
      * Resource path inside script package
      */
-    public ResourcePath getPath() {
+    public ResourcePath path() {
         return path;
     }
 
@@ -31,16 +31,16 @@ public class PackageResource {
      * Input stream for reading resource file content.
      * Stream must be closed after reading.
      */
-    public InputStream getInputStream() throws IOException {
-        return packageManager.getInputStream(path);
+    public InputStream inputStream() throws IOException {
+        return packageManager.inputStream(path);
     }
 
     /**
      * Output stream for writing resource file content.
      * Stream must be closed after writing.
      */
-    public OutputStream getOutputStream() throws IOException {
-        return packageManager.getOutputStream(path);
+    public OutputStream outputStream() throws IOException {
+        return packageManager.outputStream(path);
     }
 
     /**

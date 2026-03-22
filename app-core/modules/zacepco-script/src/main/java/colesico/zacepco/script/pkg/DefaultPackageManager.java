@@ -38,7 +38,7 @@ public class DefaultPackageManager extends PackageManager {
     /**
      * Append working di to relative resource path
      */
-    protected Path resolveResourcePath(ResourcePath path) {
+    protected Path resolve(ResourcePath path) {
         try {
             var fullPath = workingDir.resolve(path.path());
             if (!fullPath.startsWith(workingDir)) {
@@ -50,9 +50,13 @@ public class DefaultPackageManager extends PackageManager {
         }
     }
 
+    public Path workingDir() {
+        return workingDir;
+    }
+
     @Override
-    public OutputStream getOutputStream(ResourcePath resourcePath) throws IOException {
-        Path path = resolveResourcePath(resourcePath);
+    public OutputStream outputStream(ResourcePath resourcePath) throws IOException {
+        Path path = resolve(resourcePath);
         Path parent = path.getParent();
         if (parent != null) {
             Files.createDirectories(parent);
@@ -64,17 +68,17 @@ public class DefaultPackageManager extends PackageManager {
     }
 
     @Override
-    public InputStream getInputStream(ResourcePath resourcePath) throws IOException {
-        return Files.newInputStream(resolveResourcePath(resourcePath));
+    public InputStream inputStream(ResourcePath resourcePath) throws IOException {
+        return Files.newInputStream(resolve(resourcePath));
     }
 
     @Override
     public void remove(ResourcePath resourcePath) throws IOException {
-        Files.delete(resolveResourcePath(resourcePath));
+        Files.delete(resolve(resourcePath));
     }
 
     @Override
-    public Collection<ResourcePath> listResources() throws IOException {
+    public Collection<ResourcePath> list() throws IOException {
         List<ResourcePath> result = new ArrayList<>();
         try (Stream<Path> stream = Files.walk(workingDir)) {
             stream.filter(Files::isRegularFile)
