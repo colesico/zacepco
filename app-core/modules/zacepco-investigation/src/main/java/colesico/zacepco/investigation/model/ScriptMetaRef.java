@@ -1,5 +1,6 @@
 package colesico.zacepco.investigation.model;
 
+import colesico.framework.jdbirec.Column;
 import colesico.zacepco.script.model.script.IntInterval;
 
 import java.time.LocalDate;
@@ -9,46 +10,55 @@ public class ScriptMetaRef {
     /**
      * Script title
      */
+    @Column
     public String title;
 
     /**
      * Crime brief description
      */
+    @Column
     public String description;
 
     /**
      * Script authors
      */
+    @Column
     public String[] authors;
 
     /**
      * Script licence name i.e. CC BY 4.0
      */
+    @Column
     public String licence;
 
     /**
      * Script creation date
      */
+    @Column
     public LocalDate created;
 
     /**
      * Script content version (1..N)
      */
+    @Column
     public Integer version;
 
     /**
      * Estimated difficulty level
      */
+    @Column
     public Double difficulty;
 
     /**
      * Estimated  time to play in minutes  (min-max)
      */
+    @Column
     public IntInterval estimatedTime;
 
     /**
      * Recommended players number  (min-max)
      */
+    @Column
     public IntInterval playersNum;
 
     public String getTitle() {

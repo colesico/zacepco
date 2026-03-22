@@ -6,11 +6,11 @@ import colesico.zacepco.investigation.model.Detective;
 @Service
 public class DetectiveService {
 
-    public Detective createDetective(Long investigationId, String user){
+    public Detective create(Long investigationId, String user){
         return null;
     }
 
-    public void removeDetective(Long detectiveId){
+    public void remove(Long detectiveId){
 
     }
 }

@@ -1,5 +1,7 @@
 package colesico.zacepco.script.pkg;
 
+import colesico.framework.ioc.message.Message;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -16,12 +18,12 @@ public class DefaultPackageManager extends PackageManager {
 
     protected final Path workingDir;
 
-    public DefaultPackageManager() {
-        workingDir = defaultWorkingDir();
-    }
-
-    public DefaultPackageManager(Path workingDir) {
-        this.workingDir = workingDir;
+    public DefaultPackageManager(@Message Path workingDir) {
+        if (workingDir != null) {
+            this.workingDir = workingDir;
+        } else {
+            this.workingDir = defaultWorkingDir();
+        }
     }
 
     protected Path defaultWorkingDir() {
