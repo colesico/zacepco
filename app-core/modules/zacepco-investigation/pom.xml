@@ -53,7 +53,7 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${maven-compiler-plugin.version}</version>
                 <configuration>
-                    <annotationProcessorPaths>
+                    <annotationProcessorPaths combine.children="append">
                         <path>
                             <groupId>net.colesico.framework</groupId>
                             <artifactId>colesico-service</artifactId>
@@ -72,7 +72,7 @@
                 <artifactId>maven-jar-plugin</artifactId>
                 <configuration>
                     <archive>
-                        <manifest>
+                        <manifest combine.children="append">
                             <mainClass>colesico.zacepco.investigation.Application</mainClass>
                         </manifest>
                     </archive>

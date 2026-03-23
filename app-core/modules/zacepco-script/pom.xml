@@ -40,7 +40,7 @@
                 <artifactId>maven-jar-plugin</artifactId>
                 <configuration>
                     <archive>
-                        <manifest>
+                        <manifest combine.children="append">
                             <mainClass>colesico.zacepco.script.Application</mainClass>
                         </manifest>
                     </archive>

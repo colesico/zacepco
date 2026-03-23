@@ -22,7 +22,7 @@ public class ScriptMetaRef {
     /**
      * Script authors
      */
-    @Column
+
     public String[] authors;
 
     /**
