@@ -6,6 +6,7 @@ import colesico.zacepco.script.model.entity.Scene;
 import colesico.zacepco.script.model.investigation.Expertise;
 import colesico.zacepco.script.model.investigation.Interrogation;
 import colesico.zacepco.script.model.investigation.Search;
+import colesico.zacepco.script.yaml.YamlComment;
 
 import java.util.List;
 
@@ -32,16 +33,19 @@ public class Script {
     /**
      * Characters dictionary
      */
+    @YamlComment("Character dictionary. Defines all characters involved in the crime")
     public List<Personage> personages;
 
     /**
      * Scene
      */
+    @YamlComment("Crime scene definition")
     public Scene scene;
 
     /**
      * Clues dictionary
      */
+    @YamlComment("Clue dictionary")
     public List<Clue> clues;
 
     /**

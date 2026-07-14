@@ -1,4 +1,4 @@
-package colesico.zacepco.script.pkg.yaml;
+package colesico.zacepco.script.yaml;
 
 import colesico.zacepco.script.model.entity.EntityId;
 import org.yaml.snakeyaml.LoaderOptions;

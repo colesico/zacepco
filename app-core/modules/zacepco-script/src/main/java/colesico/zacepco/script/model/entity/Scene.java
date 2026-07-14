@@ -1,5 +1,7 @@
 package colesico.zacepco.script.model.entity;
 
+import colesico.zacepco.script.yaml.YamlComment;
+
 import java.util.List;
 
 public class Scene {
@@ -7,11 +9,13 @@ public class Scene {
     /**
      * Scene size
      */
+    @YamlComment("Scene grid size  for location placement")
     public SceneSize size;
 
     /**
      * Locations dictionary
      */
+    @YamlComment("Scene locations")
     public List<Location> locations;
 
     /**

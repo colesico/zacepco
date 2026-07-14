@@ -7,9 +7,9 @@ import colesico.framework.ioc.production.Producer;
 import colesico.framework.ioc.production.Supplier;
 import colesico.zacepco.script.model.script.Script;
 import colesico.zacepco.script.pkg.ScriptWriter;
-import colesico.zacepco.script.pkg.yaml.YamlCustomConstructor;
+import colesico.zacepco.script.yaml.YamlCustomConstructor;
 import colesico.zacepco.script.pkg.ScriptReader;
-import colesico.zacepco.script.pkg.yaml.YamlCustomRepresenter;
+import colesico.zacepco.script.yaml.YamlCustomRepresenter;
 import colesico.zacepco.script.pkg.DefaultPackageManager;
 import colesico.zacepco.script.pkg.PackageManager;
 import colesico.zacepco.script.pkg.ScriptPackage;
@@ -34,10 +34,15 @@ public class ScriptProducer {
         Constructor constructor = new YamlCustomConstructor();
 
         DumperOptions dumperOptions = new DumperOptions();
+        dumperOptions.setDefaultFlowStyle(DumperOptions.FlowStyle.BLOCK);
+        dumperOptions.setPrettyFlow(true);
+        dumperOptions.setIndent(2);
+        dumperOptions.setProcessComments(true); // Теперь этот флаг применится!
+
         Representer representer = new YamlCustomRepresenter(dumperOptions);
         representer.addClassTag(Script.class, Tag.MAP);
 
-        return new Yaml(constructor, representer);
+        return new Yaml(constructor, representer, dumperOptions);
     }
 
     @Classed(DefaultPackageManager.class)

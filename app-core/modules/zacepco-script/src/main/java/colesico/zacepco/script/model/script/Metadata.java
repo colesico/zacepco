@@ -1,6 +1,8 @@
 package colesico.zacepco.script.model.script;
 
 
+import colesico.zacepco.script.yaml.YamlComment;
+
 import java.time.LocalDate;
 
 /**
@@ -26,31 +28,37 @@ public class Metadata {
     /**
      * Script licence name i.e. CC BY 4.0
      */
+    @YamlComment("License under which the script is distributed")
     public String licence;
 
     /**
      * Script creation date
      */
+    @YamlComment("Script creation date YYYY-MM-DD")
     public LocalDate created;
 
     /**
      * Script content version (1..N)
      */
+    @YamlComment("Script version")
     public Integer version;
 
     /**
      * Estimated difficulty level
      */
+    @YamlComment("Game difficulty")
     public Double difficulty;
 
     /**
      * Estimated  time to play in minutes  (min-max)
      */
+    @YamlComment("Estimated playtime, minutes")
     public IntInterval estimatedTime;
 
     /**
      * Recommended players number  (min-max)
      */
+    @YamlComment("Recommended number of players")
     public IntInterval playersNum;
 
     public String getTitle() {
