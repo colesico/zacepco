@@ -10,15 +10,23 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Script zip package helper
+ * Script package
  */
 public class ScriptPackage implements Closeable {
 
-    static final String SCRIPT_DOC = "script.yaml";
-    static final String POSTER_IMG = "script.png";
+    /**
+     * Script document
+     */
+    static final String SCRIPT_DOCUMENT = "script.yaml";
 
-    static final String ENTITY_IMG_SUFFIX = ".png";
-    static final String ENTITY_TMPL_IMG = "template.png";
+    /**
+     * Script poster
+     */
+    static final String SCRIPT_POSTER = "script.png";
+
+    static final String ENTITY_IMAGE_SUFFIX = ".png";
+
+    static final String ENTITY_TEMPLATE_IMAGE = "template.png";
 
     protected static final Pattern[] validResources = {
             Pattern.compile("^script.(yaml|png)$"),
@@ -26,8 +34,13 @@ public class ScriptPackage implements Closeable {
             Pattern.compile("^[PCL]/template.png$"),
     };
 
+    /**
+     * This script package manager
+     */
     final PackageManager packageManager;
+
     final Provider<ScriptReader> readerProvider;
+
     final Provider<ScriptWriter> writerProvider;
 
     public ScriptPackage(PackageManager packageManager,
@@ -40,54 +53,60 @@ public class ScriptPackage implements Closeable {
     }
 
     /**
-     * Returns package manager
+     * Returns package manager for this script package
      */
     public PackageManager packageManager() {
         return packageManager;
     }
 
     /**
-     * Returns script resource helper
+     * Returns script document resource
      */
     public ScriptResource script() {
         return new ScriptResource(
-                ResourcePath.of(SCRIPT_DOC),
+                ResourcePath.of(SCRIPT_DOCUMENT),
                 packageManager,
                 readerProvider,
                 writerProvider);
     }
 
+    /**
+     * Returns script poster resource
+     */
     public PackageResource poster() {
-        return new PackageResource(ResourcePath.of(POSTER_IMG), packageManager);
+        return new PackageResource(ResourcePath.of(SCRIPT_POSTER), packageManager);
     }
 
     public PackageResource entityImage(EntityId entityId) {
-        String path = entityId.getType().code() + "/" + entityId.getValue() + ENTITY_IMG_SUFFIX;
+        String path = entityId.getType().code() + "/" + entityId.getValue() + ENTITY_IMAGE_SUFFIX;
         return new PackageResource(ResourcePath.of(path), packageManager);
     }
 
     public PackageResource entityTemplateImage(EntityType entityType) {
-        String path = entityType.code() + "/" + ENTITY_TMPL_IMG;
+        String path = entityType.code() + "/" + ENTITY_TEMPLATE_IMAGE;
         return new PackageResource(ResourcePath.of(path), packageManager);
     }
 
-    public void write(File scriptPackage) throws IOException {
-        try (OutputStream os = Files.newOutputStream(scriptPackage.toPath())) {
-            packageManager.write(os);
+    /**
+     * Export package to zip file
+     */
+    public void exportTo(File scriptZip) throws IOException {
+        try (OutputStream os = Files.newOutputStream(scriptZip.toPath())) {
+            packageManager.exportPackage(os);
         }
     }
 
-    public void write(OutputStream os) throws IOException {
-        packageManager.write(os);
+    public void exportTo(OutputStream os) throws IOException {
+        packageManager.exportPackage(os);
     }
 
-    public void load(File scriptPackage) throws IOException {
+    public void importFrom(File scriptPackage) throws IOException {
         try (InputStream is = Files.newInputStream(scriptPackage.toPath())) {
-            packageManager.load(is, this::validate);
+            packageManager.importPackage(is, this::validate);
         }
     }
 
-    protected void validate(ResourcePath resourcePath){
+    protected void validate(ResourcePath resourcePath) {
         for (Pattern pattern : validResources) {
             Matcher matcher = pattern.matcher(resourcePath.value());
             if (matcher.matches()) {
@@ -97,8 +116,8 @@ public class ScriptPackage implements Closeable {
         throw new RuntimeException("Invalid script package resource path: " + resourcePath);
     }
 
-    public void load(InputStream is) throws IOException {
-        packageManager.load(is, this::validate);
+    public void importFrom(InputStream is) throws IOException {
+        packageManager.importPackage(is, this::validate);
     }
 
     @Override

@@ -4,16 +4,16 @@ public enum EntityType {
 
     PERSONAGE('P'),
     LOCATION('L'),
-    CLUE('С'),
+    CLUE('C'),
     TIME('T');
 
-    private final Character code;
+    private final char code;
 
-    EntityType(Character code) {
+    EntityType(char code) {
         this.code = code;
     }
 
-    public Character code() {
+    public char code() {
         return code;
     }
 

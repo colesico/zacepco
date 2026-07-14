@@ -5,14 +5,18 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 /**
- * Package resource helper
+ * Represents resource inside package
  */
 public class PackageResource {
 
     /**
-     * Resource path
+     * Resource path inside package
      */
     protected final ResourcePath path;
+
+    /**
+     * Package manager to perform resource operations
+     */
     protected final PackageManager packageManager;
 
     public PackageResource(ResourcePath path, PackageManager packageManager) {
@@ -28,26 +32,26 @@ public class PackageResource {
     }
 
     /**
-     * Input stream for reading resource file content.
+     * Input stream for reading resource.
      * Stream must be closed after reading.
      */
     public InputStream inputStream() throws IOException {
-        return packageManager.inputStream(path);
+        return packageManager.resourceInput(path);
     }
 
     /**
-     * Output stream for writing resource file content.
+     * Output stream for writing resource.
      * Stream must be closed after writing.
      */
     public OutputStream outputStream() throws IOException {
-        return packageManager.outputStream(path);
+        return packageManager.resourceOutput(path);
     }
 
     /**
-     * Remove resource file from package
+     * Remove resource  from package
      */
-    public void remove() throws IOException{
-        packageManager.remove(path);
+    public void remove() throws IOException {
+        packageManager.removeResource(path);
     }
 
 }

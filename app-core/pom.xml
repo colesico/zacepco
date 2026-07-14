@@ -64,8 +64,8 @@
         <maven-jar-plugin.version>3.3.0</maven-jar-plugin.version>
 
         <!-- Logging -->
-        <slf4j.version>2.0.3</slf4j.version>
-        <logback.verion>1.4.4</logback.verion>
+        <slf4j.version>2.0.18</slf4j.version>
+        <tinylog.verion>2.7.0</tinylog.verion>
 
         <!-- Testing -->
         <testng.version>7.12.0</testng.version>
@@ -74,10 +74,10 @@
         <commons-lang3.version>3.12.0</commons-lang3.version>
 
         <!-- Colesico -->
-        <colesico.version>6.0.0-SNAPSHOT</colesico.version>
+        <colesico.version>6.0.0</colesico.version>
 
         <!-- SnakeYaml -->
-        <snakeyaml.version>2.5</snakeyaml.version>
+        <snakeyaml.version>2.6</snakeyaml.version>
 
         <!-- Code generation mode for colesico -->
         <!-- default|optimized -->
@@ -88,16 +88,17 @@
     </modules>
 
     <dependencies>
+
         <!-- Logger -->
         <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>${slf4j.version}</version>
+            <groupId>org.tinylog</groupId>
+            <artifactId>slf4j-tinylog</artifactId>
+            <version>${tinylog.verion}</version>
         </dependency>
         <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-            <version>${logback.verion}</version>
+            <groupId>org.tinylog</groupId>
+            <artifactId>tinylog-impl</artifactId>
+            <version>${tinylog.verion}</version>
         </dependency>
 
         <!-- Utils -->

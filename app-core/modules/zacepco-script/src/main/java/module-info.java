@@ -17,4 +17,5 @@ module colesico.zacepco.script {
     opens colesico.zacepco.script.model.script;
     opens colesico.zacepco.script.model.entity;
     opens colesico.zacepco.script.model.investigation;
+    exports colesico.zacepco.script.pkg.yaml;
 }

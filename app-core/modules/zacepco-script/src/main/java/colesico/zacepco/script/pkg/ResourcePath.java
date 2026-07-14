@@ -5,7 +5,7 @@ import java.nio.file.Paths;
 import java.util.Objects;
 
 /**
- * Package resource path
+ * Defines resource path inside package
  */
 public final class ResourcePath {
 

@@ -14,19 +14,19 @@ import java.nio.charset.StandardCharsets;
 @Singleton
 public class ScriptWriter {
 
-    private final Provider<Yaml> yamlProvider;
+    private final Provider<Yaml> yaml;
 
-    public ScriptWriter(Provider<Yaml> yamlProvider) {
-        this.yamlProvider = yamlProvider;
+    public ScriptWriter(Provider<Yaml> yaml) {
+        this.yaml = yaml;
     }
 
     public void write(Script script, OutputStreamWriter osw) {
-        Yaml yaml = yamlProvider.get();
+        Yaml yaml = this.yaml.get();
         yaml.dump(script, osw);
     }
 
     public void write(Script script, OutputStream os) {
-        Yaml yaml = yamlProvider.get();
+        Yaml yaml = this.yaml.get();
         try (OutputStreamWriter osw = new OutputStreamWriter(os)) {
             yaml.dump(script, osw);
             osw.flush();

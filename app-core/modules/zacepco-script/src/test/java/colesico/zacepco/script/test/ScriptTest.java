@@ -25,6 +25,7 @@ public class ScriptTest {
     public void testCreateScriptPackage() throws IOException {
         ScriptReader reader = ioc.instance(ScriptReader.class);
 
+        // Initial script document
         var scriptFile = "../../../docs/script.yaml";
         Script script = reader.read(new File(scriptFile));
 
@@ -33,23 +34,24 @@ public class ScriptTest {
             scriptResource.write(script);
 
             Path targetPath = Paths.get(System.getProperty("user.dir"));
-            scriptPackage.write(targetPath.resolve("target/script.zsp.zip").toFile());
+            // Target script file
+            scriptPackage.exportTo(targetPath.resolve("target/script.zsp.zip").toFile());
         }
 
     }
 
     @Test
-    public void testLoadScriptPackage() throws IOException {
+    public void testImportScriptPackage() throws IOException {
         var packageFile = "../../../scripts/default.zip";
         try (ScriptPackage scriptPackage = ioc.instance(ScriptPackage.class)) {
-            scriptPackage.load(new File(packageFile));
-            var resList  = scriptPackage.packageManager().list();
+            scriptPackage.importFrom(new File(packageFile));
+            var resList  = scriptPackage.packageManager().listResources();
             for (ResourcePath rp:resList){
-                System.out.println("resource: "+rp.value());
+                IO.println("resource: "+rp.value());
             }
 
             Path targetPath = Paths.get(System.getProperty("user.dir"));
-            scriptPackage.write(targetPath.resolve("target/default.zsp.zip").toFile());
+            scriptPackage.exportTo(targetPath.resolve("target/default.zsp.zip").toFile());
         }
 
 

@@ -16,7 +16,11 @@
     <version>1.0.0</version>
     <packaging>jar</packaging>
 
-    <name>Zacepco Script Module</name>
+    <name>Zacepco Script</name>
+    <description>
+        The library implements the zacepco script model and
+        provides capabilities for working with the zacepco script zip file
+    </description>
 
     <properties>
     </properties>

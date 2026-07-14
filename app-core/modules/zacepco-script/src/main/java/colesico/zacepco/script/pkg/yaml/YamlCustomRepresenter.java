@@ -1,4 +1,4 @@
-package colesico.zacepco.script.pkg;
+package colesico.zacepco.script.pkg.yaml;
 
 import colesico.zacepco.script.model.entity.*;
 import org.yaml.snakeyaml.DumperOptions;

@@ -11,38 +11,42 @@ import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
 /**
- * Script zip package manager
+ * Abstract package manager.
+ * Represents package basic operations.
  */
 abstract public class PackageManager implements Closeable {
 
     protected static final int MAX_ZIP_ENTRIES = 1024;
 
     /**
-     * Get resource output stream for writing resource content
+     * Output stream for writing resource to package.
+     * Unexisted resource will be created, existed - rewrote.
+     * Output stream must be explicitly closed after use.
+     */
+    abstract public OutputStream resourceOutput(ResourcePath resourcePath) throws IOException;
+
+    /**
+     * Input stream for reading resource from package.
      * The stream must be explicitly closed after use.
      */
-    abstract public OutputStream outputStream(ResourcePath resourcePath) throws IOException;
+    abstract public InputStream resourceInput(ResourcePath resourcePath) throws IOException;
 
     /**
-     * Get resource input stream for reading resource content
-     * The stream must be explicitly closed after use.
+     * Remove resource from package
      */
-    abstract public InputStream inputStream(ResourcePath resourcePath) throws IOException;
+    abstract public void removeResource(ResourcePath resourcePath) throws IOException;
 
     /**
-     * Remove resource
+     * List all resources inside package
      */
-    abstract public void remove(ResourcePath resourcePath) throws IOException;
+    abstract public Collection<ResourcePath> listResources() throws IOException;
 
     /**
-     * List all package resources
+     * Import package from zip archive
+     *
+     * @param is stream to read zip bytes
      */
-    abstract public Collection<ResourcePath> list() throws IOException;
-
-    /**
-     * Load zip package
-     */
-    public void load(InputStream is, Consumer<ResourcePath> pathValidator) throws IOException {
+    public void importPackage(InputStream is, Consumer<ResourcePath> pathValidator) throws IOException {
         if (pathValidator == null) {
             pathValidator = resourcePath -> {
             };
@@ -58,8 +62,9 @@ abstract public class PackageManager implements Closeable {
                     continue;
                 }
                 ResourcePath resourcePath = ResourcePath.of(zipEntry.getName());
+                // Validate resource path
                 pathValidator.accept(resourcePath);
-                try (OutputStream os = outputStream(resourcePath)) {
+                try (OutputStream os = resourceOutput(resourcePath)) {
                     zis.transferTo(os);
                 }
                 zis.closeEntry();
@@ -68,14 +73,16 @@ abstract public class PackageManager implements Closeable {
     }
 
     /**
-     * Write zip package to output stream
+     * Export package to zip archive
+     *
+     * @param os stream to write zip bytes
      */
-    public void write(OutputStream os) throws IOException {
+    public void exportPackage(OutputStream os) throws IOException {
         try (ZipOutputStream zos = new ZipOutputStream(os)) {
-            for (ResourcePath resourcePath : list()) {
+            for (ResourcePath resourcePath : listResources()) {
                 ZipEntry entry = new ZipEntry(resourcePath.value());
                 zos.putNextEntry(entry);
-                try (InputStream is = inputStream(resourcePath)) {
+                try (InputStream is = resourceInput(resourcePath)) {
                     is.transferTo(zos);
                 }
                 zos.closeEntry();

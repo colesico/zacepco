@@ -7,17 +7,20 @@ import jakarta.inject.Singleton;
 
 import java.io.*;
 
+/**
+ * Script file reader
+ */
 @Singleton
 public class ScriptReader {
 
-    private final Provider<Yaml> yamlProvider;
+    private final Provider<Yaml> yaml;
 
-    public ScriptReader(Provider<Yaml> yamlProvider) {
-        this.yamlProvider = yamlProvider;
+    public ScriptReader(Provider<Yaml> yaml) {
+        this.yaml = yaml;
     }
 
     public Script read(InputStream is) {
-        Yaml yaml = yamlProvider.get();
+        Yaml yaml = this.yaml.get();
         return yaml.loadAs(is,Script.class);
     }
 

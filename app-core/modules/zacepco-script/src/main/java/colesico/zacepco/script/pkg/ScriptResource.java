@@ -7,6 +7,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+/**
+ * Represents script document resource (script.yaml)
+ */
 public class ScriptResource extends PackageResource {
 
     private final Provider<ScriptReader> readerProvider;

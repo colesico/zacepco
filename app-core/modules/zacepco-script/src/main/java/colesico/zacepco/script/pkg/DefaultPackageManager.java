@@ -1,6 +1,6 @@
 package colesico.zacepco.script.pkg;
 
-import colesico.framework.ioc.message.Message;
+import colesico.framework.ioc.message.IocMessage;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,11 +14,14 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Stream;
 
+/**
+ * Temp working directory based package manager
+ */
 public class DefaultPackageManager extends PackageManager {
 
     protected final Path workingDir;
 
-    public DefaultPackageManager(@Message Path workingDir) {
+    public DefaultPackageManager(@IocMessage Path workingDir) {
         if (workingDir != null) {
             this.workingDir = workingDir;
         } else {
@@ -57,7 +60,7 @@ public class DefaultPackageManager extends PackageManager {
     }
 
     @Override
-    public OutputStream outputStream(ResourcePath resourcePath) throws IOException {
+    public OutputStream resourceOutput(ResourcePath resourcePath) throws IOException {
         Path path = resolve(resourcePath);
         Path parent = path.getParent();
         if (parent != null) {
@@ -70,17 +73,17 @@ public class DefaultPackageManager extends PackageManager {
     }
 
     @Override
-    public InputStream inputStream(ResourcePath resourcePath) throws IOException {
+    public InputStream resourceInput(ResourcePath resourcePath) throws IOException {
         return Files.newInputStream(resolve(resourcePath));
     }
 
     @Override
-    public void remove(ResourcePath resourcePath) throws IOException {
+    public void removeResource(ResourcePath resourcePath) throws IOException {
         Files.delete(resolve(resourcePath));
     }
 
     @Override
-    public Collection<ResourcePath> list() throws IOException {
+    public Collection<ResourcePath> listResources() throws IOException {
         List<ResourcePath> result = new ArrayList<>();
         try (Stream<Path> stream = Files.walk(workingDir)) {
             stream.filter(Files::isRegularFile)
