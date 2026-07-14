@@ -6,14 +6,14 @@ package colesico.zacepco.script.model.entity;
 public class Location extends Entity<LocationId> {
 
     /**
-     * Hidden location or not
-     */
-    public Boolean hidden;
-
-    /**
      * Location position on scene grid
      */
     public LocationPos pos;
+
+    /**
+     * Hidden location or not
+     */
+    public Boolean hidden;
 
     public Boolean getHidden() {
         return hidden;
