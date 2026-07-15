@@ -7,6 +7,9 @@ import java.util.List;
  */
 public final class Search extends InvestigationAction {
 
+    /**
+     * Locations to be searched
+     */
     public List<SearchLocation> locations;
 
     public List<SearchLocation> getLocations() {

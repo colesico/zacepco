@@ -1,6 +1,10 @@
 package colesico.zacepco.script.yaml;
 
-import colesico.zacepco.script.model.entity.*;
+import colesico.zacepco.script.model.setting.ClueId;
+import colesico.zacepco.script.model.setting.TimeId;
+import colesico.zacepco.script.model.setting.EntityId;
+import colesico.zacepco.script.model.setting.PersonageId;
+import colesico.zacepco.script.model.setting.LocationId;
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.comments.CommentLine;
 import org.yaml.snakeyaml.comments.CommentType;
@@ -55,10 +59,15 @@ public class YamlCustomRepresenter extends Representer {
             YamlComment ann = prop.getAnnotation(YamlComment.class);
 
             if (ann != null) {
-                Node valueNode = tuples.get(i).getValueNode();
-                valueNode.setBlockComments(List.of(new CommentLine(
-                        null, null, " " + ann.value(), CommentType.BLOCK
-                )));
+                Node keyNode = tuples.get(i).getKeyNode();
+                String[] commentStrs = ann.value().split("\\R");
+                List<CommentLine> commentLines = new ArrayList<>();
+                for (var commentStr : commentStrs) {
+                    commentLines.add(new CommentLine(
+                            null, null, " " + commentStr, CommentType.BLOCK)
+                    );
+                }
+                keyNode.setBlockComments(commentLines);
             }
         }
         return node;

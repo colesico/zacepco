@@ -1,4 +1,4 @@
-package colesico.zacepco.script.model.entity;
+package colesico.zacepco.script.model.setting;
 
 import colesico.zacepco.script.yaml.YamlComment;
 
@@ -9,18 +9,19 @@ public class Scene {
     /**
      * Scene size
      */
-    @YamlComment("Scene grid size  for location placement")
+    @YamlComment("Scene grid size for locations placement")
     public SceneSize size;
 
     /**
      * Locations dictionary
      */
-    @YamlComment("Scene locations")
+    @YamlComment("Scene locations dictionary")
     public List<Location> locations;
 
     /**
      * Passages dictionary
      */
+    @YamlComment("Passages between locations")
     public List<Passage> passages;
 
     public SceneSize getSize() {

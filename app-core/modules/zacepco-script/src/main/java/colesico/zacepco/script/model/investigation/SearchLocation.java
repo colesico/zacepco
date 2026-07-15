@@ -1,6 +1,6 @@
 package colesico.zacepco.script.model.investigation;
 
-import colesico.zacepco.script.model.entity.LocationId;
+import colesico.zacepco.script.model.setting.LocationId;
 
 import java.util.List;
 

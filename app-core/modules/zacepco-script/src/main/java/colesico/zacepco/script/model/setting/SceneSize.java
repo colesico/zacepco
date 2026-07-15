@@ -1,4 +1,4 @@
-package colesico.zacepco.script.model.entity;
+package colesico.zacepco.script.model.setting;
 
 /**
  * Scene size

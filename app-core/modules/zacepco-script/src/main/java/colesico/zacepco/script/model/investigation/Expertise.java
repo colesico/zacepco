@@ -1,5 +1,7 @@
 package colesico.zacepco.script.model.investigation;
 
+import colesico.zacepco.script.yaml.YamlComment;
+
 import java.util.List;
 
 /**
@@ -10,6 +12,7 @@ public class Expertise extends InvestigationAction {
     /**
      * Clues to be examined
      */
+    @YamlComment("Examined clues")
     public List<FocusedClue> clues;
 
     public List<FocusedClue> getClues() {

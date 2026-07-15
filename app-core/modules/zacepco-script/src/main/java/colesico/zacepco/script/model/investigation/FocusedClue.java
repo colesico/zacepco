@@ -1,7 +1,7 @@
 package colesico.zacepco.script.model.investigation;
 
-import colesico.zacepco.script.model.entity.ClueId;
-import colesico.zacepco.script.model.entity.EntityId;
+import colesico.zacepco.script.model.setting.ClueId;
+import colesico.zacepco.script.model.setting.EntityId;
 
 import java.util.List;
 

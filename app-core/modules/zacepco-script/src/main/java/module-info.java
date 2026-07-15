@@ -9,13 +9,14 @@ module colesico.zacepco.script {
 
     exports colesico.zacepco.script.ioc;
     exports colesico.zacepco.script.yaml;
-    exports colesico.zacepco.script.model.script;
-    exports colesico.zacepco.script.model.entity;
-    exports colesico.zacepco.script.model.investigation;
     exports colesico.zacepco.script.pkg;
-    
-    opens colesico.zacepco.script.model.script;
-    opens colesico.zacepco.script.model.entity;
+    exports colesico.zacepco.script.model.script;
+    exports colesico.zacepco.script.model.setting;
+    exports colesico.zacepco.script.model.investigation;
+
+    opens colesico.zacepco.script.model.setting;
     opens colesico.zacepco.script.model.investigation;
+    opens colesico.zacepco.script.model.script;
+
 
 }

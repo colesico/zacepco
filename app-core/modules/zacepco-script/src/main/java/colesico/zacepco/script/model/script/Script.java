@@ -1,14 +1,8 @@
 package colesico.zacepco.script.model.script;
 
-import colesico.zacepco.script.model.entity.Clue;
-import colesico.zacepco.script.model.entity.Personage;
-import colesico.zacepco.script.model.entity.Scene;
-import colesico.zacepco.script.model.investigation.Expertise;
-import colesico.zacepco.script.model.investigation.Interrogation;
-import colesico.zacepco.script.model.investigation.Search;
+import colesico.zacepco.script.model.setting.Setting;
+import colesico.zacepco.script.model.investigation.Investigation;
 import colesico.zacepco.script.yaml.YamlComment;
-
-import java.util.List;
 
 /**
  * Script document
@@ -16,128 +10,52 @@ import java.util.List;
 public class Script {
 
     /**
-     * Script header
-     */
-    public Header script;
-
-    /**
      * Meta information
      */
-    public Metadata meta;
+    @YamlComment("Script meta information")
+    public ScriptMetadata meta;
 
     /**
-     * Miscellaneous definitions
+     * Environment spec
      */
-    public Miscellaneous misc;
+    @YamlComment("Crime setting specification\n" +
+            "Describes entire crime environment")
+    public Setting setting;
 
     /**
-     * Characters dictionary
+     * Investigation spec
      */
-    @YamlComment("Character dictionary. Defines all characters involved in the crime")
-    public List<Personage> personages;
-
-    /**
-     * Scene
-     */
-    @YamlComment("Crime scene definition")
-    public Scene scene;
-
-    /**
-     * Clues dictionary
-     */
-    @YamlComment("Clue dictionary")
-    public List<Clue> clues;
-
-    /**
-     * Location search
-     */
-    public Search search;
-
-    /**
-     * Character interrogation
-     */
-    public Interrogation interrogation;
-
-    /**
-     * Clue expertise
-     */
-    public Expertise expertise;
+    @YamlComment("Investigation specification")
+    public Investigation investigation;
 
     /**
      * General answers
      */
+    @YamlComment("General answers")
     public Answers answers;
 
-    public Header getScript() {
-        return script;
-    }
-
-    public void setScript(Header script) {
-        this.script = script;
-    }
-
-    public Metadata getMeta() {
+    public ScriptMetadata getMeta() {
         return meta;
     }
 
-    public void setMeta(Metadata meta) {
+    public void setMeta(ScriptMetadata meta) {
         this.meta = meta;
     }
 
-    public Miscellaneous getMisc() {
-        return misc;
+    public Setting getSetting() {
+        return setting;
     }
 
-    public void setMisc(Miscellaneous misc) {
-        this.misc = misc;
+    public void setSetting(Setting setting) {
+        this.setting = setting;
     }
 
-    public List<Personage> getPersonages() {
-        return personages;
+    public Investigation getInvestigation() {
+        return investigation;
     }
 
-    public void setPersonages(List<Personage> personages) {
-        this.personages = personages;
-    }
-
-    public Scene getScene() {
-        return scene;
-    }
-
-    public void setScene(Scene scene) {
-        this.scene = scene;
-    }
-
-    public List<Clue> getClues() {
-        return clues;
-    }
-
-    public void setClues(List<Clue> clues) {
-        this.clues = clues;
-    }
-
-    public Search getSearch() {
-        return search;
-    }
-
-    public void setSearch(Search search) {
-        this.search = search;
-    }
-
-    public Interrogation getInterrogation() {
-        return interrogation;
-    }
-
-    public void setInterrogation(Interrogation interrogation) {
-        this.interrogation = interrogation;
-    }
-
-    public Expertise getExpertise() {
-        return expertise;
-    }
-
-    public void setExpertise(Expertise expertise) {
-        this.expertise = expertise;
+    public void setInvestigation(Investigation investigation) {
+        this.investigation = investigation;
     }
 
     public Answers getAnswers() {
@@ -151,7 +69,7 @@ public class Script {
     @Override
     public String toString() {
         return "Script{" +
-                "script=" + script +
+                "meta=" + meta +
                 '}';
     }
 }

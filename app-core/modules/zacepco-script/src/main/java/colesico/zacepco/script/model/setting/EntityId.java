@@ -1,4 +1,4 @@
-package colesico.zacepco.script.model.entity;
+package colesico.zacepco.script.model.setting;
 
 import org.apache.commons.lang3.StringUtils;
 

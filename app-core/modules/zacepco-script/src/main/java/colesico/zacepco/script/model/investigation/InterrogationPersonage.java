@@ -1,6 +1,6 @@
 package colesico.zacepco.script.model.investigation;
 
-import colesico.zacepco.script.model.entity.PersonageId;
+import colesico.zacepco.script.model.setting.PersonageId;
 
 import java.util.List;
 

@@ -1,5 +1,7 @@
 package colesico.zacepco.script.model.investigation;
 
+import colesico.zacepco.script.yaml.YamlComment;
+
 /**
  * Investigation action basics
  */
@@ -8,22 +10,27 @@ abstract public class InvestigationAction {
     /**
      * Cost of investigation action on subject
      */
+    @YamlComment("Cost of investigation action on subject")
     public Integer cost;
 
     /**
      * Base points for investigation action
      */
+    @YamlComment("Base points for investigation action")
     public Integer points;
 
     /**
      * Maximum number of elements in detective focus
      */
+    @YamlComment("Maximum number of elements in detective focus")
     public Integer focusLimit;
 
     /**
      * Cost of obtaining investigation subject statistics
      * (-1) - statistics is prohibited
      */
+    @YamlComment("Cost of obtaining investigation subject statistics\n" +
+            "(-1) - statistics is prohibited")
     public Integer statCost;
 
     public Integer getCost() {

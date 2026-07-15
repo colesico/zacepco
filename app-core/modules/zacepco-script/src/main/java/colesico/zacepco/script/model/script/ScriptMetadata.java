@@ -6,9 +6,22 @@ import colesico.zacepco.script.yaml.YamlComment;
 import java.time.LocalDate;
 
 /**
- * Script general info
+ * Script general metadata
  */
-public class Metadata {
+public class ScriptMetadata {
+
+    /**
+     * Script schema version (<a href="https://semver.org/">SemVer</a>)
+     */
+    @YamlComment("Script schema version (data model version)")
+    public String schema;
+
+    /**
+     * Universally Unique Identifier
+     */
+    @YamlComment("Universally unique identifier (UUID) of the script")
+    public String uuid;
+
 
     /**
      * Script title
@@ -18,6 +31,7 @@ public class Metadata {
     /**
      * Crime brief description
      */
+    @YamlComment("A brief script summary without spoilers")
     public String description;
 
     /**
@@ -46,7 +60,7 @@ public class Metadata {
     /**
      * Estimated difficulty level
      */
-    @YamlComment("Game difficulty")
+    @YamlComment("Game difficulty\nDimensionless positive coefficient")
     public Double difficulty;
 
     /**
@@ -58,7 +72,7 @@ public class Metadata {
     /**
      * Recommended players number  (min-max)
      */
-    @YamlComment("Recommended number of players")
+    @YamlComment("Recommended number of players (min-max)")
     public IntInterval playersNum;
 
     public String getTitle() {
@@ -131,5 +145,14 @@ public class Metadata {
 
     public void setPlayersNum(IntInterval playersNum) {
         this.playersNum = playersNum;
+    }
+
+    @Override
+    public String toString() {
+        return "ScriptMetadata{" +
+                "schema='" + schema + '\'' +
+                ", uuid='" + uuid + '\'' +
+                ", title='" + title + '\'' +
+                '}';
     }
 }

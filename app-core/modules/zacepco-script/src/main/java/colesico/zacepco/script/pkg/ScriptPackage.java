@@ -1,7 +1,7 @@
 package colesico.zacepco.script.pkg;
 
-import colesico.zacepco.script.model.entity.EntityId;
-import colesico.zacepco.script.model.entity.EntityType;
+import colesico.zacepco.script.model.setting.EntityId;
+import colesico.zacepco.script.model.setting.EntityType;
 import jakarta.inject.Provider;
 
 import java.io.*;
