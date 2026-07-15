@@ -10,7 +10,7 @@ abstract public class InvestigationAction {
     /**
      * Cost of investigation action on subject
      */
-    @YamlComment("Cost of investigation action on subject")
+    @YamlComment("Cost (resource units) of investigation action on subject ")
     public Integer cost;
 
     /**

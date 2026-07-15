@@ -24,7 +24,7 @@ setting:
       interaction:
         - location: L1
         - location: L2
-          personages: [P2]
+          clue: C2
       hidden: false
   scene:
     size: { cols: 2, rows: 3 }
@@ -50,8 +50,7 @@ setting:
       description: |
         Окурок сигареты марки Camel
       falsity: true
-      open:
-        - L2
+      open: [L2]
 investigation:
   budget: 9
   randFactor: 1
@@ -63,11 +62,8 @@ investigation:
     locations:
       - location: L3
         clues:
-          - focus:
-              - C3
-              - P5
-              - T2
-            threshold: 8
+          - focus: [C3, P5, T2]
+            threshold: 8.1
             clue: C5
   interrogation:
     cost: 4
@@ -77,11 +73,8 @@ investigation:
     personages:
       - personage: P1
         clues:
-          - focus:
-              - T4
-              - P1
-              - L4
-            threshold: 7
+          - focus: [T4, P1, L4]
+            threshold: 7.0
             clue: C6
   expertise:
     cost: 5
@@ -89,11 +82,7 @@ investigation:
     focusLimit: 3
     statCost: -1
     clues:
-      - focus:
-          - C1
-          - C2
-          - P3
-          - L4
+      - focus: [C1, C2, P3, L4]
         threshold: 3
         clue: C6
   answers:

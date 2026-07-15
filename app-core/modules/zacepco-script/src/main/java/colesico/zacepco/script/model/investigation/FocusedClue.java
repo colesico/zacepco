@@ -14,7 +14,7 @@ public class FocusedClue {
     /**
      * Clue discovery threshold
      */
-    public Integer threshold;
+    public Double threshold;
 
     /**
      * Target clue
@@ -29,11 +29,11 @@ public class FocusedClue {
         this.focus = focus;
     }
 
-    public Integer getThreshold() {
+    public Double getThreshold() {
         return threshold;
     }
 
-    public void setThreshold(Integer threshold) {
+    public void setThreshold(Double threshold) {
         this.threshold = threshold;
     }
 

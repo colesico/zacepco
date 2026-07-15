@@ -14,16 +14,9 @@ public class PersonageInteraction {
     public LocationId location;
 
     /**
-     * Personages with whom this character interacted.
-     * For example: saw, said something, transferred, received, etc.
+     * The clue the character interacted with
      */
-    public List<PersonageId> personages;
-
-    /**
-     * Personages with whom this character interacted.
-     * For example: saw, said something, transferred, received, etc.
-     */
-    public List<ClueId> clues;
+    public ClueId clue;
 
     public LocationId getLocation() {
         return location;
@@ -33,19 +26,11 @@ public class PersonageInteraction {
         this.location = location;
     }
 
-    public List<PersonageId> getPersonages() {
-        return personages;
+    public ClueId getClue() {
+        return clue;
     }
 
-    public void setPersonages(List<PersonageId> personages) {
-        this.personages = personages;
-    }
-
-    public List<ClueId> getClues() {
-        return clues;
-    }
-
-    public void setClues(List<ClueId> clues) {
-        this.clues = clues;
+    public void setClue(ClueId clue) {
+        this.clue = clue;
     }
 }

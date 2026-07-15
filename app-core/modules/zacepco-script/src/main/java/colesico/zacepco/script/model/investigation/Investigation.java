@@ -10,7 +10,7 @@ public class Investigation {
     /**
      * Investigation budget (resource)
      */
-    @YamlComment("Investigation budget")
+    @YamlComment("Investigation budget in resource units")
     public Integer budget;
 
     /**
