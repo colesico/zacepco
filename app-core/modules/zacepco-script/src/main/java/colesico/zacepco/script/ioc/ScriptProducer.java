@@ -37,7 +37,7 @@ public class ScriptProducer {
         dumperOptions.setDefaultFlowStyle(DumperOptions.FlowStyle.BLOCK);
         dumperOptions.setPrettyFlow(true);
         dumperOptions.setIndent(2);
-        dumperOptions.setProcessComments(true); // Теперь этот флаг применится!
+        dumperOptions.setProcessComments(true);
 
         Representer representer = new YamlCustomRepresenter(dumperOptions);
         representer.addClassTag(Script.class, Tag.MAP);

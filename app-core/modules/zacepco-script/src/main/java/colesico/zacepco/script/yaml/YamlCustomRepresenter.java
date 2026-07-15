@@ -73,6 +73,24 @@ public class YamlCustomRepresenter extends Representer {
         return node;
     }
 
+    @Override
+    protected NodeTuple representJavaBeanProperty(
+            Object javaBean, Property property, Object propertyValue, Tag customTag) {
+
+        if (propertyValue == null) {
+            return null;
+        }
+
+        if (propertyValue instanceof java.util.Collection && ((java.util.Collection<?>) propertyValue).isEmpty()) {
+            return null;
+        }
+        if (propertyValue instanceof java.util.Map && ((java.util.Map<?, ?>) propertyValue).isEmpty()) {
+            return null;
+        }
+
+        return super.representJavaBeanProperty(javaBean, property, propertyValue, customTag);
+    }
+
 
     private class RepresentLocalDate implements Represent {
         @Override

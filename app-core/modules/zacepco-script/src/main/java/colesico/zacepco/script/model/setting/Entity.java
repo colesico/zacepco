@@ -1,5 +1,6 @@
 package colesico.zacepco.script.model.setting;
 
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -25,6 +26,11 @@ public abstract class Entity<ID extends EntityId> {
      */
     public String description;
 
+    /**
+     * Placeholder values for target basic entity
+     */
+    public Map<String,String> placeholders;
+
     public ID getId() {
         return id;
     }
@@ -47,6 +53,14 @@ public abstract class Entity<ID extends EntityId> {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Map<String, String> getPlaceholders() {
+        return placeholders;
+    }
+
+    public void setPlaceholders(Map<String, String> placeholders) {
+        this.placeholders = placeholders;
     }
 
     @Override

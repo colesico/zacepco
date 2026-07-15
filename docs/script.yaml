@@ -51,6 +51,10 @@ setting:
         Окурок сигареты марки Camel
       falsity: true
       open: [L2]
+    - id: C2
+      placeholders:
+        P: P2 (Горничная)
+        L: L3 (Гараж)
 investigation:
   budget: 9
   randFactor: 1
