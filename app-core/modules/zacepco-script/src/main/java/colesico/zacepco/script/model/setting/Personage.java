@@ -1,5 +1,7 @@
 package colesico.zacepco.script.model.setting;
 
+import colesico.zacepco.script.yaml.YamlComment;
+
 import java.util.List;
 
 /**
@@ -10,12 +12,15 @@ public class Personage extends Entity<PersonageId> {
     /**
      * Hidden personage or not
      */
+    @YamlComment("Hidden personage or not")
     public Boolean hidden;
 
     /**
-     * Track of personage movement across locations for each  time tick
+     * Personage-entity interaction for each time tick.
      */
-    public List<LocationId> track;
+    @YamlComment("Personage-entity interaction for each time tick\n" +
+            "Used to verify the investigation's findings")
+    public List<PersonageInteraction> interaction;
 
     public Boolean getHidden() {
         return hidden;
@@ -25,11 +30,11 @@ public class Personage extends Entity<PersonageId> {
         this.hidden = hidden;
     }
 
-    public List<LocationId> getTrack() {
-        return track;
+    public List<PersonageInteraction> getInteraction() {
+        return interaction;
     }
 
-    public void setTrack(List<LocationId> track) {
-        this.track = track;
+    public void setInteraction(List<PersonageInteraction> interaction) {
+        this.interaction = interaction;
     }
 }

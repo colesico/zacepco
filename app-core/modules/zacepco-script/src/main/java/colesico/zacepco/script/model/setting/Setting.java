@@ -20,8 +20,8 @@ public class Setting {
     /**
      * Characters dictionary
      */
-    @YamlComment("Character dictionary.\n" +
-            "Defines all characters involved in the crime")
+    @YamlComment("Personages dictionary.\n" +
+            "Defines all personages involved in the crime")
     public List<Personage> personages;
 
     /**
@@ -33,7 +33,7 @@ public class Setting {
     /**
      * Clues dictionary
      */
-    @YamlComment("Clue dictionary")
+    @YamlComment("Clues dictionary")
     public List<Clue> clues;
 
     public Integer getCrimeDuration() {
