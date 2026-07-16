@@ -16,9 +16,6 @@ public class Transition {
     @YamlComment(text = "Other location id")
     public LocationId to;
 
-    @YamlComment(text = "Transition description")
-    public String description;
-
     /**
      * Is hidden passage
      */
@@ -43,14 +40,6 @@ public class Transition {
 
     public void setTo(LocationId to) {
         this.to = to;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public Boolean getHidden() {

@@ -1,0 +1,145 @@
+#
+# Script template
+#
+meta:
+  schema: 1.0.0
+  uuid: 7f56fb1f-5f03-41ef-ae9c-4ef99fbcf7d9
+  title: Script document template
+  annotation: >
+    The template defines the reference model of the script document 
+    and serves as a basis for script creation
+  authors:
+    - Vladlen V. Larionov
+  licence: CC BY 4.0
+  created: 2026-01-01
+  version: 1
+  difficulty: 0
+  estimatedTime: { min: 5, max: 10 }
+  playersNum: { min: 1, max: 5 }
+
+include:
+  - uuid: 00000000-0000-0000-0000-000000000000
+    alias: generic
+
+setting:
+  crimeDuration: 2
+  personages:
+    - id: P1
+      name: Butler
+      description: >
+        Knows all the secrets and secret passages, 
+        is cold-blooded, has keys to every room, 
+        and has the perfect motive for murder.
+      revealedClues: [ C1 ]
+      track:
+        - location: L1
+        - location: L2
+          clue: C2
+    - id: P2
+      name: Maid
+      revealedClues: [ C2 ]
+      reference:
+        script: generic
+        entity: P3
+      log:
+        - location: L2
+          clue: C1
+        - location: L1
+      hidden: true
+      vars:
+        ADDITIONAL_INFO: Has a blond hair
+
+  scene:
+    size: { cols: 2, rows: 2 }
+    locations:
+      - id: L1
+        name: Cabinet
+        description: >
+          A gloomy study with dark shadows 
+          shaped like Rorschach blots.
+        pos: { col: 1, row: 1 }
+        log:
+          - personages: [ P1 ]
+          - personages: [ P2 ]
+      - id: L2
+        name: Library
+        pos: { col: 1, row: 2 }
+        reference:
+          script: generic
+          entity: L8
+        vars:
+          CONDITIONS: No lighting
+        log:
+          - personages: [ P2 ]
+            clues: [ C1,C2 ]
+          - personages: [ P1 ]
+      - id: L3
+        name: Basement
+        pos: { col: 2, row: 1 }
+        reference:
+          script: generic
+          entity: L10
+        log:
+          - ~
+          - ~
+        hidden: true
+
+    transitions:
+      - from: L1
+        to: L2
+      - from: L2
+        to: L3
+        hidden: true
+
+  clues:
+    - id: C1
+      name: Butt
+      description: >
+        A Camel cigarette butt
+      falsity: true
+      open: [ L2 ]
+    - id: C2
+      reference:
+        script: generic
+        entity: C4
+      vars:
+        P: $P1
+        L: L3
+investigation:
+  budget: 9
+  randFactor: 1
+  search:
+    cost: 3
+    points: 2
+    focusLimit: 3
+    statCost: -1
+    locations:
+      - location: L3
+        clues:
+          - focus: [ C3, P2, T2 ]
+            threshold: 8.1
+            clue: C1
+  interrogation:
+    cost: 4
+    points: 3
+    focusLimit: 3
+    statCost: -1
+    personages:
+      - personage: P1
+        clues:
+          - focus: [ T2, P1, L3 ]
+            threshold: 7.0
+            clue: C2
+  expertise:
+    cost: 5
+    points: 5
+    focusLimit: 3
+    statCost: -1
+    clues:
+      - focus: [ C1, C2, P3, L2 ]
+        threshold: 3
+        clue: C6
+  answers:
+    fabula: >
+      А было все так...
+    strategy: null

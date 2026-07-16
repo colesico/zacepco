@@ -26,8 +26,9 @@ public class ScriptTest {
         ScriptReader reader = ioc.instance(ScriptReader.class);
 
         // Initial script document
-        var scriptFile = "../../../docs/script.yaml";
-        Script script = reader.read(new File(scriptFile));
+        var scriptFile = "script.yaml";
+        var classLoader = Thread.currentThread().getContextClassLoader();
+        Script script = reader.read(classLoader.getResourceAsStream(scriptFile));
 
         try (ScriptPackage scriptPackage = ioc.instance(ScriptPackage.class)) {
             ScriptResource scriptResource = scriptPackage.script();
@@ -45,9 +46,9 @@ public class ScriptTest {
         var packageFile = "../../../scripts/default.zip";
         try (ScriptPackage scriptPackage = ioc.instance(ScriptPackage.class)) {
             scriptPackage.importFrom(new File(packageFile));
-            var resList  = scriptPackage.packageManager().listResources();
-            for (ResourcePath rp:resList){
-                IO.println("resource: "+rp.value());
+            var resList = scriptPackage.packageManager().listResources();
+            for (ResourcePath rp : resList) {
+                IO.println("resource: " + rp.value());
             }
 
             Path targetPath = Paths.get(System.getProperty("user.dir"));

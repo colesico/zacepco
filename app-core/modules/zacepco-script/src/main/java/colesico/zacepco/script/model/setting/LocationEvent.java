@@ -17,7 +17,7 @@ public class LocationEvent {
     /**
      * The clues the location interacted with
      */
-    @YamlComment(text = "Clue the location interacted with")
+    @YamlComment(text = "Clue associated with the location")
     public List<ClueId> clues;
 
     public List<PersonageId> getPersonages() {
