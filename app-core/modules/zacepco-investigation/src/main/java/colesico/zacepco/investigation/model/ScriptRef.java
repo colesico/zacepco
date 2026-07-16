@@ -22,16 +22,28 @@ public class ScriptRef {
     private Long userId;
 
     /**
+     * Script uuid
+     */
+    @Column
+    public String uuid;
+
+    /**
+     * Script title
+     */
+    @Column
+    public String title;
+
+    /**
+     * Crime brief description
+     */
+    @Column
+    public String annotation;
+
+    /**
      * Reference creation date
      */
     @Column
     private Date created;
-
-    /**
-     * Meta data reference
-     */
-    @Composition
-    private ScriptMetaRef meta;
 
     public Long getId() {
         return id;
@@ -49,6 +61,29 @@ public class ScriptRef {
         this.userId = userId;
     }
 
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getAnnotation() {
+        return annotation;
+    }
+
+    public void setAnnotation(String annotation) {
+        this.annotation = annotation;
+    }
 
     public Date getCreated() {
         return created;
@@ -56,13 +91,5 @@ public class ScriptRef {
 
     public void setCreated(Date created) {
         this.created = created;
-    }
-
-    public ScriptMetaRef getMeta() {
-        return meta;
-    }
-
-    public void setMeta(ScriptMetaRef meta) {
-        this.meta = meta;
     }
 }

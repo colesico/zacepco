@@ -12,10 +12,10 @@ import java.util.List;
 @Service
 public class ScriptService {
 
-    private final Supplier<ScriptPackage> scriptPackageSupplier;
+    private final Supplier<ScriptPackage> scriptPackage;
 
-    public ScriptService(Supplier<ScriptPackage> scriptPackageSupplier) {
-        this.scriptPackageSupplier = scriptPackageSupplier;
+    public ScriptService(Supplier<ScriptPackage> scriptPackage) {
+        this.scriptPackage = scriptPackage;
     }
 
     /**
@@ -52,6 +52,6 @@ public class ScriptService {
      * Get Script package helper
      */
     public ScriptPackage pkg(Long id) {
-        return scriptPackageSupplier.get(Paths.get(""));
+        return scriptPackage.get(Paths.get(""));
     }
 }

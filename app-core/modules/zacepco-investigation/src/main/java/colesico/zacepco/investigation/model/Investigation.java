@@ -27,6 +27,12 @@ public class Investigation {
     private InvestigationStatus status;
 
     /**
+     * Current amount of resource for investigation
+     */
+    @Column
+    private Integer resource;
+
+    /**
      * Script ref
      *
      * @see ScriptRef
@@ -35,22 +41,10 @@ public class Investigation {
     private Long scriptId;
 
     /**
-     * Script title
-     */
-    @Column
-    private String scriptTitle;
-
-    /**
      * When investigation entity was created
      */
     @Column
     private Date created;
-
-    /**
-     * Current amount of resource for investigation
-     */
-    @Column
-    private Integer resource;
 
     public Long getId() {
         return id;
@@ -76,6 +70,14 @@ public class Investigation {
         this.status = status;
     }
 
+    public Integer getResource() {
+        return resource;
+    }
+
+    public void setResource(Integer resource) {
+        this.resource = resource;
+    }
+
     public Long getScriptId() {
         return scriptId;
     }
@@ -90,21 +92,5 @@ public class Investigation {
 
     public void setCreated(Date created) {
         this.created = created;
-    }
-
-    public Integer getResource() {
-        return resource;
-    }
-
-    public void setResource(Integer resource) {
-        this.resource = resource;
-    }
-
-    public String getScriptTitle() {
-        return scriptTitle;
-    }
-
-    public void setScriptTitle(String scriptTitle) {
-        this.scriptTitle = scriptTitle;
     }
 }

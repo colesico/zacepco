@@ -13,13 +13,14 @@ public class Detective {
     private Long id;
 
     /**
-     * User who can play detective role
+     * User who play detective role
      */
     @Column
     private Long userId;
 
     /**
      * Investigation ref
+     * @see Investigation
      */
     @Column
     private Long investigationId;

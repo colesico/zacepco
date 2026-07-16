@@ -9,6 +9,9 @@ public class LocationRef {
 
     private Long id;
 
+    /**
+     * @see Investigation
+     */
     private Long investigationId;
 
     private LocationId locationId;
