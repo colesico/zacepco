@@ -5,6 +5,7 @@ import colesico.framework.ioc.production.Classed;
 import colesico.framework.ioc.production.Produce;
 import colesico.framework.ioc.production.Producer;
 import colesico.framework.ioc.production.Supplier;
+import colesico.framework.ioc.scope.Unscoped;
 import colesico.zacepco.script.model.script.Script;
 import colesico.zacepco.script.pkg.ScriptWriter;
 import colesico.zacepco.script.yaml.YamlCustomConstructor;
@@ -30,6 +31,7 @@ import java.nio.file.Path;
 @Produce(DefaultPackageManager.class)
 public class ScriptProducer {
 
+    @Unscoped
     public Yaml yaml() {
         Constructor constructor = new YamlCustomConstructor();
 

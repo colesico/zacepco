@@ -1,5 +1,7 @@
 package colesico.zacepco.script.model.investigation;
 
+import colesico.zacepco.script.yaml.YamlComment;
+
 import java.util.List;
 
 /**
@@ -7,13 +9,14 @@ import java.util.List;
  */
 public class Interrogation extends InvestigationAction {
 
-    public List<InterrogationPersonage> personages;
+    @YamlComment(text = "Personage to be interrogate")
+    public List<PersonageInterrogation> personages;
 
-    public List<InterrogationPersonage> getPersonages() {
+    public List<PersonageInterrogation> getPersonages() {
         return personages;
     }
 
-    public void setPersonages(List<InterrogationPersonage> personages) {
+    public void setPersonages(List<PersonageInterrogation> personages) {
         this.personages = personages;
     }
 }

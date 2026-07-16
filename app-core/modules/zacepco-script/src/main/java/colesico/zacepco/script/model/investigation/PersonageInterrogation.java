@@ -1,19 +1,22 @@
 package colesico.zacepco.script.model.investigation;
 
 import colesico.zacepco.script.model.setting.PersonageId;
+import colesico.zacepco.script.yaml.YamlComment;
 
 import java.util.List;
 
 /**
  * Personage interrogation
  */
-public class InterrogationPersonage {
+public class PersonageInterrogation {
 
     /**
      * Personage Id
      */
+    @YamlComment(text = "Personage ID")
     public PersonageId personage;
 
+    @YamlComment(text = "Personage clues")
     public List<FocusedClue> clues;
 
     public PersonageId getPersonage() {

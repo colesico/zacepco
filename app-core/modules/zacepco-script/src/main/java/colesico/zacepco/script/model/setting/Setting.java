@@ -14,26 +14,38 @@ public class Setting {
     /**
      * Crime duration in ticks
      */
-    @YamlComment("Crime duration in ticks")
+    @YamlComment(text = "Crime duration in ticks")
     public Integer crimeDuration;
 
     /**
      * Characters dictionary
      */
-    @YamlComment("Personages dictionary.\n" +
-            "Defines all personages involved in the crime")
+    @YamlComment(text = {
+            "",
+            "Personages dictionary.",
+            "Defines all personages involved in the crime",
+            ""
+    })
     public List<Personage> personages;
 
     /**
      * Scene
      */
-    @YamlComment("Crime scene definition")
+    @YamlComment(text = {
+            "",
+            "Crime scene definition",
+            ""
+    })
     public Scene scene;
 
     /**
      * Clues dictionary
      */
-    @YamlComment("Clues dictionary")
+    @YamlComment(text = {
+            "",
+            "Clues dictionary",
+            ""
+    })
     public List<Clue> clues;
 
     public Integer getCrimeDuration() {

@@ -13,13 +13,16 @@ public class ScriptMetadata {
     /**
      * Script schema version (<a href="https://semver.org/">SemVer</a>)
      */
-    @YamlComment("Script schema version (data model version)")
+    @YamlComment(text = {
+            "Script schema version (data model version)",
+            "SimVer notation (i.e. 1.2.3)"
+    })
     public String schema;
 
     /**
      * Universally Unique Identifier
      */
-    @YamlComment("Universally unique identifier (UUID) of the script")
+    @YamlComment(text = "Universally unique identifier (UUID) of the script")
     public String uuid;
 
 
@@ -31,48 +34,52 @@ public class ScriptMetadata {
     /**
      * Crime brief description
      */
-    @YamlComment("A brief script summary without spoilers")
-    public String description;
+    @YamlComment(text = "A brief script summary without spoilers")
+    public String annotation;
 
     /**
      * Script authors
      */
+    @YamlComment(text = "Script authors")
     public String[] authors;
 
     /**
      * Script licence name i.e. CC BY 4.0
      */
-    @YamlComment("License under which the script is distributed")
+    @YamlComment(text = "License under which the script is distributed")
     public String licence;
 
     /**
      * Script creation date
      */
-    @YamlComment("Script creation date YYYY-MM-DD")
+    @YamlComment(text = "Script creation date YYYY-MM-DD")
     public LocalDate created;
 
     /**
      * Script content version (1..N)
      */
-    @YamlComment("Script version")
+    @YamlComment(text = "Script version (1..N)")
     public Integer version;
 
     /**
      * Estimated difficulty level
      */
-    @YamlComment("Game difficulty\nDimensionless positive coefficient")
+    @YamlComment(text = {
+            "Game difficulty",
+            "Dimensionless positive coefficient"
+    })
     public Double difficulty;
 
     /**
      * Estimated  time to play in minutes  (min-max)
      */
-    @YamlComment("Estimated playtime, minutes")
+    @YamlComment(text = "Estimated playtime, minutes")
     public IntInterval estimatedTime;
 
     /**
      * Recommended players number  (min-max)
      */
-    @YamlComment("Recommended number of players (min-max)")
+    @YamlComment(text = "Recommended number of players (min-max)")
     public IntInterval playersNum;
 
     public String getTitle() {
@@ -83,12 +90,12 @@ public class ScriptMetadata {
         this.title = title;
     }
 
-    public String getDescription() {
-        return description;
+    public String getAnnotation() {
+        return annotation;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setAnnotation(String annotation) {
+        this.annotation = annotation;
     }
 
     public String[] getAuthors() {

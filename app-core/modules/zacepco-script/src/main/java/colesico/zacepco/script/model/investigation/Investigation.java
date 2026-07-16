@@ -10,7 +10,7 @@ public class Investigation {
     /**
      * Investigation budget (resource)
      */
-    @YamlComment("Investigation budget in resource units")
+    @YamlComment(text = {"Investigation budget in resource units"})
     public Integer budget;
 
     /**
@@ -18,26 +18,40 @@ public class Investigation {
      * New_Threshold = Table_Threshold/(12 * randomnessFactor)
      * Default = 1
      */
-    @YamlComment("Randomness factor [1..0].\n" +
-            "Used to recalculate table thresholds to adjust randomness.\n" +
-            "New_threshold = Table_threshold/(12 * randomnessFactor) Default = 1")
+    @YamlComment(text = {
+            "Randomness factor [1..0].",
+            "Used to recalculate investigation table thresholds to adjust randomness.",
+            "New_threshold = Table_threshold/(12 * randFactor) Default = 1"
+    })
     public Double randFactor;
 
     /**
      * Location search
      */
-    @YamlComment("Location search specification")
+    @YamlComment(text = {
+            "",
+            "Location search specification",
+            ""
+    })
     public Search search;
 
     /**
      * Personage interrogation
      */
-    @YamlComment("Personage interrogation specification")
+    @YamlComment(text = {
+            "",
+            "Personage interrogation specification",
+            ""
+    })
     public Interrogation interrogation;
 
     /**
      * Forensic laboratory examination
      */
-    @YamlComment("Forensic laboratory examination specification")
+    @YamlComment(text = {
+            "",
+            "Forensic laboratory examination specification",
+            ""
+    })
     public Interrogation expertise;
 }

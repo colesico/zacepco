@@ -1,17 +1,19 @@
 package colesico.zacepco.script.model.investigation;
 
 import colesico.zacepco.script.model.setting.LocationId;
+import colesico.zacepco.script.yaml.YamlComment;
 
 import java.util.List;
 
 /**
  * Location search
  */
-public class SearchLocation {
+public class LocationSearch {
 
     /**
      * Location to be search
      */
+    @YamlComment(text = "Location to be search")
     public LocationId location;
 
     /**

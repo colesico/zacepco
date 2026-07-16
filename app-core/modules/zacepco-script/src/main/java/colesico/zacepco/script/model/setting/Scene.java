@@ -9,20 +9,23 @@ public class Scene {
     /**
      * Scene size
      */
-    @YamlComment("Scene grid size for locations placement")
+    @YamlComment(text = "Grid size for locations placement")
     public SceneSize size;
 
     /**
      * Locations dictionary
      */
-    @YamlComment("Scene locations dictionary")
+    @YamlComment(text = "Locations dictionary")
     public List<Location> locations;
 
     /**
      * Passages dictionary
      */
-    @YamlComment("Passages between locations")
-    public List<Passage> passages;
+    @YamlComment(text = {
+            "Transition between two locations. ",
+            "Transition always connects only two locations, direction does not matter."
+    })
+    public List<Transition> transitions;
 
     public SceneSize getSize() {
         return size;
@@ -40,11 +43,11 @@ public class Scene {
         this.locations = locations;
     }
 
-    public List<Passage> getPassages() {
-        return passages;
+    public List<Transition> getPassages() {
+        return transitions;
     }
 
-    public void setPassages(List<Passage> passages) {
-        this.passages = passages;
+    public void setPassages(List<Transition> transitions) {
+        this.transitions = transitions;
     }
 }

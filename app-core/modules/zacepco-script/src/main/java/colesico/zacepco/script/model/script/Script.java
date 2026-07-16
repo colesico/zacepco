@@ -4,6 +4,8 @@ import colesico.zacepco.script.model.setting.Setting;
 import colesico.zacepco.script.model.investigation.Investigation;
 import colesico.zacepco.script.yaml.YamlComment;
 
+import java.util.List;
+
 /**
  * Script document
  */
@@ -12,26 +14,49 @@ public class Script {
     /**
      * Meta information
      */
-    @YamlComment("Script meta information")
+    @YamlComment(text = {
+            "",
+            "Script meta information.",
+            ""
+    })
     public ScriptMetadata meta;
+
+    @YamlComment(text = {
+            "",
+            "Imported scripts",
+            "",
+    })
+    public List<ScriptReference> include;
 
     /**
      * Environment spec
      */
-    @YamlComment("Crime setting specification\n" +
-            "Describes entire crime environment")
+    @YamlComment(text = {
+            "",
+            "Crime setting specification.",
+            "Describes entire crime environment.",
+            ""
+    })
     public Setting setting;
 
     /**
      * Investigation spec
      */
-    @YamlComment("Investigation specification")
+    @YamlComment(text = {
+            "",
+            "Investigation specification.",
+            ""
+    })
     public Investigation investigation;
 
     /**
      * General answers
      */
-    @YamlComment("General answers")
+    @YamlComment(text = {
+            "",
+            "General answers.",
+            ""
+    })
     public Answers answers;
 
     public ScriptMetadata getMeta() {
@@ -64,6 +89,14 @@ public class Script {
 
     public void setAnswers(Answers answers) {
         this.answers = answers;
+    }
+
+    public List<ScriptReference> getInclude() {
+        return include;
+    }
+
+    public void setInclude(List<ScriptReference> include) {
+        this.include = include;
     }
 
     @Override

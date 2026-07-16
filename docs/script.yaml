@@ -2,7 +2,7 @@ meta:
   schema: 1.0.0
   uuid: 7f56fb1f-5f03-41ef-ae9c-4ef99fbcf7d9
   title: Шаблон документа сценария
-  description: |
+  annotation: |
     Шаблон поясняет назначенеи разделов
     и полей сценария.
   authors:
@@ -13,6 +13,11 @@ meta:
   difficulty: 0
   estimatedTime: { min: 30, max: 50 }
   playersNum: { min: 1, max: 5 }
+
+include:
+  - uuid: 00000000-0000-0000-0000-000000000000
+    alias: base
+
 setting:
   crimeDuration: 5
   personages:
@@ -21,11 +26,21 @@ setting:
       description: |
         Встает рано по утрам.
         Вечерами любит выпить.
-      interaction:
+      revealedClues: [C1]  
+      track:
         - location: L1
         - location: L2
           clue: C2
-      hidden: false
+    - id: P2
+      name: Горничная
+      description: |
+        Встает рано по утрам.
+        Вечерами любит выпить.
+      log:
+        - location: L1
+        - location: L2
+          clue: C2
+      hidden: true  
   scene:
     size: { cols: 2, rows: 3 }
     locations:
@@ -34,15 +49,20 @@ setting:
         description: |
           Мрачный кабинет с темными тенями
             в форме клякс Роршаха
-          # Позиция расположения локации на сетке сцены
-          pos: { col: 1, row: 4 }
-          # Скрытая ли сцена. По умолчанию = false
         pos: { col: 1, row: 2 }
-        hidden: false
-    passages:
+        log:
+          - personages: [P1]
+      - id: L2
+        reference:
+          script: base
+          entity: L18    
+    transitions:
       - from: L1
         to: L2
         hidden: true
+      - form: L2
+        to: L3
+        description: Расстояние 10 км.  
 
   clues:
     - id: C1

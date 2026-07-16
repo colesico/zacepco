@@ -1,21 +1,24 @@
 package colesico.zacepco.script.model.setting;
 
-import java.util.List;
+import colesico.zacepco.script.yaml.YamlComment;
+
 
 /**
- * Personage-entity interaction log.
- * Contains IDs of entities interacted with by personage per tick.
+ * Personage event.
+ * Contains information about interactions with other entities at given time tick.
  * Used to verify the investigation's findings.
  */
-public class PersonageInteraction {
+public class PersonageEvent {
     /**
      * The location the character was inside.
      */
+    @YamlComment(text = "Location the character was inside")
     public LocationId location;
 
     /**
      * The clue the character interacted with
      */
+    @YamlComment(text = "Clue the character interacted with")
     public ClueId clue;
 
     public LocationId getLocation() {

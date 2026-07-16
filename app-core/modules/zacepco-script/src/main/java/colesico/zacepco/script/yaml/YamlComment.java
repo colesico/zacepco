@@ -8,5 +8,6 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
 public @interface YamlComment {
-    String value();
+    String[] text();
+    boolean oneTime() default true;
 }

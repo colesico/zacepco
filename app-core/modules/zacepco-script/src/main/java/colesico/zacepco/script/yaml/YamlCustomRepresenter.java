@@ -16,11 +16,11 @@ import org.yaml.snakeyaml.representer.Representer;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class YamlCustomRepresenter extends Representer {
+
+    private Set<String> oneTimeComments = new HashSet<>();
 
     public YamlCustomRepresenter(DumperOptions options) {
         super(options);
@@ -47,30 +47,50 @@ public class YamlCustomRepresenter extends Representer {
 
     @Override
     protected MappingNode representJavaBean(Set<Property> properties, Object javaBean) {
-        MappingNode node = super.representJavaBean(properties, javaBean);
+        MappingNode mappingNode = super.representJavaBean(properties, javaBean);
+        List<NodeTuple> tuples = mappingNode.getValue();
 
-        List<Property> propList = new ArrayList<>(properties);
-        List<NodeTuple> tuples = node.getValue();
+        Map<String, Property> propertyMap = new HashMap<>();
+        for (Property prop : properties) {
+            propertyMap.put(prop.getName(), prop);
+        }
 
-        for (int i = 0; i < tuples.size(); i++) {
-            if (i >= propList.size()) break;
+        for (NodeTuple tuple : tuples) {
+            Node keyNode = tuple.getKeyNode();
 
-            Property prop = propList.get(i);
-            YamlComment ann = prop.getAnnotation(YamlComment.class);
+            if (keyNode instanceof ScalarNode) {
+                String propertyName = ((ScalarNode) keyNode).getValue();
+                Property prop = propertyMap.get(propertyName);
 
-            if (ann != null) {
-                Node keyNode = tuples.get(i).getKeyNode();
-                String[] commentStrs = ann.value().split("\\R");
+                if (prop == null) {
+                    continue;
+                }
+
+                YamlComment ann = prop.getAnnotation(YamlComment.class);
+                if (ann == null) {
+                    continue;
+                }
+
+                if (ann.oneTime()) {
+                    String commentKey = String.join("|", ann.text());
+                    if (!oneTimeComments.add(commentKey)) {
+                        continue;
+                    }
+                }
+
                 List<CommentLine> commentLines = new ArrayList<>();
-                for (var commentStr : commentStrs) {
+                for (var commentStr : ann.text()) {
                     commentLines.add(new CommentLine(
-                            null, null, " " + commentStr, CommentType.BLOCK)
+                            null, null, " " + commentStr.trim(), CommentType.BLOCK)
                     );
                 }
-                keyNode.setBlockComments(commentLines);
+
+                if (!commentLines.isEmpty()) {
+                    keyNode.setBlockComments(commentLines);
+                }
             }
         }
-        return node;
+        return mappingNode;
     }
 
     @Override

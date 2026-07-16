@@ -12,7 +12,7 @@ public class Expertise extends InvestigationAction {
     /**
      * Clues to be examined
      */
-    @YamlComment("Examined clues")
+    @YamlComment(text = "Examined clues")
     public List<FocusedClue> clues;
 
     public List<FocusedClue> getClues() {

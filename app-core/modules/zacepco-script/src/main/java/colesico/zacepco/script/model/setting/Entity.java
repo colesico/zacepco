@@ -1,5 +1,7 @@
 package colesico.zacepco.script.model.setting;
 
+import colesico.zacepco.script.yaml.YamlComment;
+
 import java.util.Map;
 import java.util.Objects;
 
@@ -12,6 +14,7 @@ public abstract class Entity<ID extends EntityId> {
     /**
      * Entity unique ID
      */
+    @YamlComment(text = "Unique ID")
     public ID id;
 
     /**
@@ -21,15 +24,28 @@ public abstract class Entity<ID extends EntityId> {
 
     /**
      * Detailed description.
-     * Entity identifiers can be specified in the description for references.
-     * The identifier is specified starting with a '$' prefix.
+     * Entity identifiers and placeholders can be specified with a '$' prefix.
+     * Examples: Location is $L2. Personage say $MSG
      */
+    @YamlComment(text = {
+            "Detailed description.",
+            "Entity identifiers and placeholders can be specified with a '$' prefix.",
+            "Examples: Location is $L2. Personage say $MSG"
+    })
     public String description;
 
+    @YamlComment(text = "Entity reference")
+    public EntityReference reference;
+
     /**
-     * Placeholder values for target basic entity
+     * Placeholder values
      */
-    public Map<String,String> placeholders;
+    @YamlComment(text = {
+            "Placeholders definitions",
+            "Placeholders can be used in entity texts referenced by '$' prefix",
+            "Examples: CALIBRE: .37. Then in clue description: Gun calibre $CALIBRE"
+    })
+    public Map<String, String> placeholders;
 
     public ID getId() {
         return id;
@@ -61,6 +77,14 @@ public abstract class Entity<ID extends EntityId> {
 
     public void setPlaceholders(Map<String, String> placeholders) {
         this.placeholders = placeholders;
+    }
+
+    public EntityReference getReference() {
+        return reference;
+    }
+
+    public void setReference(EntityReference reference) {
+        this.reference = reference;
     }
 
     @Override

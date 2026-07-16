@@ -1,12 +1,17 @@
 package colesico.zacepco.script.model.setting;
 
+import colesico.zacepco.script.yaml.YamlComment;
+
 /**
  * Scene size
  * @see LocationPos
  */
 public class SceneSize {
 
+    @YamlComment(text = "Rows number")
     public Integer rows;
+
+    @YamlComment(text = "Columns number")
     public Integer cols;
 
     public Integer getRows() {

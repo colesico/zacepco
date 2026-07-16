@@ -1,5 +1,7 @@
 package colesico.zacepco.script.model.investigation;
 
+import colesico.zacepco.script.yaml.YamlComment;
+
 import java.util.List;
 
 /**
@@ -10,13 +12,14 @@ public final class Search extends InvestigationAction {
     /**
      * Locations to be searched
      */
-    public List<SearchLocation> locations;
+    @YamlComment(text = "Locations to be searched")
+    public List<LocationSearch> locations;
 
-    public List<SearchLocation> getLocations() {
+    public List<LocationSearch> getLocations() {
         return locations;
     }
 
-    public void setLocations(List<SearchLocation> locations) {
+    public void setLocations(List<LocationSearch> locations) {
         this.locations = locations;
     }
 }
