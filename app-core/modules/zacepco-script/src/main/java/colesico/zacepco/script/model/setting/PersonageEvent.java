@@ -9,6 +9,7 @@ import colesico.zacepco.script.yaml.YamlComment;
  * Used to verify the investigation's findings.
  */
 public class PersonageEvent {
+
     /**
      * The location the character was inside.
      */
@@ -18,7 +19,10 @@ public class PersonageEvent {
     /**
      * The clue the character interacted with
      */
-    @YamlComment(text = "Clue the character interacted with")
+    @YamlComment(text = {
+            "Clue the character interacted with.",
+            "Reflects the change in the evidence interaction state - dropping, picking up, passing, ..."
+    })
     public ClueId clue;
 
     public LocationId getLocation() {

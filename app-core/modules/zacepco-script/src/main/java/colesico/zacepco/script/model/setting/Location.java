@@ -32,6 +32,7 @@ public class Location extends Entity<LocationId> {
      */
     @YamlComment(text = {
             "Location event log for each time tick",
+            "Each element of the array corresponds to a time tick, starting from 1.",
             "Used to verify the investigation's findings"
     })
     public List<LocationEvent> log;

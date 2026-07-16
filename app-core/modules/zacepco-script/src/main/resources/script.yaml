@@ -58,6 +58,7 @@ setting:
           A gloomy study with dark shadows 
           shaped like Rorschach blots.
         pos: { col: 1, row: 1 }
+        revealedClues: [ C3 ]
         log:
           - personages: [ P1 ]
           - personages: [ P2 ]
@@ -119,6 +120,7 @@ investigation:
           - focus: [ C3, P2, T2 ]
             threshold: 8.1
             clue: C1
+
   interrogation:
     cost: 4
     points: 3
@@ -139,7 +141,10 @@ investigation:
       - focus: [ C1, C2, P3, L2 ]
         threshold: 3
         clue: C6
-  answers:
-    fabula: >
-      А было все так...
-    strategy: null
+
+answers:
+  fabula: >
+    А было все так...
+  strategy:
+    - Search location L1
+    - P2 Interrogation

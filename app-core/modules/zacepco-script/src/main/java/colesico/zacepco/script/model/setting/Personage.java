@@ -23,6 +23,7 @@ public class Personage extends Entity<PersonageId> {
      */
     @YamlComment(text = {
             "Personage event log for each time tick",
+            "Each element of the array corresponds to a time tick, starting from 1.",
             "Used to verify the investigation's findings"
     })
     public List<PersonageEvent> log;

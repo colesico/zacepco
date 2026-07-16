@@ -53,5 +53,45 @@ public class Investigation {
             "Forensic laboratory examination specification",
             ""
     })
-    public Interrogation expertise;
+    public Expertise expertise;
+
+    public Integer getBudget() {
+        return budget;
+    }
+
+    public void setBudget(Integer budget) {
+        this.budget = budget;
+    }
+
+    public Double getRandFactor() {
+        return randFactor;
+    }
+
+    public void setRandFactor(Double randFactor) {
+        this.randFactor = randFactor;
+    }
+
+    public Search getSearch() {
+        return search;
+    }
+
+    public void setSearch(Search search) {
+        this.search = search;
+    }
+
+    public Interrogation getInterrogation() {
+        return interrogation;
+    }
+
+    public void setInterrogation(Interrogation interrogation) {
+        this.interrogation = interrogation;
+    }
+
+    public Expertise getExpertise() {
+        return expertise;
+    }
+
+    public void setExpertise(Expertise expertise) {
+        this.expertise = expertise;
+    }
 }
