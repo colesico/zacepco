@@ -1,22 +1,24 @@
 package colesico.zacepco.investigation.model;
 
 import colesico.framework.jdbirec.Column;
-import colesico.framework.jdbirec.Composition;
 import colesico.framework.jdbirec.Record;
 
 import java.util.Date;
 
 /**
- * Script reference model
+ * Script reference
  */
 @Record(table = "scripts")
 public class ScriptRef {
 
+    /**
+     * Reference Id
+     */
     @Column
     private Long id;
 
     /**
-     * User (owner) who created script reference and can manage it
+     * User who created script reference and can manage it (owner)
      */
     @Column
     private Long userId;

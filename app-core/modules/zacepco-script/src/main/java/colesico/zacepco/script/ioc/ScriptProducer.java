@@ -7,13 +7,10 @@ import colesico.framework.ioc.production.Producer;
 import colesico.framework.ioc.production.Supplier;
 import colesico.framework.ioc.scope.Unscoped;
 import colesico.zacepco.script.model.script.Script;
-import colesico.zacepco.script.pkg.ScriptWriter;
+import colesico.zacepco.script.pkg.*;
 import colesico.zacepco.script.yaml.YamlCustomConstructor;
-import colesico.zacepco.script.pkg.ScriptReader;
 import colesico.zacepco.script.yaml.YamlCustomRepresenter;
-import colesico.zacepco.script.pkg.DefaultPackageManager;
-import colesico.zacepco.script.pkg.PackageManager;
-import colesico.zacepco.script.pkg.ScriptPackage;
+import colesico.zacepco.script.pkg.FSPackageManager;
 import jakarta.inject.Provider;
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.Yaml;
@@ -26,9 +23,8 @@ import java.nio.file.Path;
 @Producer
 @Produce(ScriptReader.class)
 @Produce(ScriptWriter.class)
-@Produce(value = DefaultPackageManager.class, keyType = PackageManager.class)
+@Produce(FSPackageManager.class)
 @Produce(ScriptPackage.class)
-@Produce(DefaultPackageManager.class)
 public class ScriptProducer {
 
     @Unscoped
@@ -47,12 +43,10 @@ public class ScriptProducer {
         return new Yaml(constructor, representer, dumperOptions);
     }
 
-    @Classed(DefaultPackageManager.class)
-    public ScriptPackage scriptPackage(@IocMessage Path workingDir,
-                                       Supplier<DefaultPackageManager> pkgManagerSupplier,
-                                       Provider<ScriptReader> readerProvider,
-                                       Provider<ScriptWriter> writerProvider) {
-
-        return new ScriptPackage(pkgManagerSupplier.get(workingDir), readerProvider, writerProvider);
+    @Unscoped
+    public PackageManager packageManager(@IocMessage Path packageDirectory,
+                                         Supplier<FSPackageManager> fsPackageManager) {
+        return fsPackageManager.get(packageDirectory);
     }
+
 }

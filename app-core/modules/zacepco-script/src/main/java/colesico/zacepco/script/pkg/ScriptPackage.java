@@ -1,5 +1,6 @@
 package colesico.zacepco.script.pkg;
 
+import colesico.framework.ioc.scope.Unscoped;
 import colesico.zacepco.script.model.setting.EntityId;
 import colesico.zacepco.script.model.setting.EntityType;
 import jakarta.inject.Provider;
@@ -12,6 +13,7 @@ import java.util.regex.Pattern;
 /**
  * Script package
  */
+@Unscoped
 public class ScriptPackage implements Closeable {
 
     /**
@@ -106,6 +108,10 @@ public class ScriptPackage implements Closeable {
         }
     }
 
+    public void importFrom(InputStream is) throws IOException {
+        packageManager.importPackage(is, this::validate);
+    }
+
     protected void validate(ResourcePath resourcePath) {
         for (Pattern pattern : validResources) {
             Matcher matcher = pattern.matcher(resourcePath.value());
@@ -114,10 +120,6 @@ public class ScriptPackage implements Closeable {
             }
         }
         throw new RuntimeException("Invalid script package resource path: " + resourcePath);
-    }
-
-    public void importFrom(InputStream is) throws IOException {
-        packageManager.importPackage(is, this::validate);
     }
 
     @Override

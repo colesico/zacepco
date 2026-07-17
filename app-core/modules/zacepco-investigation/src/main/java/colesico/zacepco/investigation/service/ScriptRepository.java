@@ -10,25 +10,26 @@ import java.nio.file.Paths;
 import java.util.List;
 
 @Service
-public class ScriptService {
+public class ScriptRepository {
 
     private final Supplier<ScriptPackage> scriptPackage;
 
-    public ScriptService(Supplier<ScriptPackage> scriptPackage) {
+    public ScriptRepository(Supplier<ScriptPackage> scriptPackage) {
         this.scriptPackage = scriptPackage;
     }
 
     /**
-     * Import script package
+     * Import script package to repository
      *
      * @return script reference id
      */
-    public Long create(InputStream scriptPkg) {
+    public ScriptRef importFrom(InputStream is) {
+        var scriptPackage = this.scriptPackage.get();
         return null;
     }
 
     /**
-     * Remove script reference
+     * Remove from repository
      */
     public void remove(Long id) {
 

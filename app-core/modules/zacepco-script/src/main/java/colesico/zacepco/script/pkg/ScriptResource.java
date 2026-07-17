@@ -12,28 +12,28 @@ import java.io.OutputStream;
  */
 public class ScriptResource extends PackageResource {
 
-    private final Provider<ScriptReader> readerProvider;
-    private final Provider<ScriptWriter> writerProvider;
+    private final Provider<ScriptReader> reader;
+    private final Provider<ScriptWriter> writer;
 
     public ScriptResource(ResourcePath path,
                           PackageManager packageManager,
-                          Provider<ScriptReader> readerProvider,
-                          Provider<ScriptWriter> writerProvider) {
+                          Provider<ScriptReader> reader,
+                          Provider<ScriptWriter> writer) {
 
         super(path, packageManager);
-        this.readerProvider = readerProvider;
-        this.writerProvider = writerProvider;
+        this.reader = reader;
+        this.writer = writer;
     }
 
     public Script read() throws IOException {
         try (InputStream is = inputStream()) {
-            return readerProvider.get().read(is);
+            return reader.get().read(is);
         }
     }
 
     public void write(Script script) throws IOException {
         try (OutputStream os = outputStream()) {
-            writerProvider.get().write(script, os);
+            writer.get().write(script, os);
         }
     }
 }

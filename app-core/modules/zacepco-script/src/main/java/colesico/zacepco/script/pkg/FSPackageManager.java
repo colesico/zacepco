@@ -1,6 +1,7 @@
 package colesico.zacepco.script.pkg;
 
 import colesico.framework.ioc.message.IocMessage;
+import colesico.framework.ioc.scope.Unscoped;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,24 +16,29 @@ import java.util.List;
 import java.util.stream.Stream;
 
 /**
- * Temp working directory based package manager
+ * File System based package manager.
+ * Store package resources in temporary working dir
  */
-public class DefaultPackageManager extends PackageManager {
+@Unscoped
+public class FSPackageManager extends PackageManager {
 
-    protected final Path workingDir;
+    /**
+     * Temporary directory where package resource files will be stored
+     */
+    protected final Path packageDirectory;
 
-    public DefaultPackageManager(@IocMessage Path workingDir) {
-        if (workingDir != null) {
-            this.workingDir = workingDir;
+    public FSPackageManager(@IocMessage Path packageDirectory) {
+        if (packageDirectory != null) {
+            this.packageDirectory = packageDirectory;
         } else {
-            this.workingDir = defaultWorkingDir();
+            this.packageDirectory = defaultPackageDirectory();
         }
     }
 
-    protected Path defaultWorkingDir() {
+    protected Path defaultPackageDirectory() {
         try {
             Path systemTemp = Path.of(System.getProperty("java.io.tmpdir"));
-            Path subDir = systemTemp.resolve(DefaultPackageManager.class.getCanonicalName().toLowerCase());
+            Path subDir = systemTemp.resolve(FSPackageManager.class.getCanonicalName().toLowerCase());
             Files.createDirectories(subDir);
             return Files.createTempDirectory(subDir, "pkg_");
         } catch (IOException e) {
@@ -45,8 +51,8 @@ public class DefaultPackageManager extends PackageManager {
      */
     protected Path resolve(ResourcePath path) {
         try {
-            var fullPath = workingDir.resolve(path.path());
-            if (!fullPath.startsWith(workingDir)) {
+            var fullPath = packageDirectory.resolve(path.path());
+            if (!fullPath.startsWith(packageDirectory)) {
                 throw new RuntimeException("Invalid resource path: " + path);
             }
             return fullPath;
@@ -56,7 +62,7 @@ public class DefaultPackageManager extends PackageManager {
     }
 
     public Path workingDir() {
-        return workingDir;
+        return packageDirectory;
     }
 
     @Override
@@ -85,9 +91,9 @@ public class DefaultPackageManager extends PackageManager {
     @Override
     public Collection<ResourcePath> listResources() throws IOException {
         List<ResourcePath> result = new ArrayList<>();
-        try (Stream<Path> stream = Files.walk(workingDir)) {
+        try (Stream<Path> stream = Files.walk(packageDirectory)) {
             stream.filter(Files::isRegularFile)
-                    .map(workingDir::relativize)
+                    .map(packageDirectory::relativize)
                     .map(ResourcePath::of)
                     .forEach(result::add);
         }
@@ -96,10 +102,10 @@ public class DefaultPackageManager extends PackageManager {
 
     @Override
     public void close() throws IOException {
-        if (!Files.exists(workingDir)) return;
+        if (!Files.exists(packageDirectory)) return;
 
-        try (var stream = Files.walk(workingDir)) {
-            stream.sorted(Comparator.reverseOrder()) // Сначала содержимое, потом сама папка
+        try (var stream = Files.walk(packageDirectory)) {
+            stream.sorted(Comparator.reverseOrder()) // Remove dir content, then dir itself
                     .forEach(p -> {
                         try {
                             Files.delete(p);
