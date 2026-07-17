@@ -25,6 +25,12 @@
         <!-- Colesico -->
         <dependency>
             <groupId>net.colesico.framework</groupId>
+            <artifactId>colesico-config</artifactId>
+            <version>${colesico.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>net.colesico.framework</groupId>
             <artifactId>colesico-service</artifactId>
             <version>${colesico.version}</version>
         </dependency>
@@ -57,6 +63,11 @@
                         <path>
                             <groupId>net.colesico.framework</groupId>
                             <artifactId>colesico-service</artifactId>
+                            <version>${colesico.version}</version>
+                        </path>
+                        <path>
+                            <groupId>net.colesico.framework</groupId>
+                            <artifactId>colesico-config</artifactId>
                             <version>${colesico.version}</version>
                         </path>
                         <path>

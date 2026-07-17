@@ -8,6 +8,7 @@ module colesico.zacepco.investigation {
     requires org.apache.commons.lang3;
 
     requires colesico.zacepco.script;
+    requires colesico.framework.config;
 
     exports colesico.zacepco.investigation.ioc;
     exports colesico.zacepco.investigation.model;
