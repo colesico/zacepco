@@ -24,7 +24,7 @@ public class FileStorage {
         this.digestPool = new ConcurrentLinkedQueue<>();
     }
 
-    private MessageDigest getMessageDigest() {
+    private MessageDigest messageDigest() {
         MessageDigest digest = digestPool.poll();
         if (digest == null) {
             try {
@@ -37,17 +37,13 @@ public class FileStorage {
         return digest;
     }
 
-    private String toSafeFileId(String fileId) {
-        if (fileId == null || fileId.isBlank()) {
-            throw new IllegalArgumentException("File ID cannot be null or empty");
-        }
-        return Paths.get(fileId).getFileName().toString();
-    }
-
-    public String toHash(String fileId) {
-        MessageDigest digest = getMessageDigest();
+    /**
+     * Hash from path
+     */
+    public String toHash(Path path) {
+        MessageDigest digest = messageDigest();
         try {
-            byte[] hashBytes = digest.digest(fileId.getBytes(StandardCharsets.UTF_8));
+            byte[] hashBytes = digest.digest(path.toString().getBytes(StandardCharsets.UTF_8));
             return HexFormat.of().formatHex(hashBytes);
         } finally {
             // Return digest to pool
@@ -55,49 +51,78 @@ public class FileStorage {
         }
     }
 
-    public Path targetDirectory(String fileId) {
-        var fileHash = toHash(fileId);
-        String key1 = fileHash.substring(0, 2);
-        String key2 = fileHash.substring(2, 4);
-        Path storageDir = Paths.get(config.getStorageDirectory());
-        return storageDir.resolve(key1).resolve(key2);
+    /**
+     * Resolve relative local path to storage full path
+     */
+    public Path resolve(Path path) {
+        Path relativePath = path.isAbsolute() ? path.getRoot().relativize(path) : path;
+
+        var fileHash = toHash(relativePath);
+        var bucket1 = fileHash.substring(0, 2);
+        var bucket2 = fileHash.substring(2, 4);
+
+        Path storagePath = Paths.get(config.getStorageDirectory()).toAbsolutePath().normalize();
+        var fullPath = storagePath.resolve(bucket1).resolve(bucket2).resolve(relativePath).normalize();
+
+        if (!fullPath.startsWith(storagePath)) {
+            throw new RuntimeException("Invalid path: " + path);
+        }
+        return fullPath;
     }
 
-    public Path save(String fileId, InputStream fileData) {
+    /**
+     * Create directory inside file storage
+     *
+     * @param path relative local path
+     */
+    public Path createDirectory(Path path) {
+        Path fullPath = resolve(path);
         try {
-            String safeFileId = toSafeFileId(fileId);
-            Path targetDirectory = targetDirectory(safeFileId);
-            Files.createDirectories(targetDirectory);
-            Path targetFilePath = targetDirectory.resolve(safeFileId);
-            Files.copy(fileData, targetFilePath, StandardCopyOption.REPLACE_EXISTING);
-            return targetFilePath;
+            Files.createDirectories(fullPath);
+            return fullPath;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public void read(String fileId, OutputStream output) {
+    public Path writeFile(Path path, InputStream fileData) {
         try {
-            String safeFileId = toSafeFileId(fileId);
-            Path targetFilePath = targetDirectory(safeFileId).resolve(safeFileId);
-            if (!Files.exists(targetFilePath)) {
-                throw new RuntimeException("File not found with ID: " + fileId);
+            Path fullPath = resolve(path);
+            Path parentDir = fullPath.getParent();
+            if (parentDir != null) {
+                Files.createDirectories(parentDir);
             }
-            Files.copy(targetFilePath, output);
+            Files.copy(fileData, fullPath, StandardCopyOption.REPLACE_EXISTING);
+            return fullPath;
         } catch (IOException e) {
-            throw new RuntimeException("Failed to read file with ID: " + fileId, e);
+            throw new RuntimeException(e);
         }
     }
 
-    public void delete(String fileId) {
+    public void readFile(Path path, OutputStream output) {
         try {
-            String safeFileId = toSafeFileId(fileId);
-            Path targetDirectory = targetDirectory(safeFileId);
-            Path targetFilePath = targetDirectory.resolve(safeFileId);
+            Path fullPath = resolve(path);
+            if (!Files.exists(fullPath)) {
+                throw new RuntimeException("File not found: " + path);
+            }
+            Files.copy(fullPath, output);
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to read file with ID: " + path, e);
+        }
+    }
 
-            if (Files.deleteIfExists(targetFilePath)) {
+    /**
+     * Delete file or directory from file storage
+     *
+     * @param path relative local path
+     */
+    public void delete(Path path) {
+        try {
+            Path fullPath = resolve(path);
+
+            if (Files.deleteIfExists(fullPath)) {
                 Path baseStorageDir = Paths.get(config.getStorageDirectory()).toAbsolutePath().normalize();
-                Path currentDir = targetDirectory.toAbsolutePath().normalize();
+                Path currentDir = fullPath.toAbsolutePath().normalize();
 
                 while (!currentDir.equals(baseStorageDir)) {
                     if (isDirectoryEmpty(currentDir)) {
@@ -113,7 +138,7 @@ public class FileStorage {
                 }
             }
         } catch (IOException e) {
-            throw new RuntimeException("Failed to delete file with ID: " + fileId, e);
+            throw new RuntimeException("Failed to delete: " + path, e);
         }
     }
 
@@ -123,9 +148,13 @@ public class FileStorage {
         }
     }
 
-    public boolean exists(String fileId) {
-        String safeFileId = toSafeFileId(fileId);
-        Path targetFilePath = targetDirectory(safeFileId).resolve(safeFileId);
-        return Files.exists(targetFilePath);
+    /**
+     * Check file or directory exists in file storage
+     *
+     * @param path relative local path
+     */
+    public boolean exists(Path path) {
+        Path fullPath = resolve(path);
+        return Files.exists(fullPath);
     }
 }

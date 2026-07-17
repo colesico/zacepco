@@ -46,4 +46,5 @@ public final class ResourcePath {
     public int hashCode() {
         return Objects.hashCode(value);
     }
+
 }

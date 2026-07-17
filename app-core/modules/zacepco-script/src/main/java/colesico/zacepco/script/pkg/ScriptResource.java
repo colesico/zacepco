@@ -16,11 +16,11 @@ public class ScriptResource extends PackageResource {
     private final Provider<ScriptWriter> writer;
 
     public ScriptResource(ResourcePath path,
-                          PackageManager packageManager,
+                          PackageDriver packageDriver,
                           Provider<ScriptReader> reader,
                           Provider<ScriptWriter> writer) {
 
-        super(path, packageManager);
+        super(path, packageDriver);
         this.reader = reader;
         this.writer = writer;
     }

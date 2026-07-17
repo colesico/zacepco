@@ -1,7 +1,6 @@
 package colesico.zacepco.script.ioc;
 
 import colesico.framework.ioc.message.IocMessage;
-import colesico.framework.ioc.production.Classed;
 import colesico.framework.ioc.production.Produce;
 import colesico.framework.ioc.production.Producer;
 import colesico.framework.ioc.production.Supplier;
@@ -10,8 +9,7 @@ import colesico.zacepco.script.model.script.Script;
 import colesico.zacepco.script.pkg.*;
 import colesico.zacepco.script.yaml.YamlCustomConstructor;
 import colesico.zacepco.script.yaml.YamlCustomRepresenter;
-import colesico.zacepco.script.pkg.FSPackageManager;
-import jakarta.inject.Provider;
+import colesico.zacepco.script.pkg.FSPackageDriver;
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.Constructor;
@@ -23,7 +21,7 @@ import java.nio.file.Path;
 @Producer
 @Produce(ScriptReader.class)
 @Produce(ScriptWriter.class)
-@Produce(FSPackageManager.class)
+@Produce(FSPackageDriver.class)
 @Produce(ScriptPackage.class)
 public class ScriptProducer {
 
@@ -44,8 +42,8 @@ public class ScriptProducer {
     }
 
     @Unscoped
-    public PackageManager packageManager(@IocMessage Path packageDirectory,
-                                         Supplier<FSPackageManager> fsPackageManager) {
+    public PackageDriver packageManager(@IocMessage Path packageDirectory,
+                                        Supplier<FSPackageDriver> fsPackageManager) {
         return fsPackageManager.get(packageDirectory);
     }
 

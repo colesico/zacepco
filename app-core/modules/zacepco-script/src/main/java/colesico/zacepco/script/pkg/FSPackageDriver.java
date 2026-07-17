@@ -20,14 +20,14 @@ import java.util.stream.Stream;
  * Store package resources in temporary working dir
  */
 @Unscoped
-public class FSPackageManager extends PackageManager {
+public class FSPackageDriver extends PackageDriver {
 
     /**
      * Temporary directory where package resource files will be stored
      */
     protected final Path packageDirectory;
 
-    public FSPackageManager(@IocMessage Path packageDirectory) {
+    public FSPackageDriver(@IocMessage Path packageDirectory) {
         if (packageDirectory != null) {
             this.packageDirectory = packageDirectory;
         } else {
@@ -38,7 +38,7 @@ public class FSPackageManager extends PackageManager {
     protected Path defaultPackageDirectory() {
         try {
             Path systemTemp = Path.of(System.getProperty("java.io.tmpdir"));
-            Path subDir = systemTemp.resolve(FSPackageManager.class.getCanonicalName().toLowerCase());
+            Path subDir = systemTemp.resolve(FSPackageDriver.class.getCanonicalName().toLowerCase());
             Files.createDirectories(subDir);
             return Files.createTempDirectory(subDir, "pkg_");
         } catch (IOException e) {
@@ -49,11 +49,11 @@ public class FSPackageManager extends PackageManager {
     /**
      * Append working di to relative resource path
      */
-    protected Path resolve(ResourcePath path) {
+    protected Path resolve(ResourcePath rp) {
         try {
-            var fullPath = packageDirectory.resolve(path.path());
+            var fullPath = packageDirectory.resolve(rp.path());
             if (!fullPath.startsWith(packageDirectory)) {
-                throw new RuntimeException("Invalid resource path: " + path);
+                throw new RuntimeException("Invalid resource path: " + rp);
             }
             return fullPath;
         } catch (Exception e) {
@@ -100,6 +100,9 @@ public class FSPackageManager extends PackageManager {
         return result;
     }
 
+    /**
+     * Remove entire packageDirectory
+     */
     @Override
     public void close() throws IOException {
         if (!Files.exists(packageDirectory)) return;

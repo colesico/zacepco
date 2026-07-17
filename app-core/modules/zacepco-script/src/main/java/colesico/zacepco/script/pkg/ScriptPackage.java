@@ -39,26 +39,26 @@ public class ScriptPackage implements Closeable {
     /**
      * This script package manager
      */
-    final PackageManager packageManager;
+    final PackageDriver packageDriver;
 
-    final Provider<ScriptReader> readerProvider;
+    final Provider<ScriptReader> reader;
 
-    final Provider<ScriptWriter> writerProvider;
+    final Provider<ScriptWriter> writer;
 
-    public ScriptPackage(PackageManager packageManager,
-                         Provider<ScriptReader> readerProvider,
-                         Provider<ScriptWriter> writerProvider) {
+    public ScriptPackage(PackageDriver packageDriver,
+                         Provider<ScriptReader> reader,
+                         Provider<ScriptWriter> writer) {
 
-        this.packageManager = packageManager;
-        this.readerProvider = readerProvider;
-        this.writerProvider = writerProvider;
+        this.packageDriver = packageDriver;
+        this.reader = reader;
+        this.writer = writer;
     }
 
     /**
      * Returns package manager for this script package
      */
-    public PackageManager packageManager() {
-        return packageManager;
+    public PackageDriver packageManager() {
+        return packageDriver;
     }
 
     /**
@@ -67,26 +67,26 @@ public class ScriptPackage implements Closeable {
     public ScriptResource script() {
         return new ScriptResource(
                 ResourcePath.of(SCRIPT_DOCUMENT),
-                packageManager,
-                readerProvider,
-                writerProvider);
+                packageDriver,
+                reader,
+                writer);
     }
 
     /**
      * Returns script poster resource
      */
     public PackageResource poster() {
-        return new PackageResource(ResourcePath.of(SCRIPT_POSTER), packageManager);
+        return new PackageResource(ResourcePath.of(SCRIPT_POSTER), packageDriver);
     }
 
     public PackageResource entityImage(EntityId entityId) {
         String path = entityId.getType().code() + "/" + entityId.getValue() + ENTITY_IMAGE_SUFFIX;
-        return new PackageResource(ResourcePath.of(path), packageManager);
+        return new PackageResource(ResourcePath.of(path), packageDriver);
     }
 
     public PackageResource entityTemplateImage(EntityType entityType) {
         String path = entityType.code() + "/" + ENTITY_TEMPLATE_IMAGE;
-        return new PackageResource(ResourcePath.of(path), packageManager);
+        return new PackageResource(ResourcePath.of(path), packageDriver);
     }
 
     /**
@@ -94,22 +94,22 @@ public class ScriptPackage implements Closeable {
      */
     public void exportTo(File scriptZip) throws IOException {
         try (OutputStream os = Files.newOutputStream(scriptZip.toPath())) {
-            packageManager.exportPackage(os);
+            packageDriver.exportPackage(os);
         }
     }
 
     public void exportTo(OutputStream os) throws IOException {
-        packageManager.exportPackage(os);
+        packageDriver.exportPackage(os);
     }
 
     public void importFrom(File scriptPackage) throws IOException {
         try (InputStream is = Files.newInputStream(scriptPackage.toPath())) {
-            packageManager.importPackage(is, this::validate);
+            packageDriver.importPackage(is, this::validate);
         }
     }
 
     public void importFrom(InputStream is) throws IOException {
-        packageManager.importPackage(is, this::validate);
+        packageDriver.importPackage(is, this::validate);
     }
 
     protected void validate(ResourcePath resourcePath) {
@@ -124,6 +124,6 @@ public class ScriptPackage implements Closeable {
 
     @Override
     public void close() throws IOException {
-        packageManager.close();
+        packageDriver.close();
     }
 }

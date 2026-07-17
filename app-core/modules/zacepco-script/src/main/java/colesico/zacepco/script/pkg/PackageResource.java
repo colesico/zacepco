@@ -17,11 +17,11 @@ public class PackageResource {
     /**
      * Package manager to perform resource operations
      */
-    protected final PackageManager packageManager;
+    protected final PackageDriver packageDriver;
 
-    public PackageResource(ResourcePath path, PackageManager packageManager) {
+    public PackageResource(ResourcePath path, PackageDriver packageDriver) {
         this.path = path;
-        this.packageManager = packageManager;
+        this.packageDriver = packageDriver;
     }
 
     /**
@@ -36,7 +36,7 @@ public class PackageResource {
      * Stream must be closed after reading.
      */
     public InputStream inputStream() throws IOException {
-        return packageManager.resourceInput(path);
+        return packageDriver.resourceInput(path);
     }
 
     /**
@@ -44,14 +44,14 @@ public class PackageResource {
      * Stream must be closed after writing.
      */
     public OutputStream outputStream() throws IOException {
-        return packageManager.resourceOutput(path);
+        return packageDriver.resourceOutput(path);
     }
 
     /**
      * Remove resource  from package
      */
     public void remove() throws IOException {
-        packageManager.removeResource(path);
+        packageDriver.removeResource(path);
     }
 
 }

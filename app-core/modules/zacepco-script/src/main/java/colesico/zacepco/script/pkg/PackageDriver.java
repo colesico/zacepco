@@ -11,10 +11,10 @@ import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
 /**
- * Abstract package manager.
+ * Abstract package diver.
  * Represents package basic operations.
  */
-abstract public class PackageManager implements Closeable {
+abstract public class PackageDriver implements Closeable {
 
     protected static final int MAX_ZIP_ENTRIES = 1024;
 
