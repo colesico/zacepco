@@ -3,6 +3,9 @@ package colesico.zacepco.investigation.filestorage;
 import colesico.framework.config.Config;
 import colesico.framework.config.UseFileSource;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 @Config
 @UseFileSource(file = "filestorage.properties")
 public class FileStorageConfig {
@@ -10,6 +13,10 @@ public class FileStorageConfig {
     private String hashAlgorithm;
 
     private String storageDirectory;
+
+    public Path storagePath() {
+        return Paths.get(storageDirectory).toAbsolutePath().normalize();
+    }
 
     public String getHashAlgorithm() {
         return hashAlgorithm != null ? hashAlgorithm : "SHA-256";

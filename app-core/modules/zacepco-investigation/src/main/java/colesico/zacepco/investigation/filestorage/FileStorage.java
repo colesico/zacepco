@@ -46,7 +46,6 @@ public class FileStorage {
             byte[] hashBytes = digest.digest(path.toString().getBytes(StandardCharsets.UTF_8));
             return HexFormat.of().formatHex(hashBytes);
         } finally {
-            // Return digest to pool
             digestPool.offer(digest);
         }
     }
@@ -61,7 +60,7 @@ public class FileStorage {
         var bucket1 = fileHash.substring(0, 2);
         var bucket2 = fileHash.substring(2, 4);
 
-        Path storagePath = Paths.get(config.getStorageDirectory()).toAbsolutePath().normalize();
+        Path storagePath = config.storagePath();
         var fullPath = storagePath.resolve(bucket1).resolve(bucket2).resolve(relativePath).normalize();
 
         if (!fullPath.startsWith(storagePath)) {
@@ -70,13 +69,60 @@ public class FileStorage {
         return fullPath;
     }
 
+
+    /**
+     * Opens an output stream for writing data to the specified file in the storage.
+     * Creates parent directories if they don't exist.
+     * If the file already exists, it will be truncated and overwritten.
+     * The caller is responsible for closing the returned stream.
+     *
+     * @param filePath relative local path to the file
+     * @return OutputStream for writing data to the file
+     * @throws RuntimeException if an I/O error occurs
+     */
+    public OutputStream fileOutput(Path filePath) {
+        try {
+            Path fullPath = resolve(filePath);
+            Path parentDir = fullPath.getParent();
+            if (parentDir != null) {
+                Files.createDirectories(parentDir);
+            }
+            return Files.newOutputStream(fullPath,
+                    StandardOpenOption.CREATE,
+                    StandardOpenOption.WRITE,
+                    StandardOpenOption.TRUNCATE_EXISTING);
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to open output stream for: " + filePath, e);
+        }
+    }
+
+    /**
+     * Opens an input stream for reading data from the specified file in the storage.
+     * The caller is responsible for closing the returned stream.
+     *
+     * @param filePath relative local path to the file
+     * @return InputStream for reading data from the file
+     * @throws RuntimeException if the file does not exist or an I/O error occurs
+     */
+    public InputStream fileInput(Path filePath) {
+        try {
+            Path fullPath = resolve(filePath);
+            if (!Files.exists(fullPath)) {
+                throw new RuntimeException("File not found: " + filePath);
+            }
+            return Files.newInputStream(fullPath);
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to open input stream for: " + filePath, e);
+        }
+    }
+
     /**
      * Create directory inside file storage
      *
-     * @param path relative local path
+     * @param dirPath relative local path
      */
-    public Path createDirectory(Path path) {
-        Path fullPath = resolve(path);
+    public Path createDirectory(Path dirPath) {
+        Path fullPath = resolve(dirPath);
         try {
             Files.createDirectories(fullPath);
             return fullPath;
@@ -85,67 +131,36 @@ public class FileStorage {
         }
     }
 
-    public Path writeFile(Path path, InputStream fileData) {
-        try {
-            Path fullPath = resolve(path);
-            Path parentDir = fullPath.getParent();
-            if (parentDir != null) {
-                Files.createDirectories(parentDir);
-            }
-            Files.copy(fileData, fullPath, StandardCopyOption.REPLACE_EXISTING);
-            return fullPath;
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public void readFile(Path path, OutputStream output) {
+    /**
+     * List all files and directories recursively under the given path
+     *
+     * @param path   relative local path
+     * @param filter predicate to filter entries (e.g., Files::isRegularFile for files only)
+     * @return Stream of Paths (relative to given path)
+     */
+    public Stream<Path> list(Path path, java.util.function.Predicate<Path> filter) {
         try {
             Path fullPath = resolve(path);
             if (!Files.exists(fullPath)) {
-                throw new RuntimeException("File not found: " + path);
+                return Stream.empty();
             }
-            Files.copy(fullPath, output);
+            return Files.walk(fullPath)
+                    .filter(p -> !p.equals(fullPath)) // исключаем саму директорию
+                    .filter(filter)
+                    .map(fullPath::relativize);
         } catch (IOException e) {
-            throw new RuntimeException("Failed to read file with ID: " + path, e);
+            throw new RuntimeException("Failed to list: " + path, e);
         }
     }
 
     /**
-     * Delete file or directory from file storage
+     * List all files and directories recursively under the given path
      *
      * @param path relative local path
+     * @return Stream of Paths (relative to given path)
      */
-    public void delete(Path path) {
-        try {
-            Path fullPath = resolve(path);
-
-            if (Files.deleteIfExists(fullPath)) {
-                Path baseStorageDir = Paths.get(config.getStorageDirectory()).toAbsolutePath().normalize();
-                Path currentDir = fullPath.toAbsolutePath().normalize();
-
-                while (!currentDir.equals(baseStorageDir)) {
-                    if (isDirectoryEmpty(currentDir)) {
-                        try {
-                            Files.delete(currentDir);
-                            currentDir = currentDir.getParent();
-                        } catch (DirectoryNotEmptyException e) {
-                            break;
-                        }
-                    } else {
-                        break;
-                    }
-                }
-            }
-        } catch (IOException e) {
-            throw new RuntimeException("Failed to delete: " + path, e);
-        }
-    }
-
-    private boolean isDirectoryEmpty(Path directory) throws IOException {
-        try (Stream<Path> entries = Files.list(directory)) {
-            return entries.findFirst().isEmpty();
-        }
+    public Stream<Path> list(Path path) {
+        return list(path, p -> true);
     }
 
     /**
@@ -157,4 +172,57 @@ public class FileStorage {
         Path fullPath = resolve(path);
         return Files.exists(fullPath);
     }
+
+    /**
+     * Delete file or empty directory from file storage
+     * Also deletes empty hash-based index directories (buckets) if they become empty
+     *
+     * @param path relative local path
+     */
+    public void delete(Path path) {
+        try {
+            Path fullPath = resolve(path);
+            Path storagePath = config.storagePath();
+
+            // Prevent deletion of the storage root directory
+            if (fullPath.equals(storagePath)) {
+                throw new RuntimeException("Cannot delete storage root directory");
+            }
+
+            // Try to delete the file or directory
+            // Returns true if file existed and was deleted, false if it didn't exist
+            boolean deleted = Files.deleteIfExists(fullPath);
+
+            if (deleted) {
+                // Only clean up empty parent directories if we actually deleted something
+                Path currentDir = fullPath.getParent();
+
+                while (currentDir != null && !currentDir.equals(storagePath)) {
+                    if (isDirectoryEmpty(currentDir)) {
+                        try {
+                            Files.deleteIfExists(currentDir);
+                            currentDir = currentDir.getParent();
+                        } catch (DirectoryNotEmptyException e) {
+                            // Directory became non-empty during deletion (concurrent modification)
+                            break;
+                        }
+                    } else {
+                        // Directory is not empty, stop cleaning
+                        break;
+                    }
+                }
+            }
+            // If file didn't exist, we do nothing (idempotent operation)
+
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to delete: " + path, e);
+        }
+    }
+
+    protected boolean isDirectoryEmpty(Path path) throws IOException {
+        try (Stream<Path> entries = Files.list(path)) {
+            return entries.findFirst().isEmpty();
+        }
+    }
+
 }
