@@ -15,23 +15,29 @@ public class ScriptDao {
     private final Provider<Handle> handle;
 
     /**
-     * User Record Kit
+     * Script Record Kit
      */
-    private final ScriptRK scriptRk;
+    private final ScriptRK recordKit;
 
-    public ScriptDao(Provider<Handle> handle, ScriptRK scriptRk) {
+    public ScriptDao(Provider<Handle> handle, ScriptRK recordKit) {
         this.handle = handle;
-        this.scriptRk = scriptRk;
+        this.recordKit = recordKit;
     }
 
     public Long createScriptId() {
         var handle = this.handle.get();
-        return handle.createQuery("SELECT nextval('script_seq')").mapTo(Long.class).one();
+        return handle.createQuery("select nextval('script_seq')").mapTo(Long.class).one();
     }
 
     public void createScript(ScriptRef script) {
         var handle = this.handle.get();
-        String query = scriptRk.sql("insert into @scripts (@columns) values (@values)");
-        handle.createUpdate(query).bindMap(scriptRk.map(script)).execute();
+        String sql = recordKit.sql("insert into @record (@columns) values (@values)");
+        handle.createUpdate(sql).bindMap(recordKit.map(script)).execute();
+    }
+
+    public ScriptRef readScript(Long id) {
+        var handle = this.handle.get();
+        String sql = recordKit.sql("select @columns from @records where id = :id");
+        return handle.createQuery(sql).bind("id", id).map(recordKit.mapper()).one();
     }
 }

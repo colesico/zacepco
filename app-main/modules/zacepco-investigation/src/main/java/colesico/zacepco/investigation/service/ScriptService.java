@@ -5,13 +5,10 @@ import colesico.framework.ioc.production.Supplier;
 import colesico.framework.service.Service;
 import colesico.framework.transaction.Transactional;
 import colesico.zacepco.investigation.dao.ScriptDao;
-import colesico.zacepco.investigation.dao.ScriptRK;
 import colesico.zacepco.investigation.filestorage.StoragePackageDriver;
 import colesico.zacepco.investigation.model.ScriptRef;
 import colesico.zacepco.script.model.script.Script;
 import colesico.zacepco.script.pkg.*;
-import jakarta.inject.Provider;
-import org.jdbi.v3.core.Handle;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -71,7 +68,7 @@ public class ScriptService {
     }
 
     /**
-     * Remove from repository
+     * Remove script from repository
      */
     public void remove(Long id) {
 
@@ -80,9 +77,12 @@ public class ScriptService {
     /**
      * Get scrip reference by id
      */
-    public ScriptRef get(Long id) {
+    public ScriptRef getRef(Long id) {
         return null;
     }
+
+
+
 
     /**
      * List script references

@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS scripts (
     id BIGINT PRIMARY KEY,
     user_id BIGINT NOT NULL
     uuid UUID NOT NULL UNIQUE,
-    title VARCHAR(255) NOT NULL,
-    annotation VARCHAR(2000),
+    title VARCHAR(128) NOT NULL,
+    annotation VARCHAR(800),
     created TIMESTAMP WITH TIME ZONE NOT NULL
 );
