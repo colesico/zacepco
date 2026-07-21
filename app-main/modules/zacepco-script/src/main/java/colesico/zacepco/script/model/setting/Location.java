@@ -16,16 +16,16 @@ public class Location extends Entity<LocationId> {
     public LocationPos pos;
 
     /**
-     * Initially revealed clues for this location
-     */
-    @YamlComment(text = "Initially revealed clues for this location")
-    public List<ClueId> revealedClues;
-
-    /**
      * Hidden location or not
      */
     @YamlComment(text = "Hidden location or not  (default - false)")
     public Boolean hidden;
+
+    /**
+     * Initially revealed clues for this location
+     */
+    @YamlComment(text = "Initially revealed clues for this location")
+    public List<ClueId> revealedClues;
 
     /**
      * Personage-entity interaction for each time tick.

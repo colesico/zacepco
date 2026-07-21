@@ -41,11 +41,11 @@ public abstract class Entity<ID extends EntityId> {
      * Placeholder values
      */
     @YamlComment(text = {
-            "Placeholders definitions",
-            "Placeholders can be used in entity texts referenced by '$' prefix",
+            "Variables definitions",
+            "Variable can be used in entity texts referenced by '$' prefix",
             "Examples: CALIBRE: .37. Then in clue description: Gun calibre $CALIBRE"
     })
-    public Map<String, String> placeholders;
+    public Map<String, String> vars;
 
     public ID getId() {
         return id;
@@ -71,12 +71,12 @@ public abstract class Entity<ID extends EntityId> {
         this.description = description;
     }
 
-    public Map<String, String> getPlaceholders() {
-        return placeholders;
+    public Map<String, String> getVars() {
+        return vars;
     }
 
-    public void setPlaceholders(Map<String, String> placeholders) {
-        this.placeholders = placeholders;
+    public void setVars(Map<String, String> vars) {
+        this.vars = vars;
     }
 
     public EntityReference getReference() {

@@ -9,14 +9,14 @@ import java.util.List;
  */
 public class Personage extends Entity<PersonageId> {
 
-    @YamlComment(text = "Initially revealed clues for this personage")
-    public List<ClueId> revealedClues;
-
     /**
      * Hidden personage or not
      */
     @YamlComment(text = "Hidden personage or not (default - false)")
     public Boolean hidden;
+
+    @YamlComment(text = "Initially revealed clues for this personage")
+    public List<ClueId> revealedClues;
 
     /**
      * Personage-entity interaction for each time tick.

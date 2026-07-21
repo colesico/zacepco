@@ -1,95 +1,69 @@
 #
-# Script template
+# Script reference model
+# Defines all possible fields with example values
 #
 meta:
   schema: 1.0.0
   uuid: 7f56fb1f-5f03-41ef-ae9c-4ef99fbcf7d9
-  title: Script document template
+  title: Script document
   annotation: >
-    The template defines the reference model of the script document 
-    and serves as a basis for script creation
+    Defines the complete reference model of the script document
   authors:
     - Vladlen V. Larionov
   licence: CC BY 4.0
   created: 2026-01-01
   version: 1
   difficulty: 0
-  estimatedTime: { min: 5, max: 10 }
-  playersNum: { min: 1, max: 5 }
+  estimatedTime: { min: 5, max: 60 }
+  playersNum: { min: 1, max: 8 }
 
 include:
   - uuid: 00000000-0000-0000-0000-000000000000
     alias: generic
 
 setting:
-  crimeDuration: 2
+  crimeDuration: 5
+
   personages:
     - id: P1
       name: Butler
       description: >
         Knows all the secrets and secret passages, 
-        is cold-blooded, has keys to every room, 
-        and has the perfect motive for murder.
-      revealedClues: [ C1 ]
-      track:
-        - location: L1
-        - location: L2
-          clue: C2
-    - id: P2
-      name: Maid
-      revealedClues: [ C2 ]
+        is cold-blooded, has the perfect motive for murder.
       reference:
         script: generic
-        entity: P3
-      log:
-        - location: L2
-          clue: C1
-        - location: L1
+        entity: P2
       hidden: true
       vars:
-        ADDITIONAL_INFO: Has a blond hair
-
+        varName: Any value
+      revealedClues: [ C1, C2 ]
+      log:
+        - location: L2
+          clue: C2
   scene:
-    size: { cols: 2, rows: 2 }
+    size: { cols: 2, rows: 3 }
+
     locations:
       - id: L1
         name: Cabinet
         description: >
           A gloomy study with dark shadows 
           shaped like Rorschach blots.
+        reference:
+          script: generic
+          entity: L2
         pos: { col: 1, row: 1 }
-        revealedClues: [ C3 ]
-        log:
-          - personages: [ P1 ]
-          - personages: [ P2 ]
-      - id: L2
-        name: Library
-        pos: { col: 1, row: 2 }
-        reference:
-          script: generic
-          entity: L8
-        vars:
-          CONDITIONS: No lighting
-        log:
-          - personages: [ P2 ]
-            clues: [ C1,C2 ]
-          - personages: [ P1 ]
-      - id: L3
-        name: Basement
-        pos: { col: 2, row: 1 }
-        reference:
-          script: generic
-          entity: L10
-        log:
-          - ~
-          - ~
         hidden: true
+        vars:
+          varName: Any value
+        revealedClues: [ C1,C2 ]
+        log:
+          - personages: [ P1,P2 ]
+            clues: [C1,C2]
 
     transitions:
       - from: L1
         to: L2
-      - from: L2
-        to: L3
         hidden: true
 
   clues:
@@ -97,18 +71,18 @@ setting:
       name: Butt
       description: >
         A Camel cigarette butt
-      falsity: true
-      open: [ L2 ]
-    - id: C2
       reference:
         script: generic
         entity: C4
+      falsity: true
       vars:
-        P: $P1
-        L: L3
+        varName: $P1
+      open: [ L2 ]
+
 investigation:
   budget: 9
   randFactor: 1
+
   search:
     cost: 3
     points: 2
@@ -132,6 +106,7 @@ investigation:
           - focus: [ T2, P1, L3 ]
             threshold: 7.0
             clue: C2
+
   expertise:
     cost: 5
     points: 5
