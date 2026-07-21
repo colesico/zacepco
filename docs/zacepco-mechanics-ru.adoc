@@ -652,8 +652,8 @@ _Действительное_ число, которое сравниваетс
 Сценарий задается в виде zip архива определенной структуры.
 Основным файлом внути zip архива является script.yaml - документ сценария определенного формата, описывающий собственно сценарий.
 
-<<script.adoc, См. файл script.adoc>>
+xref:script.adoc[См. файл script.adoc]
 
 == Руководство по созданию сценария
 
-<<script-guide-ru.adoc, См. файл script-guide-ru.adoc>>
+xref:script-guide-ru.adoc[См. файл script-guide-ru.adoc]
