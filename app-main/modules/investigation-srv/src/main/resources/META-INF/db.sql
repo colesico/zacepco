@@ -2,9 +2,11 @@ CREATE SEQUENCE IF NOT EXISTS script_seq START WITH 1;
 
 CREATE TABLE IF NOT EXISTS scripts (
     id BIGINT PRIMARY KEY,
-    user_id BIGINT NOT NULL
+    user_id BIGINT NOT NULL,
     uuid UUID NOT NULL UNIQUE,
     title VARCHAR(128) NOT NULL,
     annotation VARCHAR(800),
+    authors TEXT[],
+    version INT,
     created TIMESTAMP WITH TIME ZONE NOT NULL
 );

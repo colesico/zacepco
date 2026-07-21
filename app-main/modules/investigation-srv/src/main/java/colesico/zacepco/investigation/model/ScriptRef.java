@@ -41,6 +41,12 @@ public class ScriptRef {
     @Column
     public String annotation;
 
+    @Column
+    public String[] authors;
+
+    @Column
+    public Integer version;
+
     /**
      * Reference creation LocalDate
      */
@@ -93,5 +99,21 @@ public class ScriptRef {
 
     public void setCreated(LocalDate created) {
         this.created = created;
+    }
+
+    public String[] getAuthors() {
+        return authors;
+    }
+
+    public void setAuthors(String[] authors) {
+        this.authors = authors;
+    }
+
+    public Integer getVersion() {
+        return version;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
     }
 }

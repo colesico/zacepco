@@ -11,12 +11,14 @@
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
-    <artifactId>zacepco-investigation</artifactId>
+    <artifactId>investigation-srv</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
 
-    <name>Zacepco Investigation Module</name>
-
+    <name>Zacepco - Investigation Service</name>
+    <description>
+        Zacepco Investigation Service
+    </description>
     <properties>
     </properties>
 

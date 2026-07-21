@@ -43,7 +43,7 @@ public class ScriptService {
      *
      * @return script reference
      */
-    public ScriptRef upload(InputStream is, Long userId) {
+    public ScriptRef upload(Long userId, InputStream is) {
 
         var scriptId = scriptDao.createScriptId();
 
@@ -63,6 +63,8 @@ public class ScriptService {
         scriptRef.setUuid(script.meta.uuid);
         scriptRef.setTitle(script.meta.title);
         scriptRef.setAnnotation(script.meta.annotation);
+        scriptRef.setAuthors(script.meta.authors);
+        scriptRef.setVersion(script.meta.version);
         scriptRef.setCreated(script.meta.created);
 
         return scriptRef;
@@ -86,7 +88,7 @@ public class ScriptService {
     /**
      * List script references
      */
-    public List<ScriptRef> list(long limit, long offset) {
+    public List<ScriptRef> list(Long userId, long limit, long offset) {
         return null;
     }
 

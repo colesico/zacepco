@@ -12,14 +12,13 @@
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
-    <artifactId>zacepco-script</artifactId>
+    <artifactId>script-lib</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
 
-    <name>Zacepco Script</name>
+    <name>Zacepco - Script Library</name>
     <description>
-        The library implements the zacepco script model and
-        provides capabilities for working with the zacepco script zip file
+        Zacepco Script Document Library
     </description>
 
     <properties>

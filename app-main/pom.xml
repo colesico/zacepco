@@ -142,31 +142,12 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <modules>
-                <module>modules/zacepco-script</module>
-                <module>modules/zacepco-investigation</module>
+                <module>modules/script-lib</module>
+                <module>modules/investigation-srv</module>
+                <module>modules/server</module>
             </modules>
         </profile>
 
-        <profile>
-            <id>script-module</id>
-            <activation>
-                <activeByDefault>false</activeByDefault>
-            </activation>
-            <modules>
-                <module>modules/zacepco-script</module>
-            </modules>
-        </profile>
-
-
-        <profile>
-            <id>investigation-module</id>
-            <activation>
-                <activeByDefault>false</activeByDefault>
-            </activation>
-            <modules>
-                <module>modules/zacepco-investigation</module>
-            </modules>
-        </profile>
     </profiles>
 
     <build>
