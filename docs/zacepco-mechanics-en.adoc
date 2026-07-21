@@ -651,8 +651,8 @@ The recommended sequence of searches, interrogations, expertises. Which clues to
 The scenario is provided as a zip archive of a specific structure.
 The main file inside the zip archive is script.yaml - a scenario document of a specific format that describes the scenario itself.
 
-<<script.adoc, See file script.adoc>>
+xref:script.adoc[See file script.adoc]
 
 == Scenario Creation Guide
 
-<<script-guide-ru.adoc, See file script-guide-ru.adoc>>
+xref:script-guide-en.adoc[See file script-guide-ru.adoc]
