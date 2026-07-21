@@ -1,0 +1,12 @@
+package colesico.zacepco.script.lib.model.setting;
+
+public final class PersonageId extends EntityId {
+
+    public PersonageId(EntityType type, String value) {
+        super(type, value);
+    }
+
+    public PersonageId(String value) {
+        super(EntityType.PERSONAGE, value);
+    }
+}

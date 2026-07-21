@@ -144,7 +144,7 @@
             <modules>
                 <module>modules/script-lib</module>
                 <module>modules/investigation-srv</module>
-                <module>modules/server</module>
+                <module>modules/server-app</module>
             </modules>
         </profile>
 

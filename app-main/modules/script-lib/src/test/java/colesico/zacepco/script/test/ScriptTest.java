@@ -2,8 +2,8 @@ package colesico.zacepco.script.test;
 
 import colesico.framework.ioc.Ioc;
 import colesico.framework.ioc.IocBuilder;
-import colesico.zacepco.script.pkg.*;
-import colesico.zacepco.script.model.script.Script;
+import colesico.zacepco.script.lib.pkg.*;
+import colesico.zacepco.script.lib.model.script.Script;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 

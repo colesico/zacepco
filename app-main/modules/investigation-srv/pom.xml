@@ -45,7 +45,7 @@
         <!-- Zacepco -->
         <dependency>
             <groupId>net.colesico.zacepco</groupId>
-            <artifactId>zacepco-script</artifactId>
+            <artifactId>script-lib</artifactId>
             <version>${project.version}</version>
         </dependency>
 
@@ -84,7 +84,7 @@
                 <configuration>
                     <archive>
                         <manifest combine.children="append">
-                            <mainClass>colesico.zacepco.investigation.Application</mainClass>
+                            <mainClass>colesico.zacepco.investigation.srv.Application</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

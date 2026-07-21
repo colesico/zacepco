@@ -44,7 +44,7 @@
                 <configuration>
                     <archive>
                         <manifest combine.children="append">
-                            <mainClass>colesico.zacepco.script.Application</mainClass>
+                            <mainClass>colesico.zacepco.script.lib.Application</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

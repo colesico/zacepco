@@ -1,4 +1,4 @@
-module colesico.zacepco.script {
+module colesico.zacepco.script.lib {
 
     requires jakarta.inject;
     requires colesico.framework.ioc;
@@ -7,15 +7,15 @@ module colesico.zacepco.script {
     requires org.yaml.snakeyaml;
 
 
-    exports colesico.zacepco.script.ioc;
-    exports colesico.zacepco.script.yaml;
-    exports colesico.zacepco.script.pkg;
-    exports colesico.zacepco.script.model.script;
-    exports colesico.zacepco.script.model.setting;
-    exports colesico.zacepco.script.model.investigation;
+    exports colesico.zacepco.script.lib.ioc;
+    exports colesico.zacepco.script.lib.yaml;
+    exports colesico.zacepco.script.lib.pkg;
+    exports colesico.zacepco.script.lib.model.script;
+    exports colesico.zacepco.script.lib.model.setting;
+    exports colesico.zacepco.script.lib.model.investigation;
 
-    opens colesico.zacepco.script.model.script;
-    opens colesico.zacepco.script.model.setting;
-    opens colesico.zacepco.script.model.investigation;
+    opens colesico.zacepco.script.lib.model.script;
+    opens colesico.zacepco.script.lib.model.setting;
+    opens colesico.zacepco.script.lib.model.investigation;
 
 }
