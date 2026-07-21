@@ -41,9 +41,9 @@ public class ScriptService {
     /**
      * Load script package to db
      *
-     * @return script reference id
+     * @return script reference
      */
-    public ScriptRef upload(InputStream is) {
+    public ScriptRef upload(InputStream is, Long userId) {
 
         var scriptId = scriptDao.createScriptId();
 
@@ -59,6 +59,7 @@ public class ScriptService {
 
         ScriptRef scriptRef = new ScriptRef();
         scriptRef.setId(scriptId);
+        scriptRef.setUserId(userId);
         scriptRef.setUuid(script.meta.uuid);
         scriptRef.setTitle(script.meta.title);
         scriptRef.setAnnotation(script.meta.annotation);
@@ -80,8 +81,6 @@ public class ScriptService {
     public ScriptRef getRef(Long id) {
         return null;
     }
-
-
 
 
     /**
