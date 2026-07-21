@@ -1,4 +1,4 @@
-module colesico.zacepco.server.test {
+module colesico.zacepco.server.ui {
 
     requires colesico.zacepco.server.app;
 

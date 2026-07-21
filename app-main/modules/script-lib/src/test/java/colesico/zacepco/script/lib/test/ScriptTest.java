@@ -1,4 +1,4 @@
-package colesico.zacepco.script.test;
+package colesico.zacepco.script.lib.test;
 
 import colesico.framework.ioc.Ioc;
 import colesico.framework.ioc.IocBuilder;
