@@ -32,6 +32,7 @@ public class ScriptProducer {
         dumperOptions.setPrettyFlow(true);
         dumperOptions.setIndent(2);
         dumperOptions.setProcessComments(true);
+        dumperOptions.setAllowUnicode(true);
 
         Representer representer = new YamlCustomRepresenter(dumperOptions);
         representer.addClassTag(Script.class, Tag.MAP);

@@ -4,10 +4,10 @@ import colesico.zacepco.script.yaml.YamlComment;
 
 public class EntityReference {
 
-    @YamlComment(text = "Referenced script alias")
+    @YamlComment(text = "Referenced script alias (target script)")
     public String script;
 
-    @YamlComment(text = "Referenced script entity id")
+    @YamlComment(text = "Referenced script entity id (target entity)")
     public EntityId entity;
 
     public String getScript() {

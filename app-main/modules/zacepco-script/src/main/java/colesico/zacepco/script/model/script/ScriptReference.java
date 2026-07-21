@@ -7,7 +7,7 @@ import colesico.zacepco.script.yaml.YamlComment;
  */
 public class ScriptReference {
 
-    @YamlComment(text = "Referenced script ID")
+    @YamlComment(text = "Referenced script UUID (target script)")
     public String uuid;
 
     @YamlComment(text = "Local alias used to reference this script")

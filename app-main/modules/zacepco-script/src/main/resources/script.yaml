@@ -1,125 +1,250 @@
-#
-# Script reference model
-# Defines all possible fields with example values
-#
+# ================================================ #
+# Script reference model                           # 
+# Defines all possible fields with example values  #
+# ================================================ #
+
+# 
+# Script meta information.
+# 
 meta:
+  # Script schema version (data model version)
+  # SimVer notation (i.e. 1.2.3)
   schema: 1.0.0
+  # Universally unique identifier (UUID) of the script
   uuid: 7f56fb1f-5f03-41ef-ae9c-4ef99fbcf7d9
   title: Script document
-  annotation: >
+  # A brief script summary without spoilers
+  annotation: |
     Defines the complete reference model of the script document
+  # Script authors
   authors:
-    - Vladlen V. Larionov
+  - Vladlen V. Ларионов
+  # License under which the script is distributed
   licence: CC BY 4.0
+  # Script creation date YYYY-MM-DD
   created: 2026-01-01
+  # Script version (1..N)
   version: 1
-  difficulty: 0
-  estimatedTime: { min: 5, max: 60 }
-  playersNum: { min: 1, max: 8 }
-
+  # Game difficulty
+  # Dimensionless positive coefficient
+  difficulty: 0.0
+  # Estimated playtime, minutes
+  estimatedTime:
+    min: 5
+    max: 60
+  # Recommended number of players (min-max)
+  playersNum:
+    min: 1
+    max: 8
+# 
+# Imported scripts
+# 
 include:
-  - uuid: 00000000-0000-0000-0000-000000000000
-    alias: generic
-
+- # Referenced script UUID (target script)
+  uuid: 00000000-0000-0000-0000-000000000000
+  # Local alias used to reference this script
+  alias: generic
+# 
+# Crime setting specification.
+# Describes entire crime environment.
+# 
 setting:
+  # Crime duration in ticks
   crimeDuration: 5
-
+  # 
+  # Personages dictionary.
+  # Defines all personages involved in the crime
+  # 
   personages:
-    - id: P1
-      name: Butler
-      description: >
-        Knows all the secrets and secret passages, 
-        is cold-blooded, has the perfect motive for murder.
+  - # Unique ID
+    id: P1
+    # Short name
+    name: Butler
+    # Detailed description.
+    # Entity identifiers and variables can be specified with a '$' prefix.
+    # Examples: Location is $L2. Personage say $msg
+    description: |
+      Knows all the secrets and secret passages,  is cold-blooded, has the perfect motive for murder.
+    # Entity reference
+    reference:
+      # Referenced script alias (target script)
+      script: generic
+      # Referenced script entity id (target entity)
+      entity: P2
+    # Variables definitions
+    # Variable can be used in entity texts referenced by '$' prefix
+    # Examples: CALIBRE: .37. Then in clue description: Gun calibre $calibre
+    vars:
+      varName: Any value
+    # Hidden personage or not (default - false)
+    hidden: true
+    # Initially revealed clues for this personage
+    revealedClues:
+    - C1
+    - C2
+    # Personage event log for each time tick
+    # Each element of the array corresponds to a time tick, starting from 1.
+    # Used to verify the investigation's findings
+    log:
+    - # Location the character was inside
+      location: L2
+      # Clue the character interacted with.
+      # Reflects the change of interaction state - dropping, picking up, passing, ...
+      clue: C2
+  # 
+  # Crime scene definition
+  # 
+  scene:
+    # Grid size for locations placement
+    size:
+      # Rows number
+      rows: 3
+      # Columns number
+      cols: 2
+    # Locations dictionary
+    locations:
+    - id: L1
+      name: Cabinet
+      description: |
+        A gloomy study with dark shadows  shaped like Rorschach blots.
       reference:
         script: generic
-        entity: P2
-      hidden: true
+        entity: L2
       vars:
         varName: Any value
-      revealedClues: [ C1, C2 ]
+      # Location position on scene grid
+      pos:
+        col: 1
+        row: 1
+      # Hidden location or not  (default - false)
+      hidden: true
+      # Initially revealed clues for this location
+      revealedClues:
+      - C1
+      - C2
+      # Location event log for each time tick
+      # Each element of the array corresponds to a time tick, starting from 1.
+      # Used to verify the investigation's findings
       log:
-        - location: L2
-          clue: C2
-  scene:
-    size: { cols: 2, rows: 3 }
-
-    locations:
-      - id: L1
-        name: Cabinet
-        description: >
-          A gloomy study with dark shadows 
-          shaped like Rorschach blots.
-        reference:
-          script: generic
-          entity: L2
-        pos: { col: 1, row: 1 }
-        hidden: true
-        vars:
-          varName: Any value
-        revealedClues: [ C1,C2 ]
-        log:
-          - personages: [ P1,P2 ]
-            clues: [C1,C2]
-
-    transitions:
-      - from: L1
-        to: L2
-        hidden: true
-
-  clues:
-    - id: C1
-      name: Butt
-      description: >
-        A Camel cigarette butt
-      reference:
-        script: generic
-        entity: C4
-      falsity: true
-      vars:
-        varName: $P1
-      open: [ L2 ]
-
-investigation:
-  budget: 9
-  randFactor: 1
-
-  search:
-    cost: 3
-    points: 2
-    focusLimit: 3
-    statCost: -1
-    locations:
-      - location: L3
+      - # Personages that was in this location at given time tick
+        personages:
+        - P1
+        - P2
+        # Clue associated with the location
         clues:
-          - focus: [ C3, P2, T2 ]
-            threshold: 8.1
-            clue: C1
-
+        - C1
+        - C2
+    # Transition between two locations.
+    # Transition always connects only two locations, direction does not matter.
+    transitions:
+    - # One location id
+      from: L1
+      # Other location id
+      to: L2
+      # Is hidden transition or not (default - false)
+      hidden: true
+  # 
+  # Clues dictionary
+  # 
+  clues:
+  - id: C1
+    name: Butt
+    description: |
+      A Camel cigarette butt
+    reference:
+      script: generic
+      entity: C4
+    vars:
+      varName: $P1
+    # False clue or not (default-false)
+    falsity: true
+    # Entities to be open along with this clue
+    open:
+    - L2
+# 
+# Investigation specification.
+# 
+investigation:
+  # Investigation budget in resource units
+  budget: 9
+  # Randomness factor [1..0].
+  # Used to recalculate investigation table thresholds to adjust randomness.
+  # New_threshold = Table_threshold/(12 * randFactor) Default = 1
+  randFactor: 1.0
+  # 
+  # Location search specification
+  # 
+  search:
+    # Cost (resource units) of investigation action on subject
+    cost: 3
+    # Base points for investigation action
+    points: 2
+    # Maximum number of elements in detective focus
+    focusLimit: 3
+    # Cost of obtaining investigation subject statistics
+    # (-1) - statistics is prohibited
+    statCost: -1
+    # Locations to be searched
+    locations:
+    - # Location to be search
+      location: L3
+      clues:
+      - # Entities on which investigation action is focused
+        focus:
+        - C3
+        - P2
+        - T2
+        # Clue discovery threshold
+        threshold: 8.1
+        # Target clue
+        clue: C1
+  # 
+  # Personage interrogation specification
+  # 
   interrogation:
     cost: 4
     points: 3
     focusLimit: 3
     statCost: -1
+    # Personage to be interrogate
     personages:
-      - personage: P1
-        clues:
-          - focus: [ T2, P1, L3 ]
-            threshold: 7.0
-            clue: C2
-
+    - # Personage ID
+      personage: P1
+      # Personage clues
+      clues:
+      - focus:
+        - T2
+        - P1
+        - L3
+        threshold: 7.0
+        clue: C2
+  # 
+  # Forensic laboratory examination specification
+  # 
   expertise:
     cost: 5
     points: 5
     focusLimit: 3
     statCost: -1
+    # Examined clues
     clues:
-      - focus: [ C1, C2, P3, L2 ]
-        threshold: 3
-        clue: C6
-
+    - focus:
+      - C1
+      - C2
+      - P3
+      - L2
+      threshold: 3.0
+      clue: C6
+# 
+# General answers.
+# 
 answers:
+  # Full crime fabula
   fabula: >
-    А было все так...
+    The Gardener killed the Butler, 
+    buried the body under a birch tree in the garden, 
+    and burned the evidence in the fireplace in the library.
+  # Planned crime solving strategy
   strategy:
-    - Search location L1
-    - P2 Interrogation
+    - Search location L1 -> C1
+    - Interrogate P1 with focus C1

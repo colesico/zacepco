@@ -20,6 +20,7 @@ public abstract class Entity<ID extends EntityId> {
     /**
      * Short name
      */
+    @YamlComment(text = "Short name")
     public String name;
 
     /**
@@ -29,8 +30,8 @@ public abstract class Entity<ID extends EntityId> {
      */
     @YamlComment(text = {
             "Detailed description.",
-            "Entity identifiers and placeholders can be specified with a '$' prefix.",
-            "Examples: Location is $L2. Personage say $MSG"
+            "Entity identifiers and variables can be specified with a '$' prefix.",
+            "Examples: Location is $L2. Personage say $msg"
     })
     public String description;
 
@@ -43,7 +44,7 @@ public abstract class Entity<ID extends EntityId> {
     @YamlComment(text = {
             "Variables definitions",
             "Variable can be used in entity texts referenced by '$' prefix",
-            "Examples: CALIBRE: .37. Then in clue description: Gun calibre $CALIBRE"
+            "Examples: CALIBRE: .37. Then in clue description: Gun calibre $calibre"
     })
     public Map<String, String> vars;
 

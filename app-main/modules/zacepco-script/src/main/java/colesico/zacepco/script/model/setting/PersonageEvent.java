@@ -21,7 +21,7 @@ public class PersonageEvent {
      */
     @YamlComment(text = {
             "Clue the character interacted with.",
-            "Reflects the change in the evidence interaction state - dropping, picking up, passing, ..."
+            "Reflects the change of interaction state - dropping, picking up, passing, ..."
     })
     public ClueId clue;
 
