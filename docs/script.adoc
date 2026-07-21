@@ -3,5 +3,5 @@
 script.yaml
 [source,yaml]
 ----
-include::../app-main/modules/zacepco-script/src/main/resources/script.yaml[]
+include::../app-main/modules/script-lib/src/main/resources/script.yaml[]
 ----
