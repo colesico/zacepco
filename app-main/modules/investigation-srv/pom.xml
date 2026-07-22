@@ -30,17 +30,6 @@
             <artifactId>colesico-config</artifactId>
             <version>${colesico.version}</version>
         </dependency>
-        <dependency>
-            <groupId>net.colesico.framework</groupId>
-            <artifactId>colesico-jdbi</artifactId>
-            <version>${colesico.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>net.colesico.framework</groupId>
-            <artifactId>colesico-jdbirec</artifactId>
-            <version>${colesico.version}</version>
-            <scope>compile</scope>
-        </dependency>
 
         <!-- Zacepco -->
         <dependency>

@@ -26,11 +26,45 @@
 
     <dependencies>
 
-        <!-- SnakeYaml -->
         <dependency>
-            <groupId>org.yaml</groupId>
-            <artifactId>snakeyaml</artifactId>
-            <version>${snakeyaml.version}</version>
+            <groupId>net.colesico.framework</groupId>
+            <artifactId>colesico-hikaricp</artifactId>
+            <version>${colesico.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>net.colesico.framework</groupId>
+            <artifactId>colesico-jdbi</artifactId>
+            <version>${colesico.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>net.colesico.framework</groupId>
+            <artifactId>colesico-jdbirec</artifactId>
+            <version>${colesico.version}</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <!-- SQLight -->
+        <dependency>
+            <groupId>org.xerial</groupId>
+            <artifactId>sqlite-jdbc</artifactId>
+            <version>${sqlite-jdbc.version}</version>
+        </dependency>
+
+        <!-- Jdbi3 plugin -->
+        <dependency>
+            <groupId>org.jdbi</groupId>
+            <artifactId>jdbi3-sqlite</artifactId>
+            <version>${jdbi3.version}</version> <!-- Используйте вашу версию Jdbi -->
+        </dependency>
+
+
+        <!-- Json parser -->
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>${gson.version}</version>
         </dependency>
 
     </dependencies>
@@ -40,13 +74,31 @@
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven-compiler-plugin.version}</version>
                 <configuration>
-                    <archive>
-                        <manifest combine.children="append">
-                            <mainClass>colesico.zacepco.script.lib.Application</mainClass>
-                        </manifest>
-                    </archive>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
+                    <showWarnings>true</showWarnings>
+                    <showDeprecation>true</showDeprecation>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>net.colesico.framework</groupId>
+                            <artifactId>colesico-service</artifactId>
+                            <version>${colesico.version}</version>
+                        </path>
+                        <path>
+                            <groupId>net.colesico.framework</groupId>
+                            <artifactId>colesico-config</artifactId>
+                            <version>${colesico.version}</version>
+                        </path>
+                        <!-- Enable compile debug log -->
+                        <dependency>
+                            <groupId>org.slf4j</groupId>
+                            <artifactId>slf4j-simple</artifactId>
+                            <version>${slf4j.version}</version>
+                        </dependency>
+                    </annotationProcessorPaths>
                 </configuration>
             </plugin>
         </plugins>

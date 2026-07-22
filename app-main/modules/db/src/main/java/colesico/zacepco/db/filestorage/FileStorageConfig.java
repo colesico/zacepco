@@ -1,4 +1,4 @@
-package colesico.zacepco.investigation.srv.filestorage;
+package colesico.zacepco.db.filestorage;
 
 import colesico.framework.config.Config;
 import colesico.framework.config.UseFileSource;
@@ -7,15 +7,18 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 @Config
-@UseFileSource(file = "filestorage.properties")
+@UseFileSource(file = "META-INF/storage.properties")
 public class FileStorageConfig {
 
     private String hashAlgorithm;
 
-    private String storageDirectory;
+    /**
+     * Storage root directory
+     */
+    private String storageRoot;
 
     public Path storagePath() {
-        return Paths.get(storageDirectory).toAbsolutePath().normalize();
+        return Paths.get(storageRoot).toAbsolutePath().normalize();
     }
 
     public String getHashAlgorithm() {
@@ -26,11 +29,11 @@ public class FileStorageConfig {
         this.hashAlgorithm = hashAlgorithm;
     }
 
-    public String getStorageDirectory() {
-        return storageDirectory;
+    public String getStorageRoot() {
+        return storageRoot;
     }
 
-    public void setStorageDirectory(String storageDirectory) {
-        this.storageDirectory = storageDirectory;
+    public void setStorageRoot(String storageRoot) {
+        this.storageRoot = storageRoot;
     }
 }

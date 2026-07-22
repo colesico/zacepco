@@ -32,8 +32,19 @@
         </dependency>
         <dependency>
             <groupId>net.colesico.zacepco</groupId>
+            <artifactId>db</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>net.colesico.zacepco</groupId>
             <artifactId>ui</artifactId>
             <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>net.colesico.zacepco</groupId>
+            <artifactId>db</artifactId>
+            <version>1.0.0</version>
+            <scope>compile</scope>
         </dependency>
 
     </dependencies>

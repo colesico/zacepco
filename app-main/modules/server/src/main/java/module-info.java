@@ -5,6 +5,7 @@ module colesico.zacepco.server.app {
 
 
     requires org.slf4j;
+    requires colesico.zacepco.db;
 
     exports colesico.zacepco.server.ui.weblet;
     exports colesico.zacepco.server.ui.config to colesico.framework.config, colesico.framework.ioc;

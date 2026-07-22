@@ -1,6 +1,6 @@
-package colesico.zacepco.investigation.srv.filestorage;
+package colesico.zacepco.db.filestorage;
 
-import jakarta.inject.Singleton;
+import colesico.framework.service.Service;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -13,7 +13,7 @@ import java.util.HexFormat;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.stream.Stream;
 
-@Singleton
+@Service
 public class FileStorage {
 
     private final FileStorageConfig config;
