@@ -1,0 +1,30 @@
+*.class
+
+# Package Files 
+*.jar
+*.war
+*.ear
+
+# Mac OS X
+.DS_Store
+
+# Eclipse 
+.project
+.classpath
+.settings/
+
+# IntelliJ
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Maven
+**/target/**
+target/
+.mvn/
+
+# Netbeans
+nb-configuration.xml
+
+*/docs/pdf
