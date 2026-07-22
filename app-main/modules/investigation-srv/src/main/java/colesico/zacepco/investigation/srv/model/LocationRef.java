@@ -1,6 +1,6 @@
 package colesico.zacepco.investigation.srv.model;
 
-import colesico.zacepco.script.lib.model.setting.LocationId;
+import colesico.zacepco.script.model.setting.LocationId;
 
 /**
  * Location reference

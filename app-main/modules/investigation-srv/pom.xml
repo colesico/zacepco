@@ -45,14 +45,14 @@
         <!-- Zacepco -->
         <dependency>
             <groupId>net.colesico.zacepco</groupId>
-            <artifactId>script-lib</artifactId>
+            <artifactId>script</artifactId>
             <version>${project.version}</version>
         </dependency>
 
     </dependencies>
 
     <build>
-        <finalName>zacepco-investigation</finalName>
+        <finalName>zacepco-investigation-srv</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

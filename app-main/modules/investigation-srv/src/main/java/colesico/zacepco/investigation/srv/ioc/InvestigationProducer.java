@@ -8,8 +8,8 @@ import colesico.framework.ioc.production.Producer;
 import colesico.framework.ioc.production.Supplier;
 import colesico.framework.ioc.scope.Unscoped;
 import colesico.zacepco.investigation.srv.filestorage.StoragePackageDriver;
-import colesico.zacepco.script.lib.pkg.PackageDriver;
-import colesico.zacepco.script.lib.pkg.ScriptPackage;
+import colesico.zacepco.script.pkg.PackageDriver;
+import colesico.zacepco.script.pkg.ScriptPackage;
 
 @Producer
 @Produce(StoragePackageDriver.class)

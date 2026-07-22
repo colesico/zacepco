@@ -142,9 +142,11 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <modules>
-                <module>modules/script-lib</module>
+                <module>modules/db</module>
+                <module>modules/ui</module>
+                <module>modules/script</module>
                 <module>modules/investigation-srv</module>
-                <module>modules/server-app</module>
+                <module>modules/server</module>
             </modules>
         </profile>
 

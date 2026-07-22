@@ -2,8 +2,8 @@ package colesico.zacepco.investigation.srv.filestorage;
 
 import colesico.framework.ioc.message.IocMessage;
 import colesico.framework.ioc.scope.Unscoped;
-import colesico.zacepco.script.lib.pkg.PackageDriver;
-import colesico.zacepco.script.lib.pkg.ResourcePath;
+import colesico.zacepco.script.pkg.PackageDriver;
+import colesico.zacepco.script.pkg.ResourcePath;
 
 import java.io.IOException;
 import java.io.InputStream;

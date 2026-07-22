@@ -1,6 +1,6 @@
 package colesico.zacepco.investigation.srv.model;
 
-import colesico.zacepco.script.lib.model.setting.ClueId;
+import colesico.zacepco.script.model.setting.ClueId;
 
 /**
  * Clue, opened by location search, personage interrogation, expertise

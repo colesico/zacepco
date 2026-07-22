@@ -7,8 +7,8 @@ import colesico.framework.transaction.Transactional;
 import colesico.zacepco.investigation.srv.dao.ScriptDao;
 import colesico.zacepco.investigation.srv.filestorage.StoragePackageDriver;
 import colesico.zacepco.investigation.srv.model.ScriptRef;
-import colesico.zacepco.script.lib.model.script.Script;
-import colesico.zacepco.script.lib.pkg.*;
+import colesico.zacepco.script.model.script.Script;
+import colesico.zacepco.script.pkg.*;
 
 import java.io.IOException;
 import java.io.InputStream;
