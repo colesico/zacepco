@@ -1,0 +1,17 @@
+{% macro invalidFeedback(message) %}
+    {%if not (message is empty) %}
+       <div class="invalid-feedback">{{message}}</div>
+    {% endif %}
+{% endmacro %}
+
+{% macro invalidCss(message) %}
+    {%if not (message is empty) %}is-invalid{% endif %}
+{% endmacro %}
+
+{% macro errorMessage(error) %}
+    {%if not(error is null)%}
+        <div class="alert alert-danger w-100" role="alert">
+            {{error}}
+        </div>
+    {%endif%}
+{% endmacro %}

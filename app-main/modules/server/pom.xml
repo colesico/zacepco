@@ -32,7 +32,7 @@
         </dependency>
         <dependency>
             <groupId>net.colesico.zacepco</groupId>
-            <artifactId>db</artifactId>
+            <artifactId>storage</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
@@ -42,7 +42,7 @@
         </dependency>
         <dependency>
             <groupId>net.colesico.zacepco</groupId>
-            <artifactId>db</artifactId>
+            <artifactId>storage</artifactId>
             <version>1.0.0</version>
             <scope>compile</scope>
         </dependency>

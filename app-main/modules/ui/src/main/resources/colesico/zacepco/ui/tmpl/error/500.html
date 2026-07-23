@@ -1,0 +1,12 @@
+{% extends "$genericUiTmpl/layout/ErrorPage"%}
+{% import "$genericUiTmpl/macro/Errors" %}
+
+{% block pageContent %}
+{%t9nDictionary "$genericUiT9n/Errors" %}
+<div style="width: 450px">
+    <h2>{{"UnexpectedErrorOccurred"|t9n}}</h2>
+    <p>
+        <a href="/">{{"ContinueFromHome"|t9n}}</a>
+    </p>
+</div>
+{% endblock%}

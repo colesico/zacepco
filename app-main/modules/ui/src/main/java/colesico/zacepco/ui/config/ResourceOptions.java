@@ -7,6 +7,6 @@ import colesico.framework.resource.ResourceOptionsPrototype;
 public class ResourceOptions extends ResourceOptionsPrototype {
     @Override
     public void configure(Options options) {
-        options.substitution("$ui", "colesico/zacepco/ui/tmpl");
+        options.substitution("$ui", "colesico/zacepco/ui");
     }
 }

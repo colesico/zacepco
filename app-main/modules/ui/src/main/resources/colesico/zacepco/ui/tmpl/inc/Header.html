@@ -1,0 +1,65 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-color-default">
+    <a href="/" class="navbar-brand">
+        <img src="/resources/ui/app/img/logo.png" width="32" height="32"
+             class="d-inline-block align-top" alt="">
+        {{ "SiteName"|t9n(layoutMsg) }}
+    </a>
+
+    <button class="navbar-toggler" type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#menuBar"
+            aria-controls="menuBar"
+            aria-expanded="false"
+            aria-label="Показать/Спрятять Меню">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-between" id="menuBar">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="/feed-hub/topic">Темы</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/feed-hub/collection">Подборки</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/catalog/embroidery" title="Вышивка">Вышивка</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/catalog/trademark" title="Брэнды">Бренды</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/workroom" title="Мастерская">Мастерская</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="menuItemHelp" role="button"
+                   data-bs-toggle="dropdown"
+                   aria-haspopup="true"
+                   aria-expanded="false">
+                    Поддержка
+                </a>
+                <div class="dropdown-menu" aria-labelledby="menuItemHelp">
+                    <a class="dropdown-item" href="/docman/about">О проекте</a>
+                    <a class="dropdown-item" href="/docman/agreement">Пользовательское соглашение</a>
+                    <a class="dropdown-item" href="/docman/rules">Правила сервиса</a>
+                    <a class="dropdown-item" href="/docman/copyright">Правообладателям</a>
+                    <a class="dropdown-item" href="/docman/faq">Частые вопросы</a>
+                    <a class="dropdown-item" href="/docman/contacts">Контакты</a>
+                </div>
+            </li>
+        </ul>
+         <ul class="navbar-nav">
+            {%if identity() is null %}
+            <li class="nav-item">
+                <a class="nav-link" href="/identity/signup" title="Регистрация аккаунта">Регистрация</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/identity/login" title="Войти в аккаунт">Войти</a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+                <a class="nav-link" href="/identity/logout" title="Выход из аккаунта">Выход</a>
+            </li>
+            {% endif %}
+        </ul>
+    </div>
+</nav>

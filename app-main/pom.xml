@@ -148,7 +148,7 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <modules>
-                <module>modules/db</module>
+                <module>modules/storage</module>
                 <module>modules/ui</module>
                 <module>modules/script</module>
                 <module>modules/investigation-srv</module>

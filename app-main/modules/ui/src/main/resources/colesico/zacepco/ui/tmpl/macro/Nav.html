@@ -1,0 +1,171 @@
+{% macro paginator(curPage,totalPages,uri) %}
+{% if totalPages >1 %}
+{% set startPage = curPage - 5 < 1 ? 1 : curPage - 5 %}
+{% set stopPage = curPage + 5 > totalPages ? totalPages : curPage + 5 %}
+<nav aria-label="Pagination">
+    <ul class="pagination justify-content-center my-4">
+        {% if curPage > 1 %}
+        <li class="page-item" aria-current="page"><a class="page-link" href="{{uri}}1"><i
+                class="fas fa-step-backward"></i> Начало</a></li>
+        <li class="page-item" aria-current="page"><a class="page-link" href="{{uri}}{{curPage-1}}"><i
+                class="fas fa-angle-left"></i> Назад</a></li>
+        {% else %}
+        <li class="page-item disabled" aria-current="page"><a class="page-link" href="#"><i
+                class="fas fa-angle-double-left"></i> Начало</a></li>
+        <li class="page-item disabled" aria-current="page"><a class="page-link" href="#"><i
+                class="fas fa-angle-left"></i> Назад</a></li>
+        {% endif %}
+        {% for idx in range(startPage, stopPage) %}
+        {% if idx == curPage %}
+        <li class="page-item active" aria-current="page"><span class="page-link">{{idx}}<span
+                class="sr-only">(current)</span></span></li>
+        {% else %}
+        <li class="page-item"><a class="page-link" href="{{uri}}{{idx}}">{{idx}}</a></li>
+        {% endif %}
+        {% endfor %}
+        {% if curPage < totalPages %}
+        <li class="page-item" aria-current="page"><a class="page-link" href="{{uri}}{{curPage+1}}">Вперед <i
+                class="fas fa-angle-right"></i></a></li>
+        <li class="page-item" aria-current="page"><a class="page-link" href="{{uri}}{{totalPages}}">В конец <i
+                class="fas fa-angle-double-right"></i> </a></li>
+        {% else %}
+        <li class="page-item disabled" aria-current="page"><a class="page-link" href="#">Вперед <i
+                class="fas fa-angle-right"></i></a></li>
+        <li class="page-item disabled" aria-current="page"><a class="page-link" href="#">В конец <i
+                class="fas fa-angle-double-right"></i></a></li>
+        {% endif %}
+    </ul>
+</nav>
+{% endif %}
+{% endmacro %}
+
+{% macro loPaginator(pagination,uri) %}
+{% set prevPage = pagination.prevPage %}
+{% set nextPage = pagination.nextPage %}
+<nav aria-label="Pagination">
+    <ul class="pagination justify-content-center my-4">
+        {% if prevPage is not empty %}
+        <li class="page-item" title="Начало"><a href="{{uri}}" class="page-link"><i
+                class="fas fa-step-backward" aria-hidden="true"></i> Начало </a></li>
+        <li class="page-item" title="Назад"><a href="{{uri}}pgNum={{prevPage.pageNumber}}"
+                                                    class="page-link"><i
+                class="fas fa-angle-left" aria-hidden="true"></i> Назад </a></li>
+        {% else %}
+        <li class="page-item disabled"><a href="#" class="page-link"><i
+                class="fas fa-step-backward" aria-hidden="true"></i> Начало </a></li>
+        <li class="page-item disabled"><a href="#" class="page-link"><i
+                class="fas fa-angle-left" aria-hidden="true"></i> Назад </a></li>
+        {% endif %}
+        {% if nextPage is not empty %}
+        <li class="page-item" aria-current="page"><a class="page-link" href="{{uri}}pgNum={{nextPage.pageNumber}}">
+            Вперед <i
+                class="fas fa-angle-right"></i></a></li>
+        {% else %}
+        <li class="page-item disabled"><a href="#" class="page-link"> Вперед <i
+                class="fas fa-angle-right" aria-hidden="true"></i></a></li>
+        {% endif %}
+    </ul>
+</nav>
+{% endmacro %}
+
+{% macro idPaginator(pagination, uri, compact) %}
+{% set prevPage = pagination.prevPage %}
+{% set nextPage = pagination.nextPage %}
+
+{% if compact %}
+    {% set prevUrl = uri + 'pg=r' + prevPage.fromId %}
+    {% set nextUrl = uri + 'pg=f' + nextPage.fromId %}
+{% else %}
+    {% set prevUrl = uri + 'pgId=' + prevPage.fromId + '&pgRev=' + prevPage.reverse %}
+    {% set nextUrl = uri + 'pgId=' + nextPage.fromId %}
+{% endif %}
+
+
+<nav aria-label="Pagination">
+    <ul class="pagination justify-content-center my-4">
+        {% if prevPage is not empty %}
+        <li class="page-item" title="Начало"><a href="{{uri}}" class="page-link"><i
+                class="fas fa-step-backward" aria-hidden="true"></i> Начало </a></li>
+        <li class="page-item" title="Назад"><a href="{{ prevUrl }}"
+                                                    class="page-link"><i
+                class="fas fa-angle-left" aria-hidden="true"></i> Назад </a></li>
+        {% else %}
+        <li class="page-item disabled"><a href="#" class="page-link"><i
+                class="fas fa-step-backward" aria-hidden="true"></i> Начало </a></li>
+        <li class="page-item disabled"><a href="#" class="page-link"><i
+                class="fas fa-angle-left" aria-hidden="true"></i> Назад </a></li>
+        {% endif %}
+        {% if nextPage is not empty %}
+        <li class="page-item" aria-current="page"><a class="page-link" href="{{ nextUrl }}">
+            Вперед <i
+                class="fas fa-angle-right"></i></a></li>
+        {% else %}
+        <li class="page-item disabled"><a href="#" class="page-link"> Вперед <i
+                class="fas fa-angle-right" aria-hidden="true"></i></a></li>
+        {% endif %}
+    </ul>
+</nav>
+{% endmacro %}
+
+
+{% macro nmPaginator(pagination,uri) %}
+{% set prevPage = pagination.prevPage %}
+{% set nextPage = pagination.nextPage %}
+<nav aria-label="Pagination">
+    <ul class="pagination justify-content-center my-4">
+        {% if prevPage is not empty %}
+        <li class="page-item" title="Начало"><a href="{{uri}}" class="page-link"><i
+                class="fas fa-step-backward" aria-hidden="true"></i> Начало </a></li>
+        <li class="page-item" title="Назад"><a
+                href="{{uri}}pgName={{prevPage.fromName}}&pgId={{prevPage.fromId}}&pgRev={{prevPage.reverse}}"
+                class="page-link"><i
+                class="fas fa-angle-left" aria-hidden="true"></i> Назад </a></li>
+        {% else %}
+        <li class="page-item disabled"><a href="#" class="page-link"><i
+                class="fas fa-step-backward" aria-hidden="true"></i> Начало </a></li>
+        <li class="page-item disabled"><a href="#" class="page-link"><i
+                class="fas fa-angle-left" aria-hidden="true"></i> Назад </a></li>
+        {% endif %}
+        {% if nextPage is not empty %}
+        <li class="page-item" aria-current="page"><a
+                class="page-link"
+                href="{{uri}}pgName={{nextPage.fromName}}&pgId={{nextPage.fromId}}"> Вперед <i
+                class="fas fa-angle-right"></i></a></li>
+        {% else %}
+        <li class="page-item disabled"><a href="#" class="page-link"> Вперед <i
+                class="fas fa-angle-right" aria-hidden="true"></i></a></li>
+        {% endif %}
+    </ul>
+</nav>
+{% endmacro %}
+
+{% macro tsPaginator(pagination,uri) %}
+{% set prevPage = pagination.prevPage %}
+{% set nextPage = pagination.nextPage %}
+<nav aria-label="Pagination">
+    <ul class="pagination justify-content-center my-4">
+        {% if prevPage is not empty %}
+        <li class="page-item" title="Начало"><a href="{{uri}}" class="page-link"><i
+                class="fas fa-step-backward" aria-hidden="true"></i> Начало </a></li>
+        <li class="page-item" title="Назад"><a
+                href="{{uri}}pgTs={{prevPage.fromTs}}&pgId={{prevPage.fromId}}&pgRev={{prevPage.reverse}}"
+                class="page-link"><i
+                class="fas fa-angle-left" aria-hidden="true"></i> Назад </a></li>
+        {% else %}
+        <li class="page-item disabled"><a href="#" class="page-link"><i
+                class="fas fa-step-backward" aria-hidden="true"></i> Начало </a></li>
+        <li class="page-item disabled"><a href="#" class="page-link"><i
+                class="fas fa-angle-left" aria-hidden="true"></i> Назад </a></li>
+        {% endif %}
+        {% if nextPage is not empty %}
+        <li class="page-item" aria-current="page"><a
+                class="page-link"
+                href="{{uri}}pgTs={{nextPage.fromTs}}&pgId={{nextPage.fromId}}"> Вперед <i
+                class="fas fa-angle-right"></i></a></li>
+        {% else %}
+        <li class="page-item disabled"><a href="#" class="page-link"> Вперед <i
+                class="fas fa-angle-right" aria-hidden="true"></i></a></li>
+        {% endif %}
+    </ul>
+</nav>
+{% endmacro %}

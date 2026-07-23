@@ -9,7 +9,7 @@ import colesico.framework.weblet.response.ViewResponse;
 public class IndexWeblet {
 
     public ViewResponse index() {
-        return ViewResponse.view("$serverUi/Index.html").build();
+        return ViewResponse.view("$server/tmpl/Index.html").build();
     }
 
     /**

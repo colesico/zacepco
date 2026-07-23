@@ -2,13 +2,19 @@ package colesico.zacepco.server.ui;
 
 import colesico.framework.httpserver.HttpServer;
 import colesico.framework.ioc.IocBuilder;
-import colesico.zacepco.db.srv.DBManager;
+import colesico.zacepco.storage.dbstorage.DBStorage;
+import colesico.zacepco.storage.filestorage.FileStorage;
 
 public class Application {
 
     private static void start() {
         var ioc = IocBuilder.create().build();
-        ioc.instance(DBManager.class).initDB();
+
+        // initialize
+        ioc.instance(FileStorage.class);
+        ioc.instance(DBStorage.class);
+
+        // start http server
         ioc.instance(HttpServer.class).start();
     }
 

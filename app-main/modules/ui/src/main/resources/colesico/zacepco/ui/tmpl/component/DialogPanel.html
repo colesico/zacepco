@@ -1,0 +1,12 @@
+{% macro dialogPanel() %}
+<div #id="dialog-panel-wrapper">
+    <div>
+        <div>
+            {%block dialogPanelHeader %}header{% endblock %}
+        </div>
+        <div>
+            {%block dialogPanelBody %}body{% endblock %}
+        </div>
+    </div>
+</div>
+{% endmacro %}
