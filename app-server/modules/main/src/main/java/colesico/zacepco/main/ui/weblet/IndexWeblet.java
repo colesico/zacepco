@@ -1,0 +1,22 @@
+package colesico.zacepco.main.ui.weblet;
+
+import colesico.framework.httprouter.Route;
+import colesico.framework.weblet.Weblet;
+import colesico.framework.weblet.response.ViewResponse;
+
+@Weblet
+@Route("/")
+public class IndexWeblet {
+
+    public ViewResponse index() {
+        return ViewResponse.view("$server/ui/tmpl/Index.html").build();
+    }
+
+    /**
+     * For docker healthcheck
+     */
+    public String status() {
+        return "OK";
+    }
+
+}

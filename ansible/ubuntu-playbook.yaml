@@ -1,0 +1,150 @@
+---
+- name: Configure Ubuntu Server
+  hosts: all
+  become: true
+  gather_facts: true
+
+  vars:
+    # --- User account ---
+    target_user: "zacepco"
+    target_ssh_key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIG... user@host"   # REPLACE ME
+
+    # --- Docker ---
+    docker_arch: "amd64"                     # or "arm64"
+    docker_gpg_key_url: "https://download.docker.com/linux/ubuntu/gpg"
+    docker_repo_url: "https://download.docker.com/linux/ubuntu"
+    docker_keyring_dir: "/etc/apt/keyrings"
+    docker_keyring_file: "docker.asc"
+    docker_repo_suite: "{{ ansible_distribution_release }}"   # e.g., jammy, focal
+    docker_packages:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+      - docker-compose-plugin               # Docker Compose v2 (plugin)
+
+    # --- Timezone & Locale ---
+    timezone: "Europe/Moscow"                # change as needed
+    locale: "en_US.UTF-8"                    # system locale
+
+    # --- Sysctl parameters (for Docker & performance) ---
+    sysctl_params:
+      net.ipv4.ip_forward: 1                 # required for container networking
+      vm.max_map_count: 262144               # needed for Elasticsearch, etc.
+      net.core.somaxconn: 65535              # high connection backlog
+
+  tasks:
+    # --- 1. Base packages ---
+    - name: Install curl and ufw
+      ansible.builtin.shell:
+        cmd: apt-get update && apt-get install -y curl ufw
+      args:
+        creates: /usr/bin/curl
+
+    # --- 2. Docker repository & installation ---
+    - name: Create directory for Docker keyrings
+      ansible.builtin.file:
+        path: "{{ docker_keyring_dir }}"
+        state: directory
+        mode: '0755'
+
+    - name: Download Docker GPG key
+      ansible.builtin.get_url:
+        url: "{{ docker_gpg_key_url }}"
+        dest: "{{ docker_keyring_dir }}/{{ docker_keyring_file }}"
+        mode: '0644'
+        force: true
+
+    - name: Add Docker repository
+      ansible.builtin.shell:
+        cmd: |
+          echo "deb [arch={{ docker_arch }} signed-by={{ docker_keyring_dir }}/{{ docker_keyring_file }}] {{ docker_repo_url }} {{ docker_repo_suite }} stable" > /etc/apt/sources.list.d/docker.list
+      args:
+        creates: /etc/apt/sources.list.d/docker.list
+
+    - name: Install Docker and Compose
+      ansible.builtin.shell:
+        cmd: apt-get update && apt-get install -y {{ docker_packages | join(' ') }}
+      args:
+        creates: /usr/bin/docker
+
+    # --- 3. UFW firewall ---
+    - name: Allow SSH, HTTP, HTTPS
+      ansible.builtin.shell:
+        cmd: ufw allow {{ item }}/tcp
+      loop:
+        - '22'
+        - '80'
+        - '443'
+      register: ufw_allow
+      changed_when: "'Rule added' in ufw_allow.stdout"
+
+    - name: Fix UFW forward policy for Docker
+      ansible.builtin.lineinfile:
+        path: /etc/default/ufw
+        regexp: '^DEFAULT_FORWARD_POLICY='
+        line: 'DEFAULT_FORWARD_POLICY="ACCEPT"'
+
+    - name: Set default incoming policy to deny
+      ansible.builtin.shell:
+        cmd: ufw default deny incoming
+      changed_when: false
+
+    - name: Enable UFW
+      ansible.builtin.shell:
+        cmd: ufw --force enable
+      changed_when: false
+
+    - name: Restart Docker to reapply iptables rules
+      ansible.builtin.systemd:
+        name: docker
+        state: restarted
+        enabled: true
+
+    # --- 4. User and SSH/SFTP ---
+    - name: Create deploy user
+      ansible.builtin.user:
+        name: "{{ target_user }}"
+        shell: /bin/bash
+        create_home: true
+        groups: docker
+        append: true
+        state: present
+
+    - name: Set authorized SSH key
+      ansible.builtin.authorized_key:
+        user: "{{ target_user }}"
+        key: "{{ target_ssh_key }}"
+
+    - name: Configure SFTP subsystem to internal-sftp
+      ansible.builtin.lineinfile:
+        path: /etc/ssh/sshd_config
+        regexp: '^Subsystem\s+sftp'
+        line: 'Subsystem sftp internal-sftp'
+
+    - name: Restart SSH service
+      ansible.builtin.service:
+        name: ssh
+        state: restarted
+
+    # --- 5. Timezone & Locale ---
+    - name: Set system timezone
+      ansible.builtin.shell:
+        cmd: timedatectl set-timezone {{ timezone }}
+      when: timezone is defined
+
+    - name: Generate and set locale
+      ansible.builtin.shell:
+        cmd: |
+          locale-gen {{ locale }}
+          update-locale LANG={{ locale }}
+      when: locale is defined
+
+    # --- 6. Sysctl parameters (kernel tuning) ---
+    - name: Apply sysctl parameters for Docker and performance
+      ansible.builtin.sysctl:
+        name: "{{ item.key }}"
+        value: "{{ item.value }}"
+        state: present
+        reload: true
+        sysctl_file: /etc/sysctl.d/99-docker.conf
+      loop: "{{ sysctl_params | dict2items }}"
