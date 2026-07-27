@@ -8,6 +8,8 @@ module colesico.zacepco.ui {
     requires org.slf4j;
 
     exports colesico.zacepco.ui.config to colesico.framework.config, colesico.framework.ioc;
+    exports colesico.zacepco.ui.pebble to colesico.framework.config, colesico.framework.ioc;
+
     opens colesico.zacepco.ui.t9n;
 
     opens colesico.zacepco.ui.tmpl.component;
@@ -30,5 +32,4 @@ module colesico.zacepco.ui {
 
     opens colesico.zacepco.ui.webpub.jquery.js;
 
-    exports colesico.zacepco.ui.pebble to colesico.framework.config, colesico.framework.ioc;
 }

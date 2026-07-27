@@ -20,13 +20,11 @@ VALUES (
 CREATE TABLE IF NOT EXISTS auth (
     id BIGSERIAL PRIMARY KEY,
     user_id BIGINT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-    provider VARCHAR(8) NOT NULL,
     password_hash VARCHAR(64) NOT NULL,
     last_login_at TIMESTAMPTZ DEFAULT NULL
 );
 
 CREATE INDEX idx_auth_user_id ON auth(user_id);
--- CREATE INDEX idx_auth_provider_user_id ON auth(provider, provider_user_id);
 
 -- login/password auth
 INSERT INTO auth (user_id, password_hash)

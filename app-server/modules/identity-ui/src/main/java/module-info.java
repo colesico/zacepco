@@ -1,12 +1,7 @@
-module colesico.zacepco.identity.srv {
+module colesico.zacepco.identity.ui {
 
     requires jakarta.inject;
-    requires org.apache.commons.lang3;
-    requires colesico.framework.config;
-	 requires colesico.framework.service;
-	 	 requires colesico.framework.jdbi;
-		 requires colesico.zacepco.storage
-
-
+    requires colesico.zacepco.identity.srv;
+    requires colesico.framework.weblet;
 
 }

@@ -11,36 +11,27 @@
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
-    <artifactId>identity-srv</artifactId>
+    <artifactId>identity-ui</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
 
-    <name>Zacepco - Identity Service</name>
+    <name>Zacepco - Identity UI</name>
     <description>
-        Zacepco Identity Service
+        Zacepco Identity UI
     </description>
     <properties>
     </properties>
 
     <dependencies>
-
-        <!-- Colesico -->
-        <dependency>
-            <groupId>net.colesico.framework</groupId>
-            <artifactId>colesico-config</artifactId>
-            <version>${colesico.version}</version>
-        </dependency>
-		
-		<dependency>
-            <groupId>net.colesico.framework</groupId>
-            <artifactId>colesico-service</artifactId>
-            <version>${colesico.version}</version>
-        </dependency>
-
         <!-- Zacepco -->
         <dependency>
             <groupId>net.colesico.zacepco</groupId>
-            <artifactId>storage</artifactId>
+            <artifactId>ui</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>net.colesico.zacepco</groupId>
+            <artifactId>identity-srv</artifactId>
             <version>${project.version}</version>
         </dependency>
 
