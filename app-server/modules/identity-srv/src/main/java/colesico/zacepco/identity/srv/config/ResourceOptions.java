@@ -1,4 +1,4 @@
-package colesico.zacepco.main.ui.config;
+package colesico.zacepco.identity.srv.config;
 
 import colesico.framework.config.Config;
 import colesico.framework.resource.ResourceOptionsPrototype;
@@ -7,6 +7,6 @@ import colesico.framework.resource.ResourceOptionsPrototype;
 public class ResourceOptions extends ResourceOptionsPrototype {
     @Override
     public void configure(Options options) {
-        options.substitution("$main", "colesico/zacepco/main");
+        options.substitution("$identity", "colesico/zacepco/identity");
     }
 }

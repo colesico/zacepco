@@ -1,6 +1,6 @@
 package colesico.zacepco.script.model.setting;
 
-import org.apache.commons.lang3.StringUtils;
+import colesico.framework.assist.StringUtils;
 
 import java.util.Objects;
 

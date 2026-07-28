@@ -24,20 +24,13 @@
 
     <dependencies>
 
-        <!-- Colesico -->
         <dependency>
-            <groupId>net.colesico.framework</groupId>
-            <artifactId>colesico-config</artifactId>
-            <version>${colesico.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>net.colesico.framework</groupId>
-            <artifactId>colesico-service</artifactId>
-            <version>${colesico.version}</version>
+            <groupId>net.colesico.zacepco</groupId>
+            <artifactId>script</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
         <!-- Zacepco -->
-
         <dependency>
             <groupId>net.colesico.zacepco</groupId>
             <artifactId>storage</artifactId>
@@ -48,43 +41,6 @@
     </dependencies>
 
     <build>
-        <finalName>zacepco-investigation-srv</finalName>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>${maven-compiler-plugin.version}</version>
-                <configuration>
-                    <annotationProcessorPaths combine.children="append">
-                        <path>
-                            <groupId>net.colesico.framework</groupId>
-                            <artifactId>colesico-service</artifactId>
-                            <version>${colesico.version}</version>
-                        </path>
-                        <path>
-                            <groupId>net.colesico.framework</groupId>
-                            <artifactId>colesico-config</artifactId>
-                            <version>${colesico.version}</version>
-                        </path>
-                        <path>
-                            <groupId>net.colesico.framework</groupId>
-                            <artifactId>colesico-jdbirec</artifactId>
-                            <version>${colesico.version}</version>
-                        </path>
-                    </annotationProcessorPaths>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <configuration>
-                    <archive>
-                        <manifest combine.children="append">
-                            <mainClass>colesico.zacepco.inquiry.srv.Application</mainClass>
-                        </manifest>
-                    </archive>
-                </configuration>
-            </plugin>
-        </plugins>
+        <finalName>zacepco-inquiry-srv</finalName>
     </build>
 </project>

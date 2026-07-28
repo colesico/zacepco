@@ -1,16 +1,15 @@
 <!DOCTYPE html>
-<html lang="ru" prefix="og: http://ogp.me/ns#">
+<html lang="{{ profile().locale }}" prefix="og: http://ogp.me/ns#">
 <head>
-    {%t9nDictionary "$genericUiT9n/Strings" "layoutMsg"%}
-    {% set projectConf = getBean("colesico.armario.basic.srv.conf.ProjectConfig") %}
-    <title>{% block headTitle %}{% endblock %}{{"HeadTitle"|t9n(layoutMsg)}}</title>
+    {%t9nDictionary "$ui/t9n/Strings" "uiStrings"%}
+    <title>{% block headTitle %}{% endblock %}{{"HeadTitle"|t9n(uiStrings)}}</title>
 
     <meta charset="utf-8" />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width" />
     <meta name="robots" content="index, follow" />
     <meta property="og:locale" content="ru_RU" />
-    <meta property="og:site_name" content="{{ projectConf.projectName}}" />
+    <meta property="og:site_name" content="{{ 'SiteName'|t9n(uiStrings)}}"  />
     {%block headMeta %}{% endblock %}
 
     <noscript>
@@ -23,16 +22,16 @@
     </script>
     <![endif]-->
 
-    <link rel="icon" href="/resources/generic/favicon.ico" />
-    <link href="/resources/generic/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="/resources/generic/app/css/core.css" rel="stylesheet" />
-    <link href="/resources/generic/fontawesome/css/solid.min.css" rel="stylesheet" />
-    <link href="/resources/generic/fontawesome/css/fontawesome.min.css" rel="stylesheet" />
+    <link rel="icon" href="/resources/ui/favicon.ico" />
+    <link href="/resources/ui/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/resources/ui/app/css/core.css" rel="stylesheet" />
+    <link href="/resources/ui/fontawesome/css/solid.min.css" rel="stylesheet" />
+    <link href="/resources/ui/fontawesome/css/fontawesome.min.css" rel="stylesheet" />
     {%block headCss %}{% endblock %}
 
-    <script src="/resources/generic/jquery/js/jquery.min.js"></script>
-    <script src="/resources/generic/bootstrap/js/bootstrap.bundle.min.js"></script>
-    {% include "../inc/Analytics.html" %}
+    <script src="/resources/ui/jquery/js/jquery.min.js"></script>
+    <script src="/resources/ui/bootstrap/js/bootstrap.bundle.min.js"></script>
+
     {%block headJs %}{% endblock %}
 
     {%block headExtra %}{% endblock %}

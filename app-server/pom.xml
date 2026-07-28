@@ -107,37 +107,12 @@
             <version>${tinylog.verion}</version>
         </dependency>
 
-        <!-- Utils -->
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>${commons-lang3.version}</version>
-        </dependency>
-
         <!-- Tests -->
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
             <version>${testng.version}</version>
             <scope>test</scope>
-        </dependency>
-
-        <!-- Colesico -->
-        <dependency>
-            <groupId>net.colesico.framework</groupId>
-            <artifactId>colesico-ioc</artifactId>
-            <version>${colesico.version}</version>
-            <!-- Exclude annotation processor dependencies -->
-            <exclusions>
-                <exclusion>
-                    <groupId>com.squareup</groupId>
-                    <artifactId>javapoet</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.apache.commons</groupId>
-                    <artifactId>commons-lang3</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
     </dependencies>
 
@@ -175,6 +150,41 @@
                         <path>
                             <groupId>net.colesico.framework</groupId>
                             <artifactId>colesico-ioc</artifactId>
+                            <version>${colesico.version}</version>
+                        </path>
+                        <path>
+                            <groupId>net.colesico.framework</groupId>
+                            <artifactId>colesico-config</artifactId>
+                            <version>${colesico.version}</version>
+                        </path>
+                        <path>
+                            <groupId>net.colesico.framework</groupId>
+                            <artifactId>colesico-service</artifactId>
+                            <version>${colesico.version}</version>
+                        </path>
+                        <path>
+                            <groupId>net.colesico.framework</groupId>
+                            <artifactId>colesico-transaction</artifactId>
+                            <version>${colesico.version}</version>
+                        </path>
+                        <path>
+                            <groupId>net.colesico.framework</groupId>
+                            <artifactId>colesico-jdbirec</artifactId>
+                            <version>${colesico.version}</version>
+                        </path>
+                        <path>
+                            <groupId>net.colesico.framework</groupId>
+                            <artifactId>colesico-transaction</artifactId>
+                            <version>${colesico.version}</version>
+                        </path>
+                        <path>
+                            <groupId>net.colesico.framework</groupId>
+                            <artifactId>colesico-weblet</artifactId>
+                            <version>${colesico.version}</version>
+                        </path>
+                        <path>
+                            <groupId>net.colesico.framework</groupId>
+                            <artifactId>colesico-restlet</artifactId>
                             <version>${colesico.version}</version>
                         </path>
                         <!-- This dependency enables compile time log -->

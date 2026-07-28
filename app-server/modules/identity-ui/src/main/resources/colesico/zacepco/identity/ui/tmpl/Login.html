@@ -1,10 +1,44 @@
-{% extends "$ui/tmpl/layout/PlainPage"%}
+{% extends "$ui/tmpl/layout/PlainDialog"%}
 {% import "$ui/tmpl/macro/Errors" %}
 {% block headTitle%}
-{% t9nDictionary "$identity/ui/t9n/Messages" %}
-{{'LoginHeadTitle'|t9n}} |
+{% t9nDictionary "$identity/ui/t9n/Login" %}
+{{'Login'|t9n}} |
 {% endblock %}
 {% block pageContent %}
-Go go go
+<div class="card" style="width:350px;">
+    <div class="card-header">{{'Login'|t9n}}</div>
+    <div class="card-body">
+        <form method="post" class="p-3">
+            <input type="hidden" name="redirect" value="{{ vm }}"/>
+            <div class="row mb-3">
+                <input type="email" id="email" name="email" class="form-control {{invalidCss(vm.notice.messages['email'])}}"
+                       placeholder="{{'Email'|t9n}}"
+                       value="{{vm.email}}"
+                />
+                {{ invalidFeedback(vm.notice.messages['email']) }}
+            </div>
+            <div class="row mb-3">
+                <input type="password" id="password" name="password" class="form-control {{invalidCss(vm.notice.messages['password'])}}"
+                       placeholder="{{'Password'|t9n}}"
+                       value="{{vm.password}}">
+                {{ invalidFeedback(vm.notice.messages['password']) }}
+            </div>
+            <div class="row ">
+                {{errorMessage(vm.notice.error)}}
+                <button class="btn btn-info btn-block my-4"
+                        type="submit"
+                        formaction="/identity/signin">{{'SignIn'|t9n}}</button>
+            </div>
+        </form>
+        <div class="d-flex justify-content-center">
+            <div class="p-2">
+                <a href="/identity/passwd">{{"ForgotYourPassword"|t9n}}</a>
+            </div>
+            <div class="p-2">
+                <a href="/identity/signup">{{"Registration"|t9n}}</a>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
 

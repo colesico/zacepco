@@ -26,6 +26,12 @@
 
     <dependencies>
 
+        <dependency>
+            <groupId>net.colesico.framework</groupId>
+            <artifactId>colesico-ioc</artifactId>
+            <version>${colesico.version}</version>
+        </dependency>
+
         <!-- SnakeYaml -->
         <dependency>
             <groupId>org.yaml</groupId>
@@ -38,17 +44,6 @@
     <build>
         <finalName>zacepco-script</finalName>
         <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <configuration>
-                    <archive>
-                        <manifest combine.children="append">
-                            <mainClass>colesico.zacepco.script.lib.Application</mainClass>
-                        </manifest>
-                    </archive>
-                </configuration>
-            </plugin>
         </plugins>
     </build>
 

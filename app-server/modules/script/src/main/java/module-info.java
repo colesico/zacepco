@@ -1,8 +1,6 @@
 module colesico.zacepco.script {
 
-    requires jakarta.inject;
     requires colesico.framework.ioc;
-    requires org.apache.commons.lang3;
 
     requires org.yaml.snakeyaml;
 
