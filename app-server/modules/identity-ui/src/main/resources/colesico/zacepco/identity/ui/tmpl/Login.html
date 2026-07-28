@@ -11,8 +11,8 @@
         <form method="post" class="p-3">
             <input type="hidden" name="redirect" value="{{ vm }}"/>
             <div class="row mb-3">
-                <input type="email" id="email" name="email" class="form-control {{invalidCss(vm.notice.messages['email'])}}"
-                       placeholder="{{'Email'|t9n}}"
+                <input type="text" id="username" name="username" class="form-control {{invalidCss(vm.notice.messages['email'])}}"
+                       placeholder="{{'UserName'|t9n}}"
                        value="{{vm.email}}"
                 />
                 {{ invalidFeedback(vm.notice.messages['email']) }}
@@ -32,10 +32,10 @@
         </form>
         <div class="d-flex justify-content-center">
             <div class="p-2">
-                <a href="/identity/passwd">{{"ForgotYourPassword"|t9n}}</a>
+                <a href="/identity/passwd">{{"PasswordRecovery"|t9n}}</a>
             </div>
             <div class="p-2">
-                <a href="/identity/signup">{{"Registration"|t9n}}</a>
+                <a href="/identity/signup">{{"SignUp"|t9n}}</a>
             </div>
         </div>
     </div>
