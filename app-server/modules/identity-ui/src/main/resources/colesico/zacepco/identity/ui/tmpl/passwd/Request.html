@@ -1,0 +1,35 @@
+{% extends "$genericUiTmpl/layout/PlainDialog"%}
+{% import "$genericUiTmpl/macro/Errors" %}
+{% import "$genericUiTmpl/macro/Captcha" %}
+{%block headTitle%}
+{%t9nDictionary "$identityUiT9n/Passwd" %}
+{{"PasswordChange"|t9n}} |
+{%endblock%}
+{% block headExtra %}
+{{ captchaHeader() }}
+{% endblock %}
+{% block pageContent %}
+<div style="width: 350px">
+    <div class="card">
+        <div class="card-header"> {{"EmailForPasswordChangeCode"|t9n}}</div>
+        <div class="card-body">
+            <form method="post" class="p-3">
+                <div class="row mb-3">
+                    <input type="text" name="email" value="{{ vm.email }}" placeholder="{{'Email'|t9n}}"
+                           class="form-control {{invalidCss(vm.notice.messages['email'])}}">
+                    {{invalidFeedback(vm.notice.messages['email'])}}
+                </div>
+                <div class="row mb-3">
+                {{ captchaInput() }}
+                </div>
+                <div class="row">
+                    {{errorMessage(vm.notice.error)}}
+                    <button type="submit" class="btn btn-primary" formaction="/identity/passwd/request">
+                        {{"SendTicket"|t9n}}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock%}

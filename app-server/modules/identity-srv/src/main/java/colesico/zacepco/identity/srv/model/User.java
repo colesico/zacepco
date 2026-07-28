@@ -16,14 +16,12 @@ public class User {
     public String name;
 
     @Column
-    public String emailHash;
-
-    @Column
     public Boolean disabled;
 
     @Column
     public Locale locale;
 
+    @Column
     public Date createdAt;
 
     public Long getId() {
@@ -40,14 +38,6 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getEmailHash() {
-        return emailHash;
-    }
-
-    public void setEmailHash(String emailHash) {
-        this.emailHash = emailHash;
     }
 
     public Boolean getDisabled() {

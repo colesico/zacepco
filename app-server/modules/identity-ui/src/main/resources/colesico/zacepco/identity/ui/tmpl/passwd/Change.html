@@ -1,0 +1,45 @@
+{% extends "$genericUiTmpl/layout/PlainDialog"%}
+{% import "$genericUiTmpl/macro/Errors" %}
+{%block headTitle%}
+{%t9nDictionary "$identityUiT9n/Passwd" %}
+{{"PasswordChange"|t9n}} |
+{%endblock%}
+{% block pageContent %}
+<div class="center-conteiner">
+    <div style="width: 350px">
+        <div class="card">
+            <div class="card-header"> {{"InputTicketAndNewPass"|t9n}}</div>
+            <div class="card-body">
+                    {%if not (vm.notice.error is null)%}
+                        <div class="alert alert-danger" role="alert">
+                            {{vm.notice.error}}
+                        </div>
+                    {%endif%}
+                    {%if not (vm.notice.success is null)%}
+                        <div class="alert alert-success" role="alert">
+                            {{vm.notice.success}}
+                        </div>
+                    {%endif%}
+                    <form method="post" class="p-3">
+                        <div class="row  mt-3">
+                            <input type="text" name="ticket" value="{{ vm.ticket }}" placeholder="{{ 'Ticket' |t9n}}"
+                                   class="form-control {{invalidCss(vm.notice.messages['ticket'])}}">
+                            {{invalidFeedback(vm.notice.messages['ticket'])}}
+                        </div>
+                        <div class="row  mt-3">
+                            <input type="text" name="password" value="{{ vm.password }}" placeholder="{{ 'NewPassword' |t9n}}"
+                                   class="form-control {{invalidCss(vm.notice.messages['password'])}}">
+                            {{invalidFeedback(vm.notice.messages['password'])}}
+                        </div>
+                        <div class="row  mt-3">
+                            <div class="col-md-12">
+                                <button type="submit" class="btn btn-primary"
+                                        formaction="/identity/passwd/change"> {{"Change"|t9n}}</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+    </div>
+</div>
+{% endblock %}

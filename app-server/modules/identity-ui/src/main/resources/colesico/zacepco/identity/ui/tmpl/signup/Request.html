@@ -1,0 +1,53 @@
+{% extends "$ui/tmpl/layout/PlainDialog"%}
+{% import "$ui/tmpl/macro/Errors" %}
+{%block headTitle%}
+{%t9nDictionary "$ui/t9n/SignUp" %}
+{{ "NewAccountRegistration" |t9n}} |
+{%endblock%}
+{% block headExtra %}
+{% endblock %}
+{% block pageContent %}
+<div style="width: 350px">
+    <!-- Account Registration -->
+    <div class="card">
+        <div class="card-header">
+            {{ "NewAccountRegistration" |t9n}}
+        </div>
+        <div class="card-body">
+            <form method="post" class="p-3">
+                <div class="row  mt-3">
+                    <input type="text" name="name" value="{{ vm.name }}" placeholder="{{ 'YourName' |t9n}}"
+                           class="form-control {{invalidCss(vm.notice.messages['name'])}}">
+                    {{invalidFeedback(vm.notice.messages['name'])}}
+                </div>
+                <div class="row  mt-3">
+                    <input type="email" name="email" value="{{ vm.email }}" placeholder="{{ 'Email' |t9n}}"
+                           class="form-control {{invalidCss(vm.notice.messages['email'])}}">
+                    {{invalidFeedback(vm.notice.messages['email'])}}
+                </div>
+                <div class="row mt-3">
+                    <input type="text" name="password" value="{{ vm.password }}"
+                           placeholder="{{ 'Password' |t9n}}"
+                           class="form-control {{invalidCss(vm.notice.messages['password'])}}">
+                    {{invalidFeedback(vm.notice.messages['password'])}}
+                </div>
+                <div class="row mt-3">
+                 [CAPTCHA]
+                </div>
+                <div class="row  mt-3">
+                    <div class="col-md-12">
+                        <p style="font-size:0.7em">
+                        Нажимая кнопку  "{{ "SignUp" |t9n}}" вы принимаете условия
+                            <a href="/docman/agreement" target="_blank" >Пользовательского&nbsp;соглашения</a>
+                        </p>
+                        {{ errorMessage(vm.notice.error) }}
+                        <button type="submit" class="btn btn-primary"
+                                formaction="/identity/signup/request"> {{ "SignUp" |t9n}}
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock%}

@@ -1,19 +1,21 @@
 package colesico.zacepco.identity.srv.model;
 
 import colesico.framework.jdbirec.Column;
+import colesico.framework.jdbirec.Record;
 
 import java.util.Date;
 
 /**
- * Login/Password authentication
+ * TOTP (RFC 6238) authentication
  */
-public class Auth {
+@Record(table = "totp")
+public class Totp {
 
     @Column
     public Long userId;
 
     @Column
-    public String passwordHash;
+    public String key;
 
     @Column
     public Date lastLoginAt;
@@ -26,12 +28,12 @@ public class Auth {
         this.userId = userId;
     }
 
-    public String getPasswordHash() {
-        return passwordHash;
+    public String getKey() {
+        return key;
     }
 
-    public void setPasswordHash(String passwordHash) {
-        this.passwordHash = passwordHash;
+    public void setKey(String key) {
+        this.key = key;
     }
 
     public Date getLastLoginAt() {

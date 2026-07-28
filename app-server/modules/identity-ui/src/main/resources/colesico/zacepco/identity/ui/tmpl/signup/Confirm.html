@@ -1,0 +1,41 @@
+{% extends "$genericUiTmpl/layout/PlainDialog"%}
+{% import "$genericUiTmpl/macro/Errors" %}
+{%block headTitle%}
+{%t9nDictionary "$identityUiT9n/Signup" %}
+{{ "NewAccountRegistration" |t9n}} |
+{%endblock%}
+{% block pageContent %}
+{%t9nDictionary "$identityUiT9n/Signup" %}
+<div style="width: 450px">
+    <!-- Registration confirmation -->
+    {% if vm.notice is null %}
+    <div class="card border-success">
+        <div class="card-header">{{"ConfirmationResult"|t9n}}</div>
+        <div class="card-body">
+            <div class="d-flex flex-column">
+                <div>
+                    <div class="text-success  mb-3">
+                        {{"RegistrationConfirmedMessage"|t9n}}
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <a  class="btn btn-primary top-buffer" href="/">
+                        {{"Continue"|t9n}}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="card border-danger">
+        <div class="card-header">{{"ConfirmationResult"|t9n}}</div>
+        <div class="card-body text-danger">
+            {{ vm.notice.message }}
+        </div>
+        <div class="card-footer">
+            <a href="/identity/signup">{{"Registration"|t9n}}</a>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
