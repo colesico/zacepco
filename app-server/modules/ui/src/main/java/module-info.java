@@ -1,12 +1,14 @@
 module colesico.zacepco.ui {
 
     requires transitive org.slf4j;
+    requires transitive colesico.framework.validation;
     requires transitive colesico.framework.weblet;
     requires transitive colesico.framework.restlet;
     requires transitive colesico.framework.webstatic;
     requires transitive colesico.framework.pebble;
 
 
+    exports colesico.zacepco.ui.model;
     exports colesico.zacepco.ui.config to colesico.framework.config, colesico.framework.ioc;
     exports colesico.zacepco.ui.pebble to colesico.framework.config, colesico.framework.ioc;
 

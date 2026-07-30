@@ -38,6 +38,11 @@
         </dependency>
         <dependency>
             <groupId>net.colesico.framework</groupId>
+            <artifactId>colesico-validation</artifactId>
+            <version>${colesico.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>net.colesico.framework</groupId>
             <artifactId>colesico-weblet</artifactId>
             <version>${colesico.version}</version>
         </dependency>

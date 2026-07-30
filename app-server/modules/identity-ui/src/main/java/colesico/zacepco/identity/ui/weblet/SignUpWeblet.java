@@ -3,10 +3,12 @@ package colesico.zacepco.identity.ui.weblet;
 import colesico.framework.http.HttpMethod;
 import colesico.framework.httprouter.RequestMethod;
 import colesico.framework.httprouter.Route;
+import colesico.framework.service.Aggregate;
 import colesico.framework.service.PlainMethod;
 import colesico.framework.telehttp.response.RedirectResponse;
 import colesico.framework.weblet.Weblet;
 import colesico.framework.weblet.response.ViewResponse;
+import colesico.zacepco.ui.model.ViewModel;
 
 @Weblet
 @Route("./signup")
@@ -23,9 +25,28 @@ public class SignUpWeblet {
     }
 
     @RequestMethod(HttpMethod.POST)
-    public ViewResponse request(String username, String password, String code) {
+    public ViewResponse request(@Aggregate SignUpForm form) {
         return null;
     }
 
+    public static class SignUpForm extends ViewModel {
+        String username;
+        String password;
 
+        public String getUsername() {
+            return username;
+        }
+
+        public void setUsername(String username) {
+            this.username = username;
+        }
+
+        public String getPassword() {
+            return password;
+        }
+
+        public void setPassword(String password) {
+            this.password = password;
+        }
+    }
 }
