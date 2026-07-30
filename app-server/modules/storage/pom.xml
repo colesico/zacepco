@@ -46,6 +46,12 @@
 
         <dependency>
             <groupId>net.colesico.framework</groupId>
+            <artifactId>colesico-validation</artifactId>
+            <version>${colesico.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>net.colesico.framework</groupId>
             <artifactId>colesico-hikaricp</artifactId>
             <version>${colesico.version}</version>
         </dependency>

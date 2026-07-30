@@ -4,6 +4,7 @@ module colesico.zacepco.storage {
 
     requires transitive colesico.framework.config;
     requires transitive colesico.framework.translation;
+    requires transitive colesico.framework.validation;
     requires transitive colesico.framework.transaction;
     requires transitive colesico.framework.hikaricp;
     requires transitive colesico.framework.jdbi;
