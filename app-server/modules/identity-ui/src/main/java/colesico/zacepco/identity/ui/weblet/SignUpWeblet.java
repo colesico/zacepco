@@ -33,12 +33,12 @@ public class SignUpWeblet {
     }
 
     @RequestMethod(HttpMethod.POST)
-    public ViewResponse request(@Aggregate SignUpForm form) {
-        userService.createUser(new Registration(form.getUsername(), form.getPassword()));
+    public ViewResponse request(@Aggregate RegistrationForm form) {
+        userService.createUser(new Registration(form.username, form.password));
         return null;
     }
 
-    public static class SignUpForm extends ViewModel {
+    public static class RegistrationForm extends ViewModel {
         String username;
         String password;
 

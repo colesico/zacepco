@@ -1,8 +1,11 @@
 package colesico.zacepco.ui.model;
 
 
+import colesico.framework.service.LocalParam;
+
 abstract public class ViewModel {
 
+    @LocalParam
     protected Notice notice;
 
     public ViewModel() {
