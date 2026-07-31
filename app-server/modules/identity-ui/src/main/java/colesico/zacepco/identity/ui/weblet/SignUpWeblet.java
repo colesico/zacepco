@@ -24,7 +24,8 @@ public class SignUpWeblet {
         this.userService = userService;
     }
 
-    public ViewResponse index() {
+    @Route("./:inviteCode")
+    public ViewResponse index(String inviteCode) {
         return ViewResponse.view("$identity/ui/tmpl/signup/Request").build();
     }
 
@@ -35,7 +36,7 @@ public class SignUpWeblet {
     }
 
     @RequestMethod(HttpMethod.POST)
-    public ViewResponse request(@ParamsBean RegistrationForm form) {
+    public ViewResponse register(@ParamsBean RegForm form) {
         try {
             userService.createUser(new CreateUser(form.username, form.password));
             return ViewResponse.view("$identity/ui/tmpl/signup/Accepted").build();
@@ -45,17 +46,9 @@ public class SignUpWeblet {
         }
     }
 
-    @Route("./confirm/:code")
-    public ViewResponse confirm(String code) {
-        try {
-            userService.confirmRegistration(code);
-        } catch (ApplicationException e) {
-            return ViewResponse.of("$identityUiTmpl/signup/Confirm", new RegConfirmVM(Notice.error(e)));
-        }
-        return ViewResponse.of("$identityUiTmpl/signup/Confirm", null);
-    }
 
-    public static class RegistrationForm extends ViewModel {
+
+    public static class RegForm extends ViewModel {
 
         String username;
         String password;
