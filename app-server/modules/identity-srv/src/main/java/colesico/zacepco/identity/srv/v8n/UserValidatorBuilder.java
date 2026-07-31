@@ -6,7 +6,7 @@ import colesico.framework.dslvalidator.command.LengthVerifier;
 import colesico.framework.dslvalidator.command.RequiredVerifier;
 import colesico.framework.dslvalidator.t9n.ValidatorMessages;
 import colesico.framework.validation.Validator;
-import colesico.zacepco.identity.srv.model.Registration;
+import colesico.zacepco.identity.srv.dto.CreateUser;
 import colesico.zacepco.identity.srv.t9n.UserMessages;
 import jakarta.inject.Singleton;
 
@@ -37,10 +37,10 @@ public class UserValidatorBuilder extends AbstractValidatorBuilder {
         );
     }
 
-    public Validator<Registration> registrationValidator() {
+    public Validator<CreateUser> createUserValidator() {
         return validator(
-                field("username", Registration::getUsername, validateUserName()),
-                field("password", Registration::getPassword, validatePassword())
+                field("username", CreateUser::getUsername, validateUserName()),
+                field("password", CreateUser::getPassword, validatePassword())
         );
     }
 

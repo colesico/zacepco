@@ -1,13 +1,8 @@
-package colesico.zacepco.identity.srv.model;
+package colesico.zacepco.identity.srv.dto;
 
-public class Registration {
+public class CreateUser {
     private String username;
     private String password;
-
-    public Registration(String username, String password) {
-        this.username = username;
-        this.password = password;
-    }
 
     public String getUsername() {
         return username;

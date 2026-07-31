@@ -10,19 +10,19 @@ import java.util.Locale;
 public class User {
 
     @Column
-    public Long id;
+    Long id;
 
     @Column
-    public String username;
+    String username;
 
     @Column
-    public Boolean disabled;
+    Boolean disabled;
 
     @Column
-    public Locale locale;
+    Locale locale;
 
     @Column
-    public Date createdAt;
+    Date createdAt;
 
     public Long getId() {
         return id;

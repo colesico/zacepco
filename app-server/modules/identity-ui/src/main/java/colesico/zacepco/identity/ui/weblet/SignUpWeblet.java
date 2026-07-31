@@ -3,13 +3,15 @@ package colesico.zacepco.identity.ui.weblet;
 import colesico.framework.http.HttpMethod;
 import colesico.framework.httprouter.RequestMethod;
 import colesico.framework.httprouter.Route;
-import colesico.framework.service.Aggregate;
+import colesico.framework.service.ApplicationException;
+import colesico.framework.service.ParamsBean;
 import colesico.framework.service.PlainMethod;
 import colesico.framework.telehttp.response.RedirectResponse;
 import colesico.framework.weblet.Weblet;
 import colesico.framework.weblet.response.ViewResponse;
-import colesico.zacepco.identity.srv.model.Registration;
+import colesico.zacepco.identity.srv.dto.CreateUser;
 import colesico.zacepco.identity.srv.service.UserService;
+import colesico.zacepco.ui.model.Notice;
 import colesico.zacepco.ui.model.ViewModel;
 
 @Weblet
@@ -33,14 +35,31 @@ public class SignUpWeblet {
     }
 
     @RequestMethod(HttpMethod.POST)
-    public ViewResponse request(@Aggregate RegistrationForm form) {
-        userService.createUser(new Registration(form.username, form.password));
-        return null;
+    public ViewResponse request(@ParamsBean RegistrationForm form) {
+        try {
+            userService.createUser(new CreateUser(form.username, form.password));
+            return ViewResponse.view("$identity/ui/tmpl/signup/Accepted").build();
+        } catch (ApplicationException e) {
+            form.setNotice(Notice.error(e));
+            return ViewResponse.view("$identity/ui/tmpl/signup/Request").model(form).build();
+        }
+    }
+
+    @Route("./confirm/:code")
+    public ViewResponse confirm(String code) {
+        try {
+            userService.confirmRegistration(code);
+        } catch (ApplicationException e) {
+            return ViewResponse.of("$identityUiTmpl/signup/Confirm", new RegConfirmVM(Notice.error(e)));
+        }
+        return ViewResponse.of("$identityUiTmpl/signup/Confirm", null);
     }
 
     public static class RegistrationForm extends ViewModel {
+
         String username;
         String password;
+        String inviteCode;
 
         public String getUsername() {
             return username;
@@ -56,6 +75,14 @@ public class SignUpWeblet {
 
         public void setPassword(String password) {
             this.password = password;
+        }
+
+        public String getInviteCode() {
+            return inviteCode;
+        }
+
+        public void setInviteCode(String inviteCode) {
+            this.inviteCode = inviteCode;
         }
     }
 }

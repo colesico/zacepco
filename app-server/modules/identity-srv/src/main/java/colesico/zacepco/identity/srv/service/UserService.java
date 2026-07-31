@@ -4,7 +4,7 @@ import colesico.framework.ioc.production.Polysupplier;
 import colesico.framework.service.Service;
 import colesico.framework.validation.Validator;
 import colesico.zacepco.identity.srv.dao.UserDao;
-import colesico.zacepco.identity.srv.model.Registration;
+import colesico.zacepco.identity.srv.dto.CreateUser;
 import colesico.zacepco.identity.srv.model.User;
 import colesico.zacepco.identity.srv.v8n.UserValidatorBuilder;
 import jakarta.inject.Provider;
@@ -17,7 +17,7 @@ import java.util.Locale;
 public class UserService {
 
     private final UserDao userDao;
-    private final Validator<Registration> registrationV8n;
+    private final Validator<CreateUser> createUserV8n;
     private final Provider<Locale> locale;
     private final Polysupplier<UserListener> listeners;
 
@@ -28,17 +28,17 @@ public class UserService {
         this.userDao = userDao;
         this.listeners = listeners;
         this.locale = locale;
-        this.registrationV8n = userValidatorBuilder.registrationValidator();
+        this.createUserV8n = userValidatorBuilder.createUserValidator();
     }
 
-    public User createUser(Registration registration) {
+    public User createUser(CreateUser createUser) {
 
-        registrationV8n.accept(registration);
+        createUserV8n.accept(createUser);
 
         var u = new User();
         u.setCreatedAt(new Date());
         u.setDisabled(false);
-        u.setUsername(registration.getUsername());
+        u.setUsername(createUser.getUsername());
         u.setLocale(locale.get());
 
         final var user = userDao.createUser(u);
