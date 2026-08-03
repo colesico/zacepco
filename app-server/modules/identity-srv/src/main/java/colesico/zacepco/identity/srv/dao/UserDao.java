@@ -47,7 +47,7 @@ public class UserDao {
         return cnt > 0;
     }
 
-    public Optional<User> findUser(Long id) {
+    public Optional<User> findUserById(Long id) {
 
         String query = "select @record from @table where id = :id";
 
@@ -59,7 +59,7 @@ public class UserDao {
 
     }
 
-    public Optional<User> findUser(String username) {
+    public Optional<User> findUserByUsername(String username) {
 
         String query = "select @record from @table where username = :username";
 

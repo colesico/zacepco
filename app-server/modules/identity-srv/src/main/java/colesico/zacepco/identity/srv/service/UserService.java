@@ -49,12 +49,12 @@ public class UserService {
         return user;
     }
 
-    public Optional<User> findUser(String username) {
-        return userDao.findUser(username);
+    public Optional<User> findUserByName(String username) {
+        return userDao.findUserByUsername(username);
     }
 
-    public Optional<User> findUser(Long id) {
-        return userDao.findUser(id);
+    public Optional<User> findUserById(Long id) {
+        return userDao.findUserById(id);
     }
 
 }
