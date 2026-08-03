@@ -4,9 +4,9 @@ import colesico.zacepco.common.ui.model.ViewModel;
 
 public class RegForm extends ViewModel {
 
-    String username;
-    String password;
-    String inviteCode;
+    public String username;
+    public String password;
+    public String inviteCode;
 
     public String getUsername() {
         return username;
