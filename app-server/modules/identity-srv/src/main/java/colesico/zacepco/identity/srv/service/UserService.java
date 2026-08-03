@@ -5,7 +5,7 @@ import colesico.framework.service.Service;
 import colesico.framework.validation.Validator;
 import colesico.zacepco.identity.srv.dao.UserDao;
 import colesico.zacepco.identity.srv.model.User;
-import colesico.zacepco.identity.srv.v8n.UserValidatorBuilder;
+import colesico.zacepco.identity.srv.validation.UserValidatorBuilder;
 import jakarta.inject.Provider;
 
 import java.util.Date;

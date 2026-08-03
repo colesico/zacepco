@@ -1,12 +1,14 @@
 package colesico.zacepco.identity.srv.model;
 
 import colesico.framework.jdbirec.Column;
+import colesico.framework.jdbirec.Record;
 
 import java.util.Date;
 
 /**
  * Login/Password authentication
  */
+@Record(table = "auth")
 public class Auth {
 
     @Column

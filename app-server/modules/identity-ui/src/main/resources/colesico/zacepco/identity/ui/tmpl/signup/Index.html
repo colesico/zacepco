@@ -27,7 +27,10 @@
                     {{invalidFeedback(vm.notice.messages['password'])}}
                 </div>
                 <div class="row mt-3">
-                    [CAPTCHA]
+                    <input type="text" name="inviteCode" value="{{ vm.inviteCode }}"
+                           placeholder="{{ 'InviteCode' |t9n}}"
+                           class="form-control {{invalidCss(vm.notice.messages['inviteCode'])}}">
+                    {{invalidFeedback(vm.notice.messages['inviteCode'])}}
                 </div>
                 <div class="row  mt-3">
                     <div class="col-md-12">

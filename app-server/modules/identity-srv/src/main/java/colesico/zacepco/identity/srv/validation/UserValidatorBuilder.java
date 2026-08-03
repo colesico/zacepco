@@ -1,4 +1,4 @@
-package colesico.zacepco.identity.srv.v8n;
+package colesico.zacepco.identity.srv.validation;
 
 import colesico.framework.dslvalidator.Command;
 import colesico.framework.dslvalidator.builder.AbstractValidatorBuilder;

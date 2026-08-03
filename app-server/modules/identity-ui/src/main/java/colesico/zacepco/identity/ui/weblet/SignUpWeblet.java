@@ -9,7 +9,8 @@ import colesico.framework.service.PlainMethod;
 import colesico.framework.telehttp.response.RedirectResponse;
 import colesico.framework.weblet.Weblet;
 import colesico.framework.weblet.response.ViewResponse;
-import colesico.zacepco.identity.srv.service.UserService;
+import colesico.zacepco.identity.srv.dto.RegUser;
+import colesico.zacepco.identity.srv.service.RegService;
 import colesico.zacepco.identity.ui.dto.RegForm;
 import colesico.zacepco.common.ui.model.Notice;
 
@@ -17,15 +18,15 @@ import colesico.zacepco.common.ui.model.Notice;
 @Route("./signup")
 public class SignUpWeblet {
 
-    private final UserService userService;
+    private final RegService regService;
 
-    public SignUpWeblet(UserService userService) {
-        this.userService = userService;
+    public SignUpWeblet(RegService regService) {
+        this.regService = regService;
     }
 
     @Route("./:inviteCode")
     public ViewResponse index(String inviteCode) {
-        return ViewResponse.view("$identity/ui/tmpl/signup/Request").build();
+        return ViewResponse.view("$identity/ui/tmpl/signup/Index").build();
     }
 
     // @Route("*")  - this is default route for "other" method name
@@ -37,7 +38,7 @@ public class SignUpWeblet {
     @RequestMethod(HttpMethod.POST)
     public ViewResponse register(@ParamsBean RegForm form) {
         try {
-            userService.createUser(new CreateUser(form.username, form.password));
+            regService.registerUser(new RegUser(form.username, form.password, form.inviteCode));
             return ViewResponse.view("$identity/ui/tmpl/signup/Accepted").build();
         } catch (ApplicationException e) {
             form.setNotice(Notice.error(e));

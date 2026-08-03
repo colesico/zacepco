@@ -7,7 +7,7 @@ import colesico.framework.transaction.Transactional;
 import colesico.framework.validation.Validator;
 import colesico.zacepco.identity.srv.dto.RegUser;
 import colesico.zacepco.identity.srv.model.User;
-import colesico.zacepco.identity.srv.v8n.RegValidatorBuilder;
+import colesico.zacepco.identity.srv.validation.RegValidatorBuilder;
 
 
 @Service
