@@ -9,7 +9,6 @@ import colesico.framework.service.PlainMethod;
 import colesico.framework.telehttp.response.RedirectResponse;
 import colesico.framework.weblet.Weblet;
 import colesico.framework.weblet.response.ViewResponse;
-import colesico.zacepco.identity.srv.dto.CreateUser;
 import colesico.zacepco.identity.srv.service.UserService;
 import colesico.zacepco.identity.ui.dto.RegForm;
 import colesico.zacepco.common.ui.model.Notice;

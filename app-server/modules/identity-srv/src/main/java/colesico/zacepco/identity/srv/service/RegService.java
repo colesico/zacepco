@@ -27,7 +27,7 @@ public class RegService {
         this.inviteService = inviteService;
         this.authService = authService;
         this.regUserValidator = regValidatorBuilder.createRegUserValidator(
-                ctx -> userService.findUserByUsername(ctx.value()).isEmpty(),
+                ctx -> userService.findUser(ctx.value()).isEmpty(),
                 ctx -> inviteService.findOpenInvite(ctx.value()) == InviteService.CheckCode.OK
         );
     }

@@ -4,7 +4,6 @@ import colesico.framework.ioc.production.Polysupplier;
 import colesico.framework.service.Service;
 import colesico.framework.validation.Validator;
 import colesico.zacepco.identity.srv.dao.UserDao;
-import colesico.zacepco.identity.srv.dto.CreateUser;
 import colesico.zacepco.identity.srv.model.User;
 import colesico.zacepco.identity.srv.v8n.UserValidatorBuilder;
 import jakarta.inject.Provider;
@@ -18,7 +17,7 @@ import java.util.Optional;
 public class UserService {
 
     private final UserDao userDao;
-    private final Validator<CreateUser> createUserV8n;
+    private final Validator<String> createUserV8n;
     private final Provider<Locale> locale;
     private final Polysupplier<UserListener> listeners;
 
@@ -35,7 +34,7 @@ public class UserService {
 
     public User createUser(String username) {
 
-        createUserV8n.accept(createUser);
+        createUserV8n.accept(username);
 
         var u = new User();
         u.setCreatedAt(new Date());
@@ -45,16 +44,16 @@ public class UserService {
 
         final var user = userDao.createUser(u);
 
-        listeners.forEach(ul -> ul.onCreateUser(user));
+        listeners.forEach(listener -> listener.onCreateUser(user));
 
         return user;
     }
 
-    public Optional<User> findUserByUsername(String username) {
+    public Optional<User> findUser(String username) {
         return userDao.findUser(username);
     }
 
-    public Optional<User> findUserById(Long id) {
+    public Optional<User> findUser(Long id) {
         return userDao.findUser(id);
     }
 
