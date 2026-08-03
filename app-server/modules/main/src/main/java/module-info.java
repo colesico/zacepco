@@ -1,8 +1,8 @@
 module colesico.zacepco.main {
 
     requires transitive colesico.framework.fusionhttp;
-    requires transitive colesico.zacepco.ui;
-    requires colesico.zacepco.storage;
+    requires transitive colesico.zacepco.common.ui;
+    requires colesico.zacepco.srv;
 
     requires org.slf4j;
 

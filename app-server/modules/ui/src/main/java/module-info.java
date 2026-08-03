@@ -1,4 +1,4 @@
-module colesico.zacepco.ui {
+module colesico.zacepco.common.ui {
 
     requires transitive org.slf4j;
     requires transitive colesico.framework.validation;
@@ -8,30 +8,30 @@ module colesico.zacepco.ui {
     requires transitive colesico.framework.pebble;
 
 
-    exports colesico.zacepco.ui.model;
-    exports colesico.zacepco.ui.config to colesico.framework.config, colesico.framework.ioc;
-    exports colesico.zacepco.ui.pebble to colesico.framework.config, colesico.framework.ioc;
+    exports colesico.zacepco.common.ui.model;
+    exports colesico.zacepco.common.ui.config to colesico.framework.config, colesico.framework.ioc;
+    exports colesico.zacepco.common.ui.pebble to colesico.framework.config, colesico.framework.ioc;
 
-    opens colesico.zacepco.ui.t9n;
+    opens colesico.zacepco.common.ui.t9n;
 
-    opens colesico.zacepco.ui.tmpl.component;
-    opens colesico.zacepco.ui.tmpl.error;
-    opens colesico.zacepco.ui.tmpl.inc;
-    opens colesico.zacepco.ui.tmpl.layout;
-    opens colesico.zacepco.ui.tmpl.macro;
+    opens colesico.zacepco.common.ui.tmpl.component;
+    opens colesico.zacepco.common.ui.tmpl.error;
+    opens colesico.zacepco.common.ui.tmpl.inc;
+    opens colesico.zacepco.common.ui.tmpl.layout;
+    opens colesico.zacepco.common.ui.tmpl.macro;
 
-    opens colesico.zacepco.ui.webpub;
-    opens colesico.zacepco.ui.webpub.app.css;
-    opens colesico.zacepco.ui.webpub.app.img;
-    opens colesico.zacepco.ui.webpub.app.js;
+    opens colesico.zacepco.common.ui.webpub;
+    opens colesico.zacepco.common.ui.webpub.app.css;
+    opens colesico.zacepco.common.ui.webpub.app.img;
+    opens colesico.zacepco.common.ui.webpub.app.js;
 
-    opens colesico.zacepco.ui.webpub.bootstrap.css;
-    opens colesico.zacepco.ui.webpub.bootstrap.js;
+    opens colesico.zacepco.common.ui.webpub.bootstrap.css;
+    opens colesico.zacepco.common.ui.webpub.bootstrap.js;
 
-    opens colesico.zacepco.ui.webpub.fontawesome.css;
-    opens colesico.zacepco.ui.webpub.fontawesome.js;
-    opens colesico.zacepco.ui.webpub.fontawesome.webfonts;
+    opens colesico.zacepco.common.ui.webpub.fontawesome.css;
+    opens colesico.zacepco.common.ui.webpub.fontawesome.js;
+    opens colesico.zacepco.common.ui.webpub.fontawesome.webfonts;
 
-    opens colesico.zacepco.ui.webpub.jquery.js;
+    opens colesico.zacepco.common.ui.webpub.jquery.js;
 
 }

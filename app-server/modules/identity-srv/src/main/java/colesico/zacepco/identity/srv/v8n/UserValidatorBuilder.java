@@ -22,7 +22,7 @@ public class UserValidatorBuilder extends AbstractValidatorBuilder {
         this.uMessages = uMessages;
     }
 
-    protected Command<String> validatePassword() {
+    public Command<String> validatePassword() {
         return chain(
                 new RequiredVerifier(messages),
                 new LengthVerifier(6, 32, messages)

@@ -1,6 +1,6 @@
 module colesico.zacepco.identity.srv {
 
-    requires colesico.zacepco.storage;
+    requires colesico.zacepco.srv;
 
     exports colesico.zacepco.identity.srv.model;
     exports colesico.zacepco.identity.srv.service;

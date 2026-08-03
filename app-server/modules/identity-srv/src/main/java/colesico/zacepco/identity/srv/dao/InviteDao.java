@@ -19,16 +19,16 @@ public class InviteDao {
         this.inviteRk = inviteRk;
     }
 
-    public Invite createInvite(Long userId){
-
+    public Invite createInvite(Long userId) {
+        return null;
     }
 
-    public Optional<Invite> findInviteByCode(String code){
-
+    public Optional<Invite> findInviteByCode(String code) {
+        return null;
     }
 
-    public List<Invite> findInvitesByUserId(Long userId){
-
+    public List<Invite> findInvitesByUserId(Long userId) {
+        return null;
     }
 
 }

@@ -1,6 +1,8 @@
-package colesico.zacepco.identity.srv.dto;
+package colesico.zacepco.identity.ui.dto;
 
-public class RegUser {
+import colesico.zacepco.common.ui.model.ViewModel;
+
+public class RegForm extends ViewModel {
 
     String username;
     String password;

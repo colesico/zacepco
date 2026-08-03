@@ -2,8 +2,8 @@ package colesico.zacepco.main.ui;
 
 import colesico.framework.httpserver.HttpServer;
 import colesico.framework.ioc.IocBuilder;
-import colesico.zacepco.storage.dbstorage.DBStorage;
-import colesico.zacepco.storage.filestorage.FileStorage;
+import colesico.zacepco.srv.dbstorage.DBStorage;
+import colesico.zacepco.srv.filestorage.FileStorage;
 
 public class Application {
 
