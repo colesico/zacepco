@@ -1,6 +1,5 @@
 package colesico.zacepco.identity.ui.weblet;
 
-import colesico.framework.assist.StringUtils;
 import colesico.framework.http.HttpMethod;
 import colesico.framework.httprouter.RequestMethod;
 import colesico.framework.httprouter.Route;
@@ -11,7 +10,7 @@ import colesico.framework.weblet.response.ViewResponse;
 
 @Weblet
 @Route("./")
-public class IdentityWeblet {
+public class SignInWeblet {
 
     public ViewResponse login() {
         return ViewResponse.view("$identity/ui/tmpl/Login").build();
