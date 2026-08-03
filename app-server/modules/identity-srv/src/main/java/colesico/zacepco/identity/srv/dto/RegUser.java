@@ -2,9 +2,18 @@ package colesico.zacepco.identity.srv.dto;
 
 public class RegUser {
 
-    String username;
-    String password;
-    String inviteCode;
+    public String username;
+    public String password;
+    public String inviteCode;
+
+    public RegUser() {
+    }
+
+    public RegUser(String username, String password, String inviteCode) {
+        this.username = username;
+        this.password = password;
+        this.inviteCode = inviteCode;
+    }
 
     public String getUsername() {
         return username;

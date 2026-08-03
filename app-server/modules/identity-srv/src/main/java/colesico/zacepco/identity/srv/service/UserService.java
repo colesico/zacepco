@@ -11,6 +11,7 @@ import jakarta.inject.Provider;
 
 import java.util.Date;
 import java.util.Locale;
+import java.util.Optional;
 
 
 @Service
@@ -31,6 +32,7 @@ public class UserService {
         this.createUserV8n = userValidatorBuilder.createUserValidator();
     }
 
+
     public User createUser(CreateUser createUser) {
 
         createUserV8n.accept(createUser);
@@ -46,6 +48,14 @@ public class UserService {
         listeners.forEach(ul -> ul.onCreateUser(user));
 
         return user;
+    }
+
+    public Optional<User> findUserByUsername(String username) {
+        return userDao.findUserByUsername(username);
+    }
+
+    public Optional<User> findUserById(Long id) {
+        return userDao.findUserById(id);
     }
 
 }

@@ -6,7 +6,7 @@ import colesico.framework.transaction.Transactional;
 import colesico.framework.transaction.TransactionManager;
 
 @Producer
-public class StorageProducer {
+public class CommonProducer {
     /**
      *  Default tx manager producing
      *  to omit specify manager name on {@link Transactional#manager()}

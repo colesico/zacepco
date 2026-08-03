@@ -50,21 +50,27 @@ public class UserDao {
     }
 
     public Optional<User> findUserById(Long id) {
+
         String query = "select @record from @table where id = :id";
+
         return handle.get()
                 .select(userRk.sql(query))
-                .bind("is", id)
+                .bind("id", id)
                 .map(userRk.mapper())
                 .findFirst();
+
     }
 
     public Optional<User> findUserByUsername(String username) {
+
         String query = "select @record from @table where username = :username";
+
         return handle.get()
                 .select(userRk.sql(query))
                 .bind("username", username)
                 .map(userRk.mapper())
                 .findFirst();
+
     }
 
 }

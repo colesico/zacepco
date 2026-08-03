@@ -13,6 +13,8 @@ import jakarta.inject.Singleton;
 @Singleton
 public class UserValidatorBuilder extends AbstractValidatorBuilder {
 
+    public static final String INVALID_USERNAME_FORMAT = "InvalidUsernameFormat";
+
     public static final String USERNAME_PATTERN = "^[a-zA-Z0-9_]+$";
 
     private final UserMessages uMessages;
@@ -29,17 +31,17 @@ public class UserValidatorBuilder extends AbstractValidatorBuilder {
         );
     }
 
-    public Command<String> validateUserName() {
+    public Command<String> validateUsername() {
         return chain(
                 required(),
-                regexp(USERNAME_PATTERN, "InvalidNameFormat", uMessages::invalidUsernameFormat),
-                length(4, 16)
+                regexp(USERNAME_PATTERN, INVALID_USERNAME_FORMAT, uMessages::invalidUsernameFormat),
+                length(3, 24)
         );
     }
 
     public Validator<CreateUser> createUserValidator() {
         return validator(
-                field("username", CreateUser::getUsername, validateUserName()),
+                field("username", CreateUser::getUsername, validateUsername()),
                 field("password", CreateUser::getPassword, validatePassword())
         );
     }

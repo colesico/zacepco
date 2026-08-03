@@ -1,8 +1,10 @@
 package colesico.zacepco.identity.srv.dto;
 
 public class CreateUser {
-    private String username;
-    private String password;
+
+    public String username;
+
+    public String password;
 
     public CreateUser() {
     }

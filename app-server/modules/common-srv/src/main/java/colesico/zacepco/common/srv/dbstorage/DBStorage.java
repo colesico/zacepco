@@ -22,7 +22,7 @@ public class DBStorage {
     }
 
     /**
-     * Initialize postgresql db
+     * Initialize PostgreSQL db
      */
     @PostConstruct
     public void init() {

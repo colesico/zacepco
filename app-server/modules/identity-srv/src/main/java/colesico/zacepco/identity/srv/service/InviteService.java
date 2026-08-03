@@ -15,7 +15,7 @@ public class InviteService {
     }
 
     public CheckCode checkCode(String code) {
-        var invite = inviteDao.findInviteByCode(code);
+        var invite = inviteDao.findUnusedInviteByCode(code);
         if (invite.isEmpty()) {
             return CheckCode.NOT_FOUND;
         }

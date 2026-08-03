@@ -9,6 +9,12 @@ import java.util.Date;
 public class Invite {
 
     /**
+     * Invite id
+     */
+    @Column
+    Long id;
+
+    /**
      * The existing user who  owns invite code.
      */
     @Column
@@ -27,6 +33,14 @@ public class Invite {
 
     @Column
     Date expiredAt;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public Long getUserId() {
         return userId;

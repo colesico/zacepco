@@ -16,6 +16,9 @@ public class Auth {
     public String passwordHash;
 
     @Column
+    public String salt;
+
+    @Column
     public Date lastLoginAt;
 
     public Long getUserId() {
@@ -32,6 +35,14 @@ public class Auth {
 
     public void setPasswordHash(String passwordHash) {
         this.passwordHash = passwordHash;
+    }
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
     }
 
     public Date getLastLoginAt() {
