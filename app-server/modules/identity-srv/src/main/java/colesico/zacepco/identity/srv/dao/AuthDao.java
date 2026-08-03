@@ -2,7 +2,7 @@ package colesico.zacepco.identity.srv.dao;
 
 import colesico.framework.service.Service;
 import colesico.framework.transaction.Transactional;
-import colesico.zacepco.identity.srv.model.Invite;
+import colesico.zacepco.identity.srv.model.Auth;
 import jakarta.inject.Provider;
 import org.jdbi.v3.core.Handle;
 
@@ -11,73 +11,73 @@ import java.util.Optional;
 
 @Service
 @Transactional
-public class InviteDao {
+public class AuthDao {
 
     private final Provider<Handle> handle;
-    private final InviteRk inviteRk;
+    private final AuthRk authRk;
 
-    public InviteDao(Provider<Handle> handle, InviteRk inviteRk) {
+    public AuthDao(Provider<Handle> handle, AuthRk authRk) {
         this.handle = handle;
-        this.inviteRk = inviteRk;
+        this.authRk = authRk;
     }
 
-    public Invite createInvite(Invite invite) {
+    public Auth createAuth(Auth auth) {
 
         String query = "insert into @table ( @columns ) values ( @values )";
 
-        Long id = handle.get().createUpdate(inviteRk.sql(query))
-                .bindMap(inviteRk.map(invite))
+        Long id = handle.get().createUpdate(authRk.sql(query))
+                .bindMap(authRk.map(auth))
                 .executeAndReturnGeneratedKeys("id")
                 .mapTo(Long.class)
                 .one();
 
-        invite.setId(id);
+        auth.setId(id);
 
-        return invite;
+        return auth;
 
     }
 
-    public boolean updateInvite(Invite invite) {
+    public boolean updateAuth(Auth auth) {
         String query = "update @table set @updates where id = :id";
 
-        int cnt = handle.get().createUpdate(inviteRk.sql(query))
-                .bindMap(inviteRk.map(invite))
-                .bind("id", invite.getId())
+        int cnt = handle.get().createUpdate(authRk.sql(query))
+                .bindMap(authRk.map(auth))
+                .bind("id", auth.getId())
                 .execute();
 
         return cnt > 0;
     }
 
-    public Optional<Invite> findUncommitedInviteByCodeHash(String codeHash) {
+    public Optional<Auth> findUncommitedAuthByCodeHash(String codeHash) {
 
         String query = """
                 select @record from @table
                 where
                     codeHash = :codeHash
-                    and invitee_id is null
+                    and authe_id is null
                 """;
 
         return handle.get()
-                .select(inviteRk.sql(query))
+                .select(authRk.sql(query))
                 .bind("codeHash", codeHash)
-                .map(inviteRk.mapper())
+                .map(authRk.mapper())
                 .findFirst();
 
     }
 
-    public List<Invite> findUncommitedInvitesByUserId(Long userId) {
+    public List<Auth> findUncommitedAuthsByUserId(Long userId) {
 
         String query = """
                 select @record from @table
                 where
                    user_id = :userId
-                   and invitee_id is null
+                   and authe_id is null
                 """;
 
         return handle.get()
-                .select(inviteRk.sql(query))
+                .select(authRk.sql(query))
                 .bind("iserId", userId)
-                .map(inviteRk.mapper())
+                .map(authRk.mapper())
                 .list();
     }
 

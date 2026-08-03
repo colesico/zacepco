@@ -1,9 +1,12 @@
 package colesico.zacepco.identity.srv.service;
 
 import colesico.framework.service.Service;
+import colesico.zacepco.identity.srv.assist.HashUtils;
 import colesico.zacepco.identity.srv.dao.InviteDao;
+import colesico.zacepco.identity.srv.model.Invite;
 
 import java.util.Date;
+import java.util.Optional;
 
 @Service
 public class InviteService {
@@ -14,21 +17,35 @@ public class InviteService {
         this.inviteDao = inviteDao;
     }
 
-    public CheckCode checkCode(String code) {
-        var invite = inviteDao.findUnusedInviteByCode(code);
+    public Optional<Invite> findValidInvite(String code) {
+
+        var codeHash = HashUtils.textToHashStr(code);
+
+        var invite = inviteDao.findUncommitedInviteByCodeHash(codeHash);
         if (invite.isEmpty()) {
-            return CheckCode.NOT_FOUND;
+            return Optional.empty();
         }
 
         var isExpired = invite.get().getExpiredAt().before(new Date());
         if (isExpired) {
-            return CheckCode.EXPIRED;
+            return Optional.empty();
         }
 
-        return CheckCode.OK;
+        return invite;
     }
 
-    public enum CheckCode {
-        OK, NOT_FOUND, EXPIRED
+
+    public boolean commitInvite(String code, Long inviteeId) {
+
+        var invite = findValidInvite(code).orElse(null);
+        if (invite == null) {
+            return false;
+        }
+
+        invite.setInviteeId(inviteeId);
+        invite.setCommitedAt(new Date());
+
+        return inviteDao.updateInvite(invite);
+
     }
 }

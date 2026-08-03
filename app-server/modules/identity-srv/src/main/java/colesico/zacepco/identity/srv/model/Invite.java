@@ -20,8 +20,11 @@ public class Invite {
     @Column
     Long userId;
 
+    /**
+     * Hashed invite code
+     */
     @Column
-    String code;
+    String codeHash;
 
     /**
      *  The newly registered person who used the code to join
@@ -33,6 +36,9 @@ public class Invite {
 
     @Column
     Date expiredAt;
+
+    @Column
+    Date commitedAt;
 
     public Long getId() {
         return id;
@@ -50,12 +56,12 @@ public class Invite {
         this.userId = userId;
     }
 
-    public String getCode() {
-        return code;
+    public String getCodeHash() {
+        return codeHash;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public void setCodeHash(String codeHash) {
+        this.codeHash = codeHash;
     }
 
     public Long getInviteeId() {
@@ -80,5 +86,13 @@ public class Invite {
 
     public void setExpiredAt(Date expiredAt) {
         this.expiredAt = expiredAt;
+    }
+
+    public Date getCommitedAt() {
+        return commitedAt;
+    }
+
+    public void setCommitedAt(Date commitedAt) {
+        this.commitedAt = commitedAt;
     }
 }

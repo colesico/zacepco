@@ -33,14 +33,14 @@ public class UserService {
     }
 
 
-    public User createUser(CreateUser createUser) {
+    public User createUser(String username) {
 
         createUserV8n.accept(createUser);
 
         var u = new User();
         u.setCreatedAt(new Date());
         u.setDisabled(false);
-        u.setUsername(createUser.getUsername());
+        u.setUsername(username);
         u.setLocale(locale.get());
 
         final var user = userDao.createUser(u);

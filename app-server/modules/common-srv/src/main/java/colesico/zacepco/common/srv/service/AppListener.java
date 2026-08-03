@@ -5,5 +5,5 @@ public interface AppListener {
     void onStartApp();
 
     void onStopApp();
-    
+
 }

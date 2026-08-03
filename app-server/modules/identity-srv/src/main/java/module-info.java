@@ -8,6 +8,7 @@ module colesico.zacepco.identity.srv {
   //  exports colesico.zacepco.identity.srv.v8n;
     exports colesico.zacepco.identity.srv.ioc to colesico.framework.ioc;
     exports colesico.zacepco.identity.srv.dto;
+    exports colesico.zacepco.identity.srv.assist;
 
 
 }
