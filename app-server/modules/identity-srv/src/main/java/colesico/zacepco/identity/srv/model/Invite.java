@@ -12,33 +12,34 @@ public class Invite {
      * Invite id
      */
     @Column
-    Long id;
+    public Long id;
 
     /**
      * The existing user who  owns invite code.
      */
     @Column
-    Long userId;
+    public Long userId;
 
     /**
      * Hashed invite code
      */
     @Column
-    String codeHash;
+    public String codeHash;
 
     /**
      *  The newly registered person who used the code to join
      */
     @Column
-    Long inviteeId;
-
-    Date createdAt;
+    public Long inviteeId;
 
     @Column
-    Date expiredAt;
+    public Date createdAt;
 
     @Column
-    Date commitedAt;
+    public Date expiredAt;
+
+    @Column
+    public Date commitedAt;
 
     public Long getId() {
         return id;
