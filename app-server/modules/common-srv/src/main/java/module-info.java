@@ -1,4 +1,4 @@
-module colesico.zacepco.srv {
+module colesico.zacepco.common.srv {
 
     requires transitive org.slf4j;
 
@@ -11,8 +11,8 @@ module colesico.zacepco.srv {
     requires transitive colesico.framework.jdbirec;
     requires transitive org.jdbi.v3.postgres;
 
-    exports colesico.zacepco.srv.filestorage;
-    exports colesico.zacepco.srv.dbstorage;
-    exports colesico.zacepco.srv.ioc to colesico.framework.ioc;
+    exports colesico.zacepco.common.srv.filestorage;
+    exports colesico.zacepco.common.srv.dbstorage;
+    exports colesico.zacepco.common.srv.ioc to colesico.framework.ioc;
 
 }

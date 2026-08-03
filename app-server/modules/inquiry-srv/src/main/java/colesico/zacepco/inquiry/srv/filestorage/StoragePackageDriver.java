@@ -4,7 +4,7 @@ import colesico.framework.ioc.message.IocMessage;
 import colesico.framework.ioc.scope.Unscoped;
 import colesico.zacepco.script.pkg.PackageDriver;
 import colesico.zacepco.script.pkg.ResourcePath;
-import colesico.zacepco.srv.filestorage.FileStorage;
+import colesico.zacepco.common.srv.filestorage.FileStorage;
 
 import java.io.IOException;
 import java.io.InputStream;

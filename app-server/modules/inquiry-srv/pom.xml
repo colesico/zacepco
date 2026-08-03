@@ -33,7 +33,7 @@
         <!-- Zacepco -->
         <dependency>
             <groupId>net.colesico.zacepco</groupId>
-            <artifactId>srv</artifactId>
+            <artifactId>common-srv</artifactId>
             <version>${project.version}</version>
         </dependency>
 

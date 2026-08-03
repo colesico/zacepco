@@ -1,4 +1,4 @@
-package colesico.zacepco.srv.dbstorage;
+package colesico.zacepco.common.srv.dbstorage;
 
 import colesico.framework.config.Config;
 import colesico.framework.jdbi.JdbiConfigPrototype;

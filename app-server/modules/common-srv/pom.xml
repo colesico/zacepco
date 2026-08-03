@@ -12,59 +12,87 @@
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
-    <artifactId>ui</artifactId>
+    <artifactId>common-srv</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
 
-    <name>Zacepco - UI</name>
+    <name>Zacepco - Storage</name>
     <description>
-        Zacepco common UI service
+        Zacepco common persistence storage service.
     </description>
 
     <properties>
     </properties>
 
     <dependencies>
-        <!-- Colesico modules -->
+
         <dependency>
             <groupId>net.colesico.framework</groupId>
             <artifactId>colesico-config</artifactId>
             <version>${colesico.version}</version>
         </dependency>
+
         <dependency>
             <groupId>net.colesico.framework</groupId>
-            <artifactId>colesico-translation</artifactId>
+            <artifactId>colesico-service</artifactId>
             <version>${colesico.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>net.colesico.framework</groupId>
+            <artifactId>colesico-transaction</artifactId>
+            <version>${colesico.version}</version>
+        </dependency>
+
         <dependency>
             <groupId>net.colesico.framework</groupId>
             <artifactId>colesico-validation</artifactId>
             <version>${colesico.version}</version>
         </dependency>
+
         <dependency>
             <groupId>net.colesico.framework</groupId>
-            <artifactId>colesico-weblet</artifactId>
+            <artifactId>colesico-hikaricp</artifactId>
             <version>${colesico.version}</version>
         </dependency>
+
         <dependency>
             <groupId>net.colesico.framework</groupId>
-            <artifactId>colesico-restlet</artifactId>
+            <artifactId>colesico-jdbi</artifactId>
             <version>${colesico.version}</version>
         </dependency>
+
         <dependency>
             <groupId>net.colesico.framework</groupId>
-            <artifactId>colesico-pebble</artifactId>
+            <artifactId>colesico-jdbirec</artifactId>
             <version>${colesico.version}</version>
+            <scope>compile</scope>
         </dependency>
+
         <dependency>
             <groupId>net.colesico.framework</groupId>
-            <artifactId>colesico-webstatic</artifactId>
+            <artifactId>colesico-translation</artifactId>
             <version>${colesico.version}</version>
         </dependency>
+
+        <!-- PostgreSQL -->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>${postgresql.version}</version>
+        </dependency>
+
+        <!-- Jdbi3 plugin -->
+        <dependency>
+            <groupId>org.jdbi</groupId>
+            <artifactId>jdbi3-postgres</artifactId>
+            <version>${jdbi3.version}</version>
+        </dependency>
+
     </dependencies>
 
     <build>
-        <finalName>zacepco-ui</finalName>
+        <finalName>zacepco-storage</finalName>
     </build>
 
 </project>

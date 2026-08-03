@@ -1,4 +1,4 @@
-package colesico.zacepco.srv.filestorage;
+package colesico.zacepco.common.srv.filestorage;
 
 import colesico.framework.ioc.listener.PostConstruct;
 import colesico.framework.service.Service;

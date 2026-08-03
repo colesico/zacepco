@@ -1,4 +1,4 @@
-package colesico.zacepco.srv.ioc;
+package colesico.zacepco.common.srv.ioc;
 
 import colesico.framework.ioc.production.Producer;
 import colesico.framework.jdbi.JdbiTransactionManager;

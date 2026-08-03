@@ -123,8 +123,8 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <modules>
-                <module>modules/srv</module>
-                <module>modules/ui</module>
+                <module>modules/common-srv</module>
+                <module>modules/common-ui</module>
                 <module>modules/identity-srv</module>
                 <module>modules/identity-ui</module>
                 <module>modules/script</module>

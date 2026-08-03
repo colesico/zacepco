@@ -1,4 +1,4 @@
-package colesico.zacepco.srv.listener;
+package colesico.zacepco.common.srv.listener;
 
 public interface AppListener {
 
