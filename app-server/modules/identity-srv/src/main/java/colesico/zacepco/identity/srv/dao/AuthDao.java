@@ -25,13 +25,9 @@ public class AuthDao {
 
         String query = "insert into @table ( @columns ) values ( @values )";
 
-        Long id = handle.get().createUpdate(authRk.sql(query))
+        int cnt = handle.get().createUpdate(authRk.sql(query))
                 .bindMap(authRk.map(auth))
-                .executeAndReturnGeneratedKeys("id")
-                .mapTo(Long.class)
-                .one();
-
-        auth.setId(id);
+                .execute();
 
         return auth;
 
@@ -42,43 +38,21 @@ public class AuthDao {
 
         int cnt = handle.get().createUpdate(authRk.sql(query))
                 .bindMap(authRk.map(auth))
-                .bind("id", auth.getId())
+                .bind("userId", auth.userId)
                 .execute();
 
         return cnt > 0;
     }
 
-    public Optional<Auth> findUncommitedAuthByCodeHash(String codeHash) {
+    public Optional<Auth> findAuthByUserId(Long userId) {
 
-        String query = """
-                select @record from @table
-                where
-                    codeHash = :codeHash
-                    and authe_id is null
-                """;
+        String query = "select @record from @table where user_id = :userId";
 
         return handle.get()
                 .select(authRk.sql(query))
-                .bind("codeHash", codeHash)
+                .bind("userId", userId)
                 .map(authRk.mapper())
                 .findFirst();
 
     }
-
-    public List<Auth> findUncommitedAuthsByUserId(Long userId) {
-
-        String query = """
-                select @record from @table
-                where
-                   user_id = :userId
-                   and authe_id is null
-                """;
-
-        return handle.get()
-                .select(authRk.sql(query))
-                .bind("iserId", userId)
-                .map(authRk.mapper())
-                .list();
-    }
-
 }

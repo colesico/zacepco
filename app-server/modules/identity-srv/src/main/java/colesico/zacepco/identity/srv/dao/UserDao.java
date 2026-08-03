@@ -21,20 +21,22 @@ public class UserDao {
     }
 
     public User createUser(User user) {
+
         String query = "insert into @table ( @columns ) values ( @values )";
 
-        int cnt = handle.get().createUpdate(userRk.sql(query))
+        Long id = handle.get().createUpdate(userRk.sql(query))
                 .bindMap(userRk.map(user))
-                .execute();
+                .executeAndReturnGeneratedKeys("id")
+                .mapTo(Long.class)
+                .one();
 
-        if (cnt > 0) {
-            return user;
-        } else {
-            return null;
-        }
+        user.setId(id);
+
+        return user;
+
     }
 
-    public User updateUser(User user) {
+    public boolean updateUser(User user) {
         String query = "update @table set @updates where id = :id";
 
         int cnt = handle.get().createUpdate(userRk.sql(query))
@@ -42,14 +44,10 @@ public class UserDao {
                 .bind("id", user.getId())
                 .execute();
 
-        if (cnt > 0) {
-            return user;
-        }
-
-        return null;
+        return cnt > 0;
     }
 
-    public Optional<User> findUserById(Long id) {
+    public Optional<User> findUser(Long id) {
 
         String query = "select @record from @table where id = :id";
 
@@ -61,7 +59,7 @@ public class UserDao {
 
     }
 
-    public Optional<User> findUserByUsername(String username) {
+    public Optional<User> findUser(String username) {
 
         String query = "select @record from @table where username = :username";
 

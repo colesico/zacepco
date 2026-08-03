@@ -48,13 +48,14 @@ public class InviteDao {
         return cnt > 0;
     }
 
-    public Optional<Invite> findUncommitedInviteByCodeHash(String codeHash) {
+    public Optional<Invite> findOpenInvite(String codeHash) {
 
         String query = """
                 select @record from @table
                 where
                     codeHash = :codeHash
                     and invitee_id is null
+                    and expired_at >= NOW()
                 """;
 
         return handle.get()
@@ -65,7 +66,7 @@ public class InviteDao {
 
     }
 
-    public List<Invite> findUncommitedInvitesByUserId(Long userId) {
+    public List<Invite> findAvailableInvites(Long userId) {
 
         String query = """
                 select @record from @table

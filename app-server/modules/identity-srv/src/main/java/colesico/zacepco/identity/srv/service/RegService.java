@@ -4,7 +4,6 @@ import colesico.framework.service.ApplicationException;
 import colesico.framework.service.Service;
 import colesico.framework.transaction.Transactional;
 import colesico.framework.validation.Validator;
-import colesico.zacepco.identity.srv.dto.CreateUser;
 import colesico.zacepco.identity.srv.dto.RegUser;
 import colesico.zacepco.identity.srv.model.User;
 import colesico.zacepco.identity.srv.v8n.RegValidatorBuilder;
@@ -29,7 +28,7 @@ public class RegService {
         this.authService = authService;
         this.regUserValidator = regValidatorBuilder.createRegUserValidator(
                 ctx -> userService.findUserByUsername(ctx.value()).isEmpty(),
-                ctx -> inviteService.findValidInvite(ctx.value()) == InviteService.CheckCode.OK
+                ctx -> inviteService.findOpenInvite(ctx.value()) == InviteService.CheckCode.OK
         );
     }
 

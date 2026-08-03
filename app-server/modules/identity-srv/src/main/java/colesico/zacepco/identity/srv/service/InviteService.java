@@ -17,27 +17,17 @@ public class InviteService {
         this.inviteDao = inviteDao;
     }
 
-    public Optional<Invite> findValidInvite(String code) {
+    public Optional<Invite> findOpenInvite(String code) {
 
         var codeHash = HashUtils.textToHashStr(code);
+        return inviteDao.findOpenInvite(codeHash);
 
-        var invite = inviteDao.findUncommitedInviteByCodeHash(codeHash);
-        if (invite.isEmpty()) {
-            return Optional.empty();
-        }
-
-        var isExpired = invite.get().getExpiredAt().before(new Date());
-        if (isExpired) {
-            return Optional.empty();
-        }
-
-        return invite;
     }
 
 
     public boolean commitInvite(String code, Long inviteeId) {
 
-        var invite = findValidInvite(code).orElse(null);
+        var invite = findOpenInvite(code).orElse(null);
         if (invite == null) {
             return false;
         }
