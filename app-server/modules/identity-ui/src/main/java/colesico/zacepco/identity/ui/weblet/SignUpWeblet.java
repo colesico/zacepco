@@ -41,7 +41,7 @@ public class SignUpWeblet {
 
     public String codes() {
         var codes = regService.defaultInviteCodes();
-        
+
         if (codes.isEmpty()){
             return "Invite codes have already been provided.";
         }

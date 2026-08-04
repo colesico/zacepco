@@ -40,6 +40,19 @@ public class HashUtils {
         }
     }
 
+    public static byte[] bytesToHash(byte[] bytes) {
+        try {
+            MessageDigest md = MessageDigest.getInstance(ALGORITHM);
+            return md.digest(bytes);
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(ALGORITHM + " algorithm not found", e);
+        }
+    }
+
+    public static String bytesToHashStr(byte[] bytes) {
+        return Base64.getEncoder().encodeToString(bytesToHash(bytes));
+    }
+
     public static String textToHashStr(String text) {
         return Base64.getEncoder().encodeToString(textToHash(text));
     }

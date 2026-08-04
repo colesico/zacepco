@@ -48,14 +48,7 @@ public class InviteService {
         Date expiredAt = Date.from(ZonedDateTime.now().plus(expiresAfter).toInstant());
         i.setExpiredAt(expiredAt);
 
-        try {
-            MessageDigest digest = MessageDigest.getInstance(HASH_ALGORITHM);
-            byte[] codeHash = digest.digest(code);
-            String codeHashStr = Base64.getEncoder().encodeToString(codeHash);
-            i.setCodeHash(codeHashStr);
-        } catch (NoSuchAlgorithmException e) {
-            throw new IllegalStateException("Invite code hash algorithm not found: " + HASH_ALGORITHM, e);
-        }
+        i.setCodeHash(HashUtils.bytesToHashStr(code));
 
         inviteDao.createInvite(i);
 
