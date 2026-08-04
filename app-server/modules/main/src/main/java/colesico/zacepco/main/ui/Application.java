@@ -5,6 +5,7 @@ import colesico.framework.ioc.IocBuilder;
 import colesico.zacepco.common.srv.dbstorage.DBStorage;
 import colesico.zacepco.common.srv.filestorage.FileStorage;
 import colesico.zacepco.common.srv.service.AppListener;
+import colesico.zacepco.identity.srv.service.UserService;
 
 public class Application {
 
@@ -14,6 +15,9 @@ public class Application {
         // Initialize databases
         ioc.instance(FileStorage.class);
         ioc.instance(DBStorage.class);
+
+        // Initialize User service
+        ioc.instance(UserService.class);
 
         // Notify listeners
         ioc.polysupplier(AppListener.class).forEach(AppListener::onStartApp);

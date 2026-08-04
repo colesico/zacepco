@@ -18,6 +18,8 @@ import java.util.Optional;
 @Service
 public class UserService {
 
+    public static final String DEFAULT_USERNAME = "admin";
+
     private final UserDao userDao;
     private final Validator<String> createUserV8n;
     private final Provider<Locale> locale;
@@ -34,8 +36,11 @@ public class UserService {
     }
 
     @PostConstruct
-    public void init(){
-
+    public void init() {
+        var defaultUser = userDao.findUserByUsername(DEFAULT_USERNAME);
+        if (defaultUser.isEmpty()) {
+            createUser(DEFAULT_USERNAME);
+        }
     }
 
     public User createUser(String username) {
