@@ -10,6 +10,10 @@ import colesico.zacepco.identity.srv.dto.RegUser;
 import colesico.zacepco.identity.srv.model.User;
 import colesico.zacepco.identity.srv.validation.RegValidatorBuilder;
 
+import java.time.Period;
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Service
 @Transactional
@@ -17,6 +21,8 @@ public class RegService {
 
     public static final String DEFAULT_USERNAME = "admin";
     public static final String DEFAULT_PASSWORD = "admin";
+    public static final int DEFAULT_INVITES_NUM = 15;
+    public static final Period DEFAULT_INVITES_EXP_PERIOD = Period.ofYears(10);
 
     private final UserService userService;
     private final AuthService authService;
@@ -25,6 +31,8 @@ public class RegService {
     private final Polysupplier<RegListener> listeners;
 
     private final Validator<RegUser> regUserValidator;
+
+    private List<String> defaultInviteCodes = new ArrayList<>();
 
     public RegService(UserService userService,
                       AuthService authService,
@@ -48,7 +56,18 @@ public class RegService {
         if (defaultUser.isEmpty()) {
             var user = userService.createUser(DEFAULT_USERNAME);
             authService.createAuth(user.id, DEFAULT_PASSWORD);
+
+            for (var i = 0; i < DEFAULT_INVITES_NUM; i++) {
+                var code = inviteService.createInvite(user.getId(), DEFAULT_INVITES_EXP_PERIOD);
+                defaultInviteCodes.add(code);
+            }
         }
+    }
+
+    public List<String> defaultInviteCodes() {
+        var result = new ArrayList<>(defaultInviteCodes);
+        defaultInviteCodes.clear();
+        return result;
     }
 
     public User registerUser(RegUser regUser) {

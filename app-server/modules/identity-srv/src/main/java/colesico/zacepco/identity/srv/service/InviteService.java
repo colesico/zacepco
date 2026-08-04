@@ -57,6 +57,8 @@ public class InviteService {
             throw new IllegalStateException("Invite code hash algorithm not found: " + HASH_ALGORITHM, e);
         }
 
+        inviteDao.createInvite(i);
+
         return codeStr;
     }
 
