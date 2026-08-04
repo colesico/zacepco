@@ -4,6 +4,8 @@ public interface AppListener {
 
     void onStartApp();
 
-    void onStopApp();
+    default void onStopApp() {
+
+    }
 
 }

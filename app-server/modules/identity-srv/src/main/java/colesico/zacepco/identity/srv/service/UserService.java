@@ -1,8 +1,10 @@
 package colesico.zacepco.identity.srv.service;
 
+import colesico.framework.ioc.listener.PostConstruct;
 import colesico.framework.ioc.production.Polysupplier;
 import colesico.framework.service.Service;
 import colesico.framework.validation.Validator;
+import colesico.zacepco.common.srv.service.AppListener;
 import colesico.zacepco.identity.srv.dao.UserDao;
 import colesico.zacepco.identity.srv.model.User;
 import colesico.zacepco.identity.srv.validation.UserValidatorBuilder;
@@ -31,6 +33,10 @@ public class UserService {
         this.createUserV8n = userValidatorBuilder.createUserValidator();
     }
 
+    @PostConstruct
+    public void init(){
+
+    }
 
     public User createUser(String username) {
 
@@ -56,5 +62,6 @@ public class UserService {
     public Optional<User> findUserById(Long id) {
         return userDao.findUserById(id);
     }
+
 
 }

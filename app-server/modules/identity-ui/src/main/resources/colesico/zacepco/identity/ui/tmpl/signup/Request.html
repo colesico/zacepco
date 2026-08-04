@@ -11,14 +11,14 @@
     <!-- Account Registration -->
     <div class="card">
         <div class="card-header">
-            {{ "NewAccountRegistration" |t9n}}
+            {{ "NewUserRegistration" |t9n}}
         </div>
         <div class="card-body">
             <form method="post" class="p-3">
                 <div class="row  mt-3">
-                    <input type="text" name="username" value="{{ vm.username }}" placeholder="{{ 'YourName' |t9n}}"
+                    <input type="text" name="username" value="{{ vm.username }}" placeholder="{{ 'Username' |t9n}}"
                            class="form-control {{invalidCss(vm.notice.messages['username'])}}">
-                    {{invalidFeedback(vm.notice.messages['name'])}}
+                    {{invalidFeedback(vm.notice.messages['username'])}}
                 </div>
                 <div class="row mt-3">
                     <input type="text" name="password" value="{{ vm.password }}"
@@ -40,7 +40,7 @@
                         </p>
                         {{ errorMessage(vm.notice.error) }}
                         <button type="submit" class="btn btn-primary"
-                                formaction="/identity/signup/request"> {{ "SignUp" |t9n}}
+                                formaction="/identity/signup/register"> {{ "SignUp" |t9n}}
                         </button>
                     </div>
                 </div>

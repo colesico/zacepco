@@ -12,8 +12,8 @@ public interface RegMessages {
     String usernameAlreadyExists(Object... args);
 
 
-    @Ru("Неверный инвайт-код")
-    @Text("Invalid invite-code")
+    @Ru("Неверный инвайт код")
+    @Text("Invalid invite code")
     String invalidInviteCode(Object... args);
 
 }

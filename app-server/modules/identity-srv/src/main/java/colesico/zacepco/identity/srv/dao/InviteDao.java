@@ -53,7 +53,7 @@ public class InviteDao {
         String query = """
                 select @record from @table
                 where
-                    codeHash = :codeHash
+                    code_hash = :codeHash
                     and invitee_id is null
                     and expired_at >= NOW()
                 """;

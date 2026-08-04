@@ -4,15 +4,19 @@ import colesico.framework.httpserver.HttpServer;
 import colesico.framework.ioc.IocBuilder;
 import colesico.zacepco.common.srv.dbstorage.DBStorage;
 import colesico.zacepco.common.srv.filestorage.FileStorage;
+import colesico.zacepco.common.srv.service.AppListener;
 
 public class Application {
 
     private static void start() {
         var ioc = IocBuilder.create().build();
 
-        // initialize
+        // Initialize databases
         ioc.instance(FileStorage.class);
         ioc.instance(DBStorage.class);
+
+        // Notify listeners
+        ioc.polysupplier(AppListener.class).forEach(AppListener::onStartApp);
 
         // start http server
         ioc.instance(HttpServer.class).start();

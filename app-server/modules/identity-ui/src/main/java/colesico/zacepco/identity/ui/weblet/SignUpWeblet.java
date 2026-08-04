@@ -24,15 +24,8 @@ public class SignUpWeblet {
         this.regService = regService;
     }
 
-    @Route("./:inviteCode")
     public ViewResponse index(String inviteCode) {
-        return ViewResponse.view("$identity/ui/tmpl/signup/Index").build();
-    }
-
-    // @Route("*")  - this is default route for "other" method name
-    @PlainMethod
-    public RedirectResponse other(/* String routeSuffix */) {
-        return RedirectResponse.of(SignUpWeblet.class, "index");
+        return ViewResponse.view("$identity/ui/tmpl/signup/Request").build();
     }
 
     @RequestMethod(HttpMethod.POST)
@@ -44,6 +37,12 @@ public class SignUpWeblet {
             form.setNotice(Notice.error(e));
             return ViewResponse.view("$identity/ui/tmpl/signup/Request").model(form).build();
         }
+    }
+
+    // @Route("*")  - this is default route for "other" method name
+    @PlainMethod
+    public RedirectResponse other(/* String routeSuffix */) {
+        return RedirectResponse.of(SignUpWeblet.class, "index");
     }
 
 }

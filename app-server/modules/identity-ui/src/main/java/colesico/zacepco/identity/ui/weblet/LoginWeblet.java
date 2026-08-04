@@ -10,7 +10,7 @@ import colesico.framework.weblet.response.ViewResponse;
 
 @Weblet
 @Route("./")
-public class SignInWeblet {
+public class LoginWeblet {
 
     public ViewResponse login() {
         return ViewResponse.view("$identity/ui/tmpl/Login").build();
