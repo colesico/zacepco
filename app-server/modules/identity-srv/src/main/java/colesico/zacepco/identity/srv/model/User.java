@@ -2,6 +2,7 @@ package colesico.zacepco.identity.srv.model;
 
 import colesico.framework.jdbirec.Column;
 import colesico.framework.jdbirec.Record;
+import colesico.framework.jdbirec.mediators.LocaleMediator;
 
 import java.util.Date;
 import java.util.Locale;
@@ -9,7 +10,7 @@ import java.util.Locale;
 @Record(table = "users")
 public class User {
 
-    @Column
+    @Column(exportable = false, insertAs = "@nop")
     public Long id;
 
     @Column
@@ -18,7 +19,7 @@ public class User {
     @Column
     public Boolean disabled;
 
-    @Column
+    @Column(mediator = LocaleMediator.class)
     public Locale locale;
 
     @Column

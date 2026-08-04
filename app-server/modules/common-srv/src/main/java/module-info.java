@@ -15,5 +15,6 @@ module colesico.zacepco.common.srv {
     exports colesico.zacepco.common.srv.dbstorage;
     exports colesico.zacepco.common.srv.ioc to colesico.framework.ioc;
     exports colesico.zacepco.common.srv.service;
+    exports colesico.zacepco.common.srv.utils;
 
 }

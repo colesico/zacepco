@@ -2,9 +2,11 @@ package colesico.zacepco.main.ui;
 
 import colesico.framework.httpserver.HttpServer;
 import colesico.framework.ioc.IocBuilder;
+import colesico.framework.ioc.scope.TaskScope;
 import colesico.zacepco.common.srv.dbstorage.DBStorage;
 import colesico.zacepco.common.srv.filestorage.FileStorage;
 import colesico.zacepco.common.srv.service.AppListener;
+import colesico.zacepco.identity.srv.service.RegService;
 import colesico.zacepco.identity.srv.service.UserService;
 
 public class Application {
@@ -12,15 +14,21 @@ public class Application {
     private static void start() {
         var ioc = IocBuilder.create().build();
 
-        // Initialize databases
-        ioc.instance(FileStorage.class);
-        ioc.instance(DBStorage.class);
+        var taskScope = ioc.instance(TaskScope.class);
 
-        // Initialize User service
-        ioc.instance(UserService.class);
+        taskScope.forTask(() -> {
 
-        // Notify listeners
-        ioc.polysupplier(AppListener.class).forEach(AppListener::onStartApp);
+            // Initialize databases
+            ioc.instance(FileStorage.class);
+            ioc.instance(DBStorage.class);
+
+            // Initialize Identity services
+            ioc.instance(UserService.class);
+            ioc.instance(RegService.class);
+
+            // Notify listeners
+            ioc.polysupplier(AppListener.class).forEach(AppListener::onStartApp);
+        });
 
         // start http server
         ioc.instance(HttpServer.class).start();

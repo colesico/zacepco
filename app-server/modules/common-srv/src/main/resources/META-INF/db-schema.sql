@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS users (
     created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE INDEX idx_users_username ON users(username);
+CREATE INDEX IF NOT EXISTS idx_users_username ON users(username);
 
 CREATE TABLE IF NOT EXISTS auth (
     user_id BIGINT PRIMARY KEY REFERENCES users(id) ON DELETE CASCADE,
@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS auth (
 CREATE TABLE invites (
     id BIGSERIAL PRIMARY KEY,
     user_id BIGINT REFERENCES users(id) ON DELETE SET NULL,
-    code_hash VARCHAR(255) NOT NULL,
+    code_hash VARCHAR(64) NOT NULL,
     invitee_id  BIGINT REFERENCES users(id) ON DELETE SET NULL,
     created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     expired_at TIMESTAMPTZ NOT NULL,
@@ -26,9 +26,9 @@ CREATE TABLE invites (
     CONSTRAINT check_expiry_date CHECK (expired_at > created_at)
 );
 
-CREATE INDEX idx_invites_code ON invites(code_hash) WHERE code_hash IS NOT NULL;
+CREATE INDEX IF NOT EXISTS idx_invites_code ON invites(code_hash) WHERE code_hash IS NOT NULL;
 
-CREATE INDEX idx_invites_user_id ON invites(user_id);
+CREATE INDEX IF NOT EXISTS idx_invites_user_id ON invites(user_id);
 
 CREATE TABLE IF NOT EXISTS scripts (
     id BIGSERIAL PRIMARY KEY,

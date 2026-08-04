@@ -11,7 +11,7 @@ public class Invite {
     /**
      * Invite id
      */
-    @Column
+    @Column(exportable = false, insertAs = "@nop")
     public Long id;
 
     /**

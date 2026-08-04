@@ -1,5 +1,6 @@
 package colesico.zacepco.identity.srv.service;
 
+import colesico.framework.ioc.listener.PostConstruct;
 import colesico.framework.ioc.production.Polysupplier;
 import colesico.framework.service.ApplicationException;
 import colesico.framework.service.Service;
@@ -14,17 +15,20 @@ import colesico.zacepco.identity.srv.validation.RegValidatorBuilder;
 @Transactional
 public class RegService {
 
+    public static final String DEFAULT_USERNAME = "admin";
+    public static final String DEFAULT_PASSWORD = "admin";
+
     private final UserService userService;
-    private final InviteService inviteService;
     private final AuthService authService;
+    private final InviteService inviteService;
 
     private final Polysupplier<RegListener> listeners;
 
     private final Validator<RegUser> regUserValidator;
 
     public RegService(UserService userService,
-                      InviteService inviteService,
                       AuthService authService,
+                      InviteService inviteService,
                       Polysupplier<RegListener> listeners,
                       RegValidatorBuilder regValidatorBuilder) {
         this.userService = userService;
@@ -38,6 +42,14 @@ public class RegService {
         );
     }
 
+    @PostConstruct
+    public void init() {
+        var defaultUser = userService.findUserByName(DEFAULT_USERNAME);
+        if (defaultUser.isEmpty()) {
+            var user = userService.createUser(DEFAULT_USERNAME);
+            authService.createAuth(user.id, DEFAULT_PASSWORD);
+        }
+    }
 
     public User registerUser(RegUser regUser) {
         regUserValidator.accept(regUser);
