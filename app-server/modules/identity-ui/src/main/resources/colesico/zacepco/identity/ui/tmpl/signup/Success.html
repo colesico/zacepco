@@ -1,0 +1,19 @@
+{% extends "$common/ui/tmpl/layout/PlainDialog"%}
+{% import "$common/ui/tmpl/macro/Errors" %}
+{%block headTitle%}
+{%t9nDictionary  "$identity/ui/t9n/SignUp" %}
+{{ "SuccessRegistration" |t9n}} |
+{%endblock%}
+{% block pageContent %}
+{%t9nDictionary "$common/ui/t9n/Signup" %}
+<div style="width: 450px">
+    <div class="card border-success">
+        <div class="card-header">{{"SuccessRegistration"|t9n}}</div>
+        <div class="card-body text-success">
+            <p class="">
+                {{"SuccessRegistrationNotice"| t9n | br | raw }}
+            </p>
+        </div>
+    </div>
+</div>
+{%endblock%}

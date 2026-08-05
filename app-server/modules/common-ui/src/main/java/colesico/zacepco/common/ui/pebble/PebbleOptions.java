@@ -42,13 +42,14 @@ public class PebbleOptions extends PebbleOptionsPrototype {
                 Map<String, Filter> flts = new HashMap<>();
                 flts.put(LocalDateFormatFilter.FILTER_NAME, new LocalDateFormatFilter());
                 flts.put(LocalDateTimeFormatFilter.FILTER_NAME, new LocalDateTimeFormatFilter());
+                flts.put(BrFilter.FILTER_NAME, new BrFilter());
                 return flts;
             }
 
             @Override
             public Map<String, Function> getFunctions() {
                 Map<String, Function> funcs = new HashMap<>();
-                funcs.put(BriefTextFunc.FUNCTION_NAME, new BriefTextFunc());
+                funcs.put(TruncFunc.FUNCTION_NAME, new TruncFunc());
                 return funcs;
             }
         };

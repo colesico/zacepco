@@ -34,8 +34,8 @@ public class InviteService {
     }
 
     public String createInvite(Long userId, Period expiresAfter) {
-        var code = createRandomCode(INVITE_CODE_LENGTH);
-        var codeStr = Base32.encode(code);
+        var codeBytes = createRandomCode(INVITE_CODE_LENGTH);
+        var code = Base32.encode(codeBytes);
 
         var i = new Invite();
         i.setUserId(userId);
@@ -44,11 +44,11 @@ public class InviteService {
         Date expiredAt = Date.from(ZonedDateTime.now().plus(expiresAfter).toInstant());
         i.setExpiredAt(expiredAt);
 
-        i.setCodeHash(HashUtils.bytesToHashStr(code));
+        i.setCodeHash(HashUtils.textToHashStr(code));
 
         inviteDao.createInvite(i);
 
-        return codeStr;
+        return code;
     }
 
     public Optional<Invite> findOpenInvite(String code) {

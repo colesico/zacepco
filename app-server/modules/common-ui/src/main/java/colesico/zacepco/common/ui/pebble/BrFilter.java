@@ -16,31 +16,26 @@
 
 package colesico.zacepco.common.ui.pebble;
 
-import io.pebbletemplates.pebble.extension.Function;
+import io.pebbletemplates.pebble.error.PebbleException;
+import io.pebbletemplates.pebble.extension.Filter;
 import io.pebbletemplates.pebble.template.EvaluationContext;
 import io.pebbletemplates.pebble.template.PebbleTemplate;
 
 import java.util.List;
 import java.util.Map;
 
-public class BriefTextFunc implements Function {
+public class BrFilter implements Filter {
 
-    public static final String FUNCTION_NAME = "briefText";
+    public static final String FILTER_NAME = "br";
 
     @Override
-    public Object execute(Map<String, Object> args, PebbleTemplate pebbleTemplate, EvaluationContext evaluationContext, int i) {
-        String text = (String) args.get("0");
-        Number len = (Number) args.get("1");
-
-        if (text == null) {
-            return null;
+    public Object apply(Object input, Map<String, Object> map, PebbleTemplate pebbleTemplate, EvaluationContext evaluationContext, int lineNum) throws PebbleException {
+        if (input == null) {
+            return "";
         }
-
-        if (text.length() > len.intValue()) {
-            return text.substring(0, len.intValue()) + "...";
-        } else {
-            return text;
-        }
+        String str = (String) input;
+        str = str.replace("\n", "<br/>");
+        return str;
     }
 
     @Override

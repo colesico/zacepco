@@ -32,7 +32,7 @@ public class SignUpWeblet {
     public ViewResponse register(@ParamsBean RegForm form) {
         try {
             regService.registerUser(new RegUser(form.username, form.password, form.inviteCode));
-            return ViewResponse.view("$identity/ui/tmpl/signup/Accepted").build();
+            return ViewResponse.view("$identity/ui/tmpl/signup/Success").build();
         } catch (ApplicationException e) {
             form.setNotice(Notice.error(e));
             return ViewResponse.view("$identity/ui/tmpl/signup/Request").model(form).build();

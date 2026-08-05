@@ -35,8 +35,7 @@
                 <div class="row  mt-3">
                     <div class="col-md-12">
                         <p style="font-size:0.7em">
-                            Нажимая кнопку "{{ "SignUp" |t9n}}" вы принимаете условия
-                            <a href="/docman/agreement" target="_blank">Пользовательского&nbsp;соглашения</a>
+                            {{"SignUpNotice"| t9n | br | raw }}
                         </p>
                         {{ errorMessage(vm.notice.error) }}
                         <button type="submit" class="btn btn-primary"
