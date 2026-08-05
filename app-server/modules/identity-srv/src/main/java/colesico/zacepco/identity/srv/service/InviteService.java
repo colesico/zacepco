@@ -17,7 +17,7 @@ import java.util.Optional;
 @Transactional
 public class InviteService {
 
-    public static final int INVITE_CODE_LENGTH = 16;
+    public static final int INVITE_CODE_LENGTH = 10;
     public static final String HASH_ALGORITHM = "SHA-256";
     private final InviteDao inviteDao;
 
