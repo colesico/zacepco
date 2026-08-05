@@ -6,12 +6,15 @@ import colesico.framework.service.ApplicationException;
 import colesico.framework.service.Service;
 import colesico.framework.transaction.Transactional;
 import colesico.framework.validation.Validator;
+import colesico.zacepco.common.srv.utils.Base32;
+import colesico.zacepco.common.srv.utils.Base58;
 import colesico.zacepco.identity.srv.dto.RegUser;
 import colesico.zacepco.identity.srv.model.User;
 import colesico.zacepco.identity.srv.validation.RegValidatorBuilder;
 
 import java.time.Period;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 
@@ -19,9 +22,11 @@ import java.util.List;
 @Transactional
 public class RegService {
 
-    public static final String DEFAULT_USERNAME = "admin";
-    public static final String DEFAULT_PASSWORD = "admin";
-    public static final int DEFAULT_INVITES_NUM = 15;
+    public static final String INITIAL_USERNAME = "admin";
+
+    public static final int INITIAL_PASSWORD_LEN = 6;
+    public static final int INITIAL_INVITES_NUM = 15;
+
     public static final Period DEFAULT_INVITES_EXP_PERIOD = Period.ofYears(10);
 
     private final UserService userService;
@@ -32,7 +37,8 @@ public class RegService {
 
     private final Validator<RegUser> regUserValidator;
 
-    private List<String> defaultInviteCodes = new ArrayList<>();
+    private final List<String> initialInviteCodes = new ArrayList<>();
+    private String initialUserPassword;
 
     public RegService(UserService userService,
                       AuthService authService,
@@ -52,22 +58,28 @@ public class RegService {
 
     @PostConstruct
     public void init() {
-        var defaultUser = userService.findUserByName(DEFAULT_USERNAME);
+        var defaultUser = userService.findUserByName(INITIAL_USERNAME);
         if (defaultUser.isEmpty()) {
-            var user = userService.createUser(DEFAULT_USERNAME);
-            authService.createAuth(user.id, DEFAULT_PASSWORD);
-
-            for (var i = 0; i < DEFAULT_INVITES_NUM; i++) {
+            var user = userService.createUser(INITIAL_USERNAME);
+            initialUserPassword = Base58.encode(inviteService.createRandomCode(INITIAL_PASSWORD_LEN));
+            authService.createAuth(user.id, initialUserPassword);
+            for (var i = 0; i < INITIAL_INVITES_NUM; i++) {
                 var code = inviteService.createInvite(user.getId(), DEFAULT_INVITES_EXP_PERIOD);
-                defaultInviteCodes.add(code);
+                initialInviteCodes.add(code);
             }
         }
     }
 
-    public List<String> defaultInviteCodes() {
-        var result = new ArrayList<>(defaultInviteCodes);
-        defaultInviteCodes.clear();
+    public List<String> initialInviteCodes() {
+        var result = new ArrayList<>(initialInviteCodes);
+        initialInviteCodes.clear();
         return result;
+    }
+
+    public String initialUserPassword() {
+        var p = initialUserPassword;
+        initialUserPassword = null;
+        return p;
     }
 
     public User registerUser(RegUser regUser) {

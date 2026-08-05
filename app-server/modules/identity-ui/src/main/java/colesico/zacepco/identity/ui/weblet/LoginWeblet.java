@@ -9,16 +9,15 @@ import colesico.framework.weblet.Weblet;
 import colesico.framework.weblet.response.ViewResponse;
 
 @Weblet
-@Route("./")
+@Route("./login")
 public class LoginWeblet {
 
-    public ViewResponse login() {
+    public ViewResponse index() {
         return ViewResponse.view("$identity/ui/tmpl/Login").build();
     }
 
     @RequestMethod(HttpMethod.POST)
     public DynamicResponse signin(String username, String password, String redirect) {
-        // Do login
         if (redirect == null || !redirect.startsWith("/")) {
             redirect = "/";
         }

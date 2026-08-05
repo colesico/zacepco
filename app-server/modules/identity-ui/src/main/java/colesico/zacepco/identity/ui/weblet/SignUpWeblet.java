@@ -39,25 +39,6 @@ public class SignUpWeblet {
         }
     }
 
-    public String codes() {
-        var codes = regService.defaultInviteCodes();
-
-        if (codes.isEmpty()){
-            return "Invite codes have already been provided.";
-        }
-
-        var result = """
-                ===== INVITE CODE LIST =====
-                
-                This list was generated ONCE
-                and will not be shown again!
-                
-                Copy and save to avoid losing!
-                
-                """;
-
-        return result + String.join("\n", codes);
-    }
 
     // @Route("*")  - this is default route for "other" method name
     @PlainMethod

@@ -7,13 +7,9 @@ import colesico.zacepco.identity.srv.assist.HashUtils;
 import colesico.zacepco.identity.srv.dao.InviteDao;
 import colesico.zacepco.identity.srv.model.Invite;
 
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.time.Period;
 import java.time.ZonedDateTime;
-import java.util.Base64;
 import java.util.Date;
 import java.util.Optional;
 
@@ -31,14 +27,14 @@ public class InviteService {
         this.inviteDao = inviteDao;
     }
 
-    public byte[] createInviteCode() {
-        byte[] code = new byte[INVITE_CODE_LENGTH];
+    public byte[] createRandomCode(int length) {
+        byte[] code = new byte[length];
         secureRandom.nextBytes(code);
         return code;
     }
 
     public String createInvite(Long userId, Period expiresAfter) {
-        var code = createInviteCode();
+        var code = createRandomCode(INVITE_CODE_LENGTH);
         var codeStr = Base32.encode(code);
 
         var i = new Invite();
