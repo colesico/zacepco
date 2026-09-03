@@ -5,12 +5,14 @@ import colesico.framework.httprouter.RequestMethod;
 import colesico.framework.httprouter.Route;
 import colesico.framework.jjwt.JwtLoginMessage;
 import colesico.framework.jjwt.WebJwt;
+import colesico.framework.service.ApplicationException;
 import colesico.framework.service.ParamsBean;
 import colesico.framework.telehttp.response.DynamicResponse;
 import colesico.framework.telehttp.response.RedirectResponse;
 import colesico.framework.weblet.Weblet;
 import colesico.framework.weblet.response.ViewResponse;
 import colesico.zacepco.common.ui.model.Notice;
+import colesico.zacepco.identity.srv.dto.AuthUser;
 import colesico.zacepco.identity.srv.service.AuthService;
 import colesico.zacepco.identity.ui.dto.LoginForm;
 import colesico.zacepco.identity.ui.t9n.LoginMessages;
@@ -21,6 +23,7 @@ import java.util.Map;
 @Route("./login")
 public class LoginWeblet {
 
+    static final String LOGIN_VIEW = "$identity/ui/tmpl/Login";
     private final AuthService authService;
     private final WebJwt jwt;
     private final LoginMessages messages;
@@ -32,7 +35,7 @@ public class LoginWeblet {
     }
 
     public ViewResponse index() {
-        return ViewResponse.view("$identity/ui/tmpl/Login").build();
+        return ViewResponse.view(LOGIN_VIEW).build();
     }
 
     @RequestMethod(HttpMethod.POST)
@@ -43,13 +46,18 @@ public class LoginWeblet {
             redirect = "/";
         }
 
-        var user = authService.authenticate(form.getUsername(), form.getPassword()).orElse(null);
-        if (user == null) {
-            form.setNotice(Notice.error(messages.invalidCredentials()));
-            return ViewResponse.view("$identity/ui/tmpl/Login").model(form).build().toDynamic();
-        } else {
-            jwt.authenticate(new JwtLoginMessage(user.id.toString(), Map.of()));
-            return RedirectResponse.of(redirect).toDynamic();
+        try {
+            var user = authService.authenticate(new AuthUser(form.getUsername(), form.getPassword())).orElse(null);
+            if (user == null) {
+                form.setNotice(Notice.error(messages.invalidCredentials()));
+                return ViewResponse.view(LOGIN_VIEW).model(form).build().toDynamic();
+            } else {
+                jwt.authenticate(new JwtLoginMessage(user.id.toString(), Map.of()));
+                return RedirectResponse.of(redirect).toDynamic();
+            }
+        } catch (ApplicationException e) {
+            form.setNotice(Notice.error(e));
+            return ViewResponse.view(LOGIN_VIEW).model(form).build().toDynamic();
         }
     }
 
