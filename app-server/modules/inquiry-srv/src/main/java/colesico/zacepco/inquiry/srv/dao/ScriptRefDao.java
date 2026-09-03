@@ -27,21 +27,21 @@ public class ScriptRefDao {
         this.scriptRefRk = scriptRefRk;
     }
 
-    public Long createScriptId() {
+    public Long createScriptRefId() {
         var handle = this.handle.get();
         return handle.createQuery("select nextval('script_seq')").mapTo(Long.class).one();
     }
 
-    public void createScriptRef(ScriptRef script) {
+    public void createScriptRef(ScriptRef scriptRef) {
         var handle = this.handle.get();
         String sql = scriptRefRk.sql("insert into @record (@columns) values (@values)");
-        handle.createUpdate(sql).bindMap(scriptRefRk.map(script)).execute();
+        handle.createUpdate(sql).bindMap(scriptRefRk.map(scriptRef)).execute();
     }
 
-    public Optional<ScriptRef> findScriptRefById(Long scriptRefId) {
+    public Optional<ScriptRef> findScriptRefById(Long id) {
         var handle = this.handle.get();
         String sql = scriptRefRk.sql("select @columns from @records where id = :id");
-        return handle.createQuery(sql).bind("id", scriptRefId).map(scriptRefRk.mapper()).findOne();
+        return handle.createQuery(sql).bind("id", id).map(scriptRefRk.mapper()).findOne();
     }
 
     public Optional<ScriptRef> findScriptRefByUuid(String uuid) {

@@ -36,8 +36,8 @@ public class ScriptRefService {
         this.scriptPackage = scriptPackage;
     }
 
-    protected String packageId(Long scriptId) {
-        return "script" + scriptId;
+    protected String packageId(Long refId) {
+        return "script" + refId;
     }
 
     /**
@@ -47,7 +47,7 @@ public class ScriptRefService {
      */
     public ScriptRef createScriptRef(Long userId, InputStream scriptPackageData) {
 
-        var scriptId = scriptRefDao.createScriptId();
+        var scriptId = scriptRefDao.createScriptRefId();
 
         var scriptPackage = this.scriptPackage.get(packageId(scriptId));
 
@@ -79,15 +79,15 @@ public class ScriptRefService {
     /**
      * Remove script from repository
      */
-    public void removeScriptRef(Long scriptRefId) {
+    public void removeScriptRef(Long refId) {
 
     }
 
     /**
      * Get scrip reference by id
      */
-    public Optional<ScriptRef> findScriptRefById(Long scriptRefId) {
-        return scriptRefDao.findScriptRefById(scriptRefId);
+    public Optional<ScriptRef> findScriptRefById(Long id) {
+        return scriptRefDao.findScriptRefById(id);
     }
 
     /**
@@ -99,6 +99,8 @@ public class ScriptRefService {
 
     /**
      * Get Script package helper
+     *
+     * @param scriptRefId script reference id
      */
     public ScriptPackage scriptPackage(Long scriptRefId) {
         return scriptPackage.get(Paths.get(""));
