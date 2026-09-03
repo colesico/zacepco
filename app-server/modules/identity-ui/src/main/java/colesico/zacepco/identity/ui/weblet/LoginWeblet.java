@@ -13,6 +13,7 @@ import colesico.framework.weblet.response.ViewResponse;
 import colesico.zacepco.common.ui.model.Notice;
 import colesico.zacepco.identity.srv.service.AuthService;
 import colesico.zacepco.identity.ui.dto.LoginForm;
+import colesico.zacepco.identity.ui.t9n.LoginMessages;
 
 import java.util.Map;
 
@@ -22,10 +23,12 @@ public class LoginWeblet {
 
     private final AuthService authService;
     private final WebJwt jwt;
+    private final LoginMessages messages;
 
-    public LoginWeblet(AuthService authService, WebJwt jwt) {
+    public LoginWeblet(AuthService authService, WebJwt jwt, LoginMessages messages) {
         this.authService = authService;
         this.jwt = jwt;
+        this.messages = messages;
     }
 
     public ViewResponse index() {
@@ -42,7 +45,7 @@ public class LoginWeblet {
 
         var user = authService.authenticate(form.getUsername(), form.getPassword()).orElse(null);
         if (user == null) {
-            form.setNotice(Notice.error("InvalidUsernameOrPassword"));
+            form.setNotice(Notice.error(messages.invalidCredentials()));
             return ViewResponse.view("$identity/ui/tmpl/Login").model(form).build().toDynamic();
         } else {
             jwt.authenticate(new JwtLoginMessage(user.id.toString(), Map.of()));
