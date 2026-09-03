@@ -52,7 +52,7 @@ public class AuthDao {
                 .select(authRk.sql(query))
                 .bind("userId", userId)
                 .map(authRk.mapper())
-                .findFirst();
+                .findOne();
 
     }
 }

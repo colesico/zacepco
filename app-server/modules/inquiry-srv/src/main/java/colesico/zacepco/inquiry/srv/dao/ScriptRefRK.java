@@ -5,5 +5,5 @@ import colesico.framework.jdbirec.RecordKitApi;
 import colesico.zacepco.inquiry.srv.model.ScriptRef;
 
 @RecordKit()
-public interface ScriptRK extends RecordKitApi<ScriptRef> {
+public interface ScriptRefRK extends RecordKitApi<ScriptRef> {
 }

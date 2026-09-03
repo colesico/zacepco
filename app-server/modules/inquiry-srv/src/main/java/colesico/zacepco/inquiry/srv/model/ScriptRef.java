@@ -4,6 +4,7 @@ import colesico.framework.jdbirec.Column;
 import colesico.framework.jdbirec.Record;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 /**
  * Script reference
@@ -18,10 +19,16 @@ public class ScriptRef {
     private Long id;
 
     /**
-     * User who created script reference and can manage it (owner)
+     * User who created  reference and can manage it (owner)
      */
     @Column
     private Long userId;
+
+    /**
+     * Reference creation date
+     */
+    @Column
+    private Date createdAt;
 
     /**
      * Script uuid
@@ -44,14 +51,17 @@ public class ScriptRef {
     @Column
     public String[] authors;
 
+    /**
+     * Script version
+     */
     @Column
     public Integer version;
 
     /**
-     * Reference creation LocalDate
+     * Script creation date
      */
     @Column
-    private LocalDate created;
+    private LocalDate creationDate;
 
     public Long getId() {
         return id;
@@ -67,6 +77,14 @@ public class ScriptRef {
 
     public void setUserId(Long userId) {
         this.userId = userId;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 
     public String getUuid() {
@@ -93,14 +111,6 @@ public class ScriptRef {
         this.annotation = annotation;
     }
 
-    public LocalDate getCreated() {
-        return created;
-    }
-
-    public void setCreated(LocalDate created) {
-        this.created = created;
-    }
-
     public String[] getAuthors() {
         return authors;
     }
@@ -115,5 +125,13 @@ public class ScriptRef {
 
     public void setVersion(Integer version) {
         this.version = version;
+    }
+
+    public LocalDate getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(LocalDate creationDate) {
+        this.creationDate = creationDate;
     }
 }

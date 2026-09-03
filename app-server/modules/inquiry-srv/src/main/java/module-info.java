@@ -10,5 +10,6 @@ module colesico.zacepco.inquiry.srv {
     exports colesico.zacepco.inquiry.srv.model;
     exports colesico.zacepco.inquiry.srv.dao;
     exports colesico.zacepco.inquiry.srv.service;
+    exports colesico.zacepco.inquiry.srv.dto;
 
 }

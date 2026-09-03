@@ -53,7 +53,7 @@ public class ScriptMetadata {
      * Script creation date
      */
     @YamlComment(text = "Script creation date YYYY-MM-DD")
-    public LocalDate created;
+    public LocalDate creationDate;
 
     /**
      * Script content version (1..N)
@@ -114,12 +114,12 @@ public class ScriptMetadata {
         this.licence = licence;
     }
 
-    public LocalDate getCreated() {
-        return created;
+    public LocalDate getCreationDate() {
+        return creationDate;
     }
 
-    public void setCreated(LocalDate created) {
-        this.created = created;
+    public void setCreationDate(LocalDate creationDate) {
+        this.creationDate = creationDate;
     }
 
     public Integer getVersion() {

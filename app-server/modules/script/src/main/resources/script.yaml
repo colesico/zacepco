@@ -22,7 +22,7 @@ meta:
   # License under which the script is distributed
   licence: CC BY 4.0
   # Script creation date YYYY-MM-DD
-  created: 2026-01-01
+  creationDate: 2026-01-01
   # Script version (1..N)
   version: 1
   # Game difficulty

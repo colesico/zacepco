@@ -6,6 +6,7 @@ import colesico.zacepco.identity.srv.model.User;
 import jakarta.inject.Provider;
 import org.jdbi.v3.core.Handle;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -55,7 +56,7 @@ public class UserDao {
                 .select(userRk.sql(query))
                 .bind("id", id)
                 .map(userRk.mapper())
-                .findFirst();
+                .findOne();
 
     }
 
@@ -67,8 +68,7 @@ public class UserDao {
                 .select(userRk.sql(query))
                 .bind("username", username)
                 .map(userRk.mapper())
-                .findFirst();
-
+                .findOne();
     }
 
 }

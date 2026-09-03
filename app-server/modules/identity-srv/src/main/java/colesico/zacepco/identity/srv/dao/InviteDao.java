@@ -62,7 +62,7 @@ public class InviteDao {
                 .select(inviteRk.sql(query))
                 .bind("codeHash", codeHash)
                 .map(inviteRk.mapper())
-                .findFirst();
+                .findOne();
 
     }
 

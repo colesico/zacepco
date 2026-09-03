@@ -5,6 +5,7 @@ import colesico.zacepco.script.model.setting.LocationId;
 /**
  * Location reference
  */
+
 public class LocationRef {
 
     private Long id;

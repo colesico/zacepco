@@ -4,7 +4,7 @@ import colesico.framework.ioc.production.Classed;
 import colesico.framework.ioc.production.Supplier;
 import colesico.framework.service.Service;
 import colesico.framework.transaction.Transactional;
-import colesico.zacepco.inquiry.srv.dao.ScriptDao;
+import colesico.zacepco.inquiry.srv.dao.ScriptRefDao;
 import colesico.zacepco.inquiry.srv.filestorage.StoragePackageDriver;
 import colesico.zacepco.inquiry.srv.model.ScriptRef;
 import colesico.zacepco.script.model.script.Script;
@@ -13,24 +13,26 @@ import colesico.zacepco.script.pkg.*;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Paths;
+import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
-public class ScriptService {
+public class ScriptRefService {
 
-    private final ScriptDao scriptDao;
+    private final ScriptRefDao scriptRefDao;
 
     /**
      * Script package manager
      */
     private final Supplier<ScriptPackage> scriptPackage;
 
-    public ScriptService(
-            ScriptDao scriptDao,
+    public ScriptRefService(
+            ScriptRefDao scriptRefDao,
             @Classed(StoragePackageDriver.class)
             Supplier<ScriptPackage> scriptPackage) {
-        this.scriptDao = scriptDao;
+        this.scriptRefDao = scriptRefDao;
         this.scriptPackage = scriptPackage;
     }
 
@@ -43,15 +45,15 @@ public class ScriptService {
      *
      * @return script reference
      */
-    public ScriptRef upload(Long userId, InputStream is) {
+    public ScriptRef createScriptRef(Long userId, InputStream scriptPackageData) {
 
-        var scriptId = scriptDao.createScriptId();
+        var scriptId = scriptRefDao.createScriptId();
 
         var scriptPackage = this.scriptPackage.get(packageId(scriptId));
 
         Script script;
         try {
-            scriptPackage.importFrom(is);
+            scriptPackage.importFrom(scriptPackageData);
             script = scriptPackage.script().read();
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -60,12 +62,16 @@ public class ScriptService {
         ScriptRef scriptRef = new ScriptRef();
         scriptRef.setId(scriptId);
         scriptRef.setUserId(userId);
+        scriptRef.setCreatedAt(new Date());
+
         scriptRef.setUuid(script.meta.uuid);
         scriptRef.setTitle(script.meta.title);
         scriptRef.setAnnotation(script.meta.annotation);
         scriptRef.setAuthors(script.meta.authors);
         scriptRef.setVersion(script.meta.version);
-        scriptRef.setCreated(script.meta.created);
+        scriptRef.setCreationDate(script.meta.creationDate);
+
+        scriptRefDao.createScriptRef(scriptRef);
 
         return scriptRef;
     }
@@ -73,29 +79,28 @@ public class ScriptService {
     /**
      * Remove script from repository
      */
-    public void remove(Long id) {
+    public void removeScriptRef(Long scriptRefId) {
 
     }
 
     /**
      * Get scrip reference by id
      */
-    public ScriptRef getRef(Long id) {
-        return null;
+    public Optional<ScriptRef> findScriptRefById(Long scriptRefId) {
+        return scriptRefDao.findScriptRefById(scriptRefId);
     }
-
 
     /**
      * List script references
      */
-    public List<ScriptRef> list(Long userId, long limit, long offset) {
-        return null;
+    public List<ScriptRef> lastScriptRefs(long limit, long offset) {
+        return scriptRefDao.lastScriptRefs(limit, offset);
     }
 
     /**
      * Get Script package helper
      */
-    public ScriptPackage pkg(Long id) {
+    public ScriptPackage scriptPackage(Long scriptRefId) {
         return scriptPackage.get(Paths.get(""));
     }
 }
