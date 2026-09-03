@@ -128,7 +128,7 @@
                 <module>modules/identity-srv</module>
                 <module>modules/identity-ui</module>
                 <module>modules/script</module>
-                <module>modules/inquiry-srv</module>
+                <module>modules/investigation-srv</module>
                 <module>modules/main</module>
             </modules>
         </profile>
