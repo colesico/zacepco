@@ -129,6 +129,7 @@
                 <module>modules/identity-ui</module>
                 <module>modules/script</module>
                 <module>modules/investigation-srv</module>
+                <module>modules/investigation-ui</module>
                 <module>modules/main</module>
             </modules>
         </profile>
