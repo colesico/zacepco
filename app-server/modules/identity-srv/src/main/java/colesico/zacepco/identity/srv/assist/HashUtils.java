@@ -57,7 +57,12 @@ public class HashUtils {
         return Base64.getEncoder().encodeToString(textToHash(text));
     }
 
-    public static String[] textToHashSalt(String text) {
+    public static String textToHashStr(String text, String salt) {
+        var saltBytes = Base64.getDecoder().decode(salt);
+        return Base64.getEncoder().encodeToString(textToHash(text, saltBytes));
+    }
+
+    public static String[] textToHashSaltStr(String text) {
         var salt = salt();
         var hash = textToHash(text, salt);
         var encoder = Base64.getEncoder();

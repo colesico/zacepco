@@ -6,6 +6,7 @@ module colesico.zacepco.common.ui {
     requires transitive colesico.framework.restlet;
     requires transitive colesico.framework.webstatic;
     requires transitive colesico.framework.pebble;
+    requires transitive colesico.framework.jjwt;
 
     exports colesico.zacepco.common.ui.model;
     exports colesico.zacepco.common.ui.config to colesico.framework.config, colesico.framework.ioc;

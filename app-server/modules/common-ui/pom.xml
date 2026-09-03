@@ -61,6 +61,11 @@
             <artifactId>colesico-webstatic</artifactId>
             <version>${colesico.version}</version>
         </dependency>
+        <dependency>
+            <groupId>net.colesico.framework</groupId>
+            <artifactId>colesico-jjwt</artifactId>
+            <version>${colesico.version}</version>
+        </dependency>
     </dependencies>
 
     <build>
