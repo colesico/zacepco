@@ -1,0 +1,16 @@
+{
+	"compilerOptions": {
+		"moduleResolution": "bundler",
+		"target": "ESNext",
+		"module": "ESNext",
+		"allowJs": true,
+		"checkJs": false,
+		"strict": true,
+		"isolatedModules": true,
+		"baseUrl": ".",
+		"paths": {
+			"@common/*": ["src/common/*"]
+		}
+	},
+	"include": ["src/**/*", "vite.config.js"]
+}

@@ -11,6 +11,9 @@
 *.ipr
 *.iws
 
+# VSCode
+.vscode
+
 # Maven
 **/target/**
 target/
