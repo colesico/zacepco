@@ -5,14 +5,6 @@
 *.war
 *.ear
 
-# Mac OS X
-.DS_Store
-
-# Eclipse 
-.project
-.classpath
-.settings/
-
 # IntelliJ
 .idea/
 *.iml
@@ -24,7 +16,28 @@
 target/
 .mvn/
 
-# Netbeans
-nb-configuration.xml
 
+# Rendered docs
 */docs/pdf
+
+
+node_modules
+
+# Output
+.output
+.vercel
+.netlify
+.wrangler
+.svelte-kit
+build
+
+
+# Env
+.env
+.env.*
+!.env.example
+!.env.test
+
+# Vite
+vite.config.js.timestamp-*
+vite.config.ts.timestamp-*
