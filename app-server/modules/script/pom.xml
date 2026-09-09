@@ -12,7 +12,7 @@
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
-    <artifactId>script</artifactId>
+    <artifactId>zacepco-script</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
 

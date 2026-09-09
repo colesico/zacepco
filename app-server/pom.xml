@@ -247,7 +247,7 @@
                         <configuration>
                             <includeScope>runtime</includeScope>
                             <excludeArtifactIds>
-                                guava,javapoet
+                                guava,javapoet,checker-qual
                             </excludeArtifactIds>
                             <outputDirectory>${project.build.directory}/lib</outputDirectory>
                         </configuration>

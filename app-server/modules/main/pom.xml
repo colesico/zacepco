@@ -12,7 +12,7 @@
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
-    <artifactId>main</artifactId>
+    <artifactId>zacepco-main</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
 
@@ -32,19 +32,24 @@
         </dependency>
         <dependency>
             <groupId>net.colesico.zacepco</groupId>
-            <artifactId>common-ui</artifactId>
+            <artifactId>zacepco-common-ui</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>net.colesico.zacepco</groupId>
-            <artifactId>identity-ui</artifactId>
+            <artifactId>zacepco-identity-ui</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>net.colesico.zacepco</groupId>
+            <artifactId>zacepco-investigation-ui</artifactId>
             <version>${project.version}</version>
         </dependency>
 
     </dependencies>
 
     <build>
-        <finalName>zacepco-app-server</finalName>
+        <finalName>zacepco-app</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -59,5 +64,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>

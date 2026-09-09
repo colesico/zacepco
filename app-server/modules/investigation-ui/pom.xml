@@ -11,7 +11,7 @@
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
-    <artifactId>investigation-ui</artifactId>
+    <artifactId>zacepco-investigation-ui</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
 
@@ -26,18 +26,14 @@
         <!-- Zacepco -->
         <dependency>
             <groupId>net.colesico.zacepco</groupId>
-            <artifactId>common-ui</artifactId>
+            <artifactId>zacepco-common-ui</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>net.colesico.zacepco</groupId>
-            <artifactId>investigation-srv</artifactId>
+            <artifactId>zacepco-investigation-srv</artifactId>
             <version>${project.version}</version>
         </dependency>
 
     </dependencies>
-
-    <build>
-        <finalName>zacepco-investigation-ui</finalName>
-    </build>
 </project>

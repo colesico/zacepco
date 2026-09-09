@@ -12,11 +12,11 @@
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
-    <artifactId>common-srv</artifactId>
+    <artifactId>zacepco-common-srv</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
 
-    <name>Zacepco - Storage</name>
+    <name>Zacepco - Service</name>
     <description>
         Zacepco common persistence storage service.
     </description>
@@ -91,8 +91,5 @@
 
     </dependencies>
 
-    <build>
-        <finalName>zacepco-storage</finalName>
-    </build>
 
 </project>

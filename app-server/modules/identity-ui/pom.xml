@@ -11,7 +11,7 @@
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
-    <artifactId>identity-ui</artifactId>
+    <artifactId>zacepco-identity-ui</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
 
@@ -26,18 +26,15 @@
         <!-- Zacepco -->
         <dependency>
             <groupId>net.colesico.zacepco</groupId>
-            <artifactId>common-ui</artifactId>
+            <artifactId>zacepco-common-ui</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>net.colesico.zacepco</groupId>
-            <artifactId>identity-srv</artifactId>
+            <artifactId>zacepco-identity-srv</artifactId>
             <version>${project.version}</version>
         </dependency>
 
     </dependencies>
 
-    <build>
-        <finalName>zacepco-identity-ui</finalName>
-    </build>
 </project>
