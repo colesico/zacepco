@@ -32,7 +32,7 @@ services:
       zacepco-postgres:
         condition: service_healthy
     environment:
-      DATABASE_URL: postgresql://${DB_USER:-postgres}:${DB_PASSWORD:-postgres}@zacepco-postgres:5432/${DB_NAME:-zacepco}?sslmode=disable
+      JDBC_URL: jdbc:postgresql://zacepco-postgres:5432/${DB_NAME:-zacepco}
     ports:
       - "8080:8080"
     healthcheck:
