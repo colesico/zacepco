@@ -27,7 +27,7 @@
         <!-- Zacepco -->
         <dependency>
             <groupId>net.colesico.zacepco</groupId>
-            <artifactId>common-srv</artifactId>
+            <artifactId>zacepco-common-srv</artifactId>
             <version>${project.version}</version>
         </dependency>
 
