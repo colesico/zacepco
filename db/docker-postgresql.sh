@@ -5,7 +5,7 @@ docker volume create zacepco-pgdata
 docker rm -f zacepco-postgres
 
 docker run -d \
-  --name zacepco-postgres \
+  --name zacepco-postgres-st \
   -e POSTGRES_PASSWORD=postgres \
   -e POSTGRES_USER=postgres \
   -e POSTGRES_DB=zacepco \

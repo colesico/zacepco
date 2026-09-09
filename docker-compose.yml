@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   zacepco-postgres:
     image: postgres:16-alpine
@@ -10,7 +8,7 @@ services:
       POSTGRES_PASSWORD: ${DB_PASSWORD:-postgres}
       POSTGRES_DB: ${DB_NAME:-zacepco}
     ports:
-      - "127.0.0.1:5432:5432"
+      - "5432:5432"
     networks:
       - zacepco-net
     deploy:
@@ -27,9 +25,7 @@ services:
       - zacepco-pgdata:/var/lib/postgresql/data
 
   zacepco-app:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: zacepco-app:latest
     container_name: zacepco-app
     restart: unless-stopped
     depends_on:
@@ -39,17 +35,21 @@ services:
       DATABASE_URL: postgresql://${DB_USER:-postgres}:${DB_PASSWORD:-postgres}@zacepco-postgres:5432/${DB_NAME:-zacepco}?sslmode=disable
     ports:
       - "8080:8080"
-    networks:
-      - zacepco-net
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080/api/healthcheck"]
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://127.0.0.1:8080/api/healthcheck"]
       interval: 15s
       timeout: 5s
       retries: 3
+    networks:
+      - zacepco-net
+    volumes:
+      - zacepco-storage:/opt/app/storage
 
 volumes:
   zacepco-pgdata:
     name: zacepco-pgdata
+  zacepco-storage:
+    name: zacepco-storage
 
 networks:
   zacepco-net:
