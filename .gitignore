@@ -21,7 +21,7 @@ target/
 
 
 # Rendered docs
-*/docs/pdf
+/docs/pdf
 
 
 node_modules
