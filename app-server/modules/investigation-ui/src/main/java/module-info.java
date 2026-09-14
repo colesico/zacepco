@@ -5,5 +5,8 @@ module colesico.zacepco.investigation.ui {
     requires colesico.framework.weblet;
     requires colesico.zacepco.common.ui;
 
-    //exports colesico.zacepco.investigation.ui.dto;
+    exports colesico.zacepco.investigation.ui.weblet;
+
+    opens colesico.zacepco.investigation.ui.webpub.app.js;
+    opens colesico.zacepco.investigation.ui.webpub.app.css;
 }

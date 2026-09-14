@@ -8,8 +8,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width" />
     <meta name="robots" content="index, follow" />
-    <meta property="og:locale" content="ru_RU" />
-    <meta property="og:site_name" content="{{ 'SiteName'|t9n(uiStrings)}}"  />
+    <meta property="og:locale" content="{{ profile().locale }}" />
+    <meta property="og:site_name" content="{{ 'SiteName'|t9n(uiStrings)}}" />
     {%block headMeta %}{% endblock %}
 
     <noscript>
@@ -18,7 +18,7 @@
 
     <!--[if lte IE 9]>
     <script type="text/javascript">
-            document.location.href="/badbrowser";
+        document.location.href="/badbrowser";
     </script>
     <![endif]-->
 
@@ -27,6 +27,7 @@
     <link href="/resources/common/app/css/core.css" rel="stylesheet" />
     <link href="/resources/common/fontawesome/css/solid.min.css" rel="stylesheet" />
     <link href="/resources/common/fontawesome/css/fontawesome.min.css" rel="stylesheet" />
+
     {%block headCss %}{% endblock %}
 
     <script src="/resources/common/jquery/js/jquery.min.js"></script>
@@ -35,18 +36,17 @@
     {%block headJs %}{% endblock %}
 
     {%block headExtra %}{% endblock %}
-
 </head>
 <body>
 <div class="d-flex flex-column h-100">
     <div>
-        {% include "../inc/Header.html" %}
+        {% include "../inc/PageHeader.html" %}
     </div>
     <div class="d-flex align-items-center justify-content-center align-self-stretch w-100 flex-grow-1">
         {%block pageContent %}{% endblock %}
     </div>
     <div>
-        {% include "../inc/Footer.html" %}
+        {% include "../inc/PageFooter.html" %}
     </div>
 </div>
 </body>

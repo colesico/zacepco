@@ -2,11 +2,8 @@
 
 set -e
 
-IMAGE_NAME="zacepco-app"
+IMAGE_NAME="zacepco-nginx"
 IMAGE_TAG="latest"
-
-echo "Building Java application"
-mvn clean package -DskipTests
 
 echo "Building Docker image: ${IMAGE_NAME}:${IMAGE_TAG}"
 docker build -t "${IMAGE_NAME}:${IMAGE_TAG}" -f Dockerfile .

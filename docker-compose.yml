@@ -45,6 +45,27 @@ services:
     volumes:
       - zacepco-storage:/opt/app/storage
 
+  zacepco-nginx:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: zacepco-nginx:latest
+    container_name: zacepco-nginx
+    restart: unless-stopped
+    depends_on:
+      zacepco-app:
+        condition: service_healthy
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - zacepco-storage:/opt/app/storage:ro
+      # for SSL certs
+      # - /etc/letsencrypt:/etc/letsencrypt:ro
+    networks:
+      - zacepco-net
+
+
 volumes:
   zacepco-pgdata:
     name: zacepco-pgdata

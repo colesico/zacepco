@@ -10,22 +10,21 @@ export default defineConfig({
   },
 
   build: {
-    // Disable asset inlining so small icons are forced to build as separate physical files
+    // Prevent asset inlining to ensure all images and fonts are generated as separate files
     assetsInlineLimit: 0,
 
     rollupOptions: {
       input: {
         investigation: resolve(import.meta.dirname, 'src/investigation/index.html'),
-        scriptEditor: resolve(import.meta.dirname, 'src/script-editor/index.html'),
+        'script-editor': resolve(import.meta.dirname, 'src/script-editor/index.html'),
       },
 
       output: {
-        // Output JS files named
+        // Output structure for JS entry files and chunks
         entryFileNames: 'assets/[name]/[name].js',
         chunkFileNames: 'assets/[name]/chunks/[name].js',
 
-
-        // Fixed asset separation logic by checking the original file path
+        // Distribute assets into separate folders based on their source directory
         assetFileNames: (assetInfo) => {
           const fullPath = assetInfo.originalFileName
             ? assetInfo.originalFileName.replace(/\\/g, '/')
@@ -35,15 +34,15 @@ export default defineConfig({
           if (fullPath.includes('investigation')) {
             folder = 'investigation';
           } else if (fullPath.includes('script-editor') || fullPath.includes('scriptEditor')) {
-            folder = 'scriptEditor';
+            folder = 'script-editor';
           }
 
-          // FIX: Check if the asset is a CSS file, including Svelte style queries
+          // Output CSS files with a fixed name per module
           if (fullPath.includes('.css') || assetInfo.name?.endsWith('.css')) {
             return `assets/${folder}/${folder}.css`;
           }
 
-          // Keep hashes for images and fonts to prevent aggressive browser caching
+          // Output static assets with hashes to prevent aggressive browser caching
           return `assets/${folder}/[name]-[hash].[ext]`;
         }
       }
