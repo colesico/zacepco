@@ -16,7 +16,7 @@ export default defineConfig({
     rollupOptions: {
       input: {
         investigation: resolve(import.meta.dirname, 'src/investigation/index.html'),
-        'script-editor': resolve(import.meta.dirname, 'src/script-editor/index.html'),
+        'script-manager': resolve(import.meta.dirname, 'src/script-manager/index.html'),
       },
 
       output: {
@@ -33,8 +33,8 @@ export default defineConfig({
           let folder = 'common';
           if (fullPath.includes('investigation')) {
             folder = 'investigation';
-          } else if (fullPath.includes('script-editor') || fullPath.includes('scriptEditor')) {
-            folder = 'script-editor';
+          } else if (fullPath.includes('script-manager') || fullPath.includes('scriptEditor')) {
+            folder = 'script-manager';
           }
 
           // Output CSS files with a fixed name per module

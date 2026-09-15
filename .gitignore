@@ -25,6 +25,7 @@ target/
 
 
 node_modules
+app-webui/dist
 
 # Output
 .output
