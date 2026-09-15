@@ -1,10 +1,9 @@
 import { mount } from 'svelte';
 import App from './App.svelte';
 
-// Mount the Svelte 5 application into the DOM container with id="root"
+// Mount the Svelte 5 application into the DOM container with id="app"
 const app = mount(App, {
-  target: document.getElementById('root'),
-  // You can pass initial props here if your root component requires them
+  target: document.getElementById('app'),
   props: {}
 });
 
