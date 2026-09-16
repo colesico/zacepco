@@ -3,7 +3,6 @@ import { svelte } from '@sveltejs/vite-plugin-svelte';
 import { resolve } from 'path';
 
 export default defineConfig({
-	
   resolve: {
     alias: {
       '@common': resolve(import.meta.dirname, './src/common'),
@@ -15,21 +14,16 @@ export default defineConfig({
     assetsInlineLimit: 0,
 
     rollupOptions: {
+      // Array of inputs forces Rollup to treat them as completely separate entry points
       input: {
-        investigation: resolve(import.meta.dirname, 'src/investigation/index.html'),
-        'script-manager': resolve(import.meta.dirname, 'src/script-manager/index.html'),
+        'investigation': resolve(import.meta.dirname, 'src/investigation/index.html'),
+        'script-manager': resolve(import.meta.dirname, 'src/script-manager/index.html')
       },
 
       output: {
-		assetFileNames: 'assets/[name].[ext]',
+        assetFileNames: 'assets/[name].[ext]',
         entryFileNames: 'assets/[name].js',
-        chunkFileNames: 'assets/[name].js',
-		
-		manualChunks(id) {
-          if (id.includes('node_modules/svelte')) {
-            return undefined; 
-          }
-        }
+        chunkFileNames: 'assets/[name].js'
       }
     }
   },
@@ -37,7 +31,7 @@ export default defineConfig({
   plugins: [
     svelte({
       compilerOptions: {
-		discloseVersion: false, 
+        discloseVersion: false, 
         runes: ({ filename }) =>
           filename.split(/[/\\]/).includes('node_modules') ? undefined : true
       }
