@@ -9,6 +9,14 @@ export default defineConfig({
     },
   },
 
+  // Watch src files changes
+  server: {
+    watch: {
+      usePolling: true,
+      interval: 100 
+    }
+  },
+  
   build: {
     // Prevent asset inlining to ensure all images and fonts are generated as separate files
     assetsInlineLimit: 0,
