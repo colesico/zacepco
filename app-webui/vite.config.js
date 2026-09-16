@@ -14,7 +14,9 @@ export default defineConfig({
     watch: {
       usePolling: true,
       interval: 100 
-    }
+    },
+	cors: true,
+    origin: 'http://localhost:5173'
   },
   
   build: {
