@@ -25,7 +25,7 @@ services:
       - zacepco-pgdata:/var/lib/postgresql/data
 
   zacepco-app:
-    image: zacepco-app:latest
+    image: net.colesico.zacepco/zacepco-app:latest
     container_name: zacepco-app
     restart: unless-stopped
     depends_on:
@@ -49,7 +49,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: zacepco-nginx:latest
+    image: net.colesico.zacepco/zacepco-nginx:latest
     container_name: zacepco-nginx
     restart: unless-stopped
     depends_on:

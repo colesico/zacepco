@@ -9,7 +9,7 @@ export default defineConfig({
     },
   },
 
-  // Watch src files changes
+  // Watch src files changes (for dev mode)
   server: {
     watch: {
       usePolling: true,

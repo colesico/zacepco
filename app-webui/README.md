@@ -1,25 +1,21 @@
-## Developing
+## Install npm modules:
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+```sh
+npm install
+```
+ 
+## Start a development server:
 
 ```sh
 npm run dev
 
-# or to expose port
-npm run dev -- --port 3000 --host 127.0.0.1
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
+# or to expose port 
+npm run dev -- --port 3000 --host
 ```
 
-## Building
+## Build production assets
 
-To create a production version of your app:
 
 ```sh
 npm run build
 ```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.

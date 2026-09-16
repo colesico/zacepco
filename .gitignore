@@ -23,6 +23,9 @@ target/
 # Rendered docs
 /docs/pdf
 
+# Nginx tmp
+
+tmp-resources
 
 node_modules
 app-webui/dist

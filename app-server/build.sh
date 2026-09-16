@@ -2,7 +2,7 @@
 
 set -e
 
-IMAGE_NAME="zacepco-app"
+IMAGE_NAME="net.colesico.zacepco/zacepco-app"
 IMAGE_TAG="latest"
 
 echo "Building Java application"
