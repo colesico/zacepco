@@ -12,6 +12,9 @@ export default defineConfig({
   build: {
     // Prevent asset inlining to ensure all images and fonts are generated as separate files
     assetsInlineLimit: 0,
+	
+	// Cleanup dist dir
+	emptyOutDir: false, 
 
     rollupOptions: {
       // Array of inputs forces Rollup to treat them as completely separate entry points
