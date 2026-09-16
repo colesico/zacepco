@@ -2,13 +2,14 @@
 
 set -e
 
-INVESTIGATION_SRC_DIR=./dist/assets/investigation/
-INVESTIGATION_TARGET_DIR=../app-server/modules/investigation-ui/src/main/resources/colesico/zacepco/investigation/ui/webpub/app/
+DIST_DIR=./dist/assets/
+INVESTIGATION_DIR=../app-server/modules/investigation-ui/src/main/resources/colesico/zacepco/investigation/ui/webpub/app/
 
 echo "Building Web UI artifacts"
 npm run build
 
-cp $INVESTIGATION_SRC_DIR/investigation.js $INVESTIGATION_TARGET_DIR/js/
-cp $INVESTIGATION_SRC_DIR/investigation.css $INVESTIGATION_TARGET_DIR/css/
+cp $DIST_DIR/investigation.js $INVESTIGATION_DIR/js/
+cp $DIST_DIR/index-client.js $INVESTIGATION_DIR/js/
+cp $DIST_DIR/investigation.css $INVESTIGATION_DIR/css/
 
 echo "Success!"
