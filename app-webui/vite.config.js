@@ -3,6 +3,7 @@ import { svelte } from '@sveltejs/vite-plugin-svelte';
 import { resolve } from 'path';
 
 export default defineConfig({
+	
   resolve: {
     alias: {
       '@common': resolve(import.meta.dirname, './src/common'),
@@ -20,30 +21,14 @@ export default defineConfig({
       },
 
       output: {
-        // Output structure for JS entry files and chunks
-        entryFileNames: 'assets/[name]/[name].js',
-        chunkFileNames: 'assets/[name]/chunks/[name].js',
-
-        // Distribute assets into separate folders based on their source directory
-        assetFileNames: (assetInfo) => {
-          const fullPath = assetInfo.originalFileName
-            ? assetInfo.originalFileName.replace(/\\/g, '/')
-            : (assetInfo.name || '');
-
-          let folder = 'common';
-          if (fullPath.includes('investigation')) {
-            folder = 'investigation';
-          } else if (fullPath.includes('script-manager') || fullPath.includes('scriptEditor')) {
-            folder = 'script-manager';
+		assetFileNames: 'assets/[name].[ext]',
+        entryFileNames: 'assets/[name].js',
+        chunkFileNames: 'assets/[name].js',
+		
+		manualChunks(id) {
+          if (id.includes('node_modules/svelte')) {
+            return undefined; 
           }
-
-          // Output CSS files with a fixed name per module
-          if (fullPath.includes('.css') || assetInfo.name?.endsWith('.css')) {
-            return `assets/${folder}/${folder}.css`;
-          }
-
-          // Output static assets with hashes to prevent aggressive browser caching
-          return `assets/${folder}/[name]-[hash].[ext]`;
         }
       }
     }
@@ -52,6 +37,7 @@ export default defineConfig({
   plugins: [
     svelte({
       compilerOptions: {
+		discloseVersion: false, 
         runes: ({ filename }) =>
           filename.split(/[/\\]/).includes('node_modules') ? undefined : true
       }
