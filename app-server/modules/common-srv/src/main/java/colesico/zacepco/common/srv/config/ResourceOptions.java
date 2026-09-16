@@ -1,4 +1,4 @@
-package colesico.zacepco.common.ui.config;
+package colesico.zacepco.common.srv.config;
 
 import colesico.framework.config.Config;
 import colesico.framework.resource.ResourceOptionsPrototype;
