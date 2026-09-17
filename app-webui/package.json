@@ -10,6 +10,9 @@
 		"lint": "prettier --check . && eslint .",
 		"format": "prettier --write ."
 	},
+	"dependencies": {
+		"svelte-spa-router": "^5.1.1"
+	},
 	"devDependencies": {
 		"@eslint/js": "^10.0.1",
 		"@sveltejs/vite-plugin-svelte": "^7.1.2",

@@ -1,16 +1,17 @@
 <script>
-  import moduleIcon from './assets/icon.svg';
-  import * as api from "@common/assist/RestletUtils.js"; 
+  import Router from 'svelte-spa-router';
+  import Welcome from './page/Welcome.svelte';
+
+  
+  const routes = {
+    '/': Welcome
+  };
+  
 </script>
 
 <main>
-  <h1>Investigation Dashboard И так далее !!ee!!--</h1>
-
-  <img src={moduleIcon} alt="Module Icon" width="50" height="50" />
+  <Router {routes} />
 </main>
 
 <style>
-  main {
-    padding: 2rem;
-  }
 </style>
