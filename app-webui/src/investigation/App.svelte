@@ -1,5 +1,6 @@
 <script>
   import moduleIcon from './assets/icon.svg';
+  import * as api from "@common/assist/RestletUtils.js"; 
 </script>
 
 <main>
