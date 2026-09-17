@@ -6,25 +6,25 @@ import colesico.framework.jdbirec.Record;
 import java.util.Date;
 
 /**
- * Investigation model
+ * Criminal case model
  */
-@Record(table = "investigations")
-public class Investigation {
+@Record(table = "cases")
+public class CriminalCase {
 
     /**
-     * Investigation id
+     * Criminal case id
      */
     @Column
     private Long id;
 
     /**
-     * User (owner) who created investigation and can manage it
+     * User (owner) who created case and can manage it
      */
     @Column
     private Long userid;
 
     @Column
-    private InvestigationStatus status;
+    private CriminalCaseStatus status;
 
     /**
      * Current amount of resource for investigation
@@ -41,7 +41,7 @@ public class Investigation {
     private Long scriptId;
 
     /**
-     * When investigation entity was created
+     * When case entity was created
      */
     @Column
     private Date created;
@@ -62,11 +62,11 @@ public class Investigation {
         this.userid = userid;
     }
 
-    public InvestigationStatus getStatus() {
+    public CriminalCaseStatus getStatus() {
         return status;
     }
 
-    public void setStatus(InvestigationStatus status) {
+    public void setStatus(CriminalCaseStatus status) {
         this.status = status;
     }
 

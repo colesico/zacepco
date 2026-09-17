@@ -50,7 +50,7 @@ public class ScriptRefDao {
         return handle.createQuery(sql).bind("uuid", uuid).map(scriptRefRk.mapper()).findOne();
     }
 
-    public List<ScriptRef> lastScriptRefs(Long limit, Long offset) {
+    public List<ScriptRef> lastScriptRefs(int limit, long offset) {
         var query = """
                 select @record
                 from @table

@@ -93,7 +93,7 @@ public class ScriptRefService {
     /**
      * List script references
      */
-    public List<ScriptRef> lastScriptRefs(long limit, long offset) {
+    public List<ScriptRef> lastScriptRefs(int limit, long offset) {
         return scriptRefDao.lastScriptRefs(limit, offset);
     }
 
