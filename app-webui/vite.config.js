@@ -15,11 +15,15 @@ export default defineConfig({
       usePolling: true,
       interval: 100 
     },
+    port: 5173,
+    strictPort: true,
 	cors: true,
     origin: 'http://localhost:5173'
   },
   
   build: {
+	outDir: 'dist', 
+	  
     // Prevent asset inlining to ensure all images and fonts are generated as separate files
     assetsInlineLimit: 0,
 	
@@ -34,9 +38,9 @@ export default defineConfig({
       },
 
       output: {
-        assetFileNames: 'assets/[name].[ext]',
         entryFileNames: 'assets/[name].js',
-        chunkFileNames: 'assets/[name].js'
+        chunkFileNames: 'assets/[name].js',
+		assetFileNames: 'assets/[name].[ext]'
       }
     }
   },

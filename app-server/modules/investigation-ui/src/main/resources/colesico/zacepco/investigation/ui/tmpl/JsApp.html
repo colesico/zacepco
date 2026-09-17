@@ -8,8 +8,14 @@
 {% block headCss %}
 <link href="/resources/investigation/app/css/investigation.css" rel="stylesheet">
 {% endblock %}
+
 {% block headJs %}
-<script type="module" src="/resources/investigation/app/js/investigation.js"></script>
+{% if devUrl()  is empty %}
+    <script type="module" src="/resources/investigation/app/js/investigation.js"></script>
+{% else %}
+    <script type="module" src="{{ '/@vite/client' | devUrl }}"></script>
+    <script type="module" src="{{ '/src/investigation/main.js' | devUrl }}"></script>
+{% endif %}
 {% endblock %}
 
 {% block pageContent %}

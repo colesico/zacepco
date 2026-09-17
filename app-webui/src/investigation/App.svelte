@@ -3,7 +3,7 @@
 </script>
 
 <main>
-  <h1>Investigation Dashboard И так далее !!ee</h1>
+  <h1>Investigation Dashboard И так далее !!ee!!--</h1>
 
   <img src={moduleIcon} alt="Module Icon" width="50" height="50" />
 </main>
