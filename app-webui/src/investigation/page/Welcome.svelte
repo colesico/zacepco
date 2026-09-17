@@ -1,5 +1,7 @@
 <script>
-  import * as api from "@common/assist/RestletUtils.js"; 
+  import * as scriptRefApi from "../api/ScriptRefApi.js";
+  
+  let items = scriptRefApi.lastScriptRefs(1,1);  
 </script>
 
 <main>
