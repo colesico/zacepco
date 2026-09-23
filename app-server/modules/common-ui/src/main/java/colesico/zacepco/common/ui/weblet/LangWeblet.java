@@ -18,8 +18,9 @@ package colesico.zacepco.common.ui.weblet;
 
 
 import colesico.framework.httprouter.Route;
+import colesico.framework.httprouter.assist.Navigation;
 import colesico.framework.profile.ProfileManager;
-import colesico.framework.telehttp.response.RedirectResponse;
+import colesico.framework.telehttp.result.NavigationResult;
 import colesico.framework.weblet.Weblet;
 
 import java.util.Locale;
@@ -43,14 +44,14 @@ public class LangWeblet {
         profileManager.commit(profile);
     }
 
-    public RedirectResponse ru(String redirect) {
+    public NavigationResult ru(String redirect) {
         setLocale("ru", "RU");
-        return RedirectResponse.of(redirect);
+        return NavigationResult.redirect(redirect);
     }
 
-    public RedirectResponse en(String redirect) {
+    public NavigationResult en(String redirect) {
         setLocale("en", "US");
-        return RedirectResponse.of(redirect);
+        return NavigationResult.redirect(redirect);
     }
 
 }

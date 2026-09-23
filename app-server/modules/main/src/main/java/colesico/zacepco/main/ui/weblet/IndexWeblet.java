@@ -2,14 +2,14 @@ package colesico.zacepco.main.ui.weblet;
 
 import colesico.framework.httprouter.Route;
 import colesico.framework.weblet.Weblet;
-import colesico.framework.weblet.response.ViewResponse;
+import colesico.framework.weblet.result.ViewResult;
 
 @Weblet
 @Route("/")
 public class IndexWeblet {
 
-    public ViewResponse index() {
-        return ViewResponse.view("$main/ui/tmpl/Index.html").build();
+    public ViewResult index() {
+        return ViewResult.view("$main/ui/tmpl/Index.html").build();
     }
 
     /**
