@@ -9,8 +9,10 @@ module colesico.zacepco.common.ui {
     requires transitive colesico.framework.jjwt;
 
     exports colesico.zacepco.common.ui.model;
+    exports colesico.zacepco.common.ui.teleapi;
     exports colesico.zacepco.common.ui.config to colesico.framework.config, colesico.framework.ioc;
     exports colesico.zacepco.common.ui.pebble to colesico.framework.config, colesico.framework.ioc;
+    exports colesico.zacepco.common.ui.ioc to colesico.framework.config, colesico.framework.ioc;
 
     opens colesico.zacepco.common.ui.t9n;
 
