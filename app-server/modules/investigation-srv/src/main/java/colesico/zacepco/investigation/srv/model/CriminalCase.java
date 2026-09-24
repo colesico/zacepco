@@ -35,7 +35,7 @@ public class CriminalCase {
     /**
      * Script ref
      *
-     * @see ScriptRef
+     * @see ScriptEntry
      */
     @Column
     private Long scriptId;

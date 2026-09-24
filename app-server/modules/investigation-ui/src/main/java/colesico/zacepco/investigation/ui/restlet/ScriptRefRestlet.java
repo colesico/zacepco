@@ -2,21 +2,21 @@ package colesico.zacepco.investigation.ui.restlet;
 
 import colesico.framework.httprouter.Route;
 import colesico.framework.restlet.Restlet;
-import colesico.zacepco.investigation.srv.model.ScriptRef;
-import colesico.zacepco.investigation.srv.service.ScriptRefService;
+import colesico.zacepco.investigation.srv.model.ScriptEntry;
+import colesico.zacepco.investigation.srv.service.ScriptCatalogService;
 
 import java.util.List;
 
 @Restlet
 @Route("./script-ref")
 public class ScriptRefRestlet {
-    private final ScriptRefService scriptRefService;
+    private final ScriptCatalogService scriptCatalogService;
 
-    public ScriptRefRestlet(ScriptRefService scriptRefService) {
-        this.scriptRefService = scriptRefService;
+    public ScriptRefRestlet(ScriptCatalogService scriptCatalogService) {
+        this.scriptCatalogService = scriptCatalogService;
     }
 
-    public List<ScriptRef> lastScriptRefs(Integer limit, Long offset){
-        return scriptRefService.lastScriptRefs(limit,offset);
+    public List<ScriptEntry> lastScriptRefs(Integer limit, Long offset){
+        return scriptCatalogService.lastScripts(limit,offset);
     }
 }

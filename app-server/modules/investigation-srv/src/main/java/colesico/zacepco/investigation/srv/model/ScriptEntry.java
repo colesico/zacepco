@@ -7,25 +7,25 @@ import java.time.LocalDate;
 import java.util.Date;
 
 /**
- * Script reference
+ * Script catalog entry
  */
 @Record(table = "scripts")
-public class ScriptRef {
+public class ScriptEntry {
 
     /**
-     * Reference Id
+     * Entry Id
      */
     @Column
     private Long id;
 
     /**
-     * User who created  reference and can manage it (owner)
+     * User who created this entry
      */
     @Column
     private Long userId;
 
     /**
-     * Reference creation date
+     * Entry creation date
      */
     @Column
     private Date createdAt;
@@ -62,6 +62,12 @@ public class ScriptRef {
      */
     @Column
     private LocalDate creationDate;
+
+    /**
+     * Script catalog status
+     */
+    @Column
+    private ScriptEntryStatus status;
 
     public Long getId() {
         return id;
@@ -133,5 +139,13 @@ public class ScriptRef {
 
     public void setCreationDate(LocalDate creationDate) {
         this.creationDate = creationDate;
+    }
+
+    public ScriptEntryStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(ScriptEntryStatus status) {
+        this.status = status;
     }
 }
