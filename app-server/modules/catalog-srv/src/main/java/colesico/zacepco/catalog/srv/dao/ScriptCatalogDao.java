@@ -1,8 +1,8 @@
-package colesico.zacepco.investigation.srv.dao;
+package colesico.zacepco.catalog.srv.dao;
 
 import colesico.framework.service.Service;
 import colesico.framework.transaction.Transactional;
-import colesico.zacepco.investigation.srv.model.ScriptEntry;
+import colesico.zacepco.catalog.srv.model.ScriptEntry;
 import jakarta.inject.Provider;
 import org.jdbi.v3.core.Handle;
 

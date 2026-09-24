@@ -2,7 +2,6 @@
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -12,39 +11,31 @@
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
-    <artifactId>zacepco-script</artifactId>
+    <artifactId>zacepco-catalog-srv</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
 
-    <name>Zacepco - Script</name>
+    <name>Zacepco - Catalog Service</name>
     <description>
-        Zacepco script document API
+        Zacepco script catalog service
     </description>
-
     <properties>
     </properties>
 
     <dependencies>
-
+        <!-- Zacepco -->
         <dependency>
-            <groupId>net.colesico.framework</groupId>
-            <artifactId>colesico-ioc</artifactId>
-            <version>${colesico.version}</version>
+            <groupId>net.colesico.zacepco</groupId>
+            <artifactId>zacepco-script</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
-        <!-- SnakeYaml -->
         <dependency>
-            <groupId>org.yaml</groupId>
-            <artifactId>snakeyaml</artifactId>
-            <version>${snakeyaml.version}</version>
+            <groupId>net.colesico.zacepco</groupId>
+            <artifactId>zacepco-common-srv</artifactId>
+            <version>${project.version}</version>
         </dependency>
+
 
     </dependencies>
-
-    <build>
-        <finalName>zacepco-script</finalName>
-        <plugins>
-        </plugins>
-    </build>
-
 </project>

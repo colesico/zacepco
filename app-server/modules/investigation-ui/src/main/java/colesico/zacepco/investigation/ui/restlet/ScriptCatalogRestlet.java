@@ -17,9 +17,11 @@ public class ScriptCatalogRestlet {
         this.scriptCatalogService = scriptCatalogService;
     }
 
-    public ScriptEntry addScript(UploadedFile uploadedFile)
+    public ScriptEntry addScript(UploadedFile uploadedFile) {
+        return null;
+    }
 
-    public List<ScriptEntry> lastScriptRefs(Integer limit, Long offset){
-        return scriptCatalogService.lastScripts(limit,offset);
+    public List<ScriptEntry> lastScriptRefs(Integer limit, Long offset) {
+        return scriptCatalogService.lastScripts(limit, offset);
     }
 }

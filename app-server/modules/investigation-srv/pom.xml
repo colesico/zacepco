@@ -15,9 +15,9 @@
     <version>1.0.0</version>
     <packaging>jar</packaging>
 
-    <name>Zacepco - Inquiry Service</name>
+    <name>Zacepco - Investigation Service</name>
     <description>
-        Zacepco Crime Inquiry Service
+        Zacepco crime investigation service
     </description>
     <properties>
     </properties>

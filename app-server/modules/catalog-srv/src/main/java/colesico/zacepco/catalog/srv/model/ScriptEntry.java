@@ -1,4 +1,4 @@
-package colesico.zacepco.investigation.srv.model;
+package colesico.zacepco.catalog.srv.model;
 
 import colesico.framework.jdbirec.Column;
 import colesico.framework.jdbirec.Record;
@@ -67,7 +67,7 @@ public class ScriptEntry {
      * Script catalog status
      */
     @Column
-    private ScriptEntryStatus status;
+    private ScriptAccessType access;
 
     public Long getId() {
         return id;
@@ -141,11 +141,11 @@ public class ScriptEntry {
         this.creationDate = creationDate;
     }
 
-    public ScriptEntryStatus getStatus() {
-        return status;
+    public ScriptAccessType getAccess() {
+        return access;
     }
 
-    public void setStatus(ScriptEntryStatus status) {
-        this.status = status;
+    public void setAccess(ScriptAccessType access) {
+        this.access = access;
     }
 }

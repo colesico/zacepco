@@ -4,7 +4,7 @@
   let error;
   let loading = false;
   
-  let lastCases = criminalCaseApi.lastCases(1,1);    
+		
 </script>
 
 

@@ -128,6 +128,7 @@
                 <module>modules/identity-srv</module>
                 <module>modules/identity-ui</module>
                 <module>modules/script</module>
+				<module>modules/catalog-srv</module>
                 <module>modules/investigation-srv</module>
                 <module>modules/investigation-ui</module>
                 <module>modules/main</module>

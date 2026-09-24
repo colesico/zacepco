@@ -1,4 +1,4 @@
-package colesico.zacepco.investigation.srv.service;
+package colesico.zacepco.catalog.srv.service;
 
 import colesico.framework.ioc.production.Classed;
 import colesico.framework.ioc.production.Supplier;
@@ -6,9 +6,9 @@ import colesico.framework.security.Identity;
 import colesico.framework.security.authorization.RequireIdentity;
 import colesico.framework.service.Service;
 import colesico.framework.transaction.Transactional;
-import colesico.zacepco.investigation.srv.dao.ScriptCatalogDao;
-import colesico.zacepco.investigation.srv.filestorage.StoragePackageDriver;
-import colesico.zacepco.investigation.srv.model.ScriptEntry;
+import colesico.zacepco.catalog.srv.dao.ScriptCatalogDao;
+import colesico.zacepco.catalog.srv.filestorage.StoragePackageDriver;
+import colesico.zacepco.catalog.srv.model.ScriptEntry;
 import colesico.zacepco.script.model.script.Script;
 import colesico.zacepco.script.pkg.*;
 import jakarta.inject.Provider;

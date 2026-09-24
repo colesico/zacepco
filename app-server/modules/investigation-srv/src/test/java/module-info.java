@@ -1,4 +1,4 @@
-module colesico.zacepco.inquiry.test {
+module colesico.zacepco.investigation.test {
 
     requires org.testng;
     requires colesico.framework.ioc;
