@@ -1,17 +1,25 @@
 <script>
-  // Using Svelte 5 Runes for state
-  let counter = $state(0);
+  import Router from 'svelte-spa-router';
+  import { link } from 'svelte-spa-router'; 
+  import Welcome from './page/Welcome.svelte';
+  import UploadScript from './page/UploadScript.svelte';
+
+  
+  const routes = {
+    '/': Welcome,
+	'/script/upload': UploadScript
+  };
+  
 </script>
 
+<nav>
+  <a href="/" use:link>Главная</a>
+  <a href="/script/upload" use:link>Загрузить скрипт</a>
+</nav>
+
 <main>
-  <h1>Module Dashboard</h1>
-  <p>Counter: {counter}</p>
-  <button onclick={() => counter++}>Increment</button>
+  <Router {routes} />
 </main>
 
 <style>
-  main {
-    padding: 2rem;
-    font-family: sans-serif;
-  }
 </style>

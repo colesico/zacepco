@@ -1,59 +1,40 @@
 # Zacepco
 
-Zacepco is an open framework for fans of board detective games — both players and creators.
+Zacepco is an open framework for fans of tabletop detective games, both players and authors.
 
-During the game, you sequentially reconstruct the **full picture of the crime** — who, where, when, and why — based on the clues you uncover.
+During the game, the **full picture of the crime** is gradually reconstructed based on discovered clues — who, where, when, and why.
 
-The game uses physical components (location, character, and clue cards) alongside a digital assistant — the **Master Program** — which moderates the investigation, prevents spoilers, and provides information only when your deduction is on the right track.
+The game uses physical components of board games (location, character, and clue cards) and a digital assistant — the **Master Program**, which controls the investigation process, protects against spoilers, and provides information only when your deduction proves correct.
 
----
+## Game model
 
-## Game Model
+- **Scenarios** — a scenario of a committed crime in the form of a zip file. They describe the plot component of the game and contain additions to the game components. Scenarios are intended to be loaded into the Master Program. Any game takes place according to a scenario. You can use ready-made ones or create your own.
+- **Game entities** — characters, locations, clues, and time. Some of them are hidden or false.
+- **Investigative actions** — searching locations, interrogating characters, and expertise. Each requires spending resources and is subject to random factors (D12 die).
+- **Investigation focuses** — you do not simply “search a location” or question a character; you indicate the focus of attention, what your inquiry is aimed at. This makes the game more deduction-oriented.
+- **Timeline** — the crime is divided into discrete time ticks. You reconstruct the suspects’ routes, their actions, and tie clues to time.
 
-- **Scenarios** — pre-written crime scenarios packaged as ZIP files. They describe the narrative backbone of the crime and are loaded into the Master Program. Every game runs according to a scenario. You can use ready-made scenarios or create your own.
-- **Game Entities** — characters, locations, clues, and time. Some are hidden or false, adding depth and complexity.
-- **Investigation Actions** — searching locations, interrogating characters, and forensic analysis. Each action costs resources and is subject to random factors (D12 die roll).
-- **Investigation Focus** — you don’t just "search a location" or "interrogate a character"; you specify your focus — what exactly you're looking into. This makes the game more deductive and less about random guessing.
-- **Timeline** — the crime is broken down into discrete time ticks. You reconstruct suspect routes, their actions, and tie clues to specific moments in time.
+## How does the game proceed?
 
----
+1. **Preparation** — load the scenario into the Master Program. Then, following its instructions, use the base set of cards, print the additions from the scenario, and form the game setup.
+2. **Investigation** — spend the shared investigation budget (resource) on investigative actions. Formulate hypotheses (focuses), roll the die, discover new clues and connections.
+3. **Finale** — when you are confident that the crime has been solved or when the resource is exhausted, compare your conclusions with the “Answers” section and count the points for deduction accuracy obtained during the investigation.
 
-## How the Game Works
+Everything is simple, but it requires genuine analytical thinking.
 
-1. **Setup** — load a scenario into the Master Program. Follow its instructions: use the base card set, print any additional materials from the scenario, and build the game setup.
-2. **Investigation** — spend your investigation budget (resources) on actions. Formulate hypotheses (focuses), roll the die, discover new clues and connections.
-3. **Finale** — when you're confident the crime is solved, or when resources run out, compare your conclusions with the "Answers" section and tally the deduction points you earned during the investigation.
+## Who may find this interesting?
 
-It sounds simple, but it demands real analytical thinking.
+- **Authors of detective stories** — the ability to create a crime scenario of any complexity without programming, using the framework’s capabilities. Focus on the plot!
+- **Players** — a new experience of solving crimes in detective games, where what matters first is not luck, but your mind and intuition!
 
----
+## Start now
 
-## Who Is This For?
-
-- **Detective story authors** — create crime scenarios of any complexity without programming, using the framework's capabilities. Focus on the story!
-- **Players** — experience a new way of solving crimes in detective games, where success depends not on luck, but on your mind and intuition.
-
----
-
-## Repository Structure
-
-- `/docs` — full documentation on the mechanics and scenario creation.
-- `/scenarios` — ready-made scenarios.
-- `/master-app` — source code for the Master Program.
-- `/assets` — printable card and token templates.
-
----
-
-## Get Started Now
-
-- Explore the [full documentation](link-to-docs)
+- Study the [full documentation](link-to-docs)
 - Load a ready-made scenario into the Master Program and try playing
 
----
+## Support the project
 
-## Support the Project
-
-Zacepco is open source and distributed under the CC BY 4.0 license.
+Zacepco is open and distributed under the CC BY 4.0 license.
 
 - Star the project if the idea resonates with you.
-- Fork the repository and submit a pull request — improvements, new scenarios, and ideas are warmly welcomed.
+- Fork the repository and send pull requests — improvements, new scenarios, and ideas are warmly welcomed.
