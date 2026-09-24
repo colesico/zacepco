@@ -34,7 +34,7 @@ export default defineConfig({
       // Array of inputs forces Rollup to treat them as completely separate entry points
       input: {
         'investigation': resolve(import.meta.dirname, 'src/investigation/index.html'),
-        'script-manager': resolve(import.meta.dirname, 'src/script-manager/index.html')
+        'catalog': resolve(import.meta.dirname, 'src/catalog/index.html')
       },
 
       output: {

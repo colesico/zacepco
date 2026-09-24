@@ -15,9 +15,9 @@
     <version>1.0.0</version>
     <packaging>jar</packaging>
 
-    <name>Zacepco - Catalog</name>
+    <name>Zacepco - Catalog UI</name>
     <description>
-        Zacepco script catalog
+        Zacepco script catalog UI
     </description>
     <properties>
     </properties>
