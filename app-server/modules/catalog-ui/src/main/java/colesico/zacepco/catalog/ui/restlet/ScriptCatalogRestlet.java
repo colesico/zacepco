@@ -1,10 +1,10 @@
-package colesico.zacepco.investigation.ui.restlet;
+package colesico.zacepco.catalog.ui.restlet;
 
 import colesico.framework.httprouter.Route;
 import colesico.framework.restlet.Restlet;
 import colesico.framework.weblet.assist.UploadedFile;
-import colesico.zacepco.investigation.srv.model.ScriptEntry;
-import colesico.zacepco.investigation.srv.service.ScriptCatalogService;
+import colesico.zacepco.catalog.srv.model.ScriptEntry;
+import colesico.zacepco.catalog.srv.service.ScriptCatalogService;
 
 import java.util.List;
 
