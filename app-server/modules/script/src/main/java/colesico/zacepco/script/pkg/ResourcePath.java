@@ -12,7 +12,7 @@ public final class ResourcePath {
     private final String value;
 
     private ResourcePath(String value) {
-        this.value = value;
+        this.value = value.replace('\\', '/');
     }
 
     public static ResourcePath of(String path) {
