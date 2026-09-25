@@ -42,6 +42,11 @@
         </dependency>
         <dependency>
             <groupId>net.colesico.zacepco</groupId>
+            <artifactId>zacepco-catalog-ui</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>net.colesico.zacepco</groupId>
             <artifactId>zacepco-investigation-ui</artifactId>
             <version>${project.version}</version>
         </dependency>

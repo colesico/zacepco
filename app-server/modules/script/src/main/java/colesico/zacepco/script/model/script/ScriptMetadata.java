@@ -20,10 +20,10 @@ public class ScriptMetadata {
     public String schema;
 
     /**
-     * Universally Unique Identifier
+     * Script Unique Identifier
      */
-    @YamlComment(text = "Universally unique identifier (UUID) of the script")
-    public String uuid;
+    @YamlComment(text = "Unique identifier of the script")
+    public String id;
 
 
     /**
@@ -110,6 +110,22 @@ public class ScriptMetadata {
         return licence;
     }
 
+    public String getSchema() {
+        return schema;
+    }
+
+    public void setSchema(String schema) {
+        this.schema = schema;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public void setLicence(String licence) {
         this.licence = licence;
     }
@@ -158,7 +174,7 @@ public class ScriptMetadata {
     public String toString() {
         return "ScriptMetadata{" +
                 "schema='" + schema + '\'' +
-                ", uuid='" + uuid + '\'' +
+                ", id='" + id + '\'' +
                 ", title='" + title + '\'' +
                 '}';
     }

@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @Service
 @Transactional
-public class ScriptCatalogDao {
+public class ScriptEntryDao {
     /**
      * Jdbi Handle
      */
@@ -22,7 +22,7 @@ public class ScriptCatalogDao {
      */
     private final ScriptEntryRK scriptEntryRk;
 
-    public ScriptCatalogDao(Provider<Handle> handle, ScriptEntryRK scriptEntryRk) {
+    public ScriptEntryDao(Provider<Handle> handle, ScriptEntryRK scriptEntryRk) {
         this.handle = handle;
         this.scriptEntryRk = scriptEntryRk;
     }
@@ -32,10 +32,10 @@ public class ScriptCatalogDao {
         return handle.createQuery("select nextval('script_seq')").mapTo(Long.class).one();
     }
 
-    public void createScriptEntry(ScriptEntry scriptEntry) {
+    public void createScriptEntry(ScriptEntry script) {
         var handle = this.handle.get();
         String sql = scriptEntryRk.sql("insert into @record (@columns) values (@values)");
-        handle.createUpdate(sql).bindMap(scriptEntryRk.map(scriptEntry)).execute();
+        handle.createUpdate(sql).bindMap(scriptEntryRk.map(script)).execute();
     }
 
     public Optional<ScriptEntry> findScriptEntryById(Long id) {
@@ -44,13 +44,13 @@ public class ScriptCatalogDao {
         return handle.createQuery(sql).bind("id", id).map(scriptEntryRk.mapper()).findOne();
     }
 
-    public Optional<ScriptEntry> findScriptEntryByUuid(String uuid) {
+    public Optional<ScriptEntry> findScriptEntryBySid(String sid) {
         var handle = this.handle.get();
         String sql = scriptEntryRk.sql("select @columns from @records where uuid = :uuid");
-        return handle.createQuery(sql).bind("uuid", uuid).map(scriptEntryRk.mapper()).findOne();
+        return handle.createQuery(sql).bind("sid", sid).map(scriptEntryRk.mapper()).findOne();
     }
 
-    public List<ScriptEntry> lastScriptEntries(int limit, long offset) {
+    public List<ScriptEntry> listScriptEntries(int limit, long offset) {
         var query = """
                 select @record
                 from @table

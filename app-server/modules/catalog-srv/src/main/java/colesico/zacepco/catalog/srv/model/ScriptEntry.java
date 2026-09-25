@@ -2,12 +2,15 @@ package colesico.zacepco.catalog.srv.model;
 
 import colesico.framework.jdbirec.Column;
 import colesico.framework.jdbirec.Record;
+import colesico.zacepco.script.model.script.Script;
+import colesico.zacepco.script.model.script.ScriptMetadata;
 
 import java.time.LocalDate;
 import java.util.Date;
 
 /**
  * Script catalog entry
+ * @see Script
  */
 @Record(table = "scripts")
 public class ScriptEntry {
@@ -31,10 +34,10 @@ public class ScriptEntry {
     private Date createdAt;
 
     /**
-     * Script uuid
+     * Script ID {@link ScriptMetadata#getId()}
      */
     @Column
-    public String uuid;
+    public String sid;
 
     /**
      * Script title
@@ -93,12 +96,12 @@ public class ScriptEntry {
         this.createdAt = createdAt;
     }
 
-    public String getUuid() {
-        return uuid;
+    public String getSid() {
+        return sid;
     }
 
-    public void setUuid(String uuid) {
-        this.uuid = uuid;
+    public void setSid(String sid) {
+        this.sid = sid;
     }
 
     public String getTitle() {

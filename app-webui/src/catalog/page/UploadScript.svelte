@@ -1,28 +1,24 @@
 <script>
-	// Используем руну $state из Svelte 5 для отслеживания состояния
+
+    import * as scriptEntryApi from "../api/ScriptEntryApi.js";
+  
 	let fileInput = $state(null);
 	let status = $state('');
 
 	async function uploadFile(event) {
-		event.preventDefault(); // Отменяем перезагрузку страницы
+		event.preventDefault(); 
 
 		const file = fileInput?.files?.[0];
 		if (!file) {
 			status = 'Выберите файл!';
 			return;
 		}
-
-		// Создаем стандартный multipart/form-data объект
-		const formData = new FormData();
-		formData.append('file', file);
+	
 
 		status = 'Загрузка...';
 
 		try {
-			const response = await fetch('https://httpbin.org', { // Тестовый API, возвращает то, что загрузили
-				method: 'POST',
-				body: formData // Браузер сам выставит нужные заголовки boundary
-			});
+			const response = await scriptEntryApi.addScriptEntry(file);
 
 			if (response.ok) {
 				status = 'Успешно загружено!';

@@ -1,5 +1,5 @@
 <script>
-  import * as scriptCatalogApi from "../api/ScriptCatalogApi.js";
+  import * as scriptCatalogApi from "../api/ScriptEntryApi.js";
   
   let error;
   let loading = false;
