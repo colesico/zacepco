@@ -30,14 +30,18 @@ CREATE INDEX IF NOT EXISTS idx_invites_code ON invites(code_hash) WHERE code_has
 
 CREATE INDEX IF NOT EXISTS idx_invites_user_id ON invites(user_id);
 
+CREATE SEQUENCE IF NOT EXISTS scripts_id_seq;
+
 CREATE TABLE IF NOT EXISTS scripts (
-    id BIGSERIAL PRIMARY KEY,
+    id BIGINT PRIMARY KEY,
     user_id BIGINT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-    uuid VARCHAR(32) NOT NULL UNIQUE,
+    access VARCHAR(32) NOT NULL,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    sid VARCHAR(32) NOT NULL UNIQUE,
     title VARCHAR(128) NOT NULL,
-    annotation VARCHAR(1024),
-    authors VARCHAR(64)[],
-    version INTEGER,
-    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
-);
+    annotation VARCHAR(1024) NOT NULL,
+    authors VARCHAR(64)[] NOT NULL,
+    version INTEGER NOT NULL,
+    creation_date DATE NOT NULL
+)
 

@@ -29,7 +29,7 @@ public class ScriptEntryDao {
 
     public Long createScriptEntryId() {
         var handle = this.handle.get();
-        return handle.createQuery("select nextval('script_seq')").mapTo(Long.class).one();
+        return handle.createQuery("select nextval('scripts_id_seq')").mapTo(Long.class).one();
     }
 
     public void createScriptEntry(ScriptEntry script) {

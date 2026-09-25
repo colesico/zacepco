@@ -10,6 +10,7 @@ import java.util.Date;
 
 /**
  * Script catalog entry
+ *
  * @see Script
  */
 @Record(table = "scripts")
@@ -26,6 +27,12 @@ public class ScriptEntry {
      */
     @Column
     private Long userId;
+
+    /**
+     * Script catalog status
+     */
+    @Column
+    private ScriptAccessType access;
 
     /**
      * Entry creation date
@@ -66,12 +73,6 @@ public class ScriptEntry {
     @Column
     private LocalDate creationDate;
 
-    /**
-     * Script catalog status
-     */
-    @Column
-    private ScriptAccessType access;
-
     public Long getId() {
         return id;
     }
@@ -86,6 +87,14 @@ public class ScriptEntry {
 
     public void setUserId(Long userId) {
         this.userId = userId;
+    }
+
+    public ScriptAccessType getAccess() {
+        return access;
+    }
+
+    public void setAccess(ScriptAccessType access) {
+        this.access = access;
     }
 
     public Date getCreatedAt() {
@@ -142,13 +151,5 @@ public class ScriptEntry {
 
     public void setCreationDate(LocalDate creationDate) {
         this.creationDate = creationDate;
-    }
-
-    public ScriptAccessType getAccess() {
-        return access;
-    }
-
-    public void setAccess(ScriptAccessType access) {
-        this.access = access;
     }
 }

@@ -71,7 +71,7 @@ export async function restletRequest(url, options, queryParams) {
         // Handle 401 Unauthorized globally (session expiration)
         if (response.status === 401) {
             console.warn(`Response status 401. Redirecting to login.`);
-            window.location.href = '/login'; 
+            window.location.href = '/identity/login'; 
             return null; 
         }
 
