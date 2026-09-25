@@ -24,7 +24,7 @@ public class ScriptWriter {
     }
 
     public void write(Script script, OutputStream os) {
-        try (OutputStreamWriter osw = new OutputStreamWriter(os)) {
+        try (OutputStreamWriter osw = new OutputStreamWriter(os, StandardCharsets.UTF_8)) {
             yaml.dump(script, osw);
             osw.flush();
         } catch (IOException e) {

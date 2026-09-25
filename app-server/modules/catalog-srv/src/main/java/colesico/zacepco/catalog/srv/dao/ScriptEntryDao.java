@@ -34,7 +34,7 @@ public class ScriptEntryDao {
 
     public void createScriptEntry(ScriptEntry script) {
         var handle = this.handle.get();
-        String sql = scriptEntryRk.sql("insert into @record (@columns) values (@values)");
+        String sql = scriptEntryRk.sql("insert into @table (@columns) values (@values)");
         handle.createUpdate(sql).bindMap(scriptEntryRk.map(script)).execute();
     }
 

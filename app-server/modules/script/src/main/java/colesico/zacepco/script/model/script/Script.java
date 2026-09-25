@@ -59,6 +59,9 @@ public class Script {
     })
     public Answers answers;
 
+    public Script() {
+    }
+
     public ScriptMetadata getMeta() {
         return meta;
     }
