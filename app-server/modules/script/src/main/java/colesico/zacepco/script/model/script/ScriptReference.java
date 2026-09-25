@@ -7,18 +7,18 @@ import colesico.zacepco.script.yaml.YamlComment;
  */
 public class ScriptReference {
 
-    @YamlComment(text = "Referenced script UUID (target script)")
-    public String uuid;
+    @YamlComment(text = "Referenced script ID (target script)")
+    public String id;
 
     @YamlComment(text = "Local alias used to reference this script")
     public String alias;
 
-    public String getUuid() {
-        return uuid;
+    public String getId() {
+        return id;
     }
 
-    public void setUuid(String uuid) {
-        this.uuid = uuid;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getAlias() {

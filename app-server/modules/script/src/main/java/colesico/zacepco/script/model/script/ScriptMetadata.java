@@ -15,7 +15,7 @@ public class ScriptMetadata {
      */
     @YamlComment(text = {
             "Script schema version (data model version)",
-            "SimVer notation (i.e. 1.2.3)"
+            "SimVer (semver.org) notation (i.e. 1.2.3)"
     })
     public String schema;
 
@@ -24,7 +24,6 @@ public class ScriptMetadata {
      */
     @YamlComment(text = "Unique identifier of the script")
     public String id;
-
 
     /**
      * Script title

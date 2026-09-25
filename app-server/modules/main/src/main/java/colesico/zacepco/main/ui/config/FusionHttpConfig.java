@@ -14,7 +14,7 @@ public class FusionHttpConfig extends FusionHttpConfigPrototype {
                 .getMultipartConfiguration()
                 .withFileUploadPolicy(MultipartFileUploadPolicy.Allow)
                 .withDeleteTemporaryFiles(true)
-                .withMaxFileSize(10)
-                .withMaxRequestSize(50);
+                .withMaxFileSize(10 * 1024 * 1024)
+                .withMaxRequestSize(50 * 1024 * 1024);
     }
 }

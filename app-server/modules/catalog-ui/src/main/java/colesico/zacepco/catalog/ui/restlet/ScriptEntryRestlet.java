@@ -4,7 +4,10 @@ import colesico.framework.http.HttpFile;
 import colesico.framework.http.HttpMethod;
 import colesico.framework.httprouter.RequestMethod;
 import colesico.framework.httprouter.Route;
+import colesico.framework.jjwt.ApiJwt;
 import colesico.framework.restlet.Restlet;
+import colesico.framework.security.authentication.Authentication;
+import colesico.zacepco.catalog.srv.model.ScriptEntry;
 import colesico.zacepco.catalog.srv.service.ScriptEntryService;
 
 import java.util.List;
@@ -20,12 +23,13 @@ public class ScriptEntryRestlet {
 
     @RequestMethod(HttpMethod.POST)
     @Route("./")
-    public colesico.zacepco.catalog.srv.model.ScriptEntry addScriptEntry(HttpFile script) {
-        return null;
+    @Authentication(ApiJwt.class)
+    public ScriptEntry addScriptEntry(HttpFile script) {
+        return scriptEntryService.addScript(script.inputStream());
     }
 
     @Route("./")
-    public List<colesico.zacepco.catalog.srv.model.ScriptEntry> listScriptEntries(Integer limit, Long offset) {
+    public List<ScriptEntry> listScriptEntries(Integer limit, Long offset) {
         return scriptEntryService.listScriptEntries(limit, offset);
     }
 }

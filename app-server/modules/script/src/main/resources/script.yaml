@@ -10,8 +10,8 @@ meta:
   # Script schema version (data model version)
   # SimVer notation (i.e. 1.2.3)
   schema: 1.0.0
-  # Universally unique identifier (UUID) of the script
-  uuid: 7f56fb1f-5f03-41ef-ae9c-4ef99fbcf7d9
+  # Unique identifier of the script
+  id: e8f819fdece3c15bf37dd628ff13613a
   title: Script document
   # A brief script summary without spoilers
   annotation: |
@@ -40,8 +40,8 @@ meta:
 # Imported scripts
 # 
 include:
-- # Referenced script UUID (target script)
-  uuid: 00000000-0000-0000-0000-000000000000
+- # Referenced script ID (target script)
+  id: 00000000-0000-0000-0000-000000000000
   # Local alias used to reference this script
   alias: generic
 # 

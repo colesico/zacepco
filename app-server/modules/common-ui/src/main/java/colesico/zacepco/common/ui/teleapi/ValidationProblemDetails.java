@@ -1,6 +1,6 @@
 package colesico.zacepco.common.ui.teleapi;
 
-import colesico.framework.teleapi.TeleProblem;
+import colesico.framework.teleapi.assist.TeleProblem;
 import colesico.framework.validation.ValidationException;
 import colesico.framework.validation.ValidationIssue;
 

@@ -8,6 +8,8 @@ import colesico.framework.service.Service;
 import colesico.framework.transaction.Transactional;
 import colesico.zacepco.catalog.srv.dao.ScriptEntryDao;
 import colesico.zacepco.catalog.srv.filestorage.StoragePackageDriver;
+import colesico.zacepco.catalog.srv.model.ScriptAccessType;
+import colesico.zacepco.catalog.srv.model.ScriptEntry;
 import colesico.zacepco.script.model.script.Script;
 import colesico.zacepco.script.pkg.*;
 import jakarta.inject.Provider;
@@ -51,7 +53,7 @@ public class ScriptEntryService {
     }
 
     @RequireIdentity
-    public colesico.zacepco.catalog.srv.model.ScriptEntry addScript(InputStream scriptPackageData) {
+    public ScriptEntry addScript(InputStream scriptPackageData) {
         Long userId = identity.get().longId();
         return addScript(userId, scriptPackageData);
     }
@@ -61,7 +63,7 @@ public class ScriptEntryService {
      *
      * @return script reference
      */
-    public colesico.zacepco.catalog.srv.model.ScriptEntry addScript(Long userId, InputStream scriptPackageData) {
+    public ScriptEntry addScript(Long userId, InputStream scriptPackageData) {
 
         var scriptId = scriptEntryDao.createScriptEntryId();
 
@@ -75,9 +77,10 @@ public class ScriptEntryService {
             throw new RuntimeException(e);
         }
 
-        colesico.zacepco.catalog.srv.model.ScriptEntry scriptEntry = new colesico.zacepco.catalog.srv.model.ScriptEntry();
+        ScriptEntry scriptEntry = new ScriptEntry();
         scriptEntry.setId(scriptId);
         scriptEntry.setUserId(userId);
+        scriptEntry.setAccess(ScriptAccessType.PRIVATE);
         scriptEntry.setCreatedAt(new Date());
 
         scriptEntry.setSid(script.meta.id);
@@ -102,14 +105,14 @@ public class ScriptEntryService {
     /**
      * Get scrip entry by id
      */
-    public Optional<colesico.zacepco.catalog.srv.model.ScriptEntry> findScriptEntryById(Long id) {
+    public Optional<ScriptEntry> findScriptEntryById(Long id) {
         return scriptEntryDao.findScriptEntryById(id);
     }
 
     /**
      * List script entries  in reverse creation order
      */
-    public List<colesico.zacepco.catalog.srv.model.ScriptEntry> listScriptEntries(int limit, long offset) {
+    public List<ScriptEntry> listScriptEntries(int limit, long offset) {
         return scriptEntryDao.listScriptEntries(limit, offset);
     }
 

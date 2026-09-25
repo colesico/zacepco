@@ -10,7 +10,7 @@ public class FocusedClue {
     /**
      * Entities on which investigation action is focused
      */
-    @YamlComment(text = " Entities on which investigation action is focused")
+    @YamlComment(text = "Entities on which investigation action is focused")
     public List<EntityId> focus;
 
     /**
