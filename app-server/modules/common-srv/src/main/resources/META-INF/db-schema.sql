@@ -35,13 +35,22 @@ CREATE SEQUENCE IF NOT EXISTS scripts_id_seq;
 CREATE TABLE IF NOT EXISTS scripts (
     id BIGINT PRIMARY KEY,
     user_id BIGINT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-    access VARCHAR(32) NOT NULL,
+    access VARCHAR(32) NOT NULL CONSTRAINT chk_scripts_access CHECK (access IN ('PRIVATE', 'PROTECTED', 'PUBLIC')),
     created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    sid VARCHAR(32) NOT NULL UNIQUE,
-    title VARCHAR(128) NOT NULL,
-    annotation VARCHAR(1024) NOT NULL,
-    authors VARCHAR(64)[] NOT NULL,
-    version INTEGER NOT NULL,
-    creation_date DATE NOT NULL
-)
+    script_id VARCHAR(32) NOT NULL,
+    script_title VARCHAR(128) NOT NULL,
+    script_annotation VARCHAR(1024) NOT NULL,
+    script_authors VARCHAR(64)[] NOT NULL,
+    script_version INTEGER NOT NULL,
+    script_creation_date DATE NOT NULL
+);
+
+CREATE UNIQUE INDEX idx_scripts_author_unique
+    ON scripts (user_id, script_id)
+    WHERE access IN ('PRIVATE', 'PROTECTED');
+
+CREATE UNIQUE INDEX idx_scripts_public_unique
+    ON scripts (script_id)
+    WHERE access = 'PUBLIC';
+
 

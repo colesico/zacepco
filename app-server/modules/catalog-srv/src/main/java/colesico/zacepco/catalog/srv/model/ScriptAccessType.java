@@ -8,7 +8,7 @@ public enum ScriptAccessType {
     /**
      * Public scenario. Available to all players in the catalog for free.
      */
-    FREE,
+    PUBLIC,
 
     /**
      * Protected scenario. Visible in the catalog but requires an activation key.

@@ -10,6 +10,7 @@ import colesico.zacepco.catalog.srv.dao.ScriptEntryDao;
 import colesico.zacepco.catalog.srv.filestorage.StoragePackageDriver;
 import colesico.zacepco.catalog.srv.model.ScriptAccessType;
 import colesico.zacepco.catalog.srv.model.ScriptEntry;
+import colesico.zacepco.catalog.srv.model.ScriptInfo;
 import colesico.zacepco.script.model.script.Script;
 import colesico.zacepco.script.pkg.*;
 import jakarta.inject.Provider;
@@ -83,12 +84,15 @@ public class ScriptEntryService {
         scriptEntry.setAccess(ScriptAccessType.PRIVATE);
         scriptEntry.setCreatedAt(new Date());
 
-        scriptEntry.setSid(script.meta.id);
-        scriptEntry.setTitle(script.meta.title);
-        scriptEntry.setAnnotation(script.meta.annotation);
-        scriptEntry.setAuthors(script.meta.authors);
-        scriptEntry.setVersion(script.meta.version);
-        scriptEntry.setCreationDate(script.meta.creationDate);
+        var scriptInfo = new ScriptInfo();
+        scriptEntry.setScriptInfo(scriptInfo);
+
+        scriptInfo.setId(script.meta.id);
+        scriptInfo.setTitle(script.meta.title);
+        scriptInfo.setAnnotation(script.meta.annotation);
+        scriptInfo.setAuthors(script.meta.authors);
+        scriptInfo.setVersion(script.meta.version);
+        scriptInfo.setCreationDate(script.meta.creationDate);
 
         scriptEntryDao.createScriptEntry(scriptEntry);
 
