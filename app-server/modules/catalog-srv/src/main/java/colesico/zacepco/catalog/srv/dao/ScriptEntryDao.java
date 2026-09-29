@@ -54,7 +54,7 @@ public class ScriptEntryDao {
         var query = """
                 select @record
                 from @table
-                order by created
+                order by id desc
                 limit :limit offset :offset
                 """;
         var handle = this.handle.get();

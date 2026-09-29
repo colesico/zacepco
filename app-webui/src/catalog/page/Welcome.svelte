@@ -1,15 +1,39 @@
 <script>
-  import * as scriptCatalogApi from "../api/ScriptEntryApi.js";
+  import * as scriptEntryApi from "../api/ScriptEntryApi.js";
+
+  let error = $state(null);
+  let loading = $state(true);
   
-  let error;
-  let loading = false;
+  let entries = $state([]);
+
+  $effect(() => {
+    async function loadData() {
+      try {
+        entries = await scriptEntryApi.listScriptEntries(100,0);
+      } catch (err) {
+        error = err.message;
+      } finally {
+        loading = false;
+      }
+    }
+
+    loadData();
+  });
   
-		
 </script>
 
 
 <main>
   <h1>Criminal cases</h1>
+  
+{#if loading}
+  <p>Загрузка пользователей...</p>
+{:else if error}
+  <p style="color: red;">Ошибка: {error}</p>
+{:else}
+
+{/if}
+
   <table class="table">
     <thead>
       <tr>
@@ -20,12 +44,12 @@
       </tr>
     </thead>
     <tbody>
-      {#each lastCases as caseItem, index}
+	  {#each entries as entry}
         <tr>
-          <th scope="row">{index + 1}</th>
-          <td>{caseItem.firstName}</td>
-          <td>{caseItem.lastName}</td>
-          <td>{caseItem.handle}</td>
+          <th scope="row">{entry}</th>
+          <td>{entry}</td>
+          <td>{entry}</td>
+          <td>{entry}</td>
         </tr>
       {:else}
         <tr>
