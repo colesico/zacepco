@@ -1,6 +1,8 @@
 <script>
   import * as scriptEntryApi from "../api/ScriptEntryApi.js";
+  
   import UiErrorMessage from "@common/widget/UiErrorMessage.svelte"
+  import UiLoadingIndicator from "@common/widget/UiLoadingIndicator.svelte"
 
   let error = $state(null);
   let loading = $state(true);
@@ -27,6 +29,7 @@
 
 
 <main>
+  <UiLoadingIndicator {loading} />	
   <h1>Criminal cases</h1>
   <UiErrorMessage {error} />
 

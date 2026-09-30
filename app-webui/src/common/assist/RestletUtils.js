@@ -88,13 +88,10 @@ export async function restletRequest(url, options, queryParams) {
     } catch (error) {
         // If it's our custom thrown error object, log it nicely
         if (error && typeof error === 'object' && 'status' in error) {
-            console.error(`[API Error ${error.status}] Request to ${finalUrl} failed:`, error.data);
-            const msg = error.data?.message || "Server error";
-            alert(`Failed to load data: ${msg}`);
-        } else {
+            console.error(`API status=${error.status}; URL=${finalUrl}`, error.data);
+         } else {
             // Handle native fetch/network errors (e.g., CORS, Internet disconnected)
-            console.error(`[System Error] Request to ${finalUrl} failed:`, error);
-            alert(`Failed to load data: ${error?.message || "Unknown error"}`);
+            console.error(`System error. Call ${finalUrl} failed`, error);
         }
         
         throw error;

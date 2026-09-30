@@ -1,12 +1,16 @@
 <script>
-  export let loading = false;
-  export let imgUrl = "/resources/generic/app/img/icon/cat.gif";
+  let { 
+    loading = false, 
+    imgUrl = "/resources/common/app/img/icon/cat.gif" 
+  } = $props();
 </script>
 
 {#if loading}
   <div class="loading-ind-popup">
     <div class="loading-ind-wrapper">
-      <div class="loading-ind-content"><img src={imgUrl} alt="Загрузка" /></div>
+      <div class="loading-ind-content">
+        <img src={imgUrl} alt="Загрузка" />
+      </div>
     </div>
   </div>
 {/if}
