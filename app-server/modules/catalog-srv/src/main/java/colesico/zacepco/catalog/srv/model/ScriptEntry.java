@@ -41,7 +41,7 @@ public class ScriptEntry {
     private Date createdAt;
 
     @Composition(renaming = "script_@column")
-    private ScriptInfo scriptInfo;
+    private ScriptSummary summary;
 
     public Long getId() {
         return id;
@@ -75,11 +75,11 @@ public class ScriptEntry {
         this.createdAt = createdAt;
     }
 
-    public ScriptInfo getScriptInfo() {
-        return scriptInfo;
+    public ScriptSummary getSummary() {
+        return summary;
     }
 
-    public void setScriptInfo(ScriptInfo scriptInfo) {
-        this.scriptInfo = scriptInfo;
+    public void setSummary(ScriptSummary summary) {
+        this.summary = summary;
     }
 }

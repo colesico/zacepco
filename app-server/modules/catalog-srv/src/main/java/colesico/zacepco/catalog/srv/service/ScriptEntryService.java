@@ -10,7 +10,7 @@ import colesico.zacepco.catalog.srv.dao.ScriptEntryDao;
 import colesico.zacepco.catalog.srv.filestorage.StoragePackageDriver;
 import colesico.zacepco.catalog.srv.model.ScriptAccessType;
 import colesico.zacepco.catalog.srv.model.ScriptEntry;
-import colesico.zacepco.catalog.srv.model.ScriptInfo;
+import colesico.zacepco.catalog.srv.model.ScriptSummary;
 import colesico.zacepco.script.model.script.Script;
 import colesico.zacepco.script.pkg.*;
 import jakarta.inject.Provider;
@@ -47,7 +47,7 @@ public class ScriptEntryService {
         this.identity = identity;
     }
 
-    protected String packageId(Long entryId) {
+    protected String scriptPackageId(Long entryId) {
         return "script" + entryId;
     }
 
@@ -66,7 +66,7 @@ public class ScriptEntryService {
 
         var scriptId = scriptEntryDao.createScriptEntryId();
 
-        var scriptPackage = this.scriptPackage.get(packageId(scriptId));
+        var scriptPackage = this.scriptPackage.get(scriptPackageId(scriptId));
 
         Script script;
         try {
@@ -82,15 +82,15 @@ public class ScriptEntryService {
         scriptEntry.setAccess(ScriptAccessType.PRIVATE);
         scriptEntry.setCreatedAt(new Date());
 
-        var scriptInfo = new ScriptInfo();
-        scriptEntry.setScriptInfo(scriptInfo);
+        var summary = new ScriptSummary();
+        scriptEntry.setSummary(summary);
 
-        scriptInfo.setId(script.meta.id);
-        scriptInfo.setTitle(script.meta.title);
-        scriptInfo.setAnnotation(script.meta.annotation);
-        scriptInfo.setAuthors(Arrays.asList(script.meta.authors));
-        scriptInfo.setVersion(script.meta.version);
-        scriptInfo.setCreationDate(script.meta.creationDate);
+        summary.setId(script.meta.id);
+        summary.setTitle(script.meta.title);
+        summary.setAnnotation(script.meta.annotation);
+        summary.setAuthors(Arrays.asList(script.meta.authors));
+        summary.setVersion(script.meta.version);
+        summary.setCreationDate(script.meta.creationDate);
 
         scriptEntryDao.createScriptEntry(scriptEntry);
 
