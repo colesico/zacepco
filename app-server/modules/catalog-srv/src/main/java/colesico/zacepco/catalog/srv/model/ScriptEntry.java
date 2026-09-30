@@ -3,6 +3,7 @@ package colesico.zacepco.catalog.srv.model;
 import colesico.framework.jdbirec.Column;
 import colesico.framework.jdbirec.Composition;
 import colesico.framework.jdbirec.Record;
+import colesico.zacepco.catalog.srv.jdbi.AccessTypeMediator;
 import colesico.zacepco.script.model.script.Script;
 import colesico.zacepco.script.model.script.ScriptMetadata;
 
@@ -32,7 +33,7 @@ public class ScriptEntry {
     /**
      * Script catalog status
      */
-    @Column
+    @Column(mediator = AccessTypeMediator.class)
     private ScriptAccessType access;
 
     /**

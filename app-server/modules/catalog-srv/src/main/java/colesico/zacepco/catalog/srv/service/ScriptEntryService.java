@@ -18,9 +18,7 @@ import jakarta.inject.Provider;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Paths;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @Transactional
@@ -90,7 +88,7 @@ public class ScriptEntryService {
         scriptInfo.setId(script.meta.id);
         scriptInfo.setTitle(script.meta.title);
         scriptInfo.setAnnotation(script.meta.annotation);
-        scriptInfo.setAuthors(script.meta.authors);
+        scriptInfo.setAuthors(Arrays.asList(script.meta.authors));
         scriptInfo.setVersion(script.meta.version);
         scriptInfo.setCreationDate(script.meta.creationDate);
 

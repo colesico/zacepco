@@ -1,9 +1,11 @@
 package colesico.zacepco.catalog.srv.model;
 
 import colesico.framework.jdbirec.Column;
+import colesico.framework.jdbirec.mediators.StringListMediator;
 import colesico.zacepco.script.model.script.ScriptMetadata;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class ScriptInfo {
 
@@ -25,8 +27,8 @@ public class ScriptInfo {
     @Column
     public String annotation;
 
-    @Column
-    public String[] authors;
+    @Column(mediator = StringListMediator.class)
+    public List<String> authors;
 
     /**
      * Script version
@@ -64,11 +66,11 @@ public class ScriptInfo {
         this.annotation = annotation;
     }
 
-    public String[] getAuthors() {
+    public List<String> getAuthors() {
         return authors;
     }
 
-    public void setAuthors(String[] authors) {
+    public void setAuthors(List<String> authors) {
         this.authors = authors;
     }
 
