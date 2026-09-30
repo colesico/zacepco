@@ -1,22 +1,22 @@
-function isUndefined(val) {
+export function isUndefined(val) {
   return typeof val === "undefined";
 }
 
-function isDefined(val) {
+export function isDefined(val) {
   return typeof val !== "undefined";
 }
 
-function isEmpty(val) {
+export function isEmpty(val) {
   return (
     typeof val === "undefined" || val == null || val === "" || val.length == 0
   );
 }
 
-function isNotExist(val) {
+export function isNotExist(val) {
   return typeof val === "undefined" || val == null;
 }
 
-function range(min, max) {
+export function range(min, max) {
   const array = [];
   let j = 0;
   for (let i = min; i <= max; i++) {
@@ -26,7 +26,7 @@ function range(min, max) {
   return array;
 }
 
-function fromDate(dateObj) {
+export function fromDate(dateObj) {
   if (dateObj != null && typeof dateObj.getMonth === "function") {
     const dateString =
       dateObj.getFullYear() +
@@ -39,7 +39,7 @@ function fromDate(dateObj) {
   return null;
 }
 
-function toDate(dateString) {
+export function toDate(dateString) {
   if (dateString != null && dateString !== "") {
     const parts = dateString.split("-");
     const date = new Date();
@@ -52,7 +52,7 @@ function toDate(dateString) {
 }
 
 // 2014-12-20T22:10:00 -> Date
-function toDateTime(dateTimeString) {
+export function toDateTime(dateTimeString) {
   var parts = dateTimeString.match(/\d+/g);
   return new Date(
     parts[0],
@@ -64,7 +64,7 @@ function toDateTime(dateTimeString) {
   );
 }
 
-function getProperty(obj, path) {
+export function getProperty(obj, path) {
   const stack = path.split(".");
   let cobj = obj;
   while (stack.length > 1) {
@@ -76,7 +76,7 @@ function getProperty(obj, path) {
   return cobj[stack.shift()];
 }
 
-function setProperty(obj, path, val) {
+export function setProperty(obj, path, val) {
   const stack = path.split(".");
   let cobj = obj;
   while (stack.length > 1) {
@@ -88,23 +88,10 @@ function setProperty(obj, path, val) {
   cobj[stack.shift()] = val;
 }
 
-function replaceContainer(Component, options) {
+export function replaceContainer(Component, options) {
   const frag = document.createDocumentFragment();
   const component = new Component(Object.assign({}, options, { target: frag }));
   options.target.replaceWith(frag);
   return component;
 }
 
-export {
-  isUndefined,
-  isDefined,
-  isEmpty,
-  isNotExist,
-  range,
-  fromDate,
-  toDate,
-  toDateTime,
-  getProperty,
-  setProperty,
-  replaceContainer,
-};
