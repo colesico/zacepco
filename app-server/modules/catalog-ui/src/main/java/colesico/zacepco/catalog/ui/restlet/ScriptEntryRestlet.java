@@ -8,6 +8,7 @@ import colesico.framework.jjwt.ApiJwt;
 import colesico.framework.jjwt.WebJwt;
 import colesico.framework.restlet.Restlet;
 import colesico.framework.security.authentication.Authentication;
+import colesico.framework.telehttp.ParamName;
 import colesico.zacepco.catalog.srv.model.ScriptEntry;
 import colesico.zacepco.catalog.srv.service.ScriptEntryService;
 
@@ -25,8 +26,8 @@ public class ScriptEntryRestlet {
     @RequestMethod(HttpMethod.POST)
     @Route("./")
     @Authentication(WebJwt.class)
-    public ScriptEntry addScriptEntry(HttpFile script) {
-        return scriptEntryService.addScript(script.inputStream());
+    public ScriptEntry addScriptEntry(@ParamName("script") HttpFile scriptFile) {
+        return scriptEntryService.addScript(scriptFile.inputStream());
     }
 
     @Route("./")
