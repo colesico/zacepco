@@ -1,6 +1,6 @@
 <script>
   let { error = null } = $props();
-  let message = $derived(error.message);
+  let message = $derived(error?.message);
 </script>
 
 {#if message != null}

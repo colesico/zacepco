@@ -1,17 +1,20 @@
 <script>
   import * as scriptEntryApi from "../api/ScriptEntryApi.js";
+  import UiErrorMessage from "@common/widget/UiErrorMessage.svelte"
 
   let error = $state(null);
   let loading = $state(true);
   
   let entries = $state([]);
+  
+   $inspect(error); 
 
   $effect(() => {
     async function loadData() {
       try {
         entries = await scriptEntryApi.listScriptEntries(100,0);
-      } catch (err) {
-        error = err.message;
+      } catch (ex) {
+        error = ex.data;
       } finally {
         loading = false;
       }
@@ -25,14 +28,7 @@
 
 <main>
   <h1>Criminal cases</h1>
-  
-{#if loading}
-  <p>Загрузка пользователей...</p>
-{:else if error}
-  <p style="color: red;">Ошибка: {error}</p>
-{:else}
-
-{/if}
+  <UiErrorMessage {error} />
 
   <table class="table">
     <thead>
