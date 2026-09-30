@@ -9,7 +9,9 @@
   
   let entries = $state([]);
   
-   $inspect(error); 
+  $inspect(error); 
+  $inspect(entries); 
+
 
   $effect(() => {
     async function loadData() {
@@ -37,18 +39,20 @@
     <thead>
       <tr>
         <th scope="col">#</th>
-        <th scope="col">First</th>
-        <th scope="col">Last</th>
-        <th scope="col">Handle</th>
+        <th scope="col">Название</th>
+        <th scope="col">Авторы</th>
+        <th scope="col">Дата создания</th>
+		<th scope="col">Версия</th>
       </tr>
     </thead>
     <tbody>
 	  {#each entries as entry}
         <tr>
-          <th scope="row">{entry}</th>
-          <td>{entry}</td>
-          <td>{entry}</td>
-          <td>{entry}</td>
+          <th scope="row">{entry.id}</th>
+          <td>{entry.scriptInfo.title}</td>
+          <td>{entry.scriptInfo.authors}</td>
+		    <td>{entry.scriptInfo.creationDate}</td>
+          <td>{entry.scriptInfo.version}</td>
         </tr>
       {:else}
         <tr>
