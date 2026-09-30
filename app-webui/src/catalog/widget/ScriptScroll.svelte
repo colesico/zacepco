@@ -1,8 +1,8 @@
 <script>
-  import ScriptCard from '/ScriptCard.svelte';
+  import ScriptCard from './ScriptCard.svelte';
 
   let { 
-    scripts = [], 
+    entries = [], 
     target = '_self' 
   } = $props();
 
@@ -13,8 +13,8 @@
 </script>
 
 <div class="dir-card-panel mt-3">
-  {#each embroideries as script}
-    <ScriptCard {script} {target} />
+  {#each entries as entry}
+    <ScriptCard {entry} {target} />
   {/each}
 </div>
 
@@ -25,6 +25,7 @@
     align-items: stretch;
     justify-content: center;
   }
+  
   :global(.dir-card-panel a) {
     text-decoration: none;
     color: #43414E;

@@ -6,6 +6,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '@common': resolve(import.meta.dirname, './src/common'),
+	  '@catalog': resolve(import.meta.dirname, './src/catalog')
     },
   },
 

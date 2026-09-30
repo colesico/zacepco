@@ -1,23 +1,20 @@
 <script>
-  import { isEmpty } from 'src/core/assist/CommonUtils';
+  import { isEmpty } from '@common/assist/CommonUtils';
 
-  let { embroidery = {}, target = '_self' } = $props();
+  let { entry = {}, 
+        target = '_self' 
+	  } = $props();
+	  
 </script>
 
 <div class="dir-card">
-  <a href="/catalog/embroidery/details/{embroidery.id}" target={target}>
+  <a href="/catalog/script/{entry.id}" target={target}>
     <div class="dir-card-img">
-      <img src="/file-store{embroidery.document?.poster?.thumbId}" alt={embroidery.document?.name?.text || ''} />
+      <img src="/file-store" alt={entry.summary.title || ''} />
     </div>
     <div class="dir-card-title">
-      {embroidery.document?.kind?.text} 
-      {embroidery.document?.name?.text} 
-      
-      {#if !isEmpty(embroidery.document?.vendorCode?.text)}
-        {embroidery.document.vendorCode.text}
-      {/if}
-      
-      {embroidery.document?.trademark?.name}
+      {entry.summary.title} 
+       {entry.summary.version} 
     </div>
   </a>
 </div>
