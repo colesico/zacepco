@@ -16,4 +16,5 @@ module colesico.zacepco.script {
     opens colesico.zacepco.script.model.setting;
     opens colesico.zacepco.script.model.investigation;
 
+
 }

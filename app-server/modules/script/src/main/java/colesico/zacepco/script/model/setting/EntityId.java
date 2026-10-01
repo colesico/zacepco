@@ -60,7 +60,7 @@ abstract public sealed class EntityId permits PersonageId, ClueId, LocationId, T
     }
 
     @Override
-    public String toString() {
+    public final String toString() {
         return type + value;
     }
 

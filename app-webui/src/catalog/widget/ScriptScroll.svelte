@@ -8,7 +8,7 @@
 
  
   $effect(() => {
-    console.log('Scripts: %o', scripts);
+    console.log('Entries: %o', entries);
   });
 </script>
 

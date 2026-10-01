@@ -10,6 +10,8 @@ module colesico.zacepco.common.srv {
     requires transitive colesico.framework.jdbi;
     requires transitive colesico.framework.jdbirec;
     requires transitive org.jdbi.v3.postgres;
+    requires transitive java.desktop;
+
 
     exports colesico.zacepco.common.srv.filestorage;
     exports colesico.zacepco.common.srv.dbstorage;

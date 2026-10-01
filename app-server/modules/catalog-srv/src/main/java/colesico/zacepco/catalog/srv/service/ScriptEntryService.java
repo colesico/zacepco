@@ -38,8 +38,7 @@ public class ScriptEntryService {
 
     public ScriptEntryService(
             ScriptEntryDao scriptEntryDao,
-            @Classed(StoragePackageDriver.class)
-            Supplier<ScriptPackage> scriptPackage,
+            @Classed(StoragePackageDriver.class) Supplier<ScriptPackage> scriptPackage,
             Provider<Identity> identity) {
 
         this.scriptEntryDao = scriptEntryDao;
