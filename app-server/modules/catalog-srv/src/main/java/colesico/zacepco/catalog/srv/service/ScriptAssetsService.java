@@ -2,14 +2,13 @@ package colesico.zacepco.catalog.srv.service;
 
 import colesico.framework.service.Service;
 import colesico.framework.transaction.Transactional;
+import colesico.zacepco.catalog.srv.model.AssetType;
 import colesico.zacepco.common.srv.filestorage.FileStorage;
 import colesico.zacepco.common.srv.utils.ImageUtils;
 import colesico.zacepco.script.pkg.PackageResource;
-import colesico.zacepco.script.pkg.ResourcePath;
 import colesico.zacepco.script.pkg.ScriptPackage;
 
 import javax.imageio.ImageIO;
-import java.io.InputStream;
 import java.nio.file.Path;
 
 @Service
@@ -22,20 +21,25 @@ public class ScriptAssetsService {
         this.fileStorage = fileStorage;
     }
 
-    protected Path assetsRoot(Long entryId) {
-        return Path.of("assets" + entryId);
+    protected Path assetsRoot(Long scriptEntryId, AssetType assetType) {
+        return Path.of("assets/" + scriptEntryId + "/" + assetType.resourceDir());
     }
 
-    public void createAssets(Long entryId, ScriptPackage scriptPackage) {
+    public void createAssets(Long scriptEntryId, ScriptPackage scriptPackage) {
         try {
 
             var posterResource = scriptPackage.poster();
-            createThumb(entryId, posterResource;
+            createThumb(scriptEntryId, posterResource);
             var script = scriptPackage.script().read();
+
+            for (var location : script.setting.scene.locations) {
+                var locationResource = scriptPackage.entityImage(location.id);
+                createThumb(scriptEntryId, locationResource);
+            }
 
             for (var clue : script.setting.clues) {
                 var clueResource = scriptPackage.entityImage(clue.id);
-                createThumb(entryId, clueResource);
+                createThumb(scriptEntryId, clueResource);
             }
 
         } catch (Exception ex) {
@@ -43,12 +47,12 @@ public class ScriptAssetsService {
         }
     }
 
-    public void createThumb(Long entryId, PackageResource resource) {
+    public void createThumb(Long scriptEntryId, PackageResource resource) {
         try {
             var srcImg = ImageIO.read(resource.inputStream());
             var thumbImg = ImageUtils.iconize(srcImg, 240, 240, 0.5f, 0.5f);
             var pngBytes = ImageUtils.toPngBytes(thumbImg, 0.9f);
-            var imgOs = fileStorage.fileOutput(assetsRoot(entryId).resolve(resource.path().path()));
+            var imgOs = fileStorage.fileOutput(assetsRoot(scriptEntryId, AssetType.THUMB).resolve(resource.path().path()));
             imgOs.write(pngBytes);
             imgOs.flush();
             imgOs.close();
@@ -56,4 +60,6 @@ public class ScriptAssetsService {
             throw new RuntimeException(e);
         }
     }
+
+
 }

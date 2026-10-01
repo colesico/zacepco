@@ -4,6 +4,7 @@ import colesico.framework.ioc.production.Classed;
 import colesico.framework.ioc.production.Supplier;
 import colesico.framework.security.Identity;
 import colesico.framework.security.authorization.RequireIdentity;
+import colesico.framework.service.PlainMethod;
 import colesico.framework.service.Service;
 import colesico.framework.transaction.Transactional;
 import colesico.zacepco.catalog.srv.dao.ScriptEntryDao;
@@ -24,6 +25,8 @@ import java.util.*;
 @Transactional
 public class ScriptEntryService {
 
+    private final ScriptAssetsService assetsService;
+
     private final ScriptEntryDao scriptEntryDao;
 
     /**
@@ -39,15 +42,17 @@ public class ScriptEntryService {
     public ScriptEntryService(
             ScriptEntryDao scriptEntryDao,
             @Classed(StoragePackageDriver.class) Supplier<ScriptPackage> scriptPackage,
-            Provider<Identity> identity) {
+            Provider<Identity> identity,
+            ScriptAssetsService assetsService) {
 
         this.scriptEntryDao = scriptEntryDao;
         this.scriptPackage = scriptPackage;
         this.identity = identity;
+        this.assetsService = assetsService;
     }
 
-    protected String scriptPackageId(Long entryId) {
-        return "script" + entryId;
+    protected String scriptPackageId(Long scriptEntryId) {
+        return "script/" + scriptEntryId;
     }
 
     @RequireIdentity
@@ -63,20 +68,20 @@ public class ScriptEntryService {
      */
     public ScriptEntry addScript(Long userId, InputStream scriptPackageData) {
 
-        var scriptId = scriptEntryDao.createScriptEntryId();
-
-        var scriptPackage = this.scriptPackage.get(scriptPackageId(scriptId));
+        var scriptEntryId = scriptEntryDao.createScriptEntryId();
 
         Script script;
-        try {
+
+        try (var scriptPackage = scriptPackage(scriptEntryId);) {
             scriptPackage.importFrom(scriptPackageData);
+            assetsService.createAssets(scriptEntryId, scriptPackage);
             script = scriptPackage.script().read();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
         ScriptEntry scriptEntry = new ScriptEntry();
-        scriptEntry.setId(scriptId);
+        scriptEntry.setId(scriptEntryId);
         scriptEntry.setUserId(userId);
         scriptEntry.setAccess(ScriptAccessType.PRIVATE);
         scriptEntry.setCreatedAt(new Date());
@@ -120,9 +125,10 @@ public class ScriptEntryService {
     /**
      * Get Script package helper
      *
-     * @param entryId script entry id
+     * @param scriptEntryId script entry id
      */
-    public ScriptPackage scriptPackage(Long entryId) {
-        return scriptPackage.get(Paths.get(""));
+    @PlainMethod
+    public ScriptPackage scriptPackage(Long scriptEntryId) {
+        return scriptPackage.get(scriptPackageId(scriptEntryId));
     }
 }
