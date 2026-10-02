@@ -2,6 +2,7 @@ package colesico.zacepco.script.pkg;
 
 import colesico.framework.ioc.scope.Unscoped;
 import colesico.zacepco.script.model.script.Script;
+import jakarta.inject.Provider;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.ByteArrayOutputStream;
@@ -13,19 +14,19 @@ import java.nio.charset.StandardCharsets;
 @Unscoped
 public class ScriptWriter {
 
-    private final Yaml yaml;
+    private final Provider<Yaml> yaml;
 
-    public ScriptWriter(Yaml yaml) {
+    public ScriptWriter(Provider<Yaml> yaml) {
         this.yaml = yaml;
     }
 
     public void write(Script script, OutputStreamWriter osw) {
-        yaml.dump(script, osw);
+        yaml.get().dump(script, osw);
     }
 
     public void write(Script script, OutputStream os) {
         try (OutputStreamWriter osw = new OutputStreamWriter(os, StandardCharsets.UTF_8)) {
-            yaml.dump(script, osw);
+            yaml.get().dump(script, osw);
             osw.flush();
         } catch (IOException e) {
             throw new RuntimeException(e);

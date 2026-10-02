@@ -5,13 +5,22 @@ public enum AssetType {
     THUMB("thumb"),
     MEDIUM("medium");
 
-    private final String resourceDir;
+    private final String resource;
 
-    AssetType(String resourceDir) {
-        this.resourceDir = resourceDir;
+    AssetType(String resource) {
+        this.resource = resource;
     }
 
     public String resourceDir() {
-        return resourceDir;
+        return resource;
     }
+
+    public static AssetType fromType(String resource) {
+        return switch (resource) {
+            case "thumb" -> AssetType.THUMB;
+            case "medium" -> AssetType.MEDIUM;
+            default -> throw new IllegalStateException("Unexpected value: " + resource);
+        };
+    }
+
 }

@@ -20,6 +20,8 @@ package colesico.zacepco.catalog.ui.weblet;
 import colesico.framework.httprouter.Route;
 import colesico.framework.weblet.Weblet;
 import colesico.framework.webstatic.StaticResource;
+import colesico.zacepco.catalog.srv.model.ScriptEntry;
+import colesico.zacepco.catalog.srv.service.ScriptEntryService;
 
 
 @Weblet
@@ -28,12 +30,22 @@ public class ResourcesWeblet {
 
     private final StaticResource staticResource;
 
-    public ResourcesWeblet(StaticResource.Builder srBuilder) {
+    private final ScriptEntryService scriptEntryService;
+
+    public ResourcesWeblet(StaticResource.Builder srBuilder,
+                           ScriptEntryService scriptEntryService
+    ) {
         staticResource = srBuilder.resourcesRoot("$catalog/ui/webpub").build();
+        this.scriptEntryService = scriptEntryService;
+    }
+
+    @Route("./storage/:scriptEntryId/:asset/*")
+    public void fromStorage(Long scriptEntryId, String asset, String routeSuffix){
+
     }
 
     @Route("*")
-    public void get(String routeSuffix) {
+    public void fromResource(String routeSuffix) {
         staticResource.send(routeSuffix);
     }
 
