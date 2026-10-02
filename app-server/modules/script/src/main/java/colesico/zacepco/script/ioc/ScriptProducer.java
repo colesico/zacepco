@@ -1,5 +1,6 @@
 package colesico.zacepco.script.ioc;
 
+import colesico.framework.ioc.message.IocMessage;
 import colesico.framework.ioc.production.Classed;
 import colesico.framework.ioc.production.Produce;
 import colesico.framework.ioc.production.Producer;
@@ -15,6 +16,8 @@ import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.Constructor;
 import org.yaml.snakeyaml.nodes.Tag;
 import org.yaml.snakeyaml.representer.Representer;
+
+import java.nio.file.Path;
 
 @Producer
 @Produce(ScriptReader.class)
@@ -42,10 +45,18 @@ public class ScriptProducer {
 
     // Default script package
     @Unscoped
-    public ScriptPackage scriptPackage(
+    public ScriptPackage scriptPackageDefault(
             @Classed(PackageDriver.class) Supplier<ScriptPackage> scriptPackageFactory,
             DirectoryPackageDriver packageDriver) {
         return scriptPackageFactory.get(packageDriver);
     }
 
+    @Unscoped
+    @Classed(DirectoryPackageDriver.class)
+    public ScriptPackage scriptPackageForScriptDirectory(
+            @Classed(PackageDriver.class) Supplier<ScriptPackage> scriptPackageFactory,
+            Supplier<DirectoryPackageDriver> packageDriverFactory,
+            @IocMessage Path scriptDir) {
+        return scriptPackageFactory.get(packageDriverFactory.get(scriptDir));
+    }
 }

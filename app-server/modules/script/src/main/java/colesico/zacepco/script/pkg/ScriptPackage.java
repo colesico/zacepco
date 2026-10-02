@@ -24,7 +24,7 @@ public class ScriptPackage implements Closeable {
     /**
      * Script poster
      */
-    static final String SCRIPT_POSTER = "script.png";
+    static final String SCRIPT_IMAGE = "script.png";
 
     static final String ENTITY_IMAGE_SUFFIX = ".png";
 
@@ -78,12 +78,12 @@ public class ScriptPackage implements Closeable {
     /**
      * Returns script poster resource
      */
-    public PackageResource poster() {
-        return new PackageResource(ResourcePath.of(SCRIPT_POSTER), packageDriver);
+    public PackageResource scriptImage() {
+        return new PackageResource(ResourcePath.of(SCRIPT_IMAGE), packageDriver);
     }
 
     public PackageResource entityImage(EntityId entityId) {
-        String path = entityId.getType().code() + "/" + entityId.getValue() + ENTITY_IMAGE_SUFFIX;
+        String path = entityId.getType().code() + "/" + entityId + ENTITY_IMAGE_SUFFIX;
         return new PackageResource(ResourcePath.of(path), packageDriver);
     }
 
@@ -122,7 +122,7 @@ public class ScriptPackage implements Closeable {
                 return;
             }
         }
-        throw new RuntimeException("Invalid script package resource path: " + resourcePath);
+        throw new RuntimeException("Invalid script package resource path: '" + resourcePath+"'");
     }
 
     @Override

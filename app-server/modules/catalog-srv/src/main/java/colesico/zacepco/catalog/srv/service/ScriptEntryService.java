@@ -52,7 +52,7 @@ public class ScriptEntryService {
     }
 
     protected String scriptPackageId(Long scriptEntryId) {
-        return "script/" + scriptEntryId;
+        return "script-" + scriptEntryId;
     }
 
     @RequireIdentity

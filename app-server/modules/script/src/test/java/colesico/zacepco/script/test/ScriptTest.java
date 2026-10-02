@@ -2,12 +2,12 @@ package colesico.zacepco.script.test;
 
 import colesico.framework.ioc.Ioc;
 import colesico.framework.ioc.IocBuilder;
+import colesico.framework.ioc.key.ClassedKey;
 import colesico.zacepco.script.pkg.*;
 import colesico.zacepco.script.model.script.Script;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -42,18 +42,20 @@ public class ScriptTest {
     }
 
     @Test
-    public void testImportScriptPackage() throws IOException {
-        var packageFile = "../../../scripts/default.zip";
-        try (ScriptPackage scriptPackage = ioc.instance(ScriptPackage.class)) {
-            scriptPackage.importFrom(new File(packageFile));
-            var resList = scriptPackage.driver().listResources();
-            for (ResourcePath rp : resList) {
-                IO.println("resource: " + rp.value());
-            }
+    public void testCreateScriptPackageFromDir() throws IOException {
+        Path userDir = Paths.get(System.getProperty("user.dir"));
+        var scriptDir = userDir.resolve("../../../scripts/default");
 
-            Path targetPath = Paths.get(System.getProperty("user.dir"));
-            scriptPackage.exportTo(targetPath.resolve("target/default.zsp.zip").toFile());
+        var scriptPackage = ioc.instance(
+                new ClassedKey<>(ScriptPackage.class, DirectoryPackageDriver.class),
+                scriptDir);
+
+        var resList = scriptPackage.driver().listResources();
+        for (ResourcePath rp : resList) {
+            IO.println("resource: " + rp.value());
         }
+
+        scriptPackage.exportTo(userDir.resolve("target/default.zsp.zip").toFile());
 
 
     }

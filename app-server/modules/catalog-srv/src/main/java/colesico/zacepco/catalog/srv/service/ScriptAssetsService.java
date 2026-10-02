@@ -22,15 +22,20 @@ public class ScriptAssetsService {
     }
 
     protected Path assetsRoot(Long scriptEntryId, AssetType assetType) {
-        return Path.of("assets/" + scriptEntryId + "/" + assetType.resourceDir());
+        return Path.of("assets-" + assetType.resourceDir() + "-" + scriptEntryId);
     }
 
     public void createAssets(Long scriptEntryId, ScriptPackage scriptPackage) {
         try {
 
-            var posterResource = scriptPackage.poster();
+            var posterResource = scriptPackage.scriptImage();
             createThumb(scriptEntryId, posterResource);
             var script = scriptPackage.script().read();
+
+            for (var personage : script.setting.personages) {
+                var personageResource = scriptPackage.entityImage(personage.id);
+                createThumb(scriptEntryId, personageResource);
+            }
 
             for (var location : script.setting.scene.locations) {
                 var locationResource = scriptPackage.entityImage(location.id);
