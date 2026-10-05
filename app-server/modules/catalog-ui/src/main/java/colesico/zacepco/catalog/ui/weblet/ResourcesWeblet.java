@@ -30,22 +30,13 @@ public class ResourcesWeblet {
 
     private final StaticResource staticResource;
 
-    private final ScriptEntryService scriptEntryService;
 
-    public ResourcesWeblet(StaticResource.Builder srBuilder,
-                           ScriptEntryService scriptEntryService
-    ) {
+    public ResourcesWeblet(StaticResource.Builder srBuilder) {
         staticResource = srBuilder.resourcesRoot("$catalog/ui/webpub").build();
-        this.scriptEntryService = scriptEntryService;
-    }
-
-    @Route("./storage/:scriptEntryId/:asset/*")
-    public void fromStorage(Long scriptEntryId, String asset, String routeSuffix){
-
     }
 
     @Route("*")
-    public void fromResource(String routeSuffix) {
+    public void resource(String routeSuffix) {
         staticResource.send(routeSuffix);
     }
 

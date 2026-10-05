@@ -13,6 +13,9 @@ import java.io.*;
 @Unscoped
 public class ScriptReader {
 
+    /**
+     * Snake YAML instance is not thread safe
+     */
     private final Provider<Yaml> yaml;
 
     public ScriptReader(Provider<Yaml> yaml) {

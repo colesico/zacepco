@@ -10,7 +10,7 @@
 <div class="dir-card">
   <a href="/catalog/script/{entry.id}" target={target}>
     <div class="dir-card-img">
-      <img src="/file-store" alt={entry.summary.title || ''} />
+      <img src="/catalog/assets/{entry.id}/S" alt={entry.summary.title || ''} />
     </div>
     <div class="dir-card-title">
       {entry.summary.title} 

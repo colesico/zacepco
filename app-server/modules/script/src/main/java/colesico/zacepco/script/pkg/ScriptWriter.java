@@ -14,6 +14,9 @@ import java.nio.charset.StandardCharsets;
 @Unscoped
 public class ScriptWriter {
 
+    /**
+     * Snake YAML instance is not thread safe
+     */
     private final Provider<Yaml> yaml;
 
     public ScriptWriter(Provider<Yaml> yaml) {
@@ -26,7 +29,7 @@ public class ScriptWriter {
 
     public void write(Script script, OutputStream os) {
         try (OutputStreamWriter osw = new OutputStreamWriter(os, StandardCharsets.UTF_8)) {
-            yaml.get().dump(script, osw);
+            write(script, osw);
             osw.flush();
         } catch (IOException e) {
             throw new RuntimeException(e);
