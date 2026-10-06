@@ -2,6 +2,7 @@ package colesico.zacepco.identity.srv.model;
 
 import colesico.framework.jdbirec.Column;
 import colesico.framework.jdbirec.Record;
+import colesico.framework.jdbirec.mediators.DateMediator;
 
 import java.util.Date;
 
@@ -32,13 +33,13 @@ public class Invite {
     @Column
     public Long inviteeId;
 
-    @Column
+    @Column(mediator = DateMediator.class)
     public Date createdAt;
 
-    @Column
+    @Column(mediator = DateMediator.class)
     public Date expiredAt;
 
-    @Column
+    @Column(mediator = DateMediator.class)
     public Date commitedAt;
 
     public Long getId() {

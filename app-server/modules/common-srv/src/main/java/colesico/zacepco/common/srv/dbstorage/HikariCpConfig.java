@@ -18,7 +18,7 @@ import java.util.Properties;
 @DefaultMessage
 public class HikariCpConfig extends HikariProperties {
 
-    public static final String ZACEPCO_JDBC_URL_ENV = "ZACEPCO_JDBC_URL";
+    public static final String JDBC_URL_PARAM = "jdbcUrl";
 
     private final Logger log = LoggerFactory.getLogger(HikariCpConfig.class);
 
@@ -26,7 +26,7 @@ public class HikariCpConfig extends HikariProperties {
     protected HikariConfig createConfig(Properties props) {
         var config = new HikariConfig(props);
 
-        var jdbcUrl = System.getenv().get(ZACEPCO_JDBC_URL_ENV);
+        var jdbcUrl = System.getProperty(JDBC_URL_PARAM);
         if (!StringUtils.isBlank(jdbcUrl)) {
             config.setJdbcUrl(jdbcUrl);
         }

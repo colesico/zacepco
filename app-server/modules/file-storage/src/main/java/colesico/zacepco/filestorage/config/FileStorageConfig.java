@@ -11,7 +11,7 @@ import java.nio.file.Paths;
 @UseFileSource(file = "storage.properties")
 public class FileStorageConfig {
 
-    public static final String ZACEPCO_STORAGE_PATH_ENV = "ZACEPCO_STORAGE_PATH";
+    public static final String STORAGE_PATH_PARAM = "ZACEPCO_STORAGE_PATH";
 
     private String hashAlgorithm;
 
@@ -37,7 +37,7 @@ public class FileStorageConfig {
     }
 
     public void setStoragePath(String storagePath) {
-        var storagePathEnv = System.getenv().get(ZACEPCO_STORAGE_PATH_ENV);
+        var storagePathEnv = System.getProperty(STORAGE_PATH_PARAM);
         if (!StringUtils.isBlank(storagePathEnv)) {
             this.storagePath = storagePathEnv;
         } else {
