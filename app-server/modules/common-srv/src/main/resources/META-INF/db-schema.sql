@@ -1,56 +1,56 @@
+PRAGMA foreign_keys = ON;
+
 CREATE TABLE IF NOT EXISTS users (
-    id BIGSERIAL PRIMARY KEY,
-    username VARCHAR(32) NOT NULL UNIQUE,
-    locale VARCHAR(16) NOT NULL DEFAULT 'en_US',
-    disabled BOOLEAN NOT NULL DEFAULT FALSE,
-    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    username TEXT NOT NULL UNIQUE,
+    locale TEXT NOT NULL DEFAULT 'en_US',
+    disabled INTEGER NOT NULL DEFAULT 0 CHECK (disabled IN (0, 1)),
+    created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE INDEX IF NOT EXISTS idx_users_username ON users(username);
 
 CREATE TABLE IF NOT EXISTS auth (
-    user_id BIGINT PRIMARY KEY REFERENCES users(id) ON DELETE CASCADE,
-    password_hash VARCHAR(64) NOT NULL,
-    salt VARCHAR(24),
-    last_login_at TIMESTAMPTZ DEFAULT NULL
+    user_id INTEGER PRIMARY KEY REFERENCES users(id) ON DELETE CASCADE,
+    password_hash TEXT NOT NULL,
+    salt TEXT,
+    last_login_at TEXT DEFAULT NULL
 );
 
 CREATE TABLE IF NOT EXISTS invites (
-    id BIGSERIAL PRIMARY KEY,
-    user_id BIGINT REFERENCES users(id) ON DELETE SET NULL,
-    code_hash VARCHAR(64) NOT NULL,
-    invitee_id  BIGINT REFERENCES users(id) ON DELETE SET NULL,
-    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    expired_at TIMESTAMPTZ NOT NULL,
-    commited_at TIMESTAMPTZ,
-    CONSTRAINT check_expiry_date CHECK (expired_at > created_at)
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER REFERENCES users(id) ON DELETE SET NULL,
+    code_hash TEXT NOT NULL,
+    invitee_id INTEGER REFERENCES users(id) ON DELETE SET NULL,
+    created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    expired_at TEXT NOT NULL,
+    commited_at TEXT,
+    CHECK (expired_at > created_at)
 );
 
-CREATE INDEX IF NOT EXISTS idx_invites_code ON invites(code_hash) WHERE code_hash IS NOT NULL;
+CREATE INDEX IF NOT EXISTS idx_invites_code
+    ON invites(code_hash)
+    WHERE code_hash IS NOT NULL;
 
 CREATE INDEX IF NOT EXISTS idx_invites_user_id ON invites(user_id);
 
-CREATE SEQUENCE IF NOT EXISTS cases_id_seq;
-
 CREATE TABLE IF NOT EXISTS cases (
-    id BIGINT PRIMARY KEY,
-    user_id BIGINT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-    access VARCHAR(32) NOT NULL CONSTRAINT chk_scripts_access CHECK (access IN ('PRIVATE', 'PROTECTED', 'PUBLIC')),
-    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    script_id VARCHAR(32) NOT NULL,
-    script_title VARCHAR(128) NOT NULL,
-    script_annotation VARCHAR(1024) NOT NULL,
-    script_authors VARCHAR(64)[] NOT NULL,
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    access TEXT NOT NULL CHECK (access IN ('PRIVATE', 'PROTECTED', 'PUBLIC')),
+    created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    script_id TEXT NOT NULL,
+    script_title TEXT NOT NULL,
+    script_annotation TEXT NOT NULL,
+    script_authors TEXT NOT NULL,
     script_version INTEGER NOT NULL,
-    script_creation_date DATE NOT NULL
+    script_creation_date TEXT NOT NULL
 );
 
-CREATE UNIQUE INDEX idx_cases_author_unique
-    ON scripts (user_id, script_id)
+CREATE UNIQUE INDEX IF NOT EXISTS idx_cases_author_unique
+    ON cases (user_id, script_id)
     WHERE access IN ('PRIVATE', 'PROTECTED');
 
-CREATE UNIQUE INDEX idx_cases_public_unique
-    ON scripts (script_id)
+CREATE UNIQUE INDEX IF NOT EXISTS idx_cases_public_unique
+    ON cases (script_id)
     WHERE access = 'PUBLIC';
-
-
