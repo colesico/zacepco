@@ -129,8 +129,8 @@
                 <module>modules/identity-srv</module>
                 <module>modules/identity-ui</module>
                 <module>modules/script</module>
-				<module>modules/cases-srv</module>
-				<module>modules/cases-ui</module>
+                <module>modules/cases-srv</module>
+                <module>modules/cases-ui</module>
                 <module>modules/investigation-srv</module>
                 <module>modules/investigation-ui</module>
                 <module>modules/main</module>
@@ -236,26 +236,6 @@
                         </manifest>
                     </archive>
                 </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <version>${maven-dependency-plugin.version}</version>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>copy-dependencies</goal>
-                        </goals>
-                        <configuration>
-                            <includeScope>runtime</includeScope>
-                            <excludeArtifactIds>
-                                guava,javapoet,checker-qual
-                            </excludeArtifactIds>
-                            <outputDirectory>${project.build.directory}/lib</outputDirectory>
-                        </configuration>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
         <pluginManagement>
