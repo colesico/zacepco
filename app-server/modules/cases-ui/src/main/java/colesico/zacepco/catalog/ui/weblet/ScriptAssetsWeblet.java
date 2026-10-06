@@ -6,7 +6,7 @@ import colesico.framework.telehttp.ParamOrigin;
 import colesico.framework.telehttp.origin.Origin;
 import colesico.framework.weblet.Weblet;
 import colesico.zacepco.cases.srv.service.ScriptAssetsService;
-import colesico.zacepco.catalog.srv.service.ScriptEntryService;
+import colesico.zacepco.cases.srv.service.ScriptEntryService;
 import colesico.zacepco.script.model.setting.EntityId;
 import colesico.zacepco.script.pkg.PackageResource;
 import colesico.zacepco.script.pkg.ScriptPackage;
