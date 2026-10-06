@@ -123,6 +123,7 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <modules>
+                <module>modules/file-storage</module>
                 <module>modules/common-srv</module>
                 <module>modules/common-ui</module>
                 <module>modules/identity-srv</module>

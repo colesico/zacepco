@@ -1,7 +1,8 @@
-package colesico.zacepco.common.srv.filestorage;
+package colesico.zacepco.filestorage.service;
 
 import colesico.framework.ioc.listener.PostConstruct;
 import colesico.framework.service.Service;
+import colesico.zacepco.filestorage.config.FileStorageConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -2,6 +2,7 @@ module colesico.zacepco.cases.srv {
 
     requires jakarta.inject;
     requires colesico.framework.config;
+    requires colesico.zacepco.filestorage;
     requires transitive colesico.zacepco.common.srv;
     requires transitive colesico.zacepco.script;
 

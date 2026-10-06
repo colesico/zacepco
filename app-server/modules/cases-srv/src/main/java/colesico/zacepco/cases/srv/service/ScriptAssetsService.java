@@ -3,8 +3,8 @@ package colesico.zacepco.cases.srv.service;
 import colesico.framework.service.Service;
 import colesico.framework.transaction.Transactional;
 import colesico.zacepco.cases.srv.model.ScriptAssetType;
-import colesico.zacepco.common.srv.filestorage.FileStorage;
 import colesico.zacepco.common.srv.utils.ImageUtils;
+import colesico.zacepco.filestorage.service.FileStorage;
 import colesico.zacepco.script.pkg.PackageResource;
 import colesico.zacepco.script.pkg.ScriptPackage;
 

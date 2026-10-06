@@ -2,6 +2,7 @@
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -11,38 +12,44 @@
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
-    <artifactId>zacepco-cases-srv</artifactId>
+    <artifactId>zacepco-file-storage</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
 
-    <name>Zacepco - Cases Service</name>
+    <name>Zacepco - File Storage</name>
     <description>
-        Zacepco script catalog service
+        Zacepco simple file starage 
     </description>
+
     <properties>
     </properties>
 
     <dependencies>
-        <!-- Zacepco -->
 
         <dependency>
-            <groupId>net.colesico.zacepco</groupId>
-            <artifactId>zacepco-file-storage</artifactId>
-            <version>${project.version}</version>
+            <groupId>net.colesico.framework</groupId>
+            <artifactId>colesico-ioc</artifactId>
+            <version>${colesico.version}</version>
         </dependency>
 
         <dependency>
-            <groupId>net.colesico.zacepco</groupId>
-            <artifactId>zacepco-script</artifactId>
-            <version>${project.version}</version>
+            <groupId>net.colesico.framework</groupId>
+            <artifactId>colesico-config</artifactId>
+            <version>${colesico.version}</version>
         </dependency>
 
         <dependency>
-            <groupId>net.colesico.zacepco</groupId>
-            <artifactId>zacepco-common-srv</artifactId>
-            <version>${project.version}</version>
+            <groupId>net.colesico.framework</groupId>
+            <artifactId>colesico-service</artifactId>
+            <version>${colesico.version}</version>
         </dependency>
-
 
     </dependencies>
+
+    <build>
+        <finalName>zacepco-script</finalName>
+        <plugins>
+        </plugins>
+    </build>
+
 </project>

@@ -1,4 +1,4 @@
-package colesico.zacepco.common.srv.filestorage;
+package colesico.zacepco.filestorage.config;
 
 import colesico.framework.config.Config;
 import colesico.framework.config.UseFileSource;
