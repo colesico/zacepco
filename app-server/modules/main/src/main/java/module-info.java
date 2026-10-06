@@ -6,6 +6,7 @@ module colesico.zacepco.main {
 
     requires org.slf4j;
     requires colesico.zacepco.identity.ui;
+    requires colesico.zacepco.filestorage;
 
     exports colesico.zacepco.main.ui.weblet;
     exports colesico.zacepco.main.ui.config to colesico.framework.config, colesico.framework.ioc;

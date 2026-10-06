@@ -4,8 +4,8 @@ import colesico.framework.httpserver.HttpServer;
 import colesico.framework.ioc.IocBuilder;
 import colesico.framework.ioc.scope.TaskScope;
 import colesico.zacepco.common.srv.dbstorage.DBStorage;
-import colesico.zacepco.common.srv.filestorage.FileStorage;
 import colesico.zacepco.common.srv.service.AppListener;
+import colesico.zacepco.filestorage.service.FileStorage;
 import colesico.zacepco.identity.srv.service.RegService;
 import colesico.zacepco.identity.srv.service.UserService;
 
