@@ -7,6 +7,6 @@ import colesico.framework.resource.ResourceOptionsPrototype;
 public class ResourceOptions extends ResourceOptionsPrototype {
     @Override
     public void configure(Options options) {
-        options.substitution("$catalog", "colesico/zacepco/catalog");
+        options.substitution("$cases", "colesico/zacepco/cases");
     }
 }

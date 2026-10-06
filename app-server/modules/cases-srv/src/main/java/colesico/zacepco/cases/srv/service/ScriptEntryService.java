@@ -55,9 +55,9 @@ public class ScriptEntryService {
     }
 
     @RequireIdentity
-    public ScriptEntry addScript(InputStream scriptPackageData) {
+    public ScriptEntry createScriptEntry(InputStream scriptPackageData) {
         Long userId = identity.get().longId();
-        return addScript(userId, scriptPackageData);
+        return createScriptEntry(userId, scriptPackageData);
     }
 
     /**
@@ -65,7 +65,7 @@ public class ScriptEntryService {
      *
      * @return script reference
      */
-    public ScriptEntry addScript(Long userId, InputStream scriptPackageData) {
+    public ScriptEntry createScriptEntry(Long userId, InputStream scriptPackageData) {
 
         var scriptEntryId = scriptEntryDao.createScriptEntryId();
 

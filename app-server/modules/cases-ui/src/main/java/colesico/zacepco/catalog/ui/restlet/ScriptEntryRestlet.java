@@ -26,7 +26,7 @@ public class ScriptEntryRestlet {
     @Route("./")
     @Authentication(WebJwt.class)
     public ScriptEntry addScript(@ParamName("script") HttpFile scriptFile) {
-        return scriptEntryService.addScript(scriptFile.inputStream());
+        return scriptEntryService.createScriptEntry(scriptFile.inputStream());
     }
 
     @Route("./")
