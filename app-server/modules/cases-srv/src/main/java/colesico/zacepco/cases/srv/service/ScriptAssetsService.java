@@ -2,7 +2,7 @@ package colesico.zacepco.cases.srv.service;
 
 import colesico.framework.service.Service;
 import colesico.framework.transaction.Transactional;
-import colesico.zacepco.cases.srv.model.AssetType;
+import colesico.zacepco.cases.srv.model.ScriptAssetType;
 import colesico.zacepco.common.srv.filestorage.FileStorage;
 import colesico.zacepco.common.srv.utils.ImageUtils;
 import colesico.zacepco.script.pkg.PackageResource;
@@ -22,7 +22,7 @@ public class ScriptAssetsService {
         this.fileStorage = fileStorage;
     }
 
-    protected Path assetsRoot(Long scriptEntryId, AssetType assetType) {
+    protected Path assetsRoot(Long scriptEntryId, ScriptAssetType assetType) {
         return Path.of("assets-" + assetType.resourceDir() + "-" + scriptEntryId);
     }
 
@@ -58,7 +58,7 @@ public class ScriptAssetsService {
             var srcImg = ImageIO.read(resource.inputStream());
             var thumbImg = ImageUtils.iconize(srcImg, 240, 240, 0.5f, 0.5f);
             var pngBytes = ImageUtils.toPngBytes(thumbImg, 0.9f);
-            var imgOs = fileStorage.fileOutput(assetsRoot(scriptEntryId, AssetType.THUMB).resolve(resource.path().path()));
+            var imgOs = fileStorage.fileOutput(assetsRoot(scriptEntryId, ScriptAssetType.THUMB).resolve(resource.path().path()));
             imgOs.write(pngBytes);
             imgOs.flush();
             imgOs.close();
@@ -69,7 +69,7 @@ public class ScriptAssetsService {
 
     public void readAsset(Long scriptEntryId, PackageResource resource, OutputStream os) {
         try (
-                var is = fileStorage.fileInput(assetsRoot(scriptEntryId, AssetType.THUMB).resolve(resource.path().path()));
+                var is = fileStorage.fileInput(assetsRoot(scriptEntryId, ScriptAssetType.THUMB).resolve(resource.path().path()));
         ) {
             is.transferTo(os);
         } catch (Exception ex) {

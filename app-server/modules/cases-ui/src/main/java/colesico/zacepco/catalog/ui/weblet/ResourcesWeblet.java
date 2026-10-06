@@ -20,18 +20,17 @@ package colesico.zacepco.catalog.ui.weblet;
 import colesico.framework.httprouter.Route;
 import colesico.framework.weblet.Weblet;
 import colesico.framework.webstatic.StaticResource;
-import colesico.zacepco.cases.srv.service.ScriptEntryService;
 
 
 @Weblet
-@Route("/resources/catalog")
+@Route("/catalog/resources")
 public class ResourcesWeblet {
 
     private final StaticResource staticResource;
 
 
     public ResourcesWeblet(StaticResource.Builder srBuilder) {
-        staticResource = srBuilder.resourcesRoot("$catalog/ui/webpub").build();
+        staticResource = srBuilder.resourcesRoot("$cases/ui/webpub").build();
     }
 
     @Route("*")

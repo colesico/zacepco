@@ -7,7 +7,7 @@ import colesico.zacepco.script.model.script.ScriptMetadata;
 import java.time.LocalDate;
 import java.util.List;
 
-public class ScriptSummary {
+public class ScriptReference {
 
     /**
      * Script ID {@link ScriptMetadata#getId()}

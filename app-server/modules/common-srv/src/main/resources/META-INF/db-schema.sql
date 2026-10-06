@@ -30,9 +30,9 @@ CREATE INDEX IF NOT EXISTS idx_invites_code ON invites(code_hash) WHERE code_has
 
 CREATE INDEX IF NOT EXISTS idx_invites_user_id ON invites(user_id);
 
-CREATE SEQUENCE IF NOT EXISTS scripts_id_seq;
+CREATE SEQUENCE IF NOT EXISTS cases_id_seq;
 
-CREATE TABLE IF NOT EXISTS scripts (
+CREATE TABLE IF NOT EXISTS cases (
     id BIGINT PRIMARY KEY,
     user_id BIGINT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
     access VARCHAR(32) NOT NULL CONSTRAINT chk_scripts_access CHECK (access IN ('PRIVATE', 'PROTECTED', 'PUBLIC')),
@@ -45,11 +45,11 @@ CREATE TABLE IF NOT EXISTS scripts (
     script_creation_date DATE NOT NULL
 );
 
-CREATE UNIQUE INDEX idx_scripts_author_unique
+CREATE UNIQUE INDEX idx_cases_author_unique
     ON scripts (user_id, script_id)
     WHERE access IN ('PRIVATE', 'PROTECTED');
 
-CREATE UNIQUE INDEX idx_scripts_public_unique
+CREATE UNIQUE INDEX idx_cases_public_unique
     ON scripts (script_id)
     WHERE access = 'PUBLIC';
 

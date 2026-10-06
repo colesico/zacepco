@@ -1,13 +1,13 @@
 package colesico.zacepco.cases.srv.model;
 
-public enum AssetType {
+public enum ScriptAssetType {
 
     THUMB("thumb"),
     MEDIUM("medium");
 
     private final String resource;
 
-    AssetType(String resource) {
+    ScriptAssetType(String resource) {
         this.resource = resource;
     }
 
@@ -15,10 +15,10 @@ public enum AssetType {
         return resource;
     }
 
-    public static AssetType fromType(String resource) {
+    public static ScriptAssetType fromType(String resource) {
         return switch (resource) {
-            case "thumb" -> AssetType.THUMB;
-            case "medium" -> AssetType.MEDIUM;
+            case "thumb" -> ScriptAssetType.THUMB;
+            case "medium" -> ScriptAssetType.MEDIUM;
             default -> throw new IllegalStateException("Unexpected value: " + resource);
         };
     }

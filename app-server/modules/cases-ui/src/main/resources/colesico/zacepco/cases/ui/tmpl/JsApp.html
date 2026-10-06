@@ -7,14 +7,14 @@
 
 {% block headCss %}
 {% if devUrl()  is empty %}
-    <link href="/resources/catalog/app/css/catalog.css" rel="stylesheet" />
+    <link href="/cases/resources/app/css/catalog.css" rel="stylesheet" />
 {% endif %}
 {% endblock %}
 
 {% block headJs %}
 {% if devUrl()  is empty %}
-    <script type="module" src="/resources/catalog/app/js/catalog.js"></script>
-    <link rel="modulepreload" crossorigin href="/resources/catalog/app/js/Router.js" />
+    <script type="module" src="/cases/resources/app/js/catalog.js"></script>
+    <link rel="modulepreload" crossorigin href="/cases/resources/app/js/Router.js" />
 {% else %}
     <!-- run server with arg -DuiDevServer=http://localhost:5173 -->
     <script type="module" src="{{ '/@vite/client' | devUrl }}"></script>

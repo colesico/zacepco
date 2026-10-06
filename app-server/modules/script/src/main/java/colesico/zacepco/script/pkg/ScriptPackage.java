@@ -11,7 +11,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Script package
+ * Script package API
  */
 @Unscoped
 public class ScriptPackage implements Closeable {
