@@ -1,4 +1,4 @@
-package colesico.zacepco.catalog.srv.config;
+package colesico.zacepco.cases.srv.config;
 
 import colesico.framework.config.Config;
 import colesico.framework.resource.ResourceOptionsPrototype;

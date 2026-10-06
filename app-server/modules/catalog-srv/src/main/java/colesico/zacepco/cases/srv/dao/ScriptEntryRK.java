@@ -1,8 +1,8 @@
-package colesico.zacepco.catalog.srv.dao;
+package colesico.zacepco.cases.srv.dao;
 
 import colesico.framework.jdbirec.RecordKit;
 import colesico.framework.jdbirec.RecordKitApi;
-import colesico.zacepco.catalog.srv.model.ScriptEntry;
+import colesico.zacepco.cases.srv.model.ScriptEntry;
 
 @RecordKit()
 public interface ScriptEntryRK extends RecordKitApi<ScriptEntry> {

@@ -20,8 +20,7 @@ package colesico.zacepco.catalog.ui.weblet;
 import colesico.framework.httprouter.Route;
 import colesico.framework.weblet.Weblet;
 import colesico.framework.webstatic.StaticResource;
-import colesico.zacepco.catalog.srv.model.ScriptEntry;
-import colesico.zacepco.catalog.srv.service.ScriptEntryService;
+import colesico.zacepco.cases.srv.service.ScriptEntryService;
 
 
 @Weblet

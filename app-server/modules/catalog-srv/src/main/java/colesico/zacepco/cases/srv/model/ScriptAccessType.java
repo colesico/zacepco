@@ -1,4 +1,4 @@
-package colesico.zacepco.catalog.srv.model;
+package colesico.zacepco.cases.srv.model;
 
 /**
  * Defines the availability and access restrictions for a detective game scenario.

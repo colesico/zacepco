@@ -1,9 +1,9 @@
-package colesico.zacepco.catalog.srv.model;
+package colesico.zacepco.cases.srv.model;
 
 import colesico.framework.jdbirec.Column;
 import colesico.framework.jdbirec.Composition;
 import colesico.framework.jdbirec.Record;
-import colesico.zacepco.catalog.srv.jdbi.AccessTypeMediator;
+import colesico.zacepco.cases.srv.jdbi.AccessTypeMediator;
 import colesico.zacepco.script.model.script.Script;
 
 import java.util.Date;

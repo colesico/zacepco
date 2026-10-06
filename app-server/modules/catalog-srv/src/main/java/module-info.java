@@ -1,4 +1,4 @@
-module colesico.zacepco.catalog.srv {
+module colesico.zacepco.cases.srv {
 
     requires jakarta.inject;
     requires colesico.framework.config;
@@ -6,10 +6,10 @@ module colesico.zacepco.catalog.srv {
     requires transitive colesico.zacepco.script;
 
 
-    exports colesico.zacepco.catalog.srv.ioc;
-    exports colesico.zacepco.catalog.srv.model;
-    exports colesico.zacepco.catalog.srv.dao;
-    exports colesico.zacepco.catalog.srv.service;
+    exports colesico.zacepco.cases.srv.ioc;
+    exports colesico.zacepco.cases.srv.model;
+    exports colesico.zacepco.cases.srv.dao;
+    exports colesico.zacepco.cases.srv.service;
     // exports colesico.zacepco.inquiry.srv.dto;
 
 }

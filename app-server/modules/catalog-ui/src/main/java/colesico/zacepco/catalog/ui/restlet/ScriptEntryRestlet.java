@@ -4,13 +4,12 @@ import colesico.framework.http.HttpFile;
 import colesico.framework.http.HttpMethod;
 import colesico.framework.httprouter.RequestMethod;
 import colesico.framework.httprouter.Route;
-import colesico.framework.jjwt.ApiJwt;
 import colesico.framework.jjwt.WebJwt;
 import colesico.framework.restlet.Restlet;
 import colesico.framework.security.authentication.Authentication;
 import colesico.framework.telehttp.ParamName;
-import colesico.zacepco.catalog.srv.model.ScriptEntry;
-import colesico.zacepco.catalog.srv.service.ScriptEntryService;
+import colesico.zacepco.cases.srv.model.ScriptEntry;
+import colesico.zacepco.cases.srv.service.ScriptEntryService;
 
 import java.util.List;
 

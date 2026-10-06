@@ -1,4 +1,4 @@
-package colesico.zacepco.catalog.srv.ioc;
+package colesico.zacepco.cases.srv.ioc;
 
 
 import colesico.framework.ioc.message.IocMessage;
@@ -7,7 +7,7 @@ import colesico.framework.ioc.production.Produce;
 import colesico.framework.ioc.production.Producer;
 import colesico.framework.ioc.production.Supplier;
 import colesico.framework.ioc.scope.Unscoped;
-import colesico.zacepco.catalog.srv.filestorage.StoragePackageDriver;
+import colesico.zacepco.cases.srv.filestorage.StoragePackageDriver;
 import colesico.zacepco.script.pkg.PackageDriver;
 import colesico.zacepco.script.pkg.ScriptPackage;
 

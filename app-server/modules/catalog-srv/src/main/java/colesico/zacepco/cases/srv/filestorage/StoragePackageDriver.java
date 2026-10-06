@@ -1,4 +1,4 @@
-package colesico.zacepco.catalog.srv.filestorage;
+package colesico.zacepco.cases.srv.filestorage;
 
 import colesico.framework.ioc.message.IocMessage;
 import colesico.framework.ioc.scope.Unscoped;

@@ -1,4 +1,4 @@
-package colesico.zacepco.catalog.srv.model;
+package colesico.zacepco.cases.srv.model;
 
 import colesico.framework.jdbirec.Column;
 import colesico.framework.jdbirec.mediators.StringListMediator;

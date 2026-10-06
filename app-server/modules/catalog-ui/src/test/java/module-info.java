@@ -1,8 +1,8 @@
-module colesico.zacepco.catalog.ui.test {
+module colesico.zacepco.cases.ui.test {
 
     requires org.testng;
     requires colesico.framework.ioc;
 
-    requires colesico.zacepco.catalog.ui;
+    requires colesico.zacepco.cases.ui;
 
 }

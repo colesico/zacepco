@@ -1,8 +1,8 @@
-module colesico.zacepco.catalog.test {
+module colesico.zacepco.cases.test {
 
     requires org.testng;
     requires colesico.framework.ioc;
 
-    requires colesico.zacepco.catalog.srv;
+    requires colesico.zacepco.cases.srv;
 
 }

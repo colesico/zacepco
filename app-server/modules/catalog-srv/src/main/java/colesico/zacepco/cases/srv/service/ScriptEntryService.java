@@ -1,4 +1,4 @@
-package colesico.zacepco.catalog.srv.service;
+package colesico.zacepco.cases.srv.service;
 
 import colesico.framework.ioc.production.Classed;
 import colesico.framework.ioc.production.Supplier;
@@ -7,18 +7,17 @@ import colesico.framework.security.authorization.RequireIdentity;
 import colesico.framework.service.PlainMethod;
 import colesico.framework.service.Service;
 import colesico.framework.transaction.Transactional;
-import colesico.zacepco.catalog.srv.dao.ScriptEntryDao;
-import colesico.zacepco.catalog.srv.filestorage.StoragePackageDriver;
-import colesico.zacepco.catalog.srv.model.ScriptAccessType;
-import colesico.zacepco.catalog.srv.model.ScriptEntry;
-import colesico.zacepco.catalog.srv.model.ScriptSummary;
+import colesico.zacepco.cases.srv.dao.ScriptEntryDao;
+import colesico.zacepco.cases.srv.filestorage.StoragePackageDriver;
+import colesico.zacepco.cases.srv.model.ScriptAccessType;
+import colesico.zacepco.cases.srv.model.ScriptEntry;
+import colesico.zacepco.cases.srv.model.ScriptSummary;
 import colesico.zacepco.script.model.script.Script;
 import colesico.zacepco.script.pkg.*;
 import jakarta.inject.Provider;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Paths;
 import java.util.*;
 
 @Service

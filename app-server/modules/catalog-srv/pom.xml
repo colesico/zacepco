@@ -11,11 +11,11 @@
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
-    <artifactId>zacepco-catalog-srv</artifactId>
+    <artifactId>zacepco-cases-srv</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
 
-    <name>Zacepco - Catalog Service</name>
+    <name>Zacepco - Cases Service</name>
     <description>
         Zacepco script catalog service
     </description>
