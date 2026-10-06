@@ -1,4 +1,4 @@
-package colesico.zacepco.catalog.ui.restlet;
+package colesico.zacepco.cases.ui.restlet;
 
 import colesico.framework.http.HttpFile;
 import colesico.framework.http.HttpMethod;

@@ -1,4 +1,4 @@
-package colesico.zacepco.catalog.ui.weblet;
+package colesico.zacepco.cases.ui.weblet;
 
 import colesico.framework.httprouter.Route;
 import colesico.framework.weblet.Weblet;

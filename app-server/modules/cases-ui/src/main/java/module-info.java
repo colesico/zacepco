@@ -5,8 +5,8 @@ module colesico.zacepco.cases.ui {
     requires colesico.framework.weblet;
     requires colesico.zacepco.common.ui;
 
-    exports colesico.zacepco.catalog.ui.weblet;
+    exports colesico.zacepco.cases.ui.weblet;
 
-    opens colesico.zacepco.catalog.ui.webpub.app.js;
-    opens colesico.zacepco.catalog.ui.webpub.app.css;
+    opens colesico.zacepco.cases.ui.webpub.app.js;
+    opens colesico.zacepco.cases.ui.webpub.app.css;
 }
