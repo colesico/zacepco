@@ -5,7 +5,7 @@ import colesico.framework.jdbi.JdbiConfigPrototype;
 import org.jdbi.v3.core.Jdbi;
 import org.jdbi.v3.core.statement.SqlLogger;
 import org.jdbi.v3.core.statement.StatementContext;
-import org.jdbi.v3.postgres.PostgresPlugin;
+import org.jdbi.v3.sqlite3.SQLitePlugin;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,7 +29,7 @@ public class JdbiConfig extends JdbiConfigPrototype {
 
     @Override
     public void configure(Jdbi jdbi) {
-        jdbi.installPlugin(new PostgresPlugin());
+        jdbi.installPlugin(new SQLitePlugin());
         jdbi.setSqlLogger(new SqlLogger() {
             @Override
             public void logBeforeExecution(StatementContext context) {

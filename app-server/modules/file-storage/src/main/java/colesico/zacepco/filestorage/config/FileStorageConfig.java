@@ -1,5 +1,6 @@
 package colesico.zacepco.filestorage.config;
 
+import colesico.framework.assist.StringUtils;
 import colesico.framework.config.Config;
 import colesico.framework.config.UseFileSource;
 
@@ -10,15 +11,17 @@ import java.nio.file.Paths;
 @UseFileSource(file = "storage.properties")
 public class FileStorageConfig {
 
+    public static final String ZACEPCO_STORAGE_PATH_ENV = "ZACEPCO_STORAGE_PATH";
+
     private String hashAlgorithm;
 
     /**
      * Storage root directory
      */
-    private String storageDirectory;
+    private String storagePath;
 
     public Path storagePath() {
-        return Paths.get(storageDirectory).toAbsolutePath().normalize();
+        return Paths.get(storagePath).toAbsolutePath().normalize();
     }
 
     public String getHashAlgorithm() {
@@ -29,11 +32,16 @@ public class FileStorageConfig {
         this.hashAlgorithm = hashAlgorithm;
     }
 
-    public String getStorageDirectory() {
-        return storageDirectory;
+    public String getStoragePath() {
+        return storagePath;
     }
 
-    public void setStorageDirectory(String storageDirectory) {
-        this.storageDirectory = storageDirectory;
+    public void setStoragePath(String storagePath) {
+        var storagePathEnv = System.getenv().get(ZACEPCO_STORAGE_PATH_ENV);
+        if (!StringUtils.isBlank(storagePathEnv)) {
+            this.storagePath = storagePathEnv;
+        } else {
+            this.storagePath = storagePath;
+        }
     }
 }
