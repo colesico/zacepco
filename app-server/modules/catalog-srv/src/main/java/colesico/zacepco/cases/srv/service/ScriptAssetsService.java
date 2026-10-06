@@ -9,6 +9,7 @@ import colesico.zacepco.script.pkg.PackageResource;
 import colesico.zacepco.script.pkg.ScriptPackage;
 
 import javax.imageio.ImageIO;
+import java.io.OutputStream;
 import java.nio.file.Path;
 
 @Service
@@ -66,5 +67,14 @@ public class ScriptAssetsService {
         }
     }
 
+    public void readAsset(Long scriptEntryId, PackageResource resource, OutputStream os) {
+        try (
+                var is = fileStorage.fileInput(assetsRoot(scriptEntryId, AssetType.THUMB).resolve(resource.path().path()));
+        ) {
+            is.transferTo(os);
+        } catch (Exception ex) {
+            throw new RuntimeException(ex);
+        }
+    }
 
 }
