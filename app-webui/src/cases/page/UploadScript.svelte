@@ -1,6 +1,6 @@
 <script>
 
-    import * as scriptEntryApi from "../api/ScriptEntryApi.js";
+    import * as caseFileApi from "../api/CaseFileApi.js";
   
 	let fileInput = $state(null);
 	let status = $state('');
@@ -18,7 +18,7 @@
 		status = 'Загрузка...';
 
 		try {
-			const response = await scriptEntryApi.addScriptEntry(file);
+			const response = await caseFileApi.createCaseFile(file);
 
 			if (response.ok) {
 				status = 'Успешно загружено!';
@@ -26,7 +26,7 @@
 				status = 'Ошибка сервера';
 			}
 		} catch (err) {
-			status = 'Ошибка сети';
+			status = 'Ошибка';
 		}
 	}
 </script>

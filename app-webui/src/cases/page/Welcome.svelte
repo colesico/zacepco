@@ -1,10 +1,10 @@
 <script>
-  import * as scriptEntryApi from "../api/ScriptEntryApi.js";
+  import * as caseFileApi from "../api/CaseFileApi.js";
   
   import UiErrorMessage from "@common/widget/UiErrorMessage.svelte"
   import UiLoadingIndicator from "@common/widget/UiLoadingIndicator.svelte"
   
-  import ScriptScroll from "@catalog/widget/ScriptScroll.svelte"
+  import ScriptScroll from "@cases/widget/ScriptScroll.svelte"
 
   let error = $state(null);
   let loading = $state(true);
@@ -18,7 +18,7 @@
   $effect(() => {
     async function loadData() {
       try {
-        entries = await scriptEntryApi.listScriptEntries(100,0);
+        entries = await caseFileApi.listCaseFiles(100,0);
       } catch (ex) {
         error = ex.data;
       } finally {

@@ -14,7 +14,7 @@ import colesico.zacepco.cases.srv.service.CaseFileService;
 import java.util.List;
 
 @Restlet
-@Route("./script-entry")
+@Route("./case-file")
 public class CaseFileRestlet {
     private final CaseFileService caseFileService;
 
@@ -25,12 +25,12 @@ public class CaseFileRestlet {
     @RequestMethod(HttpMethod.POST)
     @Route("./")
     @Authentication(WebJwt.class)
-    public CaseFile addScript(@ParamName("script") HttpFile scriptFile) {
+    public CaseFile createCaseFile(@ParamName("script") HttpFile scriptFile) {
         return caseFileService.createCaseFile(scriptFile.inputStream());
     }
 
     @Route("./")
-    public List<CaseFile> listScriptEntries(Integer limit, Long offset) {
+    public List<CaseFile> listCaseFiles(Integer limit, Long offset) {
         return caseFileService.listCaseFiles(limit, offset);
     }
 }

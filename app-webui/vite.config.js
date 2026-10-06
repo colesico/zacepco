@@ -6,7 +6,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '@common': resolve(import.meta.dirname, './src/common'),
-	  '@catalog': resolve(import.meta.dirname, './src/catalog')
+	  '@cases': resolve(import.meta.dirname, './src/cases')
     },
   },
 
@@ -34,8 +34,8 @@ export default defineConfig({
     rollupOptions: {
       // Array of inputs forces Rollup to treat them as completely separate entry points
       input: {
-        'investigation': resolve(import.meta.dirname, 'src/investigation/index.html'),
-        'catalog': resolve(import.meta.dirname, 'src/catalog/index.html')
+		'cases': resolve(import.meta.dirname, 'src/cases/index.html'),
+        'investigation': resolve(import.meta.dirname, 'src/investigation/index.html')
       },
 
       output: {

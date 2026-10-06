@@ -1,7 +1,7 @@
 <script>
   let { 
     loading = false, 
-    imgUrl = "/resources/common/app/img/icon/cat.gif" 
+    imgUrl = "/common/resources/app/img/icon/cat.gif" 
   } = $props();
 </script>
 

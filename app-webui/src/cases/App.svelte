@@ -7,14 +7,14 @@
   
   const routes = {
     '/': Welcome,
-	'/script/upload': UploadScript
+	'/cases/upload': UploadScript
   };
   
 </script>
 
 <nav>
   <a href="/" use:link>Главная</a>
-  <a href="/script/upload" use:link>Загрузить скрипт</a>
+  <a href="/upload" use:link>Загрузить скрипт</a>
 </nav>
 
 <main>
