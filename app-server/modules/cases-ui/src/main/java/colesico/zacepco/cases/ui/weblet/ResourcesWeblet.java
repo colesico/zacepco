@@ -23,7 +23,7 @@ import colesico.framework.webstatic.StaticResource;
 
 
 @Weblet
-@Route("/catalog/resources")
+@Route("./resources")
 public class ResourcesWeblet {
 
     private final StaticResource staticResource;
