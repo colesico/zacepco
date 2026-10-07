@@ -1,19 +1,20 @@
 <script>
+  import { link } from 'svelte-spa-router';
   import { isEmpty } from '@common/assist/CommonUtils';
 
-  let { entry = {}, 
+  let { caseFile = {}, 
         target = '_self' 
 	  } = $props();
 	  
 </script>
 
 <div class="dir-card">
-  <a href="/cases/{entry.id}" target={target}>
+  <a href="/cases/{caseFile.id}" use:link  target={target}>
     <div class="dir-card-img">
-      <img src="/cases/assets/{entry.id}/S" alt={entry.script.title || ''} />
+      <img src="/cases/assets/{caseFile.id}/S" alt={caseFile.summary.title || ''} />
     </div>
     <div class="dir-card-title">
-      {entry.script.title} 
+      {caseFile.summary.title} 
     </div>
   </a>
 </div>

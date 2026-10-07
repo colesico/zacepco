@@ -11,7 +11,7 @@ import colesico.zacepco.cases.srv.dao.CaseFileDao;
 import colesico.zacepco.cases.srv.filestorage.StoragePackageDriver;
 import colesico.zacepco.cases.srv.model.CaseFile;
 import colesico.zacepco.cases.srv.model.CaseFileAccessType;
-import colesico.zacepco.cases.srv.model.ScriptReference;
+import colesico.zacepco.cases.srv.model.ScriptSummary;
 import colesico.zacepco.script.model.script.Script;
 import colesico.zacepco.script.pkg.*;
 import jakarta.inject.Provider;
@@ -83,15 +83,15 @@ public class CaseFileService {
         caseFile.setAccess(CaseFileAccessType.PRIVATE);
         caseFile.setCreatedAt(new Date());
 
-        var scriptRef = new ScriptReference();
-        caseFile.setScript(scriptRef);
+        var summary = new ScriptSummary();
+        caseFile.setSummary(summary);
 
-        scriptRef.setId(script.meta.id);
-        scriptRef.setTitle(script.meta.title);
-        scriptRef.setAnnotation(script.meta.annotation);
-        scriptRef.setAuthors(Arrays.asList(script.meta.authors));
-        scriptRef.setVersion(script.meta.version);
-        scriptRef.setCreationDate(script.meta.creationDate);
+        summary.setId(script.meta.id);
+        summary.setTitle(script.meta.title);
+        summary.setAnnotation(script.meta.annotation);
+        summary.setAuthors(Arrays.asList(script.meta.authors));
+        summary.setVersion(script.meta.version);
+        summary.setCreationDate(script.meta.creationDate);
 
         caseFileDao.createCaseFile(caseFile);
 

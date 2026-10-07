@@ -7,21 +7,22 @@
   import UiLocalMenuItem from "@common/widget/UiLocalMenuItem.svelte";
   
   
-  import CaseScroll from "@cases/widget/CaseScroll"
-
+  let { params = {} } = $props();
+  const id = $derived(params.id);
+  
   let error = $state(null);
   let loading = $state(true);
   
-  let cases = $state([]);
+  let entries = $state([]);
   
   $inspect(error); 
-  $inspect(cases); 
+  $inspect(entries); 
 
 
   $effect(() => {
     async function loadData() {
       try {
-        cases = await caseFileApi.listCaseFiles(100,0);
+        entries = await caseFileApi.listCaseFiles(100,0);
       } catch (ex) {
         error = ex.data;
       } finally {
@@ -46,8 +47,8 @@
       href="/cases/create"
     />
   </UiLocalMenu>
-  <h1>Реестр дел</h1>
-  <CaseScroll {cases} />
+  <h1>Дело #{id}</h1>
+
 </div>
 
 <style>

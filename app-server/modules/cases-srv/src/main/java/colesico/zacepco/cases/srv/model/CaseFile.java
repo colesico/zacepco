@@ -45,7 +45,7 @@ public class CaseFile {
      * Script reference
      */
     @Composition(renaming = "script_@column")
-    private ScriptReference script;
+    private ScriptSummary summary;
 
     public Long getId() {
         return id;
@@ -79,11 +79,11 @@ public class CaseFile {
         this.createdAt = createdAt;
     }
 
-    public ScriptReference getScript() {
-        return script;
+    public ScriptSummary getSummary() {
+        return summary;
     }
 
-    public void setScript(ScriptReference script) {
-        this.script = script;
+    public void setSummary(ScriptSummary summary) {
+        this.summary = summary;
     }
 }

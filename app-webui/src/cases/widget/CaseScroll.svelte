@@ -1,20 +1,20 @@
 <script>
-  import ScriptCard from './ScriptCard.svelte';
+  import CaseCard from './CaseCard';
 
   let { 
-    entries = [], 
+    cases = [], 
     target = '_self' 
   } = $props();
 
  
   $effect(() => {
-    console.log('Entries: %o', entries);
+    console.log('Cases: %o', cases);
   });
 </script>
 
 <div class="dir-card-panel mt-3">
-  {#each entries as entry}
-    <ScriptCard {entry} {target} />
+  {#each cases as caseFile}
+    <CaseCard {caseFile} {target} />
   {/each}
 </div>
 
