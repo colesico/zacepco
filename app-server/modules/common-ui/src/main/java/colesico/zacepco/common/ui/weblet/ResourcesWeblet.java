@@ -33,7 +33,7 @@ public class ResourcesWeblet {
     }
 
     @Route("*")
-    public void get(String routeSuffix) {
+    public void resource(String routeSuffix) {
         staticResource.send(routeSuffix);
     }
 

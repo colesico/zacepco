@@ -3,6 +3,9 @@
   
   import UiErrorMessage from "@common/widget/UiErrorMessage.svelte"
   import UiLoadingIndicator from "@common/widget/UiLoadingIndicator.svelte"
+  import UiLocalMenu from "@common/widget/UiLocalMenu.svelte";
+  import UiLocalMenuItem from "@common/widget/UiLocalMenuItem.svelte";
+  
   
   import ScriptScroll from "@cases/widget/ScriptScroll.svelte"
 
@@ -32,15 +35,20 @@
 </script>
 
 
-<main>
-  <UiLoadingIndicator {loading} />	
-  <h1>Criminal cases</h1>
+<div class="container">
+  <UiLoadingIndicator {loading} />
   <UiErrorMessage {error} />
+   <UiLocalMenu>
+    <UiLocalMenuItem
+      icon="fas fa-clipboard-check"
+      title="Регистрация нового дела на базе сценария преступления"
+      caption="Добавить дело"
+      href="/cases/create"
+    />
+  </UiLocalMenu>
+  <h1>Реестр дел</h1>
   <ScriptScroll {entries} />
-</main>
+</div>
 
 <style>
-  main {
-    padding: 2rem;
-  }
 </style>

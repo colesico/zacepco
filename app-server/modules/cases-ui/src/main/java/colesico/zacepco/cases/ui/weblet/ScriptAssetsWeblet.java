@@ -32,13 +32,13 @@ public class ScriptAssetsWeblet {
 
         ScriptPackage sp = caseFileService.scriptPackage(scriptEntryId);
 
-        PackageResource res;
-        if (assetId.equals("S")) {
-            res = sp.scriptImage();
-        } else {
-            var entityId = EntityId.parse(assetId);
-            res = sp.entityImage(entityId);
-        }
+        PackageResource res = switch (assetId) {
+            case "S" -> sp.scriptImage();
+            default -> {
+                var entityId = EntityId.parse(assetId);
+                yield sp.entityImage(entityId);
+            }
+        };
 
         scriptAssetsService.readAsset(scriptEntryId, res, httpResponse.get().outputStream());
     }

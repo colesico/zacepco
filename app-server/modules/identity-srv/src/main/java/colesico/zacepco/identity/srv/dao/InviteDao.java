@@ -55,7 +55,7 @@ public class InviteDao {
                 where
                     code_hash = :codeHash
                     and invitee_id is null
-                    and expired_at >= NOW()
+                    and expired_at >= strftime('%Y-%m-%dT%H:%M:%fZ', 'now');
                 """;
 
         return handle.get()
