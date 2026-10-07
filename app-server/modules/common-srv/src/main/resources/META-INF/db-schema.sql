@@ -35,7 +35,7 @@ CREATE INDEX IF NOT EXISTS idx_invites_code
 CREATE INDEX IF NOT EXISTS idx_invites_user_id ON invites(user_id);
 
 CREATE TABLE IF NOT EXISTS cases (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id INTEGER PRIMARY KEY NOT NULL,
     user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
     access TEXT NOT NULL CHECK (access IN ('PRIVATE', 'PROTECTED', 'PUBLIC')),
     created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -54,3 +54,10 @@ CREATE UNIQUE INDEX IF NOT EXISTS idx_cases_author_unique
 CREATE UNIQUE INDEX IF NOT EXISTS idx_cases_public_unique
     ON cases (script_id)
     WHERE access = 'PUBLIC';
+
+CREATE TABLE IF NOT EXISTS cases_id_sequence (
+    id INTEGER PRIMARY KEY CHECK (id = 1),
+    value INTEGER NOT NULL
+);
+
+INSERT OR IGNORE INTO cases_id_sequence (id, value) VALUES (1, 0);

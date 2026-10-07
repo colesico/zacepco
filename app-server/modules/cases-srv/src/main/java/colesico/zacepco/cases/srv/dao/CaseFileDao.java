@@ -28,26 +28,23 @@ public class CaseFileDao {
     }
 
     public Long createCaseFileId() {
-        var handle = this.handle.get();
-        return handle.createQuery("select nextval('cases_id_seq')").mapTo(Long.class).one();
+        var sql = "UPDATE cases_id_sequence SET value = value + 1 WHERE id = 1 RETURNING value";
+        return handle.get().createQuery(sql).mapTo(Long.class).one();
     }
 
     public void createCaseFile(CaseFile caseFile) {
-        var handle = this.handle.get();
         String sql = caseFileRk.sql("insert into @table (@columns) values (@values)");
-        handle.createUpdate(sql).bindMap(caseFileRk.map(caseFile)).execute();
+        handle.get().createUpdate(sql).bindMap(caseFileRk.map(caseFile)).execute();
     }
 
     public Optional<CaseFile> findCaseFileById(Long id) {
-        var handle = this.handle.get();
         String sql = caseFileRk.sql("select @columns from @records where id = :id");
-        return handle.createQuery(sql).bind("id", id).map(caseFileRk.mapper()).findOne();
+        return handle.get().createQuery(sql).bind("id", id).map(caseFileRk.mapper()).findOne();
     }
 
     public Optional<CaseFile> findCaseFileByScriptId(String scriptId) {
-        var handle = this.handle.get();
         String sql = caseFileRk.sql("select @columns from @records where script_id = :scriptId");
-        return handle.createQuery(sql).bind("scriptId", scriptId).map(caseFileRk.mapper()).findOne();
+        return handle.get().createQuery(sql).bind("scriptId", scriptId).map(caseFileRk.mapper()).findOne();
     }
 
     public List<CaseFile> listScriptFiles(int limit, long offset) {
