@@ -8,13 +8,12 @@
 </script>
 
 <div class="dir-card">
-  <a href="/catalog/script/{entry.id}" target={target}>
+  <a href="/cases/{entry.id}" target={target}>
     <div class="dir-card-img">
-      <img src="/catalog/assets/{entry.id}/S" alt={entry.summary.title || ''} />
+      <img src="/cases/assets/{entry.id}/S" alt={entry.script.title || ''} />
     </div>
     <div class="dir-card-title">
-      {entry.summary.title} 
-       {entry.summary.version} 
+      {entry.script.title} 
     </div>
   </a>
 </div>
