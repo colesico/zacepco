@@ -1,6 +1,10 @@
 <script>
   let { error = null } = $props();
-  let message = $derived(error?.message || error?.type || 'Неизвестная ошибка');
+  let message = $derived(
+  error != null
+    ? (error.message || error.type || 'Неизвестная ошибка')
+    : null
+);
 </script>
 
 {#if message != null}
