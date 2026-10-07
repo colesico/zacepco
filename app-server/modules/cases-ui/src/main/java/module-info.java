@@ -7,6 +7,7 @@ module colesico.zacepco.cases.ui {
 
     exports colesico.zacepco.cases.ui.weblet;
 
+    opens colesico.zacepco.cases.ui.dto;
     opens colesico.zacepco.cases.ui.webpub.app.js;
     opens colesico.zacepco.cases.ui.webpub.app.css;
 }
