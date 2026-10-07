@@ -24,9 +24,7 @@ public class AuthDao {
     public Auth createAuth(Auth auth) {
 
         String query = "insert into @table ( @columns ) values ( @values )";
-
-        var handle = this.handle.get();
-        int cnt = handle.createUpdate(authRk.sql(query))
+        int cnt = handle.get().createUpdate(authRk.sql(query))
                 .bindMap(authRk.map(auth))
                 .execute();
 

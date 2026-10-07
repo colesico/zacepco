@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS users (
     locale TEXT NOT NULL DEFAULT 'en_US',
     disabled INTEGER NOT NULL DEFAULT 0 CHECK (disabled IN (0, 1)),
     created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
-);
+) STRICT;
 
 CREATE INDEX IF NOT EXISTS idx_users_username ON users(username);
 
@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS auth (
     password_hash TEXT NOT NULL,
     salt TEXT,
     last_login_at TEXT DEFAULT NULL
-);
+) STRICT;
 
 CREATE TABLE IF NOT EXISTS invites (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS invites (
     expired_at TEXT NOT NULL,
     commited_at TEXT,
     CHECK (expired_at > created_at)
-);
+) STRICT;
 
 CREATE INDEX IF NOT EXISTS idx_invites_code
     ON invites(code_hash)
@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS cases (
     script_authors TEXT NOT NULL,
     script_version INTEGER NOT NULL,
     script_creation_date TEXT NOT NULL
-);
+) STRICT;
 
 CREATE UNIQUE INDEX IF NOT EXISTS idx_cases_author_unique
     ON cases (user_id, script_id)

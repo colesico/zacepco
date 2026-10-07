@@ -47,7 +47,7 @@ public class InitialService {
     }
 
     @PlainMethod
-    public void cleanup(){
+    public void cleanup() {
         initialInviteCodes.clear();
         initialUserPassword = null;
     }
