@@ -4,7 +4,7 @@ export async function listCaseFiles(limit, offset){
 	return await restletUtils.restletGet("/api/cases/case-file",{limit,offset});
 }
 
-export async function createScriptFile(file){
+export async function createCaseFile(file){
 	const formData = new FormData();
 	formData.append('script', file);
 	

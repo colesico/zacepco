@@ -8,6 +8,7 @@ export default defineConfig({
       '@common': resolve(import.meta.dirname, './src/common'),
 	  '@cases': resolve(import.meta.dirname, './src/cases')
     },
+	extensions: ['.js', '.svelte']
   },
 
   // Watch src files changes (for dev mode)
