@@ -2,8 +2,8 @@ package colesico.zacepco.identity.srv.model;
 
 import colesico.framework.jdbirec.Column;
 import colesico.framework.jdbirec.Record;
-import colesico.framework.jdbirec.mediators.DateMediator;
-import colesico.framework.jdbirec.mediators.LocaleMediator;
+import colesico.framework.jdbirec.mediators.DateTextMediator;
+import colesico.framework.jdbirec.mediators.LocaleTextMediator;
 
 import java.util.Date;
 import java.util.Locale;
@@ -20,10 +20,10 @@ public class User {
     @Column
     public Boolean disabled;
 
-    @Column(mediator = LocaleMediator.class)
+    @Column(mediator = LocaleTextMediator.class)
     public Locale locale;
 
-    @Column(mediator = DateMediator.class)
+    @Column(mediator = DateTextMediator.class)
     public Date createdAt;
 
     public Long getId() {

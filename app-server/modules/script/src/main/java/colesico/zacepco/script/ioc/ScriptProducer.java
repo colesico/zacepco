@@ -51,6 +51,9 @@ public class ScriptProducer {
         return scriptPackageFactory.get(packageDriver);
     }
 
+    /**
+     *  To get ScriptPackage instance with DirectoryPackageDriver for specified path
+     */
     @Unscoped
     @Classed(DirectoryPackageDriver.class)
     public ScriptPackage scriptPackageForScriptDirectory(

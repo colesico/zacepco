@@ -2,7 +2,7 @@ package colesico.zacepco.identity.srv.model;
 
 import colesico.framework.jdbirec.Column;
 import colesico.framework.jdbirec.Record;
-import colesico.framework.jdbirec.mediators.DateMediator;
+import colesico.framework.jdbirec.mediators.DateTextMediator;
 
 import java.util.Date;
 
@@ -28,18 +28,18 @@ public class Invite {
     public String codeHash;
 
     /**
-     *  The newly registered person who used the code to join
+     * The newly registered person who used the code to join
      */
     @Column
     public Long inviteeId;
 
-    @Column(mediator = DateMediator.class)
+    @Column(mediator = DateTextMediator.class)
     public Date createdAt;
 
-    @Column(mediator = DateMediator.class)
+    @Column(mediator = DateTextMediator.class)
     public Date expiredAt;
 
-    @Column(mediator = DateMediator.class)
+    @Column(mediator = DateTextMediator.class)
     public Date commitedAt;
 
     public Long getId() {

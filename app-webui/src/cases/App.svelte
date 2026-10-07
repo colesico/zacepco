@@ -12,7 +12,7 @@
   
 </script>
 
-<Router {routes} hashMode={false} />
+<Router {routes}/>
 
 <style>
 </style>

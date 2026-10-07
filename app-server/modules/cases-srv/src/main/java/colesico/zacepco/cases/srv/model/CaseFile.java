@@ -3,6 +3,7 @@ package colesico.zacepco.cases.srv.model;
 import colesico.framework.jdbirec.Column;
 import colesico.framework.jdbirec.Composition;
 import colesico.framework.jdbirec.Record;
+import colesico.framework.jdbirec.mediators.DateTextMediator;
 import colesico.zacepco.cases.srv.jdbi.AccessTypeMediator;
 import colesico.zacepco.script.model.script.Script;
 
@@ -37,7 +38,7 @@ public class CaseFile {
     /**
      * Case file creation date
      */
-    @Column
+    @Column(mediator = DateTextMediator.class)
     private Date createdAt;
 
     /**

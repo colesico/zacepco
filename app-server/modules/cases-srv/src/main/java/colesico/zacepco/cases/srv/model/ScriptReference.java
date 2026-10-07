@@ -1,7 +1,8 @@
 package colesico.zacepco.cases.srv.model;
 
 import colesico.framework.jdbirec.Column;
-import colesico.framework.jdbirec.mediators.StringListMediator;
+import colesico.framework.jdbirec.mediators.ListStringTextMediator;
+import colesico.framework.jdbirec.mediators.LocalDateTextMediator;
 import colesico.zacepco.script.model.script.ScriptMetadata;
 
 import java.time.LocalDate;
@@ -27,7 +28,7 @@ public class ScriptReference {
     @Column
     public String annotation;
 
-    @Column(mediator = StringListMediator.class)
+    @Column(mediator = ListStringTextMediator.class)
     public List<String> authors;
 
     /**
@@ -39,7 +40,7 @@ public class ScriptReference {
     /**
      * Script creation date
      */
-    @Column
+    @Column(mediator = LocalDateTextMediator.class)
     private LocalDate creationDate;
 
     public String getId() {

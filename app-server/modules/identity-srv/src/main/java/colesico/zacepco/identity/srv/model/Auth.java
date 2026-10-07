@@ -2,7 +2,7 @@ package colesico.zacepco.identity.srv.model;
 
 import colesico.framework.jdbirec.Column;
 import colesico.framework.jdbirec.Record;
-import colesico.framework.jdbirec.mediators.DateMediator;
+import colesico.framework.jdbirec.mediators.DateTextMediator;
 
 import java.util.Date;
 
@@ -21,7 +21,7 @@ public class Auth {
     @Column
     public String salt;
 
-    @Column(mediator = DateMediator.class)
+    @Column(mediator = DateTextMediator.class)
     public Date lastLoginAt;
 
     public Long getUserId() {

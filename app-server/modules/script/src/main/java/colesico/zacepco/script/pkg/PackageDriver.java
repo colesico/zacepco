@@ -69,6 +69,9 @@ abstract public class PackageDriver implements Closeable {
                 }
                 zis.closeEntry();
             }
+            if (entriesCount < 2){
+                throw new RuntimeException("Invalid script package");
+            }
         }
     }
 
