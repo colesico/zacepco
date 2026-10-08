@@ -7,7 +7,7 @@
 	
 	import { push, replace } from 'svelte-spa-router';
   
-	import * as caseFileApi from "../api/CaseFileApi.js";
+	import * as casebookApi from "../api/CasebookApi.js";
 
     let error = $state(null);
     let loading = $state(false);
@@ -28,7 +28,7 @@
 
 		try {
 		    console.log('Call api');
-			const response = await caseFileApi.createCaseFile(file);
+			const response = await casebookApi.createCasebook(file);
 		} catch (ex) {
 			error = ex.data;
 		} finally {

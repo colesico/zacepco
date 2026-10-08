@@ -1,13 +1,13 @@
 package colesico.zacepco.cases.srv.jdbi;
 
 import colesico.framework.jdbirec.mediators.EnumTextMediator;
-import colesico.zacepco.cases.srv.model.CaseFileAccessType;
+import colesico.zacepco.cases.srv.model.CasebookAccessType;
 
-public class AccessTypeMediator extends EnumTextMediator<CaseFileAccessType> {
+public class AccessTypeMediator extends EnumTextMediator<CasebookAccessType> {
 
     @Override
-    protected CaseFileAccessType valueOf(String name) {
-        return CaseFileAccessType.valueOf(name);
+    protected CasebookAccessType valueOf(String name) {
+        return CasebookAccessType.valueOf(name);
     }
 
 }

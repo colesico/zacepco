@@ -8,62 +8,61 @@ import colesico.framework.jjwt.WebJwt;
 import colesico.framework.restlet.Restlet;
 import colesico.framework.security.authentication.Authentication;
 import colesico.framework.telehttp.ParamName;
-import colesico.zacepco.cases.srv.model.CaseFile;
-import colesico.zacepco.cases.srv.service.CaseFileService;
-import colesico.zacepco.cases.ui.dto.CaseFileDetails;
-import colesico.zacepco.cases.ui.dto.EntityDetails;
+import colesico.zacepco.cases.srv.model.Casebook;
+import colesico.zacepco.cases.srv.service.CasebookService;
+import colesico.zacepco.cases.ui.dto.CasebookDemo;
+import colesico.zacepco.cases.ui.dto.EntityDemo;
 
 import java.util.List;
 
 @Restlet
-@Route("./case-file")
-public class CaseFileRestlet {
-    private final CaseFileService caseFileService;
+@Route("./casebook")
+public class CasebookRestlet {
+    private final CasebookService casebookService;
 
-    public CaseFileRestlet(CaseFileService caseFileService) {
-        this.caseFileService = caseFileService;
+    public CasebookRestlet(CasebookService casebookService) {
+        this.casebookService = casebookService;
     }
 
     @RequestMethod(HttpMethod.POST)
     @Route("./")
     @Authentication(WebJwt.class)
-    public CaseFile createCaseFile(@ParamName("script") HttpFile scriptFile) {
-        return caseFileService.createCaseFile(scriptFile.inputStream());
+    public Casebook createCasebook(@ParamName("script") HttpFile scriptFile) {
+        return casebookService.createCasebook(scriptFile.inputStream());
     }
 
     @Route("./")
-    public List<CaseFile> listCaseFiles(Integer limit, Long offset) {
-        return caseFileService.listCaseFiles(limit, offset);
+    public List<Casebook> listCasebooks(Integer limit, Long offset) {
+        return casebookService.listCasebooks(limit, offset);
     }
 
-    @Route("./details/:caseFileId")
-    public CaseFileDetails details(Long caseFileId) {
+    @Route("./demo/:casebookId")
+    public CasebookDemo demo(Long casebookId) {
         try {
             // var caseFile = caseFileService.findCaseFileById(caseFileId);
-            var scriptPackage = caseFileService.scriptPackage(caseFileId);
+            var scriptPackage = casebookService.scriptPackage(casebookId);
             var script = scriptPackage.script().read();
-            var details = new CaseFileDetails();
+            var casebookDemo = new CasebookDemo();
 
-            details.caseFileId = caseFileId;
-            details.meta = script.meta;
+            casebookDemo.caseFileId = casebookId;
+            casebookDemo.meta = script.meta;
 
             for (var location : script.setting.scene.locations) {
                 if (location.hidden) {
                     continue;
                 }
-                var entityDetails = new EntityDetails();
+                var entityDetails = new EntityDemo();
                 entityDetails.id = location.id;
                 entityDetails.name = location.name;
                 entityDetails.description = location.description;
-                details.locations.add(entityDetails);
+                casebookDemo.locations.add(entityDetails);
             }
 
-            return details;
+            return casebookDemo;
 
         } catch (Exception ex) {
             throw new RuntimeException(ex);
         }
     }
-
 
 }

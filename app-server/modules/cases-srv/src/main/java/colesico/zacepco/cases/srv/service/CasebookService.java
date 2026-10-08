@@ -7,10 +7,10 @@ import colesico.framework.security.authorization.RequireIdentity;
 import colesico.framework.service.PlainMethod;
 import colesico.framework.service.Service;
 import colesico.framework.transaction.Transactional;
-import colesico.zacepco.cases.srv.dao.CaseFileDao;
+import colesico.zacepco.cases.srv.dao.CasebookDao;
 import colesico.zacepco.cases.srv.filestorage.StoragePackageDriver;
-import colesico.zacepco.cases.srv.model.CaseFile;
-import colesico.zacepco.cases.srv.model.CaseFileAccessType;
+import colesico.zacepco.cases.srv.model.Casebook;
+import colesico.zacepco.cases.srv.model.CasebookAccessType;
 import colesico.zacepco.cases.srv.model.ScriptSummary;
 import colesico.zacepco.script.model.script.Script;
 import colesico.zacepco.script.pkg.*;
@@ -22,11 +22,11 @@ import java.util.*;
 
 @Service
 @Transactional
-public class CaseFileService {
+public class CasebookService {
 
     private final ScriptAssetsService assetsService;
 
-    private final CaseFileDao caseFileDao;
+    private final CasebookDao casebookDao;
 
     /**
      * Script package API
@@ -38,13 +38,13 @@ public class CaseFileService {
      */
     private final Provider<Identity> identity;
 
-    public CaseFileService(
-            CaseFileDao caseFileDao,
+    public CasebookService(
+            CasebookDao casebookDao,
             @Classed(StoragePackageDriver.class) Supplier<ScriptPackage> scriptPackage,
             Provider<Identity> identity,
             ScriptAssetsService assetsService) {
 
-        this.caseFileDao = caseFileDao;
+        this.casebookDao = casebookDao;
         this.scriptPackage = scriptPackage;
         this.identity = identity;
         this.assetsService = assetsService;
@@ -55,17 +55,17 @@ public class CaseFileService {
     }
 
     @RequireIdentity
-    public CaseFile createCaseFile(InputStream scriptPackageData) {
+    public Casebook createCasebook(InputStream scriptPackageData) {
         Long userId = identity.get().longId();
-        return createCaseFile(userId, scriptPackageData);
+        return createCasebook(userId, scriptPackageData);
     }
 
     /**
-     * Add script package to catalog
+     * Add script package to registry
      */
-    public CaseFile createCaseFile(Long userId, InputStream scriptPackageData) {
+    public Casebook createCasebook(Long userId, InputStream scriptPackageData) {
 
-        var scriptEntryId = caseFileDao.createCaseFileId();
+        var scriptEntryId = casebookDao.createCasebookId();
 
         Script script;
 
@@ -77,14 +77,14 @@ public class CaseFileService {
             throw new RuntimeException(e);
         }
 
-        CaseFile caseFile = new CaseFile();
-        caseFile.setId(scriptEntryId);
-        caseFile.setUserId(userId);
-        caseFile.setAccess(CaseFileAccessType.PRIVATE);
-        caseFile.setCreatedAt(new Date());
+        Casebook casebook = new Casebook();
+        casebook.setId(scriptEntryId);
+        casebook.setUserId(userId);
+        casebook.setAccess(CasebookAccessType.PRIVATE);
+        casebook.setCreatedAt(new Date());
 
         var summary = new ScriptSummary();
-        caseFile.setSummary(summary);
+        casebook.setSummary(summary);
 
         summary.setId(script.meta.id);
         summary.setTitle(script.meta.title);
@@ -93,39 +93,39 @@ public class CaseFileService {
         summary.setVersion(script.meta.version);
         summary.setCreationDate(script.meta.creationDate);
 
-        caseFileDao.createCaseFile(caseFile);
+        casebookDao.createCasebook(casebook);
 
-        return caseFile;
+        return casebook;
     }
 
     /**
      * Remove case file from catalog
      */
-    public void removeCaseFile(Long id) {
+    public void removeCasebook(Long id) {
 
     }
 
     /**
      * Get case file by id
      */
-    public Optional<CaseFile> findCaseFileById(Long id) {
-        return caseFileDao.findCaseFileById(id);
+    public Optional<Casebook> findCasebookById(Long id) {
+        return casebookDao.findCasebookById(id);
     }
 
     /**
      * List case fies in reverse creation order
      */
-    public List<CaseFile> listCaseFiles(int limit, long offset) {
-        return caseFileDao.listScriptFiles(limit, offset);
+    public List<Casebook> listCasebooks(int limit, long offset) {
+        return casebookDao.listCasebooks(limit, offset);
     }
 
     /**
      * Get Script package API
      *
-     * @param caseFileId script entry id
+     * @param casebookId script entry id
      */
     @PlainMethod
-    public ScriptPackage scriptPackage(Long caseFileId) {
-        return scriptPackage.get(scriptPackageId(caseFileId));
+    public ScriptPackage scriptPackage(Long casebookId) {
+        return scriptPackage.get(scriptPackageId(casebookId));
     }
 }

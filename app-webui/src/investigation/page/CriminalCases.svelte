@@ -1,7 +1,4 @@
 <script>
-  import * as criminalCaseApi from "../api/CriminalCaseApi.js";
-  
-  let lastCases = criminalCaseApi.lastCases(1,1);  
 </script>
 
 <main>

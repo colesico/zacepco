@@ -1,5 +1,5 @@
 <script>
-  import * as caseFileApi from "../api/CaseFileApi.js";
+  import * as casebookApi from "../api/CasebookApi.js";
   
   import UiErrorMessage from "@common/widget/UiErrorMessage.svelte"
   import UiLoadingIndicator from "@common/widget/UiLoadingIndicator.svelte"
@@ -22,7 +22,7 @@
   $effect(() => {
     async function loadData() {
       try {
-        entries = await caseFileApi.listCaseFiles(100,0);
+        entries = await casebookApi.listCasebooks(100,0);
       } catch (ex) {
         error = ex.data;
       } finally {

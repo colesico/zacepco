@@ -5,14 +5,14 @@ import colesico.zacepco.script.model.script.ScriptMetadata;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CaseFileDetails {
+public class CasebookDemo {
     public Long caseFileId;
 
     public ScriptMetadata meta;
 
-    public List<EntityDetails> locations = new ArrayList<>();
+    public List<EntityDemo> locations = new ArrayList<>();
 
-    public List<EntityDetails> personages = new ArrayList<>();
+    public List<EntityDemo> personages = new ArrayList<>();
 
     public Long getCaseFileId() {
         return caseFileId;
@@ -30,19 +30,19 @@ public class CaseFileDetails {
         this.meta = meta;
     }
 
-    public List<EntityDetails> getLocations() {
+    public List<EntityDemo> getLocations() {
         return locations;
     }
 
-    public void setLocations(List<EntityDetails> locations) {
+    public void setLocations(List<EntityDemo> locations) {
         this.locations = locations;
     }
 
-    public List<EntityDetails> getPersonages() {
+    public List<EntityDemo> getPersonages() {
         return personages;
     }
 
-    public void setPersonages(List<EntityDetails> personages) {
+    public void setPersonages(List<EntityDemo> personages) {
         this.personages = personages;
     }
 }
