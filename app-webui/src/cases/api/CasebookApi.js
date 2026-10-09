@@ -10,3 +10,7 @@ export async function createCasebook(file){
 	
 	return await restletUtils.restletPost("/cases/api/casebook",formData,{});
 }
+
+export async function casebookOverview(casebookId){
+	return await restletUtils.restletGet("/cases/api/casebook/overview/"+casebookId);
+}

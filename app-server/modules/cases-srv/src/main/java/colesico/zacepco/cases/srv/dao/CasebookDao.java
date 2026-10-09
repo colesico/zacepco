@@ -56,11 +56,10 @@ public class CasebookDao {
                 """;
         var handle = this.handle.get();
         String sql = casebookRk.sql(query);
-        return handle.createQuery(sql)
+        return  handle.createQuery(sql)
                 .bind("limit", limit)
                 .bind("offset", offset)
                 .map(casebookRk.mapper())
                 .list();
-
     }
 }

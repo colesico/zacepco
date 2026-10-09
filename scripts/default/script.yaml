@@ -91,6 +91,15 @@ setting:
       # Clue the character interacted with.
       # Reflects the change of interaction state - dropping, picking up, passing, ...
       clue: C2
+  - id: P2
+    # Short name
+    name: Butler
+    # Detailed description.
+    # Entity identifiers and variables can be specified with a '$' prefix.
+    # Examples: Location is $L2. Personage say $msg
+    description: |
+      Knows all the secrets and secret passages,  is cold-blooded, has the perfect motive for murder.
+   
   # 
   # Crime scene definition
   # 

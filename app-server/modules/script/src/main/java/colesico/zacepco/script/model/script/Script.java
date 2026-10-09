@@ -19,7 +19,7 @@ public class Script {
             "Script meta information.",
             ""
     })
-    public ScriptMetadata meta;
+    public ScriptMeta meta;
 
     @YamlComment(text = {
             "",
@@ -62,11 +62,11 @@ public class Script {
     public Script() {
     }
 
-    public ScriptMetadata getMeta() {
+    public ScriptMeta getMeta() {
         return meta;
     }
 
-    public void setMeta(ScriptMetadata meta) {
+    public void setMeta(ScriptMeta meta) {
         this.meta = meta;
     }
 

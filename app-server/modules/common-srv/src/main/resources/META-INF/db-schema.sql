@@ -60,4 +60,4 @@ CREATE TABLE IF NOT EXISTS casebooks_id_sequence (
     value INTEGER NOT NULL
 );
 
-INSERT OR IGNORE INTO cases_id_sequence (id, value) VALUES (1, 0);
+INSERT OR IGNORE INTO casebooks_id_sequence (id, value) VALUES (1, 0);

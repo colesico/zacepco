@@ -2,7 +2,7 @@ package colesico.zacepco.cases.ui.dto;
 
 import colesico.zacepco.script.model.setting.EntityId;
 
-public class EntityDemo {
+public class EntityOverview {
 
     public EntityId id;
 

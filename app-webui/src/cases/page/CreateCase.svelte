@@ -15,6 +15,9 @@
 	let fileInput = $state(null);
 
 	async function uploadFile(event) {
+
+		error = null;
+		
 	    console.log('Submit form...');
 		event.preventDefault(); 
 

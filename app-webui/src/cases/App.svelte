@@ -3,13 +3,13 @@
   import { link } from 'svelte-spa-router'; 
   import CaseList from './page/CaseList.svelte';
   import CreateCase from './page/CreateCase.svelte';
-  import CaseDetails from './page/CaseDetails';
+  import CaseOverview from './page/CaseOverview';
 
   
   const routes = {
     '/': CaseList,
 	'/cases/create': CreateCase,
-	'/cases/:id': CaseDetails
+	'/cases/:id': CaseOverview
   };
   
 </script>

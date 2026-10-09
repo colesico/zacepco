@@ -10,8 +10,8 @@ import colesico.framework.security.authentication.Authentication;
 import colesico.framework.telehttp.ParamName;
 import colesico.zacepco.cases.srv.model.Casebook;
 import colesico.zacepco.cases.srv.service.CasebookService;
-import colesico.zacepco.cases.ui.dto.CasebookDemo;
-import colesico.zacepco.cases.ui.dto.EntityDemo;
+import colesico.zacepco.cases.ui.dto.CasebookOverview;
+import colesico.zacepco.cases.ui.dto.EntityOverview;
 
 import java.util.List;
 
@@ -36,29 +36,40 @@ public class CasebookRestlet {
         return casebookService.listCasebooks(limit, offset);
     }
 
-    @Route("./demo/:casebookId")
-    public CasebookDemo demo(Long casebookId) {
+    @Route("./overview/:casebookId")
+    public CasebookOverview casebookOverview(Long casebookId) {
         try {
             // var caseFile = caseFileService.findCaseFileById(caseFileId);
             var scriptPackage = casebookService.scriptPackage(casebookId);
             var script = scriptPackage.script().read();
-            var casebookDemo = new CasebookDemo();
+            var casebookOverview = new CasebookOverview();
 
-            casebookDemo.caseFileId = casebookId;
-            casebookDemo.meta = script.meta;
+            casebookOverview.casebookId = casebookId;
+            casebookOverview.meta = script.meta;
 
             for (var location : script.setting.scene.locations) {
-                if (location.hidden) {
+                if (location.hidden()) {
                     continue;
                 }
-                var entityDetails = new EntityDemo();
-                entityDetails.id = location.id;
-                entityDetails.name = location.name;
-                entityDetails.description = location.description;
-                casebookDemo.locations.add(entityDetails);
+                var entityOverview = new EntityOverview();
+                entityOverview.id = location.id;
+                entityOverview.name = location.name;
+                entityOverview.description = location.description;
+                casebookOverview.locations.add(entityOverview);
             }
 
-            return casebookDemo;
+            for (var personage : script.setting.personages) {
+                if (personage.hidden()) {
+                    continue;
+                }
+                var entityOverview = new EntityOverview();
+                entityOverview.id = personage.id;
+                entityOverview.name = personage.name;
+                entityOverview.description = personage.description;
+                casebookOverview.personages.add(entityOverview);
+            }
+
+            return casebookOverview;
 
         } catch (Exception ex) {
             throw new RuntimeException(ex);

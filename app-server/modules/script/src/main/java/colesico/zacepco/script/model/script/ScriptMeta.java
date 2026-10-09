@@ -8,7 +8,7 @@ import java.time.LocalDate;
 /**
  * Script general metadata
  */
-public class ScriptMetadata {
+public class ScriptMeta {
 
     /**
      * Script schema version (<a href="https://semver.org/">SemVer</a>)
