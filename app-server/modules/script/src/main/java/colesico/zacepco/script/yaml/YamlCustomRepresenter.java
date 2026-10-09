@@ -125,7 +125,7 @@ public class YamlCustomRepresenter extends Representer {
         @Override
         public Node representData(Object data) {
             EntityId entityId = (EntityId) data;
-            String id = entityId.getId();
+            String id = entityId.asString();
             return representScalar(Tag.STR, id);
         }
     }

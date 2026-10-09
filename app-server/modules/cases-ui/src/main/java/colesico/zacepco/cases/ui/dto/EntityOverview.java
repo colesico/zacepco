@@ -4,17 +4,17 @@ import colesico.zacepco.script.model.setting.EntityId;
 
 public class EntityOverview {
 
-    public EntityId id;
+    public String id;
 
     public String name;
 
     public String description;
 
-    public EntityId getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(EntityId id) {
+    public void setId(String id) {
         this.id = id;
     }
 

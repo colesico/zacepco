@@ -15,6 +15,8 @@
   
   let overview = $state(null);
   
+  let entityDescription = $state(null);
+  
   $inspect(error); 
   $inspect(overview); 
 
@@ -114,8 +116,7 @@
       
 	</div>
 	
-	<br/>
-	
+
   
   <h2 class="mt-5 mb-4">Персонажи</h2>
   
@@ -125,7 +126,10 @@
     {#each overview.personages as personage}
       <div class="col">
         <!-- Карточка персонажа -->
-        <div class="card h-100 border-0 bg-light text-center shadow-sm">
+        <div class="card h-100 border-0 bg-light text-center shadow-sm"
+		 style="cursor: pointer;"
+		 onclick={() => entityDescription = personage.name+": "+personage.description}
+		>
           
           <!-- Контейнер для квадратного или пропорционального фото -->
           <div class="ratio ratio-1x1 card-img-top overflow-hidden rounded-top">
@@ -148,9 +152,35 @@
     {/each}
     
   </div>
-
-
   {/if}	
+
+
+{#if entityDescription}
+  <div class="modal-backdrop fade show"></div>
+
+  <div class="modal fade show d-block" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content shadow border-0 p-3 position-relative" >
+        
+        <button 
+		  type="button" 
+		  class="btn-close position-absolute top-0 end-0 m-1 p-1 shadow-none" 
+		  style="cursor: pointer; z-index: 1060; min-width: auto;"
+		  aria-label="Закрыть" 
+		  onclick={() => entityDescription = null}
+		></button>
+        
+        <div class="modal-body p-2 pt-3">
+          <p class="text-muted mb-0 text-center" style="white-space: pre-line;">
+            {entityDescription || "Описание отсутствует."}
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+{/if}
+
 </div>
 
 <style>

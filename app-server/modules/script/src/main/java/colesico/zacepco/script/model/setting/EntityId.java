@@ -47,7 +47,7 @@ abstract public sealed class EntityId permits PersonageId, ClueId, LocationId, T
         };
     }
 
-    public String getId(){
+    public final String asString(){
         return type.code()+value;
     }
 

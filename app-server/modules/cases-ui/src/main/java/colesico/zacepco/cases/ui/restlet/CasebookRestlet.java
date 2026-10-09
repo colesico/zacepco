@@ -52,7 +52,7 @@ public class CasebookRestlet {
                     continue;
                 }
                 var entityOverview = new EntityOverview();
-                entityOverview.id = location.id;
+                entityOverview.id = location.id.asString();
                 entityOverview.name = location.name;
                 entityOverview.description = location.description;
                 casebookOverview.locations.add(entityOverview);
@@ -63,7 +63,7 @@ public class CasebookRestlet {
                     continue;
                 }
                 var entityOverview = new EntityOverview();
-                entityOverview.id = personage.id;
+                entityOverview.id = personage.id.asString();
                 entityOverview.name = personage.name;
                 entityOverview.description = personage.description;
                 casebookOverview.personages.add(entityOverview);
