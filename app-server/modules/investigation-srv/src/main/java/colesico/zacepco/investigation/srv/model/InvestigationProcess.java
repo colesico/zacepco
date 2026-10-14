@@ -46,5 +46,51 @@ public class InvestigationProcess {
     @Column
     private Date created;
 
+    public Long getId() {
+        return id;
+    }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getUserid() {
+        return userid;
+    }
+
+    public void setUserid(Long userid) {
+        this.userid = userid;
+    }
+
+    public InvestigationStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(InvestigationStatus status) {
+        this.status = status;
+    }
+
+    public Integer getResource() {
+        return resource;
+    }
+
+    public void setResource(Integer resource) {
+        this.resource = resource;
+    }
+
+    public Long getScriptId() {
+        return scriptId;
+    }
+
+    public void setScriptId(Long scriptId) {
+        this.scriptId = scriptId;
+    }
+
+    public Date getCreated() {
+        return created;
+    }
+
+    public void setCreated(Date created) {
+        this.created = created;
+    }
 }

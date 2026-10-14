@@ -7,10 +7,10 @@ module colesico.zacepco.caseregistry.srv {
     requires transitive colesico.zacepco.script;
 
 
-    exports colesico.zacepco.cases.srv.ioc;
-    exports colesico.zacepco.cases.srv.model;
-    exports colesico.zacepco.cases.srv.dao;
-    exports colesico.zacepco.cases.srv.service;
+    exports colesico.zacepco.caseregistry.srv.ioc;
+    exports colesico.zacepco.caseregistry.srv.model;
+    exports colesico.zacepco.caseregistry.srv.dao;
+    exports colesico.zacepco.caseregistry.srv.service;
     // exports colesico.zacepco.inquiry.srv.dto;
 
 }

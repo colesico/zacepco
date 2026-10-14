@@ -5,9 +5,9 @@ module colesico.zacepco.caseregistry.ui {
     requires colesico.framework.weblet;
     requires colesico.zacepco.common.ui;
 
-    exports colesico.zacepco.cases.ui.weblet;
+    exports colesico.zacepco.caseregistry.ui.weblet;
 
-    opens colesico.zacepco.cases.ui.dto;
-    opens colesico.zacepco.cases.ui.webpub.app.js;
-    opens colesico.zacepco.cases.ui.webpub.app.css;
+    opens colesico.zacepco.caseregistry.ui.dto;
+    opens colesico.zacepco.caseregistry.ui.webpub.app.js;
+    opens colesico.zacepco.caseregistry.ui.webpub.app.css;
 }
