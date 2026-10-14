@@ -31,7 +31,7 @@
         </dependency>
         <dependency>
             <groupId>net.colesico.zacepco</groupId>
-            <artifactId>zacepco-investigation-srv</artifactId>
+            <artifactId>zacepco-crimeinv-srv</artifactId>
             <version>${project.version}</version>
         </dependency>
 

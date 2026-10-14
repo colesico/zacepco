@@ -2,7 +2,7 @@ package colesico.zacepco.investigation.ui.restlet;
 
 import colesico.framework.httprouter.Route;
 import colesico.framework.restlet.Restlet;
-import colesico.zacepco.investigation.srv.model.InvestigationProcess;
+import colesico.zacepco.crimeinv.srv.model.InvestigationProcess;
 
 import java.util.List;
 

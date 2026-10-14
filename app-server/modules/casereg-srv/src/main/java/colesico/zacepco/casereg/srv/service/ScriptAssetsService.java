@@ -4,7 +4,7 @@ import colesico.framework.service.Service;
 import colesico.framework.transaction.Transactional;
 import colesico.zacepco.casereg.srv.model.ScriptAssetType;
 import colesico.zacepco.common.srv.utils.ImageUtils;
-import colesico.zacepco.filestorage.service.FileStorage;
+import colesico.zacepco.filestore.service.FileStorage;
 import colesico.zacepco.script.pkg.PackageResource;
 import colesico.zacepco.script.pkg.ScriptPackage;
 

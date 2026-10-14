@@ -2,7 +2,7 @@ package colesico.zacepco.casereg.srv.filestorage;
 
 import colesico.framework.ioc.message.IocMessage;
 import colesico.framework.ioc.scope.Unscoped;
-import colesico.zacepco.filestorage.service.FileStorage;
+import colesico.zacepco.filestore.service.FileStorage;
 import colesico.zacepco.script.pkg.PackageDriver;
 import colesico.zacepco.script.pkg.ResourcePath;
 

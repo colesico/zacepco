@@ -1,6 +1,6 @@
 module colesico.zacepco.investigation.ui {
 
-    requires transitive colesico.zacepco.investigation.srv;
+    requires transitive colesico.zacepco.crimeinv.srv;
 
     requires colesico.framework.weblet;
     requires colesico.zacepco.common.ui;

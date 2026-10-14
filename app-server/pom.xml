@@ -123,7 +123,7 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <modules>
-                <module>modules/file-storage</module>
+                <module>modules/filestore</module>
                 <module>modules/common-srv</module>
                 <module>modules/common-ui</module>
                 <module>modules/identity-srv</module>
@@ -131,7 +131,7 @@
                 <module>modules/script</module>
                 <module>modules/casereg-srv</module>
                 <module>modules/casereg-ui</module>
-                <module>modules/investigation-srv</module>
+                <module>modules/crimeinv-srv</module>
                 <module>modules/investigation-ui</module>
                 <module>modules/main</module>
             </modules>
