@@ -11,29 +11,38 @@
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
-    <artifactId>zacepco-cases-ui</artifactId>
+    <artifactId>zacepco-case-registry-srv</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
 
-    <name>Zacepco - Cases UI</name>
+    <name>Zacepco - Cases Service</name>
     <description>
-        Zacepco script catalog UI
+        Zacepco script catalog service
     </description>
     <properties>
     </properties>
 
     <dependencies>
         <!-- Zacepco -->
+
         <dependency>
             <groupId>net.colesico.zacepco</groupId>
-            <artifactId>zacepco-common-ui</artifactId>
+            <artifactId>zacepco-file-storage</artifactId>
             <version>${project.version}</version>
         </dependency>
+
         <dependency>
             <groupId>net.colesico.zacepco</groupId>
-            <artifactId>zacepco-cases-srv</artifactId>
+            <artifactId>zacepco-script</artifactId>
             <version>${project.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>net.colesico.zacepco</groupId>
+            <artifactId>zacepco-common-srv</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
 
     </dependencies>
 </project>

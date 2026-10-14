@@ -1,4 +1,4 @@
-module colesico.zacepco.cases.srv {
+module colesico.zacepco.caseregistry.srv {
 
     requires jakarta.inject;
     requires colesico.framework.config;

@@ -11,7 +11,7 @@ public class LocationRef {
     private Long id;
 
     /**
-     * @see CriminalCase
+     * @see InvestigationProcess
      */
     private Long investigationId;
 

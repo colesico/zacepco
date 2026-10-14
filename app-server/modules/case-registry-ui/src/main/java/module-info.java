@@ -1,6 +1,6 @@
-module colesico.zacepco.cases.ui {
+module colesico.zacepco.caseregistry.ui {
 
-    requires transitive colesico.zacepco.cases.srv;
+    requires transitive colesico.zacepco.caseregistry.srv;
 
     requires colesico.framework.weblet;
     requires colesico.zacepco.common.ui;

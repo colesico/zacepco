@@ -2,7 +2,7 @@ package colesico.zacepco.investigation.ui.restlet;
 
 import colesico.framework.httprouter.Route;
 import colesico.framework.restlet.Restlet;
-import colesico.zacepco.investigation.srv.model.CriminalCase;
+import colesico.zacepco.investigation.srv.model.InvestigationProcess;
 
 import java.util.List;
 
@@ -10,8 +10,8 @@ import java.util.List;
 @Route("./criminal-case")
 public class CriminalCaseRestlet {
 
-    public List<CriminalCase> lastCases(Integer limit, Long offset){
-        return List.of(new CriminalCase());
+    public List<InvestigationProcess> lastCases(Integer limit, Long offset){
+        return List.of(new InvestigationProcess());
     }
 
 }

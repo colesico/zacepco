@@ -1,6 +1,6 @@
 package colesico.zacepco.investigation.srv.model;
 
-public enum CriminalCaseStatus {
+public enum InvestigationStatus {
     NEW,
     OPEN,
     CLOSED
