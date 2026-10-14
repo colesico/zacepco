@@ -1,0 +1,16 @@
+module colesico.zacepco.casereg.srv {
+
+    requires jakarta.inject;
+    requires colesico.framework.config;
+    requires colesico.zacepco.filestorage;
+    requires transitive colesico.zacepco.common.srv;
+    requires transitive colesico.zacepco.script;
+
+
+    exports colesico.zacepco.casereg.srv.ioc;
+    exports colesico.zacepco.casereg.srv.model;
+    exports colesico.zacepco.casereg.srv.dao;
+    exports colesico.zacepco.casereg.srv.service;
+    // exports colesico.zacepco.inquiry.srv.dto;
+
+}

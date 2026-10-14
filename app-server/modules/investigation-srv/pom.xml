@@ -32,7 +32,7 @@
 
         <dependency>
             <groupId>net.colesico.zacepco</groupId>
-            <artifactId>zacepco-case-registry-srv</artifactId>
+            <artifactId>zacepco-casereg-srv</artifactId>
             <version>${project.version}</version>
         </dependency>
 
