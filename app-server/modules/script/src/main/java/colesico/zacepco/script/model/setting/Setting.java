@@ -3,6 +3,7 @@ package colesico.zacepco.script.model.setting;
 import colesico.zacepco.script.yaml.YamlComment;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Crime setting specification
@@ -47,6 +48,18 @@ public class Setting {
             ""
     })
     public List<Clue> clues;
+
+    public Optional<Personage> findPersonageById(PersonageId id) {
+        return personages.stream()
+                .filter(user -> user.getId().equals(id))
+                .findFirst();
+    }
+
+    public Optional<Clue> findClueById(ClueId id) {
+        return clues.stream()
+                .filter(cl -> cl.getId().equals(id))
+                .findFirst();
+    }
 
     public Integer getCrimeDuration() {
         return crimeDuration;

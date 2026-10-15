@@ -169,7 +169,7 @@ investigation:
   budget: 9
   # Randomness factor [1..0].
   # Used to recalculate investigation table thresholds to adjust randomness.
-  # New_threshold = Table_threshold/(12 * randFactor) Default = 1
+  # New_threshold = Table_threshold * randFactor; Default = 1
   randFactor: 1.0
   # 
   # Location search specification

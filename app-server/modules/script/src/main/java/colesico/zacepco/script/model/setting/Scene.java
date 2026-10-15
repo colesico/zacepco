@@ -3,6 +3,8 @@ package colesico.zacepco.script.model.setting;
 import colesico.zacepco.script.yaml.YamlComment;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class Scene {
 
@@ -26,6 +28,36 @@ public class Scene {
             "Transition always connects only two locations, direction does not matter."
     })
     public List<Transition> transitions;
+
+    public Optional<Location> findLocationById(LocationId id) {
+        return locations.stream()
+                .filter(loc -> loc.getId().equals(id))
+                .findFirst();
+    }
+
+    public Optional<Location> findLocationByPos(LocationPos pos) {
+        return locations.stream()
+                .filter(loc -> loc.getPos().equals(pos))
+                .findFirst();
+    }
+
+    public List<Transition> findTransitionsByLocationId(LocationId id) {
+        return transitions.stream()
+                .filter(tr -> tr.getFrom().equals(id) || tr.getTo().equals(id))
+                .collect(Collectors.toList());
+    }
+
+    public List<Transition> findTransitionsFromLocationId(LocationId id) {
+        return transitions.stream()
+                .filter(tr -> tr.getFrom().equals(id))
+                .collect(Collectors.toList());
+    }
+
+    public List<Transition> findTransitionsToLocationId(LocationId id) {
+        return transitions.stream()
+                .filter(tr -> tr.getTo().equals(id))
+                .collect(Collectors.toList());
+    }
 
     public SceneSize getSize() {
         return size;
