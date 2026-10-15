@@ -99,21 +99,28 @@ public class CasebookService {
     }
 
     /**
-     * Remove case file from catalog
+     * Remove casebook from catalog
      */
     public void removeCasebook(Long id) {
 
     }
 
     /**
-     * Get case file by id
+     * Get casebook by id
      */
     public Optional<Casebook> findCasebookById(Long id) {
         return casebookDao.findCasebookById(id);
     }
 
     /**
-     * List case fies in reverse creation order
+     * Get casebook by script id
+     */
+    public Optional<Casebook> findCasebookByScriptId(String id) {
+        return casebookDao.findCasebookByScriptId(id);
+    }
+
+    /**
+     * List casebooks in reverse creation order
      */
     public List<Casebook> listCasebooks(int limit, long offset) {
         return casebookDao.listCasebooks(limit, offset);
