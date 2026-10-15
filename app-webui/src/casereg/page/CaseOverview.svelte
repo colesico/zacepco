@@ -133,7 +133,7 @@
   <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-6 g-3 mb-5">
 
     {#each overview.personages as personage}
-      <div class="col">
+      <div class="col personage-col">
         <!-- Карточка персонажа -->
         <div class="card h-100 border-0 bg-light text-center shadow-sm"
 		 style="cursor: pointer;"
@@ -223,19 +223,23 @@
 
 <style>
 
-/* Сетка сцены — теперь адаптивная, как карточки персонажей */
+/* Ограничение карточек персонажей: не шире 240px, по центру своей колонки */
+.personage-col {
+    max-width: 240px;
+}
+
+/* Сетка сцены — адаптивная, ячейки квадратные и ≤ 240×240 */
 
 .grid-container {
     display: grid;
 
-    /* Колонки тянутся на доступную ширину, но их число = cols сцены */
-    grid-template-columns: repeat(var(--cols), 1fr);
-
-    /* Ряды формируются автоматически под aspect-ratio ячеек */
+    /* Колонки: каждая ≤ 240px, при нехватке места сжимаются */
+    grid-template-columns: repeat(var(--cols), minmax(0, 240px));
+    justify-content: start;
     gap: 0;
 
-    /* Занимаем всю доступную ширину контейнера */
-    width: 100%;
+    /* Ключевое: контейнер по размеру клеток, но не шире родителя */
+    width: fit-content;
     max-width: 100%;
 
     margin-left: 0;
@@ -244,10 +248,10 @@
 
     background-color: #f8f9fa;
     border: 1px solid #ddd;
-}
+}	
 
 .grid-item {
-    /* Ячейка резиновая: ширина = 1fr, высота — по aspect-ratio */
+    /* Ячейка резиновая: ширина = колонка (≤ 240px), высота — по aspect-ratio */
     width: 100%;
     aspect-ratio: 1 / 1;
     position: relative;
