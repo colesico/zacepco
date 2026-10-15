@@ -1,6 +1,6 @@
 package colesico.zacepco.casereg.ui.dto;
 
-import colesico.zacepco.script.model.script.ScriptMeta;
+import colesico.zacepco.script.model.script.ScriptMetainfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +9,7 @@ public class CasebookOverview {
 
     public Long casebookId;
 
-    public ScriptMeta meta;
+    public ScriptMetainfo metainfo;
 
     public List<EntityOverview> personages = new ArrayList<>();
 
@@ -23,12 +23,12 @@ public class CasebookOverview {
         this.casebookId = casebookId;
     }
 
-    public ScriptMeta getMeta() {
-        return meta;
+    public ScriptMetainfo getMetainfo() {
+        return metainfo;
     }
 
-    public void setMeta(ScriptMeta meta) {
-        this.meta = meta;
+    public void setMetainfo(ScriptMetainfo metainfo) {
+        this.metainfo = metainfo;
     }
 
     public List<EntityOverview> getPersonages() {

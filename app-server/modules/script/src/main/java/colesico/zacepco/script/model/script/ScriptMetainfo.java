@@ -6,9 +6,9 @@ import colesico.zacepco.script.yaml.YamlComment;
 import java.time.LocalDate;
 
 /**
- * Script general metadata
+ * Script general meta information
  */
-public class ScriptMeta {
+public class ScriptMetainfo {
 
     /**
      * Script schema version (<a href="https://semver.org/">SemVer</a>)
@@ -20,10 +20,13 @@ public class ScriptMeta {
     public String schema;
 
     /**
-     * Script Unique Identifier
+     * Unique Script Identifier
      */
-    @YamlComment(text = "Unique identifier of the script")
-    public String id;
+    @YamlComment(text = {
+            "Unique script name",
+            "Can only consist of ASCII letters and numbers"
+    })
+    public String usn;
 
     /**
      * Script title
@@ -117,12 +120,12 @@ public class ScriptMeta {
         this.schema = schema;
     }
 
-    public String getId() {
-        return id;
+    public String getUsn() {
+        return usn;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setUsn(String usn) {
+        this.usn = usn;
     }
 
     public void setLicence(String licence) {
@@ -173,7 +176,7 @@ public class ScriptMeta {
     public String toString() {
         return "ScriptMetadata{" +
                 "schema='" + schema + '\'' +
-                ", id='" + id + '\'' +
+                ", id='" + usn + '\'' +
                 ", title='" + title + '\'' +
                 '}';
     }

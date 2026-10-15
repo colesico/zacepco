@@ -6,12 +6,13 @@
 # 
 # Script meta information.
 # 
-meta:
+metainfo:
   # Script schema version (data model version)
   # SimVer notation (i.e. 1.2.3)
   schema: 1.0.0
-  # Unique identifier of the script
-  id: e8f819fdece3c15bf37dd628ff13613a
+  # Unique script name
+  # Can only consist of ASCII letters and numbers
+  usn: zacepco
   title: Script document
   # A brief script summary without spoilers
   annotation: |
@@ -38,12 +39,10 @@ meta:
     max: 8
 # 
 # Imported scripts
+# USN array
 # 
-include:
-- # Referenced script ID (target script)
-  id: 00000000-0000-0000-0000-000000000000
-  # Local alias used to reference this script
-  alias: generic
+include: [ script2 ]
+
 # 
 # Crime setting specification.
 # Describes entire crime environment.
@@ -68,7 +67,8 @@ setting:
     # Entity reference
     reference:
       # Referenced script alias (target script)
-      script: generic
+      # Must be mentioned in 'include'
+      script: script2
       # Referenced script entity id (target entity)
       entity: P2
     # Variables definitions
@@ -108,7 +108,7 @@ setting:
       description: |
         A gloomy study with dark shadows  shaped like Rorschach blots.
       reference:
-        script: generic
+        script: script2
         entity: L2
       vars:
         varName: Any value
@@ -152,7 +152,7 @@ setting:
     description: |
       A Camel cigarette butt
     reference:
-      script: generic
+      script: script2
       entity: C4
     vars:
       varName: $P1

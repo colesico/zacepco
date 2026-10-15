@@ -19,14 +19,15 @@ public class Script {
             "Script meta information.",
             ""
     })
-    public ScriptMeta meta;
+    public ScriptMetainfo metainfo;
 
     @YamlComment(text = {
             "",
             "Imported scripts",
+            "Array of USN's (Unique script names)",
             "",
     })
-    public List<ScriptReference> include;
+    public List<String> include;
 
     /**
      * Environment spec
@@ -62,12 +63,12 @@ public class Script {
     public Script() {
     }
 
-    public ScriptMeta getMeta() {
-        return meta;
+    public ScriptMetainfo getMetainfo() {
+        return metainfo;
     }
 
-    public void setMeta(ScriptMeta meta) {
-        this.meta = meta;
+    public void setMetainfo(ScriptMetainfo metainfo) {
+        this.metainfo = metainfo;
     }
 
     public Setting getSetting() {
@@ -94,18 +95,18 @@ public class Script {
         this.answers = answers;
     }
 
-    public List<ScriptReference> getInclude() {
+    public List<String> getInclude() {
         return include;
     }
 
-    public void setInclude(List<ScriptReference> include) {
+    public void setInclude(List<String> include) {
         this.include = include;
     }
 
     @Override
     public String toString() {
         return "Script{" +
-                "meta=" + meta +
+                "meta=" + metainfo +
                 '}';
     }
 }

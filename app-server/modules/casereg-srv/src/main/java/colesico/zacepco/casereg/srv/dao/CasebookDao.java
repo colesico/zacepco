@@ -42,9 +42,9 @@ public class CasebookDao {
         return handle.get().createQuery(sql).bind("id", id).map(casebookRk.mapper()).findOne();
     }
 
-    public Optional<Casebook> findCasebookByScriptId(String scriptId) {
-        String sql = casebookRk.sql("select @columns from @records where script_id = :scriptId");
-        return handle.get().createQuery(sql).bind("scriptId", scriptId).map(casebookRk.mapper()).findOne();
+    public Optional<Casebook> findCasebookByUsn(String usn) {
+        String sql = casebookRk.sql("select @columns from @records where script_usn = :usn");
+        return handle.get().createQuery(sql).bind("usn", usn).map(casebookRk.mapper()).findOne();
     }
 
     public List<Casebook> listCasebooks(int limit, long offset) {

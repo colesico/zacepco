@@ -47,7 +47,7 @@ public class CasebookRestlet {
             var casebookOverview = new CasebookOverview();
 
             casebookOverview.casebookId = casebookId;
-            casebookOverview.meta = script.meta;
+            casebookOverview.metainfo = script.metainfo;
 
             for (var personage : script.setting.personages) {
                 if (personage.hidden()) {

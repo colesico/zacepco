@@ -60,7 +60,7 @@
   </UiLocalMenu>
 
  {#if overview}
-	<h1>Дело #{id} {overview.meta.title}</h1>
+	<h1>Дело #{id} {overview.metainfo.title}</h1>
 	<!-- Контейнер для картинки и текста аннотации -->
 	<div class="d-flex align-items-start gap-3 mb-5">
 
@@ -74,7 +74,7 @@
 
 	  <!-- Текст аннотации с серой чертой слева -->
 	  <p class="ps-3 fs-5 mb-0">
-		{overview.meta.annotation}
+		{overview.metainfo.annotation}
 	  </p>
 
 	</div>
@@ -86,17 +86,17 @@
 	  <div class="col-md-6 mb-3">
 		<dl class="row mb-0">
 		  <dt class="col-sm-4 text-muted fw-normal"><b>Кол-во игроков:</b></dt>
-		  <dd class="col-sm-8 text-break mb-1">{overview.meta.playersNum.min}-{overview.meta.playersNum.max} чел.</dd>
+		  <dd class="col-sm-8 text-break mb-1">{overview.metainfo.playersNum.min}-{overview.metainfo.playersNum.max} чел.</dd>
 		</dl>
 
 		<dl class="row mb-0">
 		  <dt class="col-sm-4 text-muted fw-normal"><b>Сложность:</b></dt>
-		  <dd class="col-sm-8 text-break mb-1">{overview.meta.difficulty}</dd>
+		  <dd class="col-sm-8 text-break mb-1">{overview.metainfo.difficulty}</dd>
 		</dl>
 
 		<dl class="row mb-0">
 		  <dt class="col-sm-4 text-muted fw-normal"><b>Время игры:</b></dt>
-		  <dd class="col-sm-8 text-break mb-1">{overview.meta.estimatedTime.min}-{overview.meta.estimatedTime.max} минут</dd>
+		  <dd class="col-sm-8 text-break mb-1">{overview.metainfo.estimatedTime.min}-{overview.metainfo.estimatedTime.max} минут</dd>
 		</dl>
 	  </div>
 
@@ -104,22 +104,22 @@
 	  <div class="col-md-6 mb-3">
 		<dl class="row mb-0">
 		  <dt class="col-sm-4 text-muted fw-normal"><b>Авторы:</b></dt>
-		  <dd class="col-sm-8 text-break mb-1">{overview.meta.authors}</dd>
+		  <dd class="col-sm-8 text-break mb-1">{overview.metainfo.authors}</dd>
 		</dl>
 
 		<dl class="row mb-0">
 		  <dt class="col-sm-4 text-muted fw-normal"><b>Лицензия:</b></dt>
-		  <dd class="col-sm-8 text-break mb-1">{overview.meta.licence}</dd>
+		  <dd class="col-sm-8 text-break mb-1">{overview.metainfo.licence}</dd>
 		</dl>
 
 		<dl class="row mb-0">
 		  <dt class="col-sm-4 text-muted fw-normal"><b>Дата создания:</b></dt>
-		  <dd class="col-sm-8 text-break mb-1">{overview.meta.creationDate}</dd>
+		  <dd class="col-sm-8 text-break mb-1">{overview.metainfo.creationDate}</dd>
 		</dl>
 
 		<dl class="row mb-0">
 		  <dt class="col-sm-4 text-muted fw-normal"><b>Версия:</b></dt>
-		  <dd class="col-sm-8 text-break mb-1">v{overview.meta.version}</dd>
+		  <dd class="col-sm-8 text-break mb-1">v{overview.metainfo.version}</dd>
 		</dl>
 	  </div>
 

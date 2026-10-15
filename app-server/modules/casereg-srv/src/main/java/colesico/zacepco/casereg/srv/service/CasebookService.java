@@ -86,12 +86,12 @@ public class CasebookService {
         var summary = new ScriptSummary();
         casebook.setSummary(summary);
 
-        summary.setId(script.meta.id);
-        summary.setTitle(script.meta.title);
-        summary.setAnnotation(script.meta.annotation);
-        summary.setAuthors(Arrays.asList(script.meta.authors));
-        summary.setVersion(script.meta.version);
-        summary.setCreationDate(script.meta.creationDate);
+        summary.setId(script.metainfo.usn);
+        summary.setTitle(script.metainfo.title);
+        summary.setAnnotation(script.metainfo.annotation);
+        summary.setAuthors(Arrays.asList(script.metainfo.authors));
+        summary.setVersion(script.metainfo.version);
+        summary.setCreationDate(script.metainfo.creationDate);
 
         casebookDao.createCasebook(casebook);
 
@@ -113,10 +113,10 @@ public class CasebookService {
     }
 
     /**
-     * Get casebook by script id
+     * Get casebook by {@link colesico.zacepco.script.model.script.ScriptMetainfo#usn}
      */
-    public Optional<Casebook> findCasebookByScriptId(String id) {
-        return casebookDao.findCasebookByScriptId(id);
+    public Optional<Casebook> findCasebookByUsn(String usn) {
+        return casebookDao.findCasebookByUsn(usn);
     }
 
     /**
