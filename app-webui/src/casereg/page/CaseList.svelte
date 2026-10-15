@@ -7,7 +7,7 @@
   import UiLocalMenuItem from "@common/widget/UiLocalMenuItem.svelte";
   
   
-  import CaseScroll from "@cases/widget/CaseScroll"
+  import CaseScroll from "@casereg/widget/CaseScroll"
 
   let error = $state(null);
   let loading = $state(true);
@@ -43,7 +43,7 @@
       icon="fas fa-clipboard-check"
       title="Регистрация нового дела на базе сценария преступления"
       caption="Добавить дело"
-      href="/cases/create"
+      href="/casereg/create"
     />
   </UiLocalMenu>
   <h1>Реестр дел</h1>

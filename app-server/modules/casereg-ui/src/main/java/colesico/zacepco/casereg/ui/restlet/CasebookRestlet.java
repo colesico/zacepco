@@ -12,6 +12,8 @@ import colesico.zacepco.casereg.srv.model.Casebook;
 import colesico.zacepco.casereg.srv.service.CasebookService;
 import colesico.zacepco.casereg.ui.dto.CasebookOverview;
 import colesico.zacepco.casereg.ui.dto.EntityOverview;
+import colesico.zacepco.casereg.ui.dto.LocationOverview;
+import colesico.zacepco.casereg.ui.dto.SceneOverview;
 
 import java.util.List;
 
@@ -47,26 +49,34 @@ public class CasebookRestlet {
             casebookOverview.casebookId = casebookId;
             casebookOverview.meta = script.meta;
 
-            for (var location : script.setting.scene.locations) {
-                if (location.hidden()) {
-                    continue;
-                }
-                var entityOverview = new EntityOverview();
-                entityOverview.id = location.id.asString();
-                entityOverview.name = location.name;
-                entityOverview.description = location.description;
-                casebookOverview.locations.add(entityOverview);
-            }
-
             for (var personage : script.setting.personages) {
                 if (personage.hidden()) {
                     continue;
                 }
-                var entityOverview = new EntityOverview();
-                entityOverview.id = personage.id.asString();
-                entityOverview.name = personage.name;
-                entityOverview.description = personage.description;
-                casebookOverview.personages.add(entityOverview);
+                var personageOverview = new EntityOverview();
+                personageOverview.id = personage.id.asString();
+                personageOverview.name = personage.name;
+                personageOverview.description = personage.description;
+                casebookOverview.personages.add(personageOverview);
+            }
+
+            SceneOverview sceneOverview = new SceneOverview();
+            casebookOverview.scene = sceneOverview;
+
+            sceneOverview.cols = script.setting.scene.size.cols;
+            sceneOverview.rows = script.setting.scene.size.rows;
+
+            for (var location : script.setting.scene.locations) {
+                if (location.hidden()) {
+                    continue;
+                }
+                var locationOverview = new LocationOverview();
+                locationOverview.id = location.id.asString();
+                locationOverview.name = location.name;
+                locationOverview.description = location.description;
+                locationOverview.col = location.pos.col;
+                locationOverview.row = location.pos.row;
+                sceneOverview.locations.add(locationOverview);
             }
 
             return casebookOverview;

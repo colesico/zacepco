@@ -8,8 +8,8 @@
   
   const routes = {
     '/': CaseList,
-	'/cases/create': CreateCase,
-	'/cases/:id': CaseOverview
+	'/casereg/create': CreateCase,
+	'/casereg/:id': CaseOverview
   };
   
 </script>

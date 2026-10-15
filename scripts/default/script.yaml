@@ -126,7 +126,7 @@ setting:
         col: 1
         row: 1
       # Hidden location or not  (default - false)
-      hidden: true
+      hidden: false
       # Initially revealed clues for this location
       revealedClues:
       - C1
@@ -143,6 +143,21 @@ setting:
         clues:
         - C1
         - C2
+    - id: L2
+      name: Library
+      description: |
+        A gloomy study with dark shadows  shaped like Rorschach blots.
+      pos:
+        col: 1
+        row: 2
+    - id: L3
+      name: Library
+      description: |
+        A gloomy study with dark shadows  shaped like Rorschach blots.
+      pos:
+        col: 1
+        row: 3  
+   
     # Transition between two locations.
     # Transition always connects only two locations, direction does not matter.
     transitions:

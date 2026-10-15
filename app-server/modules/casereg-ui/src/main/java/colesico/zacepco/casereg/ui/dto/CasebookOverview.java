@@ -11,9 +11,9 @@ public class CasebookOverview {
 
     public ScriptMeta meta;
 
-    public List<EntityOverview> locations = new ArrayList<>();
-
     public List<EntityOverview> personages = new ArrayList<>();
+
+    public SceneOverview scene;
 
     public Long getCasebookId() {
         return casebookId;
@@ -31,19 +31,19 @@ public class CasebookOverview {
         this.meta = meta;
     }
 
-    public List<EntityOverview> getLocations() {
-        return locations;
-    }
-
-    public void setLocations(List<EntityOverview> locations) {
-        this.locations = locations;
-    }
-
     public List<EntityOverview> getPersonages() {
         return personages;
     }
 
     public void setPersonages(List<EntityOverview> personages) {
         this.personages = personages;
+    }
+
+    public SceneOverview getScene() {
+        return scene;
+    }
+
+    public void setScene(SceneOverview scene) {
+        this.scene = scene;
     }
 }
