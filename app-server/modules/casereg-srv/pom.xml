@@ -15,9 +15,9 @@
     <version>1.0.0</version>
     <packaging>jar</packaging>
 
-    <name>Zacepco - Cases Service</name>
+    <name>Zacepco - Case Registry Service</name>
     <description>
-        Zacepco script catalog service
+        Zacepco case(script) registry service
     </description>
     <properties>
     </properties>

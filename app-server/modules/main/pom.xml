@@ -47,7 +47,7 @@
         </dependency>
         <dependency>
             <groupId>net.colesico.zacepco</groupId>
-            <artifactId>zacepco-investigation-ui</artifactId>
+            <artifactId>zacepco-casework-ui</artifactId>
             <version>${project.version}</version>
         </dependency>
 

@@ -131,8 +131,8 @@
                 <module>modules/script</module>
                 <module>modules/casereg-srv</module>
                 <module>modules/casereg-ui</module>
-                <module>modules/crimeinv-srv</module>
-                <module>modules/investigation-ui</module>
+                <module>modules/casework-srv</module>
+                <module>modules/casework-ui</module>
                 <module>modules/main</module>
             </modules>
         </profile>

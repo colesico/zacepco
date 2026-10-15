@@ -15,9 +15,9 @@
     <version>1.0.0</version>
     <packaging>jar</packaging>
 
-    <name>Zacepco - Cases UI</name>
+    <name>Zacepco - Case Registry UI</name>
     <description>
-        Zacepco script catalog UI
+        Zacepco case registry UI
     </description>
     <properties>
     </properties>
