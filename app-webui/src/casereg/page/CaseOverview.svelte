@@ -36,11 +36,11 @@
   });
 
 
-   function getSceneElement(row, col) {
+   function getSceneLocation(row, col) {
     if (!overview || !overview.scene || !overview.scene.locations) return null;
 
      return overview.scene.locations.find(
-      (el) => el.row === row && el.col === col
+      (loc) => loc.row === row && loc.col === col
     );
   }
 
@@ -172,13 +172,14 @@
 
 		   {#each Array(overview.scene.cols) as _, currentCol}
 
-			 {@const element = getSceneElement(currentRow+1, currentCol+1)}
+			 {@const location = getSceneLocation(currentRow+1, currentCol+1)}
 
 			 <div class="grid-item">
-			   {#if element}
+			   {#if location}
 				 <img
-				   src="/casereg/assets/{id}/{element.id}"
-				   alt={element.name || "Локация"}
+				   src="/casereg/assets/{id}/{location.id}"
+				   alt={location.name || "Локация"}
+				   title={location.name || "Локация"}
 				   loading="lazy"
 				 />
 			   {:else}
