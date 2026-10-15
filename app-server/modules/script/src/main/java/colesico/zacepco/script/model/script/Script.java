@@ -1,10 +1,13 @@
 package colesico.zacepco.script.model.script;
 
+import colesico.zacepco.script.model.setting.EntityReference;
 import colesico.zacepco.script.model.setting.Setting;
 import colesico.zacepco.script.model.investigation.Investigation;
 import colesico.zacepco.script.yaml.YamlComment;
 
+import java.nio.file.OpenOption;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Script document
@@ -61,6 +64,33 @@ public class Script {
     public Answers answers;
 
     public Script() {
+    }
+
+    /**
+     * Gets the default reference script USN.
+     *
+     * @return an {@link Optional} with the first included USN, or {@link Optional#empty()} if none
+     */
+    public Optional<String> getDefaultReferenceUsn() {
+        return Optional.ofNullable(include)
+                .flatMap(list -> list.stream().findFirst());
+    }
+
+    public Optional<EntityReference> normalizedReference(EntityReference ref) {
+        if (ref == null) {
+            return Optional.empty();
+        }
+
+        if (ref.script == null || ref.script.isBlank()) {
+            return getDefaultReferenceUsn().map(defaultScript -> {
+                var nRef = new EntityReference();
+                nRef.script = defaultScript;
+                nRef.entity = ref.entity;
+                return nRef;
+            });
+        }
+
+        return Optional.of(ref);
     }
 
     public ScriptMetainfo getMetainfo() {
