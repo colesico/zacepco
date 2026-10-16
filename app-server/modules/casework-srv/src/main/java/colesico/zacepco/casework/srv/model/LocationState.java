@@ -3,24 +3,12 @@ package colesico.zacepco.casework.srv.model;
 import colesico.zacepco.script.model.setting.LocationId;
 
 /**
- * Location reference
+ * Location state
  */
 
-public class LocationRef {
-
-    private Long id;
-
-    /**
-     * @see InvestigationEntry
-     */
-    private Long investigationId;
+public class LocationState {
 
     private LocationId locationId;
-
-    /**
-     * Location name
-     */
-    private String name;
 
     /**
      * Location is discovered.
@@ -29,7 +17,7 @@ public class LocationRef {
     private Boolean discovered;
 
     /**
-     * No clues to open
+     * Clues that not discovered yet for this location
      */
-    private Boolean exhausted;
+    private Integer cluesToDiscover;
 }

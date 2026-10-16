@@ -7,7 +7,7 @@ import colesico.zacepco.casereg.srv.model.ScriptEntry;
 import java.util.Date;
 
 /**
- * Investigation process model
+ * Investigation record
  */
 @Record(table = "investigations")
 public class InvestigationEntry {
