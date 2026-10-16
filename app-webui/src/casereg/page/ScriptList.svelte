@@ -21,7 +21,7 @@
   $effect(() => {
     async function loadData() {
       try {
-        scripts = await scriptEntryApi.listCasebooks(100,0);
+        scripts = await scriptEntryApi.listScriptEntries(100,0);
       } catch (ex) {
         error = ex.data;
       } finally {
@@ -43,11 +43,11 @@
       icon="fas fa-clipboard-check"
       title="Регистрация нового дела на базе сценария преступления"
       caption="Добавить дело"
-      href="/casereg/registration"
+      href="/registration"
     />
   </UiLocalMenu>
   <h1>Реестр дел</h1>
-  <CaseScroll {cases} />
+  <ScriptScroll {scripts} />
 </div>
 
 <style>

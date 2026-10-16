@@ -9,7 +9,7 @@
   const routes = {
     '/': ScriptList,
 	'/registration': ScriptRegistration,
-	'/script/:id': ScriptOverview
+	'/:id': ScriptOverview
   };
   
 </script>

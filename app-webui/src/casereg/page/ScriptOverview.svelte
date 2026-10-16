@@ -24,7 +24,7 @@
   $effect(() => {
     async function loadData() {
       try {
-        overview = await scriptEntryApi.casebookOverview(id);
+        overview = await scriptEntryApi.scriptOverview(id);
       } catch (ex) {
         error = ex.data;
       } finally {
@@ -53,9 +53,9 @@
    <UiLocalMenu>
     <UiLocalMenuItem
       icon="fas fa-clipboard-check"
-      title="Регистрация нового дела на базе сценария преступления"
-      caption="Добавить дело"
-      href="/casereg/registration"
+      title="Начать расследование"
+      caption="Начать расследование"
+      href="/"
     />
   </UiLocalMenu>
 
