@@ -21,7 +21,7 @@ public class Clue extends Entity<ClueId> {
     @YamlComment(text = "Entities to be open along with this clue")
     public List<EntityId> open;
 
-    public boolean falsity() {
+    public boolean isFalsity() {
         return falsity != null ? falsity : false;
     }
 

@@ -67,7 +67,7 @@ public class CasebookRestlet {
             sceneOverview.rows = script.setting.scene.size.rows;
 
             for (var location : script.setting.scene.locations) {
-                if (location.hidden()) {
+                if (location.isHidden()) {
                     continue;
                 }
                 var locationOverview = new LocationOverview();

@@ -5,7 +5,6 @@ import colesico.zacepco.script.model.setting.Setting;
 import colesico.zacepco.script.model.investigation.Investigation;
 import colesico.zacepco.script.yaml.YamlComment;
 
-import java.nio.file.OpenOption;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,7 +18,7 @@ public class Script {
      */
     @YamlComment(text = {
             "",
-            "Script meta information.",
+            "Script meta information",
             ""
     })
     public ScriptMetainfo metainfo;
@@ -37,8 +36,8 @@ public class Script {
      */
     @YamlComment(text = {
             "",
-            "Crime setting specification.",
-            "Describes entire crime environment.",
+            "Crime setting specification",
+            "Describes entire crime environment",
             ""
     })
     public Setting setting;
@@ -48,7 +47,7 @@ public class Script {
      */
     @YamlComment(text = {
             "",
-            "Investigation specification.",
+            "Investigation specification",
             ""
     })
     public Investigation investigation;
@@ -58,7 +57,7 @@ public class Script {
      */
     @YamlComment(text = {
             "",
-            "General answers.",
+            "General answers",
             ""
     })
     public Answers answers;
@@ -76,15 +75,15 @@ public class Script {
                 .flatMap(list -> list.stream().findFirst());
     }
 
-    public Optional<EntityReference> normalizedReference(EntityReference ref) {
+    public Optional<EntityReference> canonicalReference(EntityReference ref) {
         if (ref == null) {
             return Optional.empty();
         }
 
-        if (ref.script == null || ref.script.isBlank()) {
+        if (ref.usn == null || ref.usn.isBlank()) {
             return getDefaultReferenceUsn().map(defaultScript -> {
                 var nRef = new EntityReference();
-                nRef.script = defaultScript;
+                nRef.usn = defaultScript;
                 nRef.entity = ref.entity;
                 return nRef;
             });

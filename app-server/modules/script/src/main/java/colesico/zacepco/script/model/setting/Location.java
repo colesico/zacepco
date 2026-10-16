@@ -12,7 +12,10 @@ public class Location extends Entity<LocationId> {
     /**
      * Location position on scene grid
      */
-    @YamlComment(text = "Location position on scene grid")
+    @YamlComment(text = {
+            "Location position on scene grid",
+            "(1,1) - left top scene corner"
+    })
     public LocationPos pos;
 
     /**
@@ -37,7 +40,7 @@ public class Location extends Entity<LocationId> {
     })
     public List<LocationEvent> log;
 
-    public boolean hidden() {
+    public boolean isHidden() {
         return hidden != null ? hidden : false;
     }
 

@@ -3,18 +3,18 @@ package colesico.zacepco.script.model.setting;
 import colesico.zacepco.script.yaml.YamlComment;
 
 /**
- * Transition between two locations
+ * Unidirectional connection between two locations
  */
-public class Transition {
+public class Connection {
 
     /**
      * Related locations
      */
     @YamlComment(text = "One location id")
-    public LocationId from;
+    public LocationId locationU;
 
     @YamlComment(text = "Other location id")
-    public LocationId to;
+    public LocationId locationV;
 
     /**
      * Is hidden passage
@@ -22,24 +22,24 @@ public class Transition {
     @YamlComment(text = "Is hidden transition or not (default - false)")
     public Boolean hidden;
 
-    public boolean hidden() {
+    public boolean isHidden() {
         return hidden != null ? hidden : false;
     }
 
-    public LocationId getFrom() {
-        return from;
+    public LocationId getLocationU() {
+        return locationU;
     }
 
-    public void setFrom(LocationId from) {
-        this.from = from;
+    public void setLocationU(LocationId locationU) {
+        this.locationU = locationU;
     }
 
-    public LocationId getTo() {
-        return to;
+    public LocationId getLocationV() {
+        return locationV;
     }
 
-    public void setTo(LocationId to) {
-        this.to = to;
+    public void setLocationV(LocationId locationV) {
+        this.locationV = locationV;
     }
 
     public Boolean getHidden() {

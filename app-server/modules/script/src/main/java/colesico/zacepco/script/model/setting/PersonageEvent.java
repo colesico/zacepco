@@ -13,7 +13,7 @@ public class PersonageEvent {
     /**
      * The location the character was inside.
      */
-    @YamlComment(text = "Location the character was inside")
+    @YamlComment(text = "Personage destination location")
     public LocationId location;
 
     /**
@@ -21,7 +21,7 @@ public class PersonageEvent {
      */
     @YamlComment(text = {
             "Clue the character interacted with.",
-            "Reflects the change of interaction state - dropping, picking up, passing, ..."
+            "Reflects the change of interaction state - gave, got,  noticed  ..."
     })
     public ClueId clue;
 

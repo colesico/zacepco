@@ -24,7 +24,7 @@ public class ScriptMetainfo {
      */
     @YamlComment(text = {
             "Unique script name",
-            "Can only consist of ASCII letters and numbers"
+            "Can only consist of ASCII letters, numbers, underscore '_'"
     })
     public String usn;
 
@@ -36,7 +36,7 @@ public class ScriptMetainfo {
     /**
      * Crime brief description
      */
-    @YamlComment(text = "A brief script summary without spoilers")
+    @YamlComment(text = "A brief crime summary without spoilers")
     public String annotation;
 
     /**
@@ -64,11 +64,12 @@ public class ScriptMetainfo {
     public Integer version;
 
     /**
-     * Estimated difficulty level
+     * Estimated difficulty level.
      */
     @YamlComment(text = {
-            "Game difficulty",
-            "Dimensionless positive coefficient"
+            "Game difficulty.",
+            "Dimensionless coefficient [0..1].",
+            "0 - easy; 1 - highly difficult."
     })
     public Double difficulty;
 

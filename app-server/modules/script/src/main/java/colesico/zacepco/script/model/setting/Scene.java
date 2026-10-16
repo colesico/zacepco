@@ -24,10 +24,10 @@ public class Scene {
      * Passages dictionary
      */
     @YamlComment(text = {
-            "Transition between two locations. ",
-            "Transition always connects only two locations, direction does not matter."
+            "Connections between two locations.",
+            "Always connects only two locations, direction does not matter."
     })
-    public List<Transition> transitions;
+    public List<Connection> connections;
 
     public Optional<Location> findLocationById(LocationId id) {
         return locations.stream()
@@ -41,21 +41,9 @@ public class Scene {
                 .findFirst();
     }
 
-    public List<Transition> findTransitionsByLocationId(LocationId id) {
-        return transitions.stream()
-                .filter(tr -> tr.getFrom().equals(id) || tr.getTo().equals(id))
-                .collect(Collectors.toList());
-    }
-
-    public List<Transition> findTransitionsFromLocationId(LocationId id) {
-        return transitions.stream()
-                .filter(tr -> tr.getFrom().equals(id))
-                .collect(Collectors.toList());
-    }
-
-    public List<Transition> findTransitionsToLocationId(LocationId id) {
-        return transitions.stream()
-                .filter(tr -> tr.getTo().equals(id))
+    public List<Connection> findConnectionsByLocationId(LocationId id) {
+        return connections.stream()
+                .filter(tr -> tr.getLocationU().equals(id) || tr.getLocationV().equals(id))
                 .collect(Collectors.toList());
     }
 
@@ -75,11 +63,11 @@ public class Scene {
         this.locations = locations;
     }
 
-    public List<Transition> getPassages() {
-        return transitions;
+    public List<Connection> getPassages() {
+        return connections;
     }
 
-    public void setPassages(List<Transition> transitions) {
-        this.transitions = transitions;
+    public void setPassages(List<Connection> connections) {
+        this.connections = connections;
     }
 }

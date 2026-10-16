@@ -12,7 +12,11 @@ public class Answers {
     @YamlComment(text = "Full crime fabula")
     public String fabula;
 
-    @YamlComment(text = "Planned crime solving strategy")
+    @YamlComment(text = {
+            "Planned crime solving strategy. Example: ",
+            " - Search library L2 -> C1",
+            " - Interrogate gardener P3 -> C4"
+    })
     public List<String> strategy;
 
     public String getFabula() {

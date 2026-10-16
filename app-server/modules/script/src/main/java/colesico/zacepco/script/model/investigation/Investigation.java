@@ -2,6 +2,8 @@ package colesico.zacepco.script.model.investigation;
 
 import colesico.zacepco.script.yaml.YamlComment;
 
+import java.util.Objects;
+
 /**
  * Investigation specification
  */
@@ -15,13 +17,13 @@ public class Investigation {
 
     /**
      * Randomness factor [1..0]. Used to recalculate table thresholds to change the randomness factor.
-     * New_Threshold = Table_Threshold/(12 * randomnessFactor)
-     * Default = 1
+     * New_Threshold = Table_Threshold * randomnessFactor
+     * Default = 1.0
      */
     @YamlComment(text = {
-            "Randomness factor [1..0].",
+            "Randomness factor [1.0 .. 0.0]. Default = 1.0 ",
             "Used to recalculate investigation table thresholds to adjust randomness.",
-            "New_threshold = Table_threshold/(12 * randFactor) Default = 1"
+            "New_threshold = Table_threshold/randFactor"
     })
     public Double randFactor;
 
@@ -50,10 +52,14 @@ public class Investigation {
      */
     @YamlComment(text = {
             "",
-            "Forensic laboratory examination specification",
+            "Criminal expertise specification",
             ""
     })
     public Expertise expertise;
+
+    public double randFactor() {
+        return randFactor == null ? 1.0 : randFactor;
+    }
 
     public Integer getBudget() {
         return budget;

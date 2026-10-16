@@ -6,19 +6,19 @@ public class EntityReference {
 
     @YamlComment(text = {
             "Referenced script USN (target script)",
-            "Must be mentioned in 'include'"
+            "Must be mentioned in 'include' section"
     })
-    public String script;
+    public String usn;
 
     @YamlComment(text = "Referenced script entity id (target entity)")
     public EntityId entity;
 
-    public String getScript() {
-        return script;
+    public String getUsn() {
+        return usn;
     }
 
-    public void setScript(String script) {
-        this.script = script;
+    public void setUsn(String usn) {
+        this.usn = usn;
     }
 
     public EntityId getEntity() {

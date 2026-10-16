@@ -1,20 +1,15 @@
-# ================================================ #
-# Script reference model                           # 
-# Defines all possible fields with example values  #
-# ================================================ #
-
 # 
-# Script meta information.
+# Script meta information
 # 
 metainfo:
   # Script schema version (data model version)
-  # SimVer notation (i.e. 1.2.3)
+  # SimVer (semver.org) notation (i.e. 1.2.3)
   schema: 1.0.0
   # Unique script name
-  # Can only consist of ASCII letters and numbers
+  # Can only consist of ASCII letters, numbers, underscore '_'
   usn: zacepco
   title: Script document
-  # A brief script summary without spoilers
+  # A brief crime summary without spoilers
   annotation: |
     Defines the complete reference model of the script document
   # Script authors
@@ -26,8 +21,9 @@ metainfo:
   creationDate: 2026-01-01
   # Script version (1..N)
   version: 1
-  # Game difficulty
-  # Dimensionless positive coefficient
+  # Game difficulty.
+  # Dimensionless coefficient [0..1].
+  # 0 - easy; 1 - highly difficult.
   difficulty: 0.0
   # Estimated playtime, minutes
   estimatedTime:
@@ -39,13 +35,13 @@ metainfo:
     max: 8
 # 
 # Imported scripts
-# USN array
+# Array of USN's (Unique script names)
 # 
-include: [ script2 ]
-
+include:
+- script2
 # 
-# Crime setting specification.
-# Describes entire crime environment.
+# Crime setting specification
+# Describes entire crime environment
 # 
 setting:
   # Crime duration in ticks
@@ -59,16 +55,16 @@ setting:
     id: P1
     # Short name
     name: Butler
-    # Detailed description.
-    # Entity identifiers and variables can be specified with a '$' prefix.
+    # Detailed description
+    # Entity identifiers and variables can be specified with a '$' prefix
     # Examples: Location is $L2. Personage say $msg
     description: |
       Knows all the secrets and secret passages,  is cold-blooded, has the perfect motive for murder.
     # Entity reference
     reference:
-      # Referenced script alias (target script)
-      # Must be mentioned in 'include'
-      script: script2
+      # Referenced script USN (target script)
+      # Must be mentioned in 'include' section
+      usn: script2
       # Referenced script entity id (target entity)
       entity: P2
     # Variables definitions
@@ -86,10 +82,10 @@ setting:
     # Each element of the array corresponds to a time tick, starting from 1.
     # Used to verify the investigation's findings
     log:
-    - # Location the character was inside
+    - # Personage destination location
       location: L2
       # Clue the character interacted with.
-      # Reflects the change of interaction state - dropping, picking up, passing, ...
+      # Reflects the change of interaction state - gave, got,  noticed  ...
       clue: C2
   # 
   # Crime scene definition
@@ -108,11 +104,12 @@ setting:
       description: |
         A gloomy study with dark shadows  shaped like Rorschach blots.
       reference:
-        script: script2
+        usn: script2
         entity: L2
       vars:
         varName: Any value
       # Location position on scene grid
+      # (1,1) - left top scene corner
       pos:
         col: 1
         row: 1
@@ -134,13 +131,13 @@ setting:
         clues:
         - C1
         - C2
-    # Transition between two locations.
-    # Transition always connects only two locations, direction does not matter.
-    transitions:
+    # Connections between two locations.
+    # Always connects only two locations, direction does not matter.
+    connections:
     - # One location id
-      from: L1
+      locationU: L1
       # Other location id
-      to: L2
+      locationV: L2
       # Is hidden transition or not (default - false)
       hidden: true
   # 
@@ -152,7 +149,7 @@ setting:
     description: |
       A Camel cigarette butt
     reference:
-      script: script2
+      usn: script2
       entity: C4
     vars:
       varName: $P1
@@ -162,22 +159,22 @@ setting:
     open:
     - L2
 # 
-# Investigation specification.
+# Investigation specification
 # 
 investigation:
   # Investigation budget in resource units
   budget: 9
-  # Randomness factor [1..0].
+  # Randomness factor [1.0 .. 0.0]. Default = 1.0
   # Used to recalculate investigation table thresholds to adjust randomness.
-  # New_threshold = Table_threshold * randFactor; Default = 1
+  # New_threshold = Table_threshold/randFactor
   randFactor: 1.0
   # 
   # Location search specification
   # 
   search:
-    # Cost (resource units) of investigation action on subject
+    # Cost in resource units of investigation action on subject (int)
     cost: 3
-    # Base points for investigation action
+    # Base points for investigation action (int)
     points: 2
     # Maximum number of elements in detective focus
     focusLimit: 3
@@ -219,7 +216,7 @@ investigation:
         threshold: 7.0
         clue: C2
   # 
-  # Forensic laboratory examination specification
+  # Criminal expertise specification
   # 
   expertise:
     cost: 5
@@ -236,15 +233,15 @@ investigation:
       threshold: 3.0
       clue: C6
 # 
-# General answers.
+# General answers
 # 
 answers:
   # Full crime fabula
-  fabula: >
-    The Gardener killed the Butler, 
-    buried the body under a birch tree in the garden, 
-    and burned the evidence in the fireplace in the library.
-  # Planned crime solving strategy
+  fabula: |
+    The Gardener killed the Butler,  buried the body under a birch tree in the garden,  and burned the evidence in the fireplace in the library.
+  # Planned crime solving strategy. Example:
+  # - Search library L2 -> C1
+  # - Interrogate gardener P3 -> C4
   strategy:
-    - Search location L1 -> C1
-    - Interrogate P1 with focus C1
+  - Search location L1 -> C1
+  - Interrogate P1 with focus C1

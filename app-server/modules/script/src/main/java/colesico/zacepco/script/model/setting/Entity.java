@@ -29,8 +29,8 @@ public abstract class Entity<ID extends EntityId> {
      * Examples: Location is $L2. Personage say $MSG
      */
     @YamlComment(text = {
-            "Detailed description.",
-            "Entity identifiers and variables can be specified with a '$' prefix.",
+            "Detailed description",
+            "Entity identifiers and variables can be specified with a '$' prefix",
             "Examples: Location is $L2. Personage say $msg"
     })
     public String description;
