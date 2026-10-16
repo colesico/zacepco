@@ -6,16 +6,16 @@
 {% endblock%}
 
 {% block headCss %}
-<link href="/resources/investigation/app/css/investigation.css" rel="stylesheet">
+<link href="/casework/resources/app/css/investigation.css" rel="stylesheet">
 {% endblock %}
 
 {% block headJs %}
 {% if devUrl()  is empty %}
-    <script type="module" src="/resources/investigation/app/js/investigation.js"></script>
+    <script type="module" src="/casework/resources/investigation/app/js/investigation.js"></script>
 {% else %}
     <!-- run server with arg -DuiDevServer=http://localhost:5173 -->
     <script type="module" src="{{ '/@vite/client' | devUrl }}"></script>
-    <script type="module" src="{{ '/src/investigation/main.js' | devUrl }}"></script>
+    <script type="module" src="{{ '/src/casework/main.js' | devUrl }}"></script>
 {% endif %}
 {% endblock %}
 
