@@ -1,8 +1,8 @@
 <script>
-  import CaseCard from './CaseCard';
+  import ScriptCard from './ScriptCard';
 
   let { 
-    cases = [], 
+    scripts = [], 
     target = '_self' 
   } = $props();
 
@@ -13,8 +13,8 @@
 </script>
 
 <div class="dir-card-panel mt-3">
-  {#each cases as caseFile}
-    <CaseCard {caseFile} {target} />
+  {#each scripts as script}
+    <ScriptCard {script} {target} />
   {/each}
 </div>
 

@@ -21,7 +21,7 @@ public class Detective {
 
     /**
      * Investigation ref
-     * @see InvestigationProcess
+     * @see InvestigationEntry
      */
     @Column
     private Long investigationId;

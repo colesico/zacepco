@@ -1,9 +1,9 @@
 package colesico.zacepco.casereg.srv.model;
 
 /**
- * Defines the availability and access restrictions for  {@link Casebook}.
+ * Defines the availability and access restrictions for  {@link ScriptEntry}.
  */
-public enum CasebookAccessType {
+public enum ScriptEntryAccessType {
 
     /**
      * Public case. Available to all players  for free.

@@ -1,5 +1,5 @@
 <script>
-  import * as casebookApi from "../api/CasebookApi.js";
+  import * as scriptEntryApi from "../api/ScriptEntryApi.js";
   
   import UiErrorMessage from "@common/widget/UiErrorMessage.svelte"
   import UiLoadingIndicator from "@common/widget/UiLoadingIndicator.svelte"
@@ -7,21 +7,21 @@
   import UiLocalMenuItem from "@common/widget/UiLocalMenuItem.svelte";
   
   
-  import CaseScroll from "@casereg/widget/CaseScroll"
+  import ScriptScroll from "@casereg/widget/ScriptScroll"
 
   let error = $state(null);
   let loading = $state(true);
   
-  let cases = $state([]);
+  let scripts = $state([]);
   
   $inspect(error); 
-  $inspect(cases); 
+  $inspect(scripts); 
 
 
   $effect(() => {
     async function loadData() {
       try {
-        cases = await casebookApi.listCasebooks(100,0);
+        scripts = await scriptEntryApi.listCasebooks(100,0);
       } catch (ex) {
         error = ex.data;
       } finally {
@@ -43,7 +43,7 @@
       icon="fas fa-clipboard-check"
       title="Регистрация нового дела на базе сценария преступления"
       caption="Добавить дело"
-      href="/casereg/create"
+      href="/casereg/registration"
     />
   </UiLocalMenu>
   <h1>Реестр дел</h1>

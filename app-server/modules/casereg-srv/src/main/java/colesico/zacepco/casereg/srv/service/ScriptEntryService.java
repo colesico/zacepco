@@ -7,10 +7,10 @@ import colesico.framework.security.authorization.RequireIdentity;
 import colesico.framework.service.PlainMethod;
 import colesico.framework.service.Service;
 import colesico.framework.transaction.Transactional;
-import colesico.zacepco.casereg.srv.dao.CasebookDao;
+import colesico.zacepco.casereg.srv.dao.ScriptEntryDao;
 import colesico.zacepco.casereg.srv.filestorage.StoragePackageDriver;
-import colesico.zacepco.casereg.srv.model.Casebook;
-import colesico.zacepco.casereg.srv.model.CasebookAccessType;
+import colesico.zacepco.casereg.srv.model.ScriptEntry;
+import colesico.zacepco.casereg.srv.model.ScriptEntryAccessType;
 import colesico.zacepco.casereg.srv.model.ScriptSummary;
 import colesico.zacepco.script.model.script.Script;
 import colesico.zacepco.script.pkg.*;
@@ -22,11 +22,11 @@ import java.util.*;
 
 @Service
 @Transactional
-public class CasebookService {
+public class ScriptEntryService {
 
     private final ScriptAssetsService assetsService;
 
-    private final CasebookDao casebookDao;
+    private final ScriptEntryDao scriptEntryDao;
 
     /**
      * Script package API
@@ -38,13 +38,13 @@ public class CasebookService {
      */
     private final Provider<Identity> identity;
 
-    public CasebookService(
-            CasebookDao casebookDao,
+    public ScriptEntryService(
+            ScriptEntryDao scriptEntryDao,
             @Classed(StoragePackageDriver.class) Supplier<ScriptPackage> scriptPackage,
             Provider<Identity> identity,
             ScriptAssetsService assetsService) {
 
-        this.casebookDao = casebookDao;
+        this.scriptEntryDao = scriptEntryDao;
         this.scriptPackage = scriptPackage;
         this.identity = identity;
         this.assetsService = assetsService;
@@ -55,17 +55,17 @@ public class CasebookService {
     }
 
     @RequireIdentity
-    public Casebook createCasebook(InputStream scriptPackageData) {
+    public ScriptEntry createScriptEntry(InputStream scriptPackageData) {
         Long userId = identity.get().longId();
-        return createCasebook(userId, scriptPackageData);
+        return createScriptEntry(userId, scriptPackageData);
     }
 
     /**
      * Add script package to registry
      */
-    public Casebook createCasebook(Long userId, InputStream scriptPackageData) {
+    public ScriptEntry createScriptEntry(Long userId, InputStream scriptPackageData) {
 
-        var scriptEntryId = casebookDao.createCasebookId();
+        var scriptEntryId = scriptEntryDao.createScriptEntryId();
 
         Script script;
 
@@ -77,14 +77,14 @@ public class CasebookService {
             throw new RuntimeException(e);
         }
 
-        Casebook casebook = new Casebook();
-        casebook.setId(scriptEntryId);
-        casebook.setUserId(userId);
-        casebook.setAccess(CasebookAccessType.PRIVATE);
-        casebook.setCreatedAt(new Date());
+        ScriptEntry scriptEntry = new ScriptEntry();
+        scriptEntry.setId(scriptEntryId);
+        scriptEntry.setUserId(userId);
+        scriptEntry.setAccess(ScriptEntryAccessType.PRIVATE);
+        scriptEntry.setCreatedAt(new Date());
 
         var summary = new ScriptSummary();
-        casebook.setSummary(summary);
+        scriptEntry.setSummary(summary);
 
         summary.setId(script.metainfo.usn);
         summary.setTitle(script.metainfo.title);
@@ -93,46 +93,40 @@ public class CasebookService {
         summary.setVersion(script.metainfo.version);
         summary.setCreationDate(script.metainfo.creationDate);
 
-        casebookDao.createCasebook(casebook);
+        scriptEntryDao.createScriptEntry(scriptEntry);
 
-        return casebook;
+        return scriptEntry;
     }
 
-    /**
-     * Remove casebook from catalog
-     */
-    public void removeCasebook(Long id) {
+    public void removeScriptEntry(Long id) {
 
     }
 
-    /**
-     * Get casebook by id
-     */
-    public Optional<Casebook> findCasebookById(Long id) {
-        return casebookDao.findCasebookById(id);
+    public Optional<ScriptEntry> findScriptEntryById(Long id) {
+        return scriptEntryDao.findScriptEntryById(id);
     }
 
     /**
-     * Get casebook by {@link colesico.zacepco.script.model.script.ScriptMetainfo#usn}
+     * Get script entry by {@link colesico.zacepco.script.model.script.ScriptMetainfo#usn}
      */
-    public Optional<Casebook> findCasebookByUsn(String usn) {
-        return casebookDao.findCasebookByUsn(usn);
+    public Optional<ScriptEntry> findScriptEntryByUsn(String usn) {
+        return scriptEntryDao.findScriptEntryByUsn(usn);
     }
 
     /**
-     * List casebooks in reverse creation order
+     * List script entries in reverse creation order
      */
-    public List<Casebook> listCasebooks(int limit, long offset) {
-        return casebookDao.listCasebooks(limit, offset);
+    public List<ScriptEntry> listScriptEntries(int limit, long offset) {
+        return scriptEntryDao.listScriptEntries(limit, offset);
     }
 
     /**
      * Get Script package API
      *
-     * @param casebookId script entry id
+     * @param scriptEntryId script entry id
      */
     @PlainMethod
-    public ScriptPackage scriptPackage(Long casebookId) {
-        return scriptPackage.get(scriptPackageId(casebookId));
+    public ScriptPackage scriptPackage(Long scriptEntryId) {
+        return scriptPackage.get(scriptPackageId(scriptEntryId));
     }
 }

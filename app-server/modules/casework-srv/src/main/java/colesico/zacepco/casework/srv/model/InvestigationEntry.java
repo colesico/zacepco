@@ -2,6 +2,7 @@ package colesico.zacepco.casework.srv.model;
 
 import colesico.framework.jdbirec.Column;
 import colesico.framework.jdbirec.Record;
+import colesico.zacepco.casereg.srv.model.ScriptEntry;
 
 import java.util.Date;
 
@@ -9,7 +10,7 @@ import java.util.Date;
  * Investigation process model
  */
 @Record(table = "investigations")
-public class InvestigationProcess {
+public class InvestigationEntry {
 
     /**
      * Process id
@@ -27,18 +28,15 @@ public class InvestigationProcess {
     private InvestigationStatus status;
 
     /**
-     * Current amount of resource for investigation
-     */
-    @Column
-    private Integer resource;
-
-    /**
      * Script ref
      *
-     * @see Casebook
+     * @see ScriptEntry
      */
     @Column
-    private Long scriptId;
+    private Long scriptEntryId;
+
+    @Column
+    private String title;
 
     /**
      * When case entity was created
@@ -70,20 +68,20 @@ public class InvestigationProcess {
         this.status = status;
     }
 
-    public Integer getResource() {
-        return resource;
+    public Long getScriptEntryId() {
+        return scriptEntryId;
     }
 
-    public void setResource(Integer resource) {
-        this.resource = resource;
+    public void setScriptEntryId(Long scriptEntryId) {
+        this.scriptEntryId = scriptEntryId;
     }
 
-    public Long getScriptId() {
-        return scriptId;
+    public String getTitle() {
+        return title;
     }
 
-    public void setScriptId(Long scriptId) {
-        this.scriptId = scriptId;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public Date getCreated() {

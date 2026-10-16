@@ -5,9 +5,9 @@ import colesico.zacepco.script.model.script.ScriptMetainfo;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CasebookOverview {
+public class ScriptOverview {
 
-    public Long casebookId;
+    public Long scriptEntryId;
 
     public ScriptMetainfo metainfo;
 
@@ -15,12 +15,12 @@ public class CasebookOverview {
 
     public SceneOverview scene;
 
-    public Long getCasebookId() {
-        return casebookId;
+    public Long getScriptEntryId() {
+        return scriptEntryId;
     }
 
-    public void setCasebookId(Long casebookId) {
-        this.casebookId = casebookId;
+    public void setScriptEntryId(Long scriptEntryId) {
+        this.scriptEntryId = scriptEntryId;
     }
 
     public ScriptMetainfo getMetainfo() {

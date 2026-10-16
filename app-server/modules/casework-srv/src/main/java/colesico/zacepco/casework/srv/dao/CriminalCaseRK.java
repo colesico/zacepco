@@ -8,8 +8,8 @@ package colesico.zacepco.casework.srv.dao;
 
 import colesico.framework.jdbirec.RecordKit;
 import colesico.framework.jdbirec.RecordKitApi;
-import colesico.zacepco.casework.srv.model.InvestigationProcess;
+import colesico.zacepco.casework.srv.model.InvestigationEntry;
 
 @RecordKit
-public interface CriminalCaseRK extends RecordKitApi<InvestigationProcess> {
+public interface CriminalCaseRK extends RecordKitApi<InvestigationEntry> {
 }

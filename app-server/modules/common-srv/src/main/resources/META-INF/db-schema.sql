@@ -34,7 +34,7 @@ CREATE INDEX IF NOT EXISTS idx_invites_code
 
 CREATE INDEX IF NOT EXISTS idx_invites_user_id ON invites(user_id);
 
-CREATE TABLE IF NOT EXISTS casebooks (
+CREATE TABLE IF NOT EXISTS scripts (
     id INTEGER PRIMARY KEY NOT NULL,
     user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
     access TEXT NOT NULL CHECK (access IN ('PRIVATE', 'PROTECTED', 'PUBLIC')),
@@ -47,17 +47,17 @@ CREATE TABLE IF NOT EXISTS casebooks (
     script_creation_date TEXT NOT NULL
 ) STRICT;
 
-CREATE UNIQUE INDEX IF NOT EXISTS idx_casebooks_author_unique
-    ON casebooks (user_id, script_id)
+CREATE UNIQUE INDEX IF NOT EXISTS idx_scripts_author_unique
+    ON scripts (user_id, script_id)
     WHERE access IN ('PRIVATE', 'PROTECTED');
 
-CREATE UNIQUE INDEX IF NOT EXISTS idx_casebooks_public_unique
-    ON casebooks (script_id)
+CREATE UNIQUE INDEX IF NOT EXISTS idx_scripts_public_unique
+    ON scripts (script_id)
     WHERE access = 'PUBLIC';
 
-CREATE TABLE IF NOT EXISTS casebooks_id_sequence (
+CREATE TABLE IF NOT EXISTS scripts_id_sequence (
     id INTEGER PRIMARY KEY CHECK (id = 1),
     value INTEGER NOT NULL
 );
 
-INSERT OR IGNORE INTO casebooks_id_sequence (id, value) VALUES (1, 0);
+INSERT OR IGNORE INTO scripts_id_sequence (id, value) VALUES (1, 0);

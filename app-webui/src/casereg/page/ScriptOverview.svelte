@@ -1,5 +1,5 @@
 <script>
-  import * as casebookApi from "../api/CasebookApi.js";
+  import * as scriptEntryApi from "../api/ScriptEntryApi.js";
 
   import UiErrorMessage from "@common/widget/UiErrorMessage.svelte"
   import UiLoadingIndicator from "@common/widget/UiLoadingIndicator.svelte"
@@ -24,7 +24,7 @@
   $effect(() => {
     async function loadData() {
       try {
-        overview = await casebookApi.casebookOverview(id);
+        overview = await scriptEntryApi.casebookOverview(id);
       } catch (ex) {
         error = ex.data;
       } finally {
@@ -55,7 +55,7 @@
       icon="fas fa-clipboard-check"
       title="Регистрация нового дела на базе сценария преступления"
       caption="Добавить дело"
-      href="/casereg/create"
+      href="/casereg/registration"
     />
   </UiLocalMenu>
 

@@ -10,33 +10,30 @@ import colesico.zacepco.script.model.script.Script;
 import java.util.Date;
 
 /**
- * Casebook model
+ * Script entry model
  *
  * @see Script
  */
-@Record(table = "casebooks")
-public class Casebook {
+@Record(table = "scripts")
+public class ScriptEntry {
 
-    /**
-     * Case record Id
-     */
     @Column
     private Long id;
 
     /**
-     * User who created this case record
+     * User who created this entry
      */
     @Column
     private Long userId;
 
     /**
-     * Case record access
+     * Entry access
      */
     @Column(mediator = AccessTypeMediator.class)
-    private CasebookAccessType access;
+    private ScriptEntryAccessType access;
 
     /**
-     * Case record creation date
+     * Creation date
      */
     @Column(mediator = DateTextMediator.class)
     private Date createdAt;
@@ -63,11 +60,11 @@ public class Casebook {
         this.userId = userId;
     }
 
-    public CasebookAccessType getAccess() {
+    public ScriptEntryAccessType getAccess() {
         return access;
     }
 
-    public void setAccess(CasebookAccessType access) {
+    public void setAccess(ScriptEntryAccessType access) {
         this.access = access;
     }
 

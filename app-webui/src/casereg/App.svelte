@@ -1,15 +1,15 @@
 <script>
   import Router from 'svelte-spa-router';
   import { link } from 'svelte-spa-router'; 
-  import CaseList from './page/CaseList.svelte';
-  import CreateCase from './page/CreateCase.svelte';
-  import CaseOverview from './page/CaseOverview';
+  import ScriptList from './page/ScriptList.svelte';
+  import ScriptRegistration from './page/ScriptRegistration.svelte';
+  import ScriptOverview from './page/ScriptOverview';
 
   
   const routes = {
-    '/': CaseList,
-	'/casereg/create': CreateCase,
-	'/casereg/:id': CaseOverview
+    '/': ScriptList,
+	'/registration': ScriptRegistration,
+	'/script/:id': ScriptOverview
   };
   
 </script>
