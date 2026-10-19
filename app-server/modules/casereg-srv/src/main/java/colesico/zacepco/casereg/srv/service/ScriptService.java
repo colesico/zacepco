@@ -22,7 +22,7 @@ import java.util.*;
 
 @Service
 @Transactional
-public class ScriptEntryService {
+public class ScriptService {
 
     private final ScriptAssetsService assetsService;
 
@@ -38,7 +38,7 @@ public class ScriptEntryService {
      */
     private final Provider<Identity> identity;
 
-    public ScriptEntryService(
+    public ScriptService(
             ScriptEntryDao scriptEntryDao,
             @Classed(StoragePackageDriver.class) Supplier<ScriptPackage> scriptPackage,
             Provider<Identity> identity,

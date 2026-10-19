@@ -7,7 +7,7 @@
 	
 	import { push, replace } from 'svelte-spa-router';
   
-	import * as scriptEntryApi from "../api/ScriptEntryApi.js";
+	import * as scriptApi from "../api/ScriptApi.js";
 
     let error = $state(null);
     let loading = $state(false);
@@ -31,7 +31,7 @@
 
 		try {
 		    console.log('Call api');
-			const response = await scriptEntryApi.createCaseEntry(file);
+			const response = await scriptApi.createCaseEntry(file);
 		} catch (ex) {
 			error = ex.data;
 		} finally {

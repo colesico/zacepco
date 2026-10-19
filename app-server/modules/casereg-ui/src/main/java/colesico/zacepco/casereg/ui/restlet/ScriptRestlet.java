@@ -9,7 +9,7 @@ import colesico.framework.restlet.Restlet;
 import colesico.framework.security.authentication.Authentication;
 import colesico.framework.telehttp.ParamName;
 import colesico.zacepco.casereg.srv.model.ScriptEntry;
-import colesico.zacepco.casereg.srv.service.ScriptEntryService;
+import colesico.zacepco.casereg.srv.service.ScriptService;
 import colesico.zacepco.casereg.ui.dto.ScriptOverview;
 import colesico.zacepco.casereg.ui.dto.EntityOverview;
 import colesico.zacepco.casereg.ui.dto.LocationOverview;
@@ -18,31 +18,31 @@ import colesico.zacepco.casereg.ui.dto.SceneOverview;
 import java.util.List;
 
 @Restlet
-@Route("./script-entry")
-public class ScriptEntryRestlet {
-    private final ScriptEntryService scriptEntryService;
+@Route("./script")
+public class ScriptRestlet {
+    private final ScriptService scriptService;
 
-    public ScriptEntryRestlet(ScriptEntryService scriptEntryService) {
-        this.scriptEntryService = scriptEntryService;
+    public ScriptRestlet(ScriptService scriptService) {
+        this.scriptService = scriptService;
     }
 
     @RequestMethod(HttpMethod.POST)
     @Route("./")
     @Authentication(WebJwt.class)
     public ScriptEntry createScriptEntry(@ParamName("script") HttpFile scriptFile) {
-        return scriptEntryService.createScriptEntry(scriptFile.inputStream());
+        return scriptService.createScriptEntry(scriptFile.inputStream());
     }
 
     @Route("./")
     public List<ScriptEntry> listScriptEntries(Integer limit, Long offset) {
-        return scriptEntryService.listScriptEntries(limit, offset);
+        return scriptService.listScriptEntries(limit, offset);
     }
 
     @Route("./overview/:scriptEntryId")
     public ScriptOverview scriptOverview(Long scriptEntryId) {
         try {
             // var caseFile = caseFileService.findCaseFileById(caseFileId);
-            var scriptPackage = scriptEntryService.scriptPackage(scriptEntryId);
+            var scriptPackage = scriptService.scriptPackage(scriptEntryId);
             var script = scriptPackage.script().read();
             var scriptOverview = new ScriptOverview();
 

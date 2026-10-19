@@ -5,7 +5,7 @@ import colesico.framework.httprouter.Route;
 import colesico.framework.telehttp.ParamOrigin;
 import colesico.framework.telehttp.origin.Origin;
 import colesico.framework.weblet.Weblet;
-import colesico.zacepco.casereg.srv.service.ScriptEntryService;
+import colesico.zacepco.casereg.srv.service.ScriptService;
 import colesico.zacepco.casereg.srv.service.ScriptAssetsService;
 import colesico.zacepco.script.model.setting.EntityId;
 import colesico.zacepco.script.pkg.PackageResource;
@@ -17,12 +17,12 @@ import jakarta.inject.Provider;
 public class ScriptAssetsWeblet {
 
     private final ScriptAssetsService scriptAssetsService;
-    private final ScriptEntryService scriptEntryService;
+    private final ScriptService scriptService;
     private final Provider<HttpResponse> httpResponse;
 
-    public ScriptAssetsWeblet(ScriptAssetsService scriptAssetsService, ScriptEntryService scriptEntryService, Provider<HttpResponse> httpResponse) {
+    public ScriptAssetsWeblet(ScriptAssetsService scriptAssetsService, ScriptService scriptService, Provider<HttpResponse> httpResponse) {
         this.scriptAssetsService = scriptAssetsService;
-        this.scriptEntryService = scriptEntryService;
+        this.scriptService = scriptService;
         this.httpResponse = httpResponse;
     }
 
@@ -30,7 +30,7 @@ public class ScriptAssetsWeblet {
     @ParamOrigin(Origin.ROUTE)
     public void asset(Long scriptEntryId, String assetId) {
 
-        ScriptPackage sp = scriptEntryService.scriptPackage(scriptEntryId);
+        ScriptPackage sp = scriptService.scriptPackage(scriptEntryId);
 
         PackageResource res = switch (assetId) {
             case "S" -> sp.scriptImage();

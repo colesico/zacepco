@@ -1,5 +1,5 @@
 <script>
-  import * as scriptEntryApi from "../api/ScriptEntryApi.js";
+  import * as scriptApi from "../api/ScriptApi.js";
 
   import UiErrorMessage from "@common/widget/UiErrorMessage.svelte"
   import UiLoadingIndicator from "@common/widget/UiLoadingIndicator.svelte"
@@ -24,7 +24,7 @@
   $effect(() => {
     async function loadData() {
       try {
-        overview = await scriptEntryApi.scriptOverview(id);
+        overview = await scriptApi.scriptOverview(id);
       } catch (ex) {
         error = ex.data;
       } finally {
