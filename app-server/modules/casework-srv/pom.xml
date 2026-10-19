@@ -42,6 +42,12 @@
             <version>${project.version}</version>
         </dependency>
 
+        <!-- Kryo for game state persistence-->
+        <dependency>
+            <groupId>com.esotericsoftware</groupId>
+            <artifactId>kryo</artifactId>
+            <version>${kryo.version}</version>
+        </dependency>
 
     </dependencies>
 </project>

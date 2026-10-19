@@ -11,5 +11,5 @@ import colesico.framework.jdbirec.RecordKitApi;
 import colesico.zacepco.casework.srv.model.InvestigationEntry;
 
 @RecordKit
-public interface CriminalCaseRK extends RecordKitApi<InvestigationEntry> {
+public interface InvestigationEntryRK extends RecordKitApi<InvestigationEntry> {
 }

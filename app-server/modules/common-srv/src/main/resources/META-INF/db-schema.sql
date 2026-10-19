@@ -61,3 +61,16 @@ CREATE TABLE IF NOT EXISTS scripts_id_sequence (
 );
 
 INSERT OR IGNORE INTO scripts_id_sequence (id, value) VALUES (1, 0);
+
+CREATE TABLE IF NOT EXISTS investigations (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    status TEXT NOT NULL CHECK (status IN ('OPEN', 'CLOSED')),
+    script_entry_id INTEGER REFERENCES scripts(id) ON DELETE CASCADE,
+    created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    title TEXT,
+    state BLOB
+) STRICT;
+
+CREATE INDEX IF NOT EXISTS idx_investigations_user_id ON investigations(user_id);
+CREATE INDEX IF NOT EXISTS idx_investigations_script_entry_id ON investigations(script_entry_id) WHERE script_entry_id IS NOT NULL;

@@ -5,11 +5,11 @@ import colesico.zacepco.casework.srv.model.InvestigationEntry;
 import colesico.zacepco.casework.srv.model.InvestigationStatus;
 
 @Service
-public class CriminalCaseService {
+public class InvestigationService {
 
     public InvestigationEntry createCase(Long scriptId){
         InvestigationEntry inv = new InvestigationEntry();
-        inv.setStatus(InvestigationStatus.NEW);
+        inv.setStatus(InvestigationStatus.OPEN);
         return inv;
     }
 
