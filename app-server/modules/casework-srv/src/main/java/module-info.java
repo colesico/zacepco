@@ -3,7 +3,7 @@ module colesico.zacepco.casework.srv {
     requires jakarta.inject;
     requires colesico.framework.config;
     requires transitive colesico.zacepco.common.srv;
-    requires transitive colesico.zacepco.script;
+    requires transitive colesico.zacepco.respack;
     requires transitive colesico.zacepco.casereg.srv;
 
     requires com.esotericsoftware.kryo;

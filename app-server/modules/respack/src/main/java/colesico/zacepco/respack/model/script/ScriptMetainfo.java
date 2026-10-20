@@ -1,0 +1,184 @@
+package colesico.zacepco.respack.model.script;
+
+
+import colesico.zacepco.respack.yaml.YamlComment;
+
+import java.time.LocalDate;
+
+/**
+ * Script general meta information
+ */
+public class ScriptMetainfo {
+
+    /**
+     * Script schema version (<a href="https://semver.org/">SemVer</a>)
+     */
+    @YamlComment(text = {
+            "Script schema version (data model version)",
+            "SimVer (semver.org) notation (i.e. 1.2.3)"
+    })
+    public String schema;
+
+    /**
+     * Unique Script Identifier
+     */
+    @YamlComment(text = {
+            "Unique script name",
+            "Can only consist of ASCII letters, numbers, underscore '_'"
+    })
+    public String usn;
+
+    /**
+     * Script title
+     */
+    public String title;
+
+    /**
+     * Crime brief description
+     */
+    @YamlComment(text = "A brief crime summary without spoilers")
+    public String annotation;
+
+    /**
+     * Script authors
+     */
+    @YamlComment(text = "Script authors")
+    public String[] authors;
+
+    /**
+     * Script licence name i.e. CC BY 4.0
+     */
+    @YamlComment(text = "License under which the script is distributed")
+    public String licence;
+
+    /**
+     * Script creation date
+     */
+    @YamlComment(text = "Script creation date YYYY-MM-DD")
+    public LocalDate creationDate;
+
+    /**
+     * Script content version (1..N)
+     */
+    @YamlComment(text = "Script version (1..N)")
+    public Integer version;
+
+    /**
+     * Estimated difficulty level.
+     */
+    @YamlComment(text = {
+            "Game difficulty.",
+            "Dimensionless coefficient [0..1].",
+            "0 - easy; 1 - highly difficult."
+    })
+    public Double difficulty;
+
+    /**
+     * Estimated  time to play in minutes  (min-max)
+     */
+    @YamlComment(text = "Estimated playtime, minutes")
+    public IntInterval estimatedTime;
+
+    /**
+     * Recommended players number  (min-max)
+     */
+    @YamlComment(text = "Recommended number of players (min-max)")
+    public IntInterval playersNum;
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getAnnotation() {
+        return annotation;
+    }
+
+    public void setAnnotation(String annotation) {
+        this.annotation = annotation;
+    }
+
+    public String[] getAuthors() {
+        return authors;
+    }
+
+    public void setAuthors(String[] authors) {
+        this.authors = authors;
+    }
+
+    public String getLicence() {
+        return licence;
+    }
+
+    public String getSchema() {
+        return schema;
+    }
+
+    public void setSchema(String schema) {
+        this.schema = schema;
+    }
+
+    public String getUsn() {
+        return usn;
+    }
+
+    public void setUsn(String usn) {
+        this.usn = usn;
+    }
+
+    public void setLicence(String licence) {
+        this.licence = licence;
+    }
+
+    public LocalDate getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(LocalDate creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    public Integer getVersion() {
+        return version;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
+    }
+
+    public Double getDifficulty() {
+        return difficulty;
+    }
+
+    public void setDifficulty(Double difficulty) {
+        this.difficulty = difficulty;
+    }
+
+    public IntInterval getEstimatedTime() {
+        return estimatedTime;
+    }
+
+    public void setEstimatedTime(IntInterval estimatedTime) {
+        this.estimatedTime = estimatedTime;
+    }
+
+    public IntInterval getPlayersNum() {
+        return playersNum;
+    }
+
+    public void setPlayersNum(IntInterval playersNum) {
+        this.playersNum = playersNum;
+    }
+
+    @Override
+    public String toString() {
+        return "ScriptMetadata{" +
+                "schema='" + schema + '\'' +
+                ", id='" + usn + '\'' +
+                ", title='" + title + '\'' +
+                '}';
+    }
+}

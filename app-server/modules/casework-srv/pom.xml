@@ -26,7 +26,7 @@
         <!-- Zacepco -->
         <dependency>
             <groupId>net.colesico.zacepco</groupId>
-            <artifactId>zacepco-script</artifactId>
+            <artifactId>zacepco-respack</artifactId>
             <version>${project.version}</version>
         </dependency>
 

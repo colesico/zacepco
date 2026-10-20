@@ -1,6 +1,6 @@
 package colesico.zacepco.casereg.ui.dto;
 
-import colesico.zacepco.script.model.script.ScriptMetainfo;
+import colesico.zacepco.respack.model.script.ScriptMetainfo;
 
 import java.util.ArrayList;
 import java.util.List;

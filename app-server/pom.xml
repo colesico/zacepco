@@ -128,7 +128,7 @@
                 <module>modules/common-ui</module>
                 <module>modules/identity-srv</module>
                 <module>modules/identity-ui</module>
-                <module>modules/script</module>
+                <module>modules/respack</module>
                 <module>modules/casereg-srv</module>
                 <module>modules/casereg-ui</module>
                 <module>modules/casework-srv</module>

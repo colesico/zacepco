@@ -12,8 +12,8 @@ import colesico.zacepco.casereg.srv.filestorage.StoragePackageDriver;
 import colesico.zacepco.casereg.srv.model.ScriptEntry;
 import colesico.zacepco.casereg.srv.model.ScriptEntryAccessType;
 import colesico.zacepco.casereg.srv.model.ScriptSummary;
-import colesico.zacepco.script.model.script.Script;
-import colesico.zacepco.script.pkg.*;
+import colesico.zacepco.respack.model.script.Script;
+import colesico.zacepco.respack.pkg.*;
 import jakarta.inject.Provider;
 
 import java.io.IOException;
@@ -107,7 +107,7 @@ public class ScriptService {
     }
 
     /**
-     * Get script entry by {@link colesico.zacepco.script.model.script.ScriptMetainfo#usn}
+     * Get script entry by {@link colesico.zacepco.respack.model.script.ScriptMetainfo#usn}
      */
     public Optional<ScriptEntry> findScriptEntryByUsn(String usn) {
         return scriptEntryDao.findScriptEntryByUsn(usn);
