@@ -7,7 +7,7 @@ import java.io.OutputStream;
 /**
  * Represents resource inside package
  */
-public class PackageResource {
+public class Resource {
 
     /**
      * Resource path inside package
@@ -19,7 +19,7 @@ public class PackageResource {
      */
     protected final PackageDriver packageDriver;
 
-    public PackageResource(ResourcePath path, PackageDriver packageDriver) {
+    public Resource(ResourcePath path, PackageDriver packageDriver) {
         this.path = path;
         this.packageDriver = packageDriver;
     }

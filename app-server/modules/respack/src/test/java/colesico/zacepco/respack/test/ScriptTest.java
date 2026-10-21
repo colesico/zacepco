@@ -4,7 +4,7 @@ import colesico.framework.ioc.Ioc;
 import colesico.framework.ioc.IocBuilder;
 import colesico.framework.ioc.key.ClassedKey;
 import colesico.zacepco.respack.pkg.*;
-import colesico.zacepco.respack.model.script.Script;
+import colesico.zacepco.respack.model.script.ScriptDocument;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -23,20 +23,20 @@ public class ScriptTest {
 
     @Test
     public void testCreateScriptPackage() throws IOException {
-        ScriptReader reader = ioc.instance(ScriptReader.class);
+        YamlReader reader = ioc.instance(YamlReader.class);
 
         // Initial script document
         var scriptFile = "script.yaml";
         var classLoader = Thread.currentThread().getContextClassLoader();
-        Script script = reader.read(classLoader.getResourceAsStream(scriptFile));
+        ScriptDocument script = reader.read(classLoader.getResourceAsStream(scriptFile));
 
-        try (ScriptPackage scriptPackage = ioc.instance(ScriptPackage.class)) {
-            ScriptResource scriptResource = scriptPackage.script();
+        try (ResourcePackage resourcePackage = ioc.instance(ResourcePackage.class)) {
+            ScriptResource scriptResource = resourcePackage.script();
             scriptResource.write(script);
 
             Path targetPath = Paths.get(System.getProperty("user.dir"));
             // Target script file
-            scriptPackage.exportTo(targetPath.resolve("target/script.zsp.zip").toFile());
+            resourcePackage.exportTo(targetPath.resolve("target/script.zsp.zip").toFile());
         }
 
     }
@@ -47,7 +47,7 @@ public class ScriptTest {
         var scriptDir = userDir.resolve("../../../scripts/default");
 
         var scriptPackage = ioc.instance(
-                new ClassedKey<>(ScriptPackage.class, DirectoryPackageDriver.class),
+                new ClassedKey<>(ResourcePackage.class, DirectoryPackageDriver.class),
                 scriptDir);
 
         var resList = scriptPackage.driver().listResources();

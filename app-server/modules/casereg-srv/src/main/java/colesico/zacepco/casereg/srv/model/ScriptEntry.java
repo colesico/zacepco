@@ -5,14 +5,14 @@ import colesico.framework.jdbirec.Composition;
 import colesico.framework.jdbirec.Record;
 import colesico.framework.jdbirec.mediators.DateTextMediator;
 import colesico.zacepco.casereg.srv.jdbi.AccessTypeMediator;
-import colesico.zacepco.respack.model.script.Script;
+import colesico.zacepco.respack.model.script.ScriptDocument;
 
 import java.util.Date;
 
 /**
  * Script entry model
  *
- * @see Script
+ * @see ScriptDocument
  */
 @Record(table = "scripts")
 public class ScriptEntry {

@@ -1,34 +1,33 @@
 package colesico.zacepco.respack.pkg;
 
 import module org.yaml.snakeyaml;
-import colesico.framework.ioc.scope.Unscoped;
-import colesico.zacepco.respack.model.script.Script;
 import jakarta.inject.Provider;
+import jakarta.inject.Singleton;
 
 import java.io.*;
 
 /**
- * Script file reader
+ * Yaml document reader
  */
-@Unscoped
-public class ScriptReader {
+@Singleton
+public class YamlReader {
 
     /**
      * Snake YAML instance is not thread safe
      */
     private final Provider<Yaml> yaml;
 
-    public ScriptReader(Provider<Yaml> yaml) {
+    public YamlReader(Provider<Yaml> yaml) {
         this.yaml = yaml;
     }
 
-    public Script read(InputStream is) {
-        return yaml.get().loadAs(is, Script.class);
+    public <D> D read(InputStream is, Class<D> documentClass) {
+        return yaml.get().loadAs(is, documentClass);
     }
 
-    public Script read(File file) {
+    public <D> D read(File file, Class<D> documentClass) {
         try (FileInputStream fis = new FileInputStream(file)) {
-            return read(fis);
+            return read(fis, documentClass);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

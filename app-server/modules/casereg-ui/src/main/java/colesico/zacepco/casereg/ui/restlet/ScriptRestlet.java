@@ -54,7 +54,7 @@ public class ScriptRestlet {
                     continue;
                 }
                 var personageOverview = new EntityOverview();
-                personageOverview.id = personage.id.asString();
+                personageOverview.id = personage.number.asString();
                 personageOverview.name = personage.name;
                 personageOverview.description = personage.description;
                 scriptOverview.personages.add(personageOverview);
@@ -71,7 +71,7 @@ public class ScriptRestlet {
                     continue;
                 }
                 var locationOverview = new LocationOverview();
-                locationOverview.id = location.id.asString();
+                locationOverview.id = location.number.asString();
                 locationOverview.name = location.name;
                 locationOverview.description = location.description;
                 locationOverview.col = location.pos.col;

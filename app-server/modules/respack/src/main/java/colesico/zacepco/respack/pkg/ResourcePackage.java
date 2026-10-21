@@ -2,8 +2,6 @@ package colesico.zacepco.respack.pkg;
 
 import colesico.framework.ioc.message.IocMessage;
 import colesico.framework.ioc.scope.Unscoped;
-import colesico.zacepco.respack.model.setting.EntityId;
-import colesico.zacepco.respack.model.setting.EntityType;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -11,10 +9,15 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Script package API
+ * Resource package API
  */
 @Unscoped
-public class ScriptPackage implements Closeable {
+public class ResourcePackage implements Closeable {
+
+    /**
+     * Assets document
+     */
+    static final String ASSETS_DOCUMENT = "assets.yaml";
 
     /**
      * Script document
@@ -31,9 +34,10 @@ public class ScriptPackage implements Closeable {
     static final String ENTITY_TEMPLATE_IMAGE = "template.png";
 
     protected static final Pattern[] validResources = {
+            Pattern.compile("^assets.yaml$"),
             Pattern.compile("^script(.yaml|.png)$"),
-            Pattern.compile("^(L/L|P/P|C/C)\\d+(.png)$"),
-            Pattern.compile("^[PCL]/template.png$"),
+            Pattern.compile("^([LPCD])/([a-z_0-9]{1,16})(.png)$"),
+            Pattern.compile("^([PCLD])/card.png$"),
     };
 
     /**
@@ -41,15 +45,15 @@ public class ScriptPackage implements Closeable {
      */
     final PackageDriver packageDriver;
 
-    final ScriptReader reader;
+    final YamlReader reader;
 
-    final ScriptWriter writer;
+    final YamlWriter writer;
 
-    public ScriptPackage(@IocMessage PackageDriver packageDriver,
-                         ScriptReader reader,
-                         ScriptWriter writer) {
+    public ResourcePackage(@IocMessage PackageDriver packageDriver,
+                           YamlReader reader,
+                           YamlWriter writer) {
 
-        if (packageDriver == null){
+        if (packageDriver == null) {
             throw new RuntimeException("Package driver is not specified");
         }
         this.packageDriver = packageDriver;
@@ -62,6 +66,17 @@ public class ScriptPackage implements Closeable {
      */
     public PackageDriver driver() {
         return packageDriver;
+    }
+
+    /**
+     * Returns assets document resource
+     */
+    public AssetsResource assets() {
+        return new AssetsResource(
+                ResourcePath.of(ASSETS_DOCUMENT),
+                packageDriver,
+                reader,
+                writer);
     }
 
     /**
@@ -78,18 +93,12 @@ public class ScriptPackage implements Closeable {
     /**
      * Returns script poster resource
      */
-    public PackageResource scriptImage() {
-        return new PackageResource(ResourcePath.of(SCRIPT_IMAGE), packageDriver);
+    public Resource scriptImage() {
+        return new Resource(ResourcePath.of(SCRIPT_IMAGE), packageDriver);
     }
 
-    public PackageResource entityImage(EntityId entityId) {
-        String path = entityId.getType().code() + "/" + entityId + ENTITY_IMAGE_SUFFIX;
-        return new PackageResource(ResourcePath.of(path), packageDriver);
-    }
-
-    public PackageResource entityTemplateImage(EntityType entityType) {
-        String path = entityType.code() + "/" + ENTITY_TEMPLATE_IMAGE;
-        return new PackageResource(ResourcePath.of(path), packageDriver);
+    public Resource asset(AssetType type, String assetName) {
+        return new Resource(type.resourcePath(assetName), packageDriver);
     }
 
     /**
@@ -122,7 +131,7 @@ public class ScriptPackage implements Closeable {
                 return;
             }
         }
-        throw new RuntimeException("Invalid script package resource path: '" + resourcePath+"'");
+        throw new RuntimeException("Invalid script package resource path: '" + resourcePath + "'");
     }
 
     @Override

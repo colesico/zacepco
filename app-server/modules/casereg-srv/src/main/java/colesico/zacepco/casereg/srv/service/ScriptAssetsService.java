@@ -5,8 +5,8 @@ import colesico.framework.transaction.Transactional;
 import colesico.zacepco.casereg.srv.model.ScriptAssetType;
 import colesico.zacepco.common.srv.utils.ImageUtils;
 import colesico.zacepco.filestore.service.FileStorage;
-import colesico.zacepco.respack.pkg.PackageResource;
-import colesico.zacepco.respack.pkg.ScriptPackage;
+import colesico.zacepco.respack.pkg.Resource;
+import colesico.zacepco.respack.pkg.ResourcePackage;
 
 import javax.imageio.ImageIO;
 import java.io.OutputStream;
@@ -26,25 +26,25 @@ public class ScriptAssetsService {
         return Path.of("assets-" + assetType.resourceDir() + "-" + scriptEntryId);
     }
 
-    public void createAssets(Long scriptEntryId, ScriptPackage scriptPackage) {
+    public void createAssets(Long scriptEntryId, ResourcePackage resourcePackage) {
         try {
 
-            var posterResource = scriptPackage.scriptImage();
+            var posterResource = resourcePackage.scriptImage();
             createThumb(scriptEntryId, posterResource);
-            var script = scriptPackage.script().read();
+            var script = resourcePackage.script().read();
 
             for (var personage : script.setting.personages) {
-                var personageResource = scriptPackage.entityImage(personage.id);
+                var personageResource = resourcePackage.asset(personage.number);
                 createThumb(scriptEntryId, personageResource);
             }
 
             for (var location : script.setting.scene.locations) {
-                var locationResource = scriptPackage.entityImage(location.id);
+                var locationResource = resourcePackage.asset(location.number);
                 createThumb(scriptEntryId, locationResource);
             }
 
             for (var clue : script.setting.clues) {
-                var clueResource = scriptPackage.entityImage(clue.id);
+                var clueResource = resourcePackage.asset(clue.number);
                 createThumb(scriptEntryId, clueResource);
             }
 
@@ -53,7 +53,7 @@ public class ScriptAssetsService {
         }
     }
 
-    public void createThumb(Long scriptEntryId, PackageResource resource) {
+    public void createThumb(Long scriptEntryId, Resource resource) {
         try {
             var srcImg = ImageIO.read(resource.inputStream());
             var thumbImg = ImageUtils.iconize(srcImg, 240, 240, 0.5f, 0.5f);
@@ -67,7 +67,7 @@ public class ScriptAssetsService {
         }
     }
 
-    public void readAsset(Long scriptEntryId, PackageResource resource, OutputStream os) {
+    public void readAsset(Long scriptEntryId, Resource resource, OutputStream os) {
         try (
                 var is = fileStorage.fileInput(assetsRoot(scriptEntryId, ScriptAssetType.THUMB).resolve(resource.path().path()));
         ) {
