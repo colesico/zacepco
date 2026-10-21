@@ -22,11 +22,10 @@ public class ScriptDocument {
 
     @YamlComment(text = {
             "",
-            "Imported scripts",
-            "Array of USN's (Unique script names)",
+            "Assets id to use with this script",
             "",
     })
-    public List<String> include;
+    public String assets;
 
     /**
      * Environment spec
@@ -62,39 +61,20 @@ public class ScriptDocument {
     public ScriptDocument() {
     }
 
-    /**
-     * Gets the default reference script USN.
-     *
-     * @return an {@link Optional} with the first included USN, or {@link Optional#empty()} if none
-     */
-    public Optional<String> getDefaultReferenceUsn() {
-        return Optional.ofNullable(include)
-                .flatMap(list -> list.stream().findFirst());
-    }
-
-    public Optional<AssetReference> canonicalReference(AssetReference ref) {
-        if (ref == null) {
-            return Optional.empty();
-        }
-
-        if (ref.uan == null || ref.uan.isBlank()) {
-            return getDefaultReferenceUsn().map(defaultScript -> {
-                var nRef = new AssetReference();
-                nRef.uan = defaultScript;
-                nRef.id = ref.id;
-                return nRef;
-            });
-        }
-
-        return Optional.of(ref);
-    }
-
     public ScriptMetainfo getMetainfo() {
         return metainfo;
     }
 
     public void setMetainfo(ScriptMetainfo metainfo) {
         this.metainfo = metainfo;
+    }
+
+    public String getAssets() {
+        return assets;
+    }
+
+    public void setAssets(String assets) {
+        this.assets = assets;
     }
 
     public Setting getSetting() {
@@ -119,14 +99,6 @@ public class ScriptDocument {
 
     public void setAnswers(Answers answers) {
         this.answers = answers;
-    }
-
-    public List<String> getInclude() {
-        return include;
-    }
-
-    public void setInclude(List<String> include) {
-        this.include = include;
     }
 
     @Override

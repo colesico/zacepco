@@ -23,10 +23,10 @@ public class ScriptMetainfo {
      * Unique Script Identifier
      */
     @YamlComment(text = {
-            "Unique script name",
+            "Unique script id",
             "Can only consist of ASCII letters, numbers, underscore '_'"
     })
-    public String usn;
+    public String id;
 
     /**
      * Script title
@@ -121,12 +121,12 @@ public class ScriptMetainfo {
         this.schema = schema;
     }
 
-    public String getUsn() {
-        return usn;
+    public String getId() {
+        return id;
     }
 
-    public void setUsn(String usn) {
-        this.usn = usn;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public void setLicence(String licence) {
@@ -177,7 +177,7 @@ public class ScriptMetainfo {
     public String toString() {
         return "ScriptMetadata{" +
                 "schema='" + schema + '\'' +
-                ", id='" + usn + '\'' +
+                ", id='" + id + '\'' +
                 ", title='" + title + '\'' +
                 '}';
     }

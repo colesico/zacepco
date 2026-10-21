@@ -13,19 +13,12 @@ public abstract class Entity<ID extends EntityId> {
     /**
      * Entity unique ID
      */
-    @YamlComment(text = "Unique within script ID")
-    public ID id;
-
-    /**
-     * Detailed description.
-     */
     @YamlComment(text = {
-            "Taget asset"
+            "Unique within script ID",
+            "Must match the corresponding asset ID from the script 'assets' field",
+            "Format: [PLCT][A-Z0-9]{1,3}"
     })
-    public AssetReference asset;
-
-    @YamlComment(text = "Entity reference")
-    public AssetReference reference;
+    public ID id;
 
     public ID getId() {
         return id;
@@ -33,22 +26,6 @@ public abstract class Entity<ID extends EntityId> {
 
     public void setId(ID id) {
         this.id = id;
-    }
-
-    public AssetReference getAsset() {
-        return asset;
-    }
-
-    public void setAsset(AssetReference asset) {
-        this.asset = asset;
-    }
-
-    public AssetReference getReference() {
-        return reference;
-    }
-
-    public void setReference(AssetReference reference) {
-        this.reference = reference;
     }
 
     @Override

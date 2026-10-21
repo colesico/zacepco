@@ -34,7 +34,7 @@ public class ScriptAssetsService {
             var script = resourcePackage.script().read();
 
             for (var personage : script.setting.personages) {
-                var personageResource = resourcePackage.asset(personage.number);
+                var personageResource = resourcePackage.personageImage(personage.asset.id);
                 createThumb(scriptEntryId, personageResource);
             }
 

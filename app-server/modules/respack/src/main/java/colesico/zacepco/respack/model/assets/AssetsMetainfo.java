@@ -20,13 +20,13 @@ public class AssetsMetainfo {
     public String schema;
 
     /**
-     * Unique Assets Name
+     * Unique Assets Id
      */
     @YamlComment(text = {
-            "Unique assets name",
+            "Unique assets id",
             "Consist of ASCII letters, numbers, underscore '_', max 32 chars"
     })
-    public String uan;
+    public String id;
 
     /**
      * Assets title
@@ -69,12 +69,12 @@ public class AssetsMetainfo {
         this.schema = schema;
     }
 
-    public String getUan() {
-        return uan;
+    public String getId() {
+        return id;
     }
 
-    public void setUan(String uan) {
-        this.uan = uan;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getTitle() {

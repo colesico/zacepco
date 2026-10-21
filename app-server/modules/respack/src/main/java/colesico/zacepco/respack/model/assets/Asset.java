@@ -17,14 +17,15 @@ abstract public class Asset {
     })
     private String id;
 
-    public String getId() {
-        return id;
-    }
-
     public void setId(String id) {
         if (id == null || !ID_PATTERN.matcher(id).matches()) {
             throw new IllegalArgumentException("Invalid ID value. Only alphanumeric or underscores, length 1-32 chars");
         }
         this.id = id;
     }
+
+    public String getId() {
+        return id;
+    }
+
 }

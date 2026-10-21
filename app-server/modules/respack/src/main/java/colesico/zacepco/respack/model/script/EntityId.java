@@ -3,11 +3,14 @@ package colesico.zacepco.respack.model.script;
 import colesico.framework.assist.StringUtils;
 
 import java.util.Objects;
+import java.util.regex.Pattern;
 
 /**
  * Entity identifier
  */
 abstract public sealed class EntityId permits PersonageId, ClueId, LocationId, TimeId {
+
+    public static final Pattern VALUE_PATTERN = Pattern.compile("^[A-Z0-9]{1,3}$");
 
     /**
      * Entity type
@@ -20,8 +23,8 @@ abstract public sealed class EntityId permits PersonageId, ClueId, LocationId, T
     protected final String value;
 
     protected EntityId(EntityType type, String value) {
-        if (StringUtils.isBlank(value)) {
-            throw new RuntimeException("Empty id value");
+        if (value == null || !VALUE_PATTERN.matcher(value).matches()) {
+            throw new IllegalArgumentException("Invalid Id value");
         }
         if (type == null) {
             throw new RuntimeException("Id type is null");
@@ -47,8 +50,8 @@ abstract public sealed class EntityId permits PersonageId, ClueId, LocationId, T
         };
     }
 
-    public final String asString(){
-        return type.code()+value;
+    public final String asString() {
+        return type.code() + value;
     }
 
     public EntityType getType() {

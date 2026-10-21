@@ -86,7 +86,7 @@ public class ScriptService {
         var summary = new ScriptSummary();
         scriptEntry.setSummary(summary);
 
-        summary.setId(script.metainfo.usn);
+        summary.setId(script.metainfo.id);
         summary.setTitle(script.metainfo.title);
         summary.setAnnotation(script.metainfo.annotation);
         summary.setAuthors(Arrays.asList(script.metainfo.authors));
@@ -107,7 +107,7 @@ public class ScriptService {
     }
 
     /**
-     * Get script entry by {@link colesico.zacepco.respack.model.script.ScriptMetainfo#usn}
+     * Get script entry by {@link colesico.zacepco.respack.model.script.ScriptMetainfo#id}
      */
     public Optional<ScriptEntry> findScriptEntryByUsn(String usn) {
         return scriptEntryDao.findScriptEntryByUsn(usn);

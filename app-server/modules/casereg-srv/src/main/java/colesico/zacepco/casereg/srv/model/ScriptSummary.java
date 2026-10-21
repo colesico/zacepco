@@ -11,7 +11,7 @@ import java.util.List;
 public class ScriptSummary {
 
     /**
-     * Script ID {@link ScriptMetainfo#getUsn()}
+     * Script ID {@link ScriptMetainfo#getId()}
      */
     @Column
     public String id;
