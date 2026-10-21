@@ -97,8 +97,16 @@ public class ResourcePackage implements Closeable {
         return new Resource(ResourcePath.of(SCRIPT_IMAGE), packageDriver);
     }
 
-    public Resource asset(AssetType type, String assetName) {
-        return new Resource(type.resourcePath(assetName), packageDriver);
+    public Resource personageImage(String assetId) {
+        return new Resource(ResourcePath.of("personage/" + assetId + ENTITY_IMAGE_SUFFIX), packageDriver);
+    }
+
+    public Resource clueImage(String assetId) {
+        return new Resource(ResourcePath.of("clue/" + assetId + ENTITY_IMAGE_SUFFIX), packageDriver);
+    }
+
+    public Resource locationImage(String assetId) {
+        return new Resource(ResourcePath.of("location/" + assetId +ENTITY_IMAGE_SUFFIX), packageDriver);
     }
 
     /**

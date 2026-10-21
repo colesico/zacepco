@@ -1,6 +1,6 @@
 package colesico.zacepco.casework.srv.model;
 
-import colesico.zacepco.respack.model.setting.LocationId;
+import colesico.zacepco.respack.model.script.LocationId;
 
 /**
  * Location state

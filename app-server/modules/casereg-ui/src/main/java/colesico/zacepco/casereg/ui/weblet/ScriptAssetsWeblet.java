@@ -7,7 +7,7 @@ import colesico.framework.telehttp.origin.Origin;
 import colesico.framework.weblet.Weblet;
 import colesico.zacepco.casereg.srv.service.ScriptService;
 import colesico.zacepco.casereg.srv.service.ScriptAssetsService;
-import colesico.zacepco.respack.model.setting.EntityId;
+import colesico.zacepco.respack.model.script.EntityId;
 import colesico.zacepco.respack.pkg.PackageResource;
 import colesico.zacepco.respack.pkg.ScriptPackage;
 import jakarta.inject.Provider;

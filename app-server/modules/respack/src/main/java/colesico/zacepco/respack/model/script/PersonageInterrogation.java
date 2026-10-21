@@ -1,6 +1,5 @@
-package colesico.zacepco.respack.model.investigation;
+package colesico.zacepco.respack.model.script;
 
-import colesico.zacepco.respack.model.setting.PersonageId;
 import colesico.zacepco.respack.yaml.YamlComment;
 
 import java.util.List;

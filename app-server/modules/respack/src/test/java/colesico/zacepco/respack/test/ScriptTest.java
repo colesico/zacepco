@@ -28,7 +28,7 @@ public class ScriptTest {
         // Initial script document
         var scriptFile = "script.yaml";
         var classLoader = Thread.currentThread().getContextClassLoader();
-        ScriptDocument script = reader.read(classLoader.getResourceAsStream(scriptFile));
+        ScriptDocument script = reader.read(classLoader.getResourceAsStream(scriptFile), ScriptDocument.class);
 
         try (ResourcePackage resourcePackage = ioc.instance(ResourcePackage.class)) {
             ScriptResource scriptResource = resourcePackage.script();

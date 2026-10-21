@@ -1,4 +1,4 @@
-package colesico.zacepco.respack.model.setting;
+package colesico.zacepco.respack.model.script;
 
 public final class TimeId extends EntityId {
 

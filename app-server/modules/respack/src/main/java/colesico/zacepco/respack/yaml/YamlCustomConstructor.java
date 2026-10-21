@@ -1,6 +1,6 @@
 package colesico.zacepco.respack.yaml;
 
-import colesico.zacepco.respack.model.script.EntityKey;
+import colesico.zacepco.respack.model.script.EntityId;
 import org.yaml.snakeyaml.LoaderOptions;
 import org.yaml.snakeyaml.constructor.AbstractConstruct;
 import org.yaml.snakeyaml.constructor.Construct;
@@ -25,9 +25,9 @@ public class YamlCustomConstructor extends Constructor {
             return new ConstructLocalDate();
         }
 
-        // У поля супер тип EntityKey?
-        if (EntityKey.class.isAssignableFrom(node.getType())) {
-            return new ConstructEntityKey();
+        // У поля супер тип EntityId?
+        if (EntityId.class.isAssignableFrom(node.getType())) {
+            return new ConstructEntityId();
         }
 
         return super.getConstructor(node);
@@ -42,11 +42,11 @@ public class YamlCustomConstructor extends Constructor {
         }
     }
 
-    static class ConstructEntityKey extends AbstractConstruct {
+    static class ConstructEntityId extends AbstractConstruct {
         @Override
         public Object construct(Node node) {
             String value = ((ScalarNode) node).getValue();
-            return EntityKey.parse(value);
+            return EntityId.parse(value);
         }
     }
 }

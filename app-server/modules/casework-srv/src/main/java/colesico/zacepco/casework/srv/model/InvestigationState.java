@@ -1,7 +1,7 @@
 package colesico.zacepco.casework.srv.model;
 
-import colesico.zacepco.respack.model.setting.LocationId;
-import colesico.zacepco.respack.model.setting.PersonageId;
+import colesico.zacepco.respack.model.script.LocationId;
+import colesico.zacepco.respack.model.script.PersonageId;
 
 import java.util.HashMap;
 import java.util.Map;

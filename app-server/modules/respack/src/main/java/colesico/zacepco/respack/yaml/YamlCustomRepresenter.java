@@ -1,10 +1,6 @@
 package colesico.zacepco.respack.yaml;
 
-import colesico.zacepco.respack.model.script.ClueKey;
-import colesico.zacepco.respack.model.script.TimeKey;
-import colesico.zacepco.respack.model.script.EntityKey;
-import colesico.zacepco.respack.model.script.PersonageKey;
-import colesico.zacepco.respack.model.script.LocationKey;
+import colesico.zacepco.respack.model.script.*;
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.comments.CommentLine;
 import org.yaml.snakeyaml.comments.CommentType;
@@ -33,11 +29,11 @@ public class YamlCustomRepresenter extends Representer {
 
         // Регистрация кастомных репрезентеров
         this.representers.put(LocalDate.class, new RepresentLocalDate());
-        this.representers.put(LocationKey.class, new RepresentEntityId());
-        this.representers.put(PersonageKey.class, new RepresentEntityId());
-        this.representers.put(ClueKey.class, new RepresentEntityId());
-        this.representers.put(TimeKey.class, new RepresentEntityId());
-        this.representers.put(EntityKey.class, new RepresentEntityId());
+        this.representers.put(LocationId.class, new RepresentEntityId());
+        this.representers.put(PersonageId.class, new RepresentEntityId());
+        this.representers.put(ClueId.class, new RepresentEntityId());
+        this.representers.put(TimeId.class, new RepresentEntityId());
+        this.representers.put(EntityId.class, new RepresentEntityId());
     }
 
     @Override
@@ -124,8 +120,8 @@ public class YamlCustomRepresenter extends Representer {
     private class RepresentEntityId implements Represent {
         @Override
         public Node representData(Object data) {
-            EntityKey entityKey = (EntityKey) data;
-            String id = entityKey.asString();
+            EntityId entityId = (EntityId) data;
+            String id = entityId.asString();
             return representScalar(Tag.STR, id);
         }
     }

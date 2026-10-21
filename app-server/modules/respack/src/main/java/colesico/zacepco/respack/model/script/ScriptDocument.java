@@ -1,8 +1,5 @@
 package colesico.zacepco.respack.model.script;
 
-import colesico.zacepco.respack.model.setting.EntityReference;
-import colesico.zacepco.respack.model.setting.Setting;
-import colesico.zacepco.respack.model.investigation.Investigation;
 import colesico.zacepco.respack.yaml.YamlComment;
 
 import java.util.List;
@@ -11,7 +8,7 @@ import java.util.Optional;
 /**
  * Script document
  */
-public class Script {
+public class ScriptDocument {
 
     /**
      * Meta information
@@ -62,7 +59,7 @@ public class Script {
     })
     public Answers answers;
 
-    public Script() {
+    public ScriptDocument() {
     }
 
     /**
@@ -75,16 +72,16 @@ public class Script {
                 .flatMap(list -> list.stream().findFirst());
     }
 
-    public Optional<EntityReference> canonicalReference(EntityReference ref) {
+    public Optional<AssetReference> canonicalReference(AssetReference ref) {
         if (ref == null) {
             return Optional.empty();
         }
 
-        if (ref.usn == null || ref.usn.isBlank()) {
+        if (ref.uan == null || ref.uan.isBlank()) {
             return getDefaultReferenceUsn().map(defaultScript -> {
-                var nRef = new EntityReference();
-                nRef.usn = defaultScript;
-                nRef.entity = ref.entity;
+                var nRef = new AssetReference();
+                nRef.uan = defaultScript;
+                nRef.id = ref.id;
                 return nRef;
             });
         }

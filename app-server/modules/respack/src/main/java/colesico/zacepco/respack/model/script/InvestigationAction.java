@@ -1,4 +1,4 @@
-package colesico.zacepco.respack.model.investigation;
+package colesico.zacepco.respack.model.script;
 
 import colesico.zacepco.respack.yaml.YamlComment;
 
