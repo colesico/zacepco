@@ -49,7 +49,7 @@ public class Clue extends Entity<Clue.Id> {
 
         @Override
         public Type type() {
-            return null;
+            return Type.CLUE;
         }
     }
 }

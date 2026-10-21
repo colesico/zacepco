@@ -2,6 +2,7 @@ package colesico.zacepco.respack.pkg;
 
 import colesico.framework.ioc.message.IocMessage;
 import colesico.framework.ioc.scope.Unscoped;
+import colesico.zacepco.respack.model.script.Entity;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -97,16 +98,8 @@ public class ResourcePackage implements Closeable {
         return new Resource(ResourcePath.of(SCRIPT_IMAGE), packageDriver);
     }
 
-    public Resource personageImage(String assetId) {
-        return new Resource(ResourcePath.of("personage/" + assetId + ENTITY_IMAGE_SUFFIX), packageDriver);
-    }
-
-    public Resource clueImage(String assetId) {
-        return new Resource(ResourcePath.of("clue/" + assetId + ENTITY_IMAGE_SUFFIX), packageDriver);
-    }
-
-    public Resource locationImage(String assetId) {
-        return new Resource(ResourcePath.of("location/" + assetId +ENTITY_IMAGE_SUFFIX), packageDriver);
+    public Resource entityImage(Entity.TypedId entityId) {
+        return new Resource(ResourcePath.of(entityId.type().name() + "/" + entityId + ENTITY_IMAGE_SUFFIX), packageDriver);
     }
 
     /**

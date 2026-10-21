@@ -52,7 +52,8 @@ public abstract class Entity<ID extends Entity.TypedId> {
     /**
      * Entity identifier
      */
-    abstract public sealed static class TypedId permits Personage.Id, Clue.Id, Location.Id, TimeId {
+    abstract public sealed static class TypedId
+            permits Clue.Id, Detective.Id, Location.Id, Personage.Id, TimeId {
 
         public static final Pattern VALUE_PATTERN = Pattern.compile("^[A-Z0-9]{1,3}$");
 

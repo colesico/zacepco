@@ -34,17 +34,17 @@ public class ScriptAssetsService {
             var script = resourcePackage.script().read();
 
             for (var personage : script.setting.personages) {
-                var personageResource = resourcePackage.personageImage(personage.asset.id);
+                var personageResource = resourcePackage.entityImage(personage.id);
                 createThumb(scriptEntryId, personageResource);
             }
 
             for (var location : script.setting.scene.locations) {
-                var locationResource = resourcePackage.asset(location.number);
+                var locationResource = resourcePackage.entityImage(location.id);
                 createThumb(scriptEntryId, locationResource);
             }
 
             for (var clue : script.setting.clues) {
-                var clueResource = resourcePackage.asset(clue.number);
+                var clueResource = resourcePackage.entityImage(clue.id);
                 createThumb(scriptEntryId, clueResource);
             }
 
