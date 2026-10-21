@@ -6,7 +6,7 @@ import colesico.framework.ioc.production.Produce;
 import colesico.framework.ioc.production.Producer;
 import colesico.framework.ioc.production.Supplier;
 import colesico.framework.ioc.scope.Unscoped;
-import colesico.zacepco.respack.model.script.Script;
+import colesico.zacepco.respack.model.script.ScriptDocument;
 import colesico.zacepco.respack.pkg.*;
 import colesico.zacepco.respack.yaml.YamlCustomConstructor;
 import colesico.zacepco.respack.yaml.YamlCustomRepresenter;
@@ -20,10 +20,10 @@ import org.yaml.snakeyaml.representer.Representer;
 import java.nio.file.Path;
 
 @Producer
-@Produce(ScriptReader.class)
-@Produce(ScriptWriter.class)
+@Produce(YamlReader.class)
+@Produce(YamlWriter.class)
 @Produce(DirectoryPackageDriver.class)
-@Produce(value = ScriptPackage.class, classed = PackageDriver.class)
+@Produce(value = ResourcePackage.class, classed = PackageDriver.class)
 public class ScriptProducer {
 
     @Unscoped
@@ -38,15 +38,15 @@ public class ScriptProducer {
         dumperOptions.setAllowUnicode(true);
 
         Representer representer = new YamlCustomRepresenter(dumperOptions);
-        representer.addClassTag(Script.class, Tag.MAP);
+        representer.addClassTag(ScriptDocument.class, Tag.MAP);
 
         return new Yaml(constructor, representer, dumperOptions);
     }
 
     // Default script package
     @Unscoped
-    public ScriptPackage scriptPackageDefault(
-            @Classed(PackageDriver.class) Supplier<ScriptPackage> scriptPackageFactory,
+    public ResourcePackage scriptPackageDefault(
+            @Classed(PackageDriver.class) Supplier<ResourcePackage> scriptPackageFactory,
             DirectoryPackageDriver packageDriver) {
         return scriptPackageFactory.get(packageDriver);
     }
@@ -56,8 +56,8 @@ public class ScriptProducer {
      */
     @Unscoped
     @Classed(DirectoryPackageDriver.class)
-    public ScriptPackage scriptPackageForScriptDirectory(
-            @Classed(PackageDriver.class) Supplier<ScriptPackage> scriptPackageFactory,
+    public ResourcePackage scriptPackageForScriptDirectory(
+            @Classed(PackageDriver.class) Supplier<ResourcePackage> scriptPackageFactory,
             Supplier<DirectoryPackageDriver> packageDriverFactory,
             @IocMessage Path scriptDir) {
         return scriptPackageFactory.get(packageDriverFactory.get(scriptDir));
