@@ -18,19 +18,19 @@ abstract public sealed class EntityId permits PersonageId, ClueId, LocationId, T
     protected final EntityType type;
 
     /**
-     * Id value
+     * Id key
      */
-    protected final String value;
+    protected final String key;
 
-    protected EntityId(EntityType type, String value) {
-        if (value == null || !VALUE_PATTERN.matcher(value).matches()) {
-            throw new IllegalArgumentException("Invalid Id value");
+    protected EntityId(EntityType type, String key) {
+        if (key == null || !VALUE_PATTERN.matcher(key).matches()) {
+            throw new IllegalArgumentException("Invalid Id key");
         }
         if (type == null) {
             throw new RuntimeException("Id type is null");
         }
         this.type = type;
-        this.value = value;
+        this.key = key;
     }
 
     public static EntityId parse(String entityId) {
@@ -51,31 +51,31 @@ abstract public sealed class EntityId permits PersonageId, ClueId, LocationId, T
     }
 
     public final String asString() {
-        return type.code() + value;
+        return type.code() + key;
     }
 
     public EntityType getType() {
         return type;
     }
 
-    public String getValue() {
-        return value;
+    public String getKey() {
+        return key;
     }
 
     @Override
     public final String toString() {
-        return type + value;
+        return type + key;
     }
 
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         EntityId entityId = (EntityId) o;
-        return type == entityId.type && Objects.equals(value, entityId.value);
+        return type == entityId.type && Objects.equals(key, entityId.key);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(type, value);
+        return Objects.hash(type, key);
     }
 }
