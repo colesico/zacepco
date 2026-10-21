@@ -22,7 +22,10 @@ public class ScriptDocument {
 
     @YamlComment(text = {
             "",
-            "Assets id to use with this script",
+            "Assets id to use with this script.",
+            "Every script is strictly tied to one asset pack.",
+            "Different scripts can utilize the same asset packs,",
+            "but a single script cannot combine multiple asset packs",
             "",
     })
     public String assets;

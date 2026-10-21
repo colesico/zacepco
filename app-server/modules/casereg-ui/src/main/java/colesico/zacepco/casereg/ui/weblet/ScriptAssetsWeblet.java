@@ -7,7 +7,7 @@ import colesico.framework.telehttp.origin.Origin;
 import colesico.framework.weblet.Weblet;
 import colesico.zacepco.casereg.srv.service.ScriptService;
 import colesico.zacepco.casereg.srv.service.ScriptAssetsService;
-import colesico.zacepco.respack.model.script.EntityId;
+import colesico.zacepco.respack.model.script.Entity;
 import colesico.zacepco.respack.pkg.PackageResource;
 import colesico.zacepco.respack.pkg.ScriptPackage;
 import jakarta.inject.Provider;
@@ -35,7 +35,7 @@ public class ScriptAssetsWeblet {
         PackageResource res = switch (assetId) {
             case "S" -> sp.scriptImage();
             default -> {
-                var entityId = EntityId.parse(assetId);
+                var entityId = Entity.TypedId.parse(assetId);
                 yield sp.entityImage(entityId);
             }
         };

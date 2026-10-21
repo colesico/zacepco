@@ -1,7 +1,7 @@
 package colesico.zacepco.casework.srv.model;
 
-import colesico.zacepco.respack.model.script.LocationId;
-import colesico.zacepco.respack.model.script.PersonageId;
+import colesico.zacepco.respack.model.script.Location;
+import colesico.zacepco.respack.model.script.Personage;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -11,6 +11,6 @@ public class InvestigationState {
 
     public Integer budget;
 
-    public Map<LocationId, LocationState> locations = new HashMap<>();
-    public Map<PersonageId, PersonageState> personages;
+    public Map<Location.Id, LocationState> locations = new HashMap<>();
+    public Map<Personage.Id, PersonageState> personages;
 }

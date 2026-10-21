@@ -49,13 +49,13 @@ public class Setting {
     })
     public List<Clue> clues;
 
-    public Optional<Personage> findPersonageById(PersonageId id) {
+    public Optional<Personage> findPersonageById(Personage.Id id) {
         return personages.stream()
                 .filter(user -> user.getId().equals(id))
                 .findFirst();
     }
 
-    public Optional<Clue> findClueById(ClueId id) {
+    public Optional<Clue> findClueById(Clue.Id id) {
         return clues.stream()
                 .filter(cl -> cl.getId().equals(id))
                 .findFirst();

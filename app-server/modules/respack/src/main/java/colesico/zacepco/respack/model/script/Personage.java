@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Game character
  */
-public class Personage extends Entity<PersonageId> {
+public class Personage extends Entity<Personage.Id> {
 
     /**
      * Hidden personage or not
@@ -16,7 +16,7 @@ public class Personage extends Entity<PersonageId> {
     public Boolean hidden;
 
     @YamlComment(text = "Initially revealed clues for this personage")
-    public List<ClueId> revealedClues;
+    public List<Clue.Id> revealedClues;
 
     /**
      * Personage-entity interaction for each time tick.
@@ -48,11 +48,23 @@ public class Personage extends Entity<PersonageId> {
         this.log = log;
     }
 
-    public List<ClueId> getRevealedClues() {
+    public List<Clue.Id> getRevealedClues() {
         return revealedClues;
     }
 
-    public void setRevealedClues(List<ClueId> revealedClues) {
+    public void setRevealedClues(List<Clue.Id> revealedClues) {
         this.revealedClues = revealedClues;
+    }
+
+    public static final class Id extends TypedId {
+
+        @Override
+        public Type type() {
+            return Type.PERSONAGE;
+        }
+
+        public Id(String value) {
+            super(value);
+        }
     }
 }

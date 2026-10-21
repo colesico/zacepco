@@ -1,6 +1,6 @@
 package colesico.zacepco.casework.srv.model;
 
-import colesico.zacepco.respack.model.script.ClueId;
+import colesico.zacepco.respack.model.script.Clue;
 
 /**
  * Clue, opened by location search, personage interrogation, expertise
@@ -25,7 +25,7 @@ public class FoundClue {
     /**
      * Clue ref
      */
-    private ClueId clueId;
+    private Clue.Id clueId;
 
     /**
      * Who found the clue
@@ -56,11 +56,11 @@ public class FoundClue {
         this.sourceId = sourceId;
     }
 
-    public ClueId getClueId() {
+    public Clue.Id getClueId() {
         return clueId;
     }
 
-    public void setClueId(ClueId clueId) {
+    public void setClueId(Clue.Id clueId) {
         this.clueId = clueId;
     }
 

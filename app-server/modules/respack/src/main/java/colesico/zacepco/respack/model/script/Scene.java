@@ -29,7 +29,7 @@ public class Scene {
     })
     public List<Connection> connections;
 
-    public Optional<Location> findLocationById(LocationId id) {
+    public Optional<Location> findLocationById(Location.Id id) {
         return locations.stream()
                 .filter(loc -> loc.getId().equals(id))
                 .findFirst();
@@ -41,7 +41,7 @@ public class Scene {
                 .findFirst();
     }
 
-    public List<Connection> findConnectionsByLocationId(LocationId id) {
+    public List<Connection> findConnectionsByLocationId(Location.Id id) {
         return connections.stream()
                 .filter(tr -> tr.getLocationU().equals(id) || tr.getLocationV().equals(id))
                 .collect(Collectors.toList());

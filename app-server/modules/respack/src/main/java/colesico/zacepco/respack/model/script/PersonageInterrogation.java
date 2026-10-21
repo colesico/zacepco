@@ -13,16 +13,16 @@ public class PersonageInterrogation {
      * Personage Id
      */
     @YamlComment(text = "Personage ID")
-    public PersonageId personage;
+    public Personage.Id personage;
 
     @YamlComment(text = "Personage clues")
     public List<FocusedClue> clues;
 
-    public PersonageId getPersonage() {
+    public Personage.Id getPersonage() {
         return personage;
     }
 
-    public void setPersonage(PersonageId personage) {
+    public void setPersonage(Personage.Id personage) {
         this.personage = personage;
     }
 

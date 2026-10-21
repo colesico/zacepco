@@ -13,18 +13,18 @@ public class LocationSearch {
      * Location to be search
      */
     @YamlComment(text = "Location to be search")
-    public LocationId location;
+    public Location.Id location;
 
     /**
      * Clues definitions
      */
     public List<FocusedClue> clues;
 
-    public LocationId getLocation() {
+    public Location.Id getLocation() {
         return location;
     }
 
-    public void setLocation(LocationId location) {
+    public void setLocation(Location.Id location) {
         this.location = location;
     }
 

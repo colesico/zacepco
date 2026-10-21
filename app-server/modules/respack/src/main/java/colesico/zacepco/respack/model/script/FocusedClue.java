@@ -9,7 +9,7 @@ public class FocusedClue {
      * Entities on which investigation action is focused
      */
     @YamlComment(text = "Entities on which investigation action is focused")
-    public List<EntityId> focus;
+    public List<Entity.TypedId> focus;
 
     /**
      * Clue discovery threshold
@@ -21,13 +21,13 @@ public class FocusedClue {
      * Target clue
      */
     @YamlComment(text = "Target clue")
-    public ClueId clue;
+    public Clue.Id clue;
 
-    public List<EntityId> getFocus() {
+    public List<Entity.TypedId> getFocus() {
         return focus;
     }
 
-    public void setFocus(List<EntityId> focus) {
+    public void setFocus(List<Entity.TypedId> focus) {
         this.focus = focus;
     }
 
@@ -39,11 +39,11 @@ public class FocusedClue {
         this.threshold = threshold;
     }
 
-    public ClueId getClue() {
+    public Clue.Id getClue() {
         return clue;
     }
 
-    public void setClue(ClueId clue) {
+    public void setClue(Clue.Id clue) {
         this.clue = clue;
     }
 }

@@ -29,11 +29,11 @@ public class YamlCustomRepresenter extends Representer {
 
         // Регистрация кастомных репрезентеров
         this.representers.put(LocalDate.class, new RepresentLocalDate());
-        this.representers.put(LocationId.class, new RepresentEntityId());
-        this.representers.put(PersonageId.class, new RepresentEntityId());
-        this.representers.put(ClueId.class, new RepresentEntityId());
+        this.representers.put(Location.Id.class, new RepresentEntityId());
+        this.representers.put(Personage.Id.class, new RepresentEntityId());
+        this.representers.put(Clue.Id.class, new RepresentEntityId());
         this.representers.put(TimeId.class, new RepresentEntityId());
-        this.representers.put(EntityId.class, new RepresentEntityId());
+        this.representers.put(Entity.TypedId.class, new RepresentEntityId());
     }
 
     @Override
@@ -120,7 +120,7 @@ public class YamlCustomRepresenter extends Representer {
     private class RepresentEntityId implements Represent {
         @Override
         public Node representData(Object data) {
-            EntityId entityId = (EntityId) data;
+            Entity.TypedId entityId = (Entity.TypedId) data;
             String id = entityId.asString();
             return representScalar(Tag.STR, id);
         }

@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Clue model
  */
-public class Clue extends Entity<ClueId> {
+public class Clue extends Entity<Clue.Id> {
 
     /**
      * False clue or not
@@ -19,7 +19,7 @@ public class Clue extends Entity<ClueId> {
      * Entities to be open along with this clue
      */
     @YamlComment(text = "Entities to be open along with this clue")
-    public List<EntityId> open;
+    public List<TypedId> open;
 
     public boolean isFalsity() {
         return falsity != null ? falsity : false;
@@ -33,11 +33,23 @@ public class Clue extends Entity<ClueId> {
         this.falsity = falsity;
     }
 
-    public List<EntityId> getOpen() {
+    public List<TypedId> getOpen() {
         return open;
     }
 
-    public void setOpen(List<EntityId> open) {
+    public void setOpen(List<TypedId> open) {
         this.open = open;
+    }
+
+    public static final class Id extends TypedId {
+
+        public Id(String key) {
+            super(key);
+        }
+
+        @Override
+        public Type type() {
+            return null;
+        }
     }
 }

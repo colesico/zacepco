@@ -14,7 +14,7 @@ public class PersonageEvent {
      * The location the character was inside.
      */
     @YamlComment(text = "Personage destination location")
-    public LocationId location;
+    public Location.Id location;
 
     /**
      * The clue the character interacted with
@@ -23,21 +23,21 @@ public class PersonageEvent {
             "Clue the character interacted with.",
             "Reflects the change of interaction state - gave, got,  noticed  ..."
     })
-    public ClueId clue;
+    public Clue.Id clue;
 
-    public LocationId getLocation() {
+    public Location.Id getLocation() {
         return location;
     }
 
-    public void setLocation(LocationId location) {
+    public void setLocation(Location.Id location) {
         this.location = location;
     }
 
-    public ClueId getClue() {
+    public Clue.Id getClue() {
         return clue;
     }
 
-    public void setClue(ClueId clue) {
+    public void setClue(Clue.Id clue) {
         this.clue = clue;
     }
 }

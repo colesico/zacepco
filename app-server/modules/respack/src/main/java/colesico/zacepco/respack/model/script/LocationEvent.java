@@ -12,27 +12,27 @@ import java.util.List;
 public class LocationEvent {
 
     @YamlComment(text = "Personages that was in this location at given time tick")
-    public List<PersonageId> personages;
+    public List<Personage.Id> personages;
 
     /**
      * The clues the location interacted with
      */
     @YamlComment(text = "Clue associated with the location")
-    public List<ClueId> clues;
+    public List<Clue.Id> clues;
 
-    public List<PersonageId> getPersonages() {
+    public List<Personage.Id> getPersonages() {
         return personages;
     }
 
-    public void setPersonages(List<PersonageId> personages) {
+    public void setPersonages(List<Personage.Id> personages) {
         this.personages = personages;
     }
 
-    public List<ClueId> getClues() {
+    public List<Clue.Id> getClues() {
         return clues;
     }
 
-    public void setClues(List<ClueId> clues) {
+    public void setClues(List<Clue.Id> clues) {
         this.clues = clues;
     }
 }

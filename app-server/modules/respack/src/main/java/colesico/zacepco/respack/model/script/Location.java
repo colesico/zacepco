@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Scene location
  */
-public class Location extends Entity<LocationId> {
+public class Location extends Entity<Location.Id> {
 
     /**
      * Location position on scene grid
@@ -28,7 +28,7 @@ public class Location extends Entity<LocationId> {
      * Initially revealed clues for this location
      */
     @YamlComment(text = "Initially revealed clues for this location")
-    public List<ClueId> revealedClues;
+    public List<Clue.Id> revealedClues;
 
     /**
      * Personage-entity interaction for each time tick.
@@ -60,11 +60,11 @@ public class Location extends Entity<LocationId> {
         this.pos = pos;
     }
 
-    public List<ClueId> getRevealedClues() {
+    public List<Clue.Id> getRevealedClues() {
         return revealedClues;
     }
 
-    public void setRevealedClues(List<ClueId> revealedClues) {
+    public void setRevealedClues(List<Clue.Id> revealedClues) {
         this.revealedClues = revealedClues;
     }
 
@@ -74,5 +74,18 @@ public class Location extends Entity<LocationId> {
 
     public void setLog(List<LocationEvent> log) {
         this.log = log;
+    }
+
+    public static final class Id extends TypedId {
+
+        public Id(String key) {
+            super(key);
+        }
+
+        @Override
+        public Type type() {
+            return Type.LOCATION;
+        }
+
     }
 }

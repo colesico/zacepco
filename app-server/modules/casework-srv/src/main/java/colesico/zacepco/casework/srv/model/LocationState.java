@@ -1,6 +1,6 @@
 package colesico.zacepco.casework.srv.model;
 
-import colesico.zacepco.respack.model.script.LocationId;
+import colesico.zacepco.respack.model.script.Location;
 
 /**
  * Location state
@@ -8,7 +8,7 @@ import colesico.zacepco.respack.model.script.LocationId;
 
 public class LocationState {
 
-    private LocationId locationId;
+    private Location.Id locationId;
 
     /**
      * Location is discovered.

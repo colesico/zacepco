@@ -11,10 +11,10 @@ public class Connection {
      * Related locations
      */
     @YamlComment(text = "One location id")
-    public LocationId locationU;
+    public Location.Id locationU;
 
     @YamlComment(text = "Other location id")
-    public LocationId locationV;
+    public Location.Id locationV;
 
     /**
      * Is hidden passage
@@ -26,19 +26,19 @@ public class Connection {
         return hidden != null ? hidden : false;
     }
 
-    public LocationId getLocationU() {
+    public Location.Id getLocationU() {
         return locationU;
     }
 
-    public void setLocationU(LocationId locationU) {
+    public void setLocationU(Location.Id locationU) {
         this.locationU = locationU;
     }
 
-    public LocationId getLocationV() {
+    public Location.Id getLocationV() {
         return locationV;
     }
 
-    public void setLocationV(LocationId locationV) {
+    public void setLocationV(Location.Id locationV) {
         this.locationV = locationV;
     }
 
