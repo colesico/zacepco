@@ -9,7 +9,7 @@ import java.util.List;
  */
 public class Interrogation extends InvestigationAction {
 
-    @YamlComment(text = "Personage to be interrogate")
+    @YamlComment(text = "Personage to be interrogated")
     public List<PersonageInterrogation> personages;
 
     public List<PersonageInterrogation> getPersonages() {

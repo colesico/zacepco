@@ -1,6 +1,7 @@
 package colesico.zacepco.respack.model.script;
 
 import colesico.zacepco.respack.yaml.YamlComment;
+import colesico.zacepco.respack.yaml.YamlCompact;
 
 import java.util.List;
 
@@ -19,6 +20,7 @@ public class Clue extends Entity<Clue.Id> {
      * Entities to be open along with this clue
      */
     @YamlComment(text = "Entities to be open along with this clue")
+    @YamlCompact
     public List<UID> open;
 
     public boolean isFalsity() {

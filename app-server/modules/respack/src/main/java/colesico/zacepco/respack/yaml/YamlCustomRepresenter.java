@@ -55,6 +55,7 @@ public class YamlCustomRepresenter extends Representer {
 
         for (NodeTuple tuple : tuples) {
             Node keyNode = tuple.getKeyNode();
+            var valueNode = tuple.getValueNode();
 
             if (keyNode instanceof ScalarNode) {
                 String propertyName = ((ScalarNode) keyNode).getValue();
@@ -77,7 +78,7 @@ public class YamlCustomRepresenter extends Representer {
                 }
 
                 List<CommentLine> commentLines = new ArrayList<>();
-                if (!ann.inline()) {
+                if (!ann.inline() && ann.topBlank()) {
                     commentLines.add(new CommentLine(null, null, "", CommentType.BLANK_LINE));
                 }
                 for (var commentStr : ann.text()) {
@@ -90,7 +91,7 @@ public class YamlCustomRepresenter extends Representer {
 
                 if (!commentLines.isEmpty()) {
                     if (ann.inline()) {
-                        keyNode.setInLineComments(commentLines);
+                        valueNode.setInLineComments(commentLines);
                     } else {
                         keyNode.setBlockComments(commentLines);
                     }

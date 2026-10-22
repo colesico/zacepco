@@ -8,10 +8,10 @@ import colesico.zacepco.respack.yaml.YamlComment;
  */
 public class SceneSize {
 
-    @YamlComment(text = "Rows number")
+    @YamlComment(text = "Rows number", inline = true)
     public Integer rows;
 
-    @YamlComment(text = "Columns number")
+    @YamlComment(text = "Columns number", inline = true)
     public Integer cols;
 
     public Integer getRows() {

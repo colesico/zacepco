@@ -22,9 +22,10 @@ public class Setting {
      * Characters dictionary
      */
     @YamlComment(text = {
-            
+            "",
             "Personages dictionary.",
-            "Defines all personages involved in the crime"
+            "Defines all personages involved in the crime",
+            ""
     })
     public List<Personage> personages;
 
@@ -32,8 +33,9 @@ public class Setting {
      * Scene
      */
     @YamlComment(text = {
-            
-            "Crime scene definition"
+            "",
+            "Crime scene definition",
+            ""
     })
     public Scene scene;
 
@@ -41,14 +43,16 @@ public class Setting {
      * Clues dictionary
      */
     @YamlComment(text = {
-            
-            "Clues dictionary"
+            "",
+            "Clues dictionary",
+            ""
     })
     public List<Clue> clues;
 
     @YamlComment(text = {
-            
-            "Detectives dictionary"
+            "",
+            "Detectives dictionary",
+            ""
     })
     public List<Detective> detectives;
 
