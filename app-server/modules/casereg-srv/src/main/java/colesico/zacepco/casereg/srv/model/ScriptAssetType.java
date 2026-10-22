@@ -2,8 +2,8 @@ package colesico.zacepco.casereg.srv.model;
 
 public enum ScriptAssetType {
 
-    THUMB("thumb"),
-    MEDIUM("medium");
+    IMG_THUMB("thumb"),
+    IMG_MEDIUM("medium");
 
     private final String resource;
 
@@ -17,8 +17,8 @@ public enum ScriptAssetType {
 
     public static ScriptAssetType fromType(String resource) {
         return switch (resource) {
-            case "thumb" -> ScriptAssetType.THUMB;
-            case "medium" -> ScriptAssetType.MEDIUM;
+            case "thumb" -> ScriptAssetType.IMG_THUMB;
+            case "medium" -> ScriptAssetType.IMG_MEDIUM;
             default -> throw new IllegalStateException("Unexpected value: " + resource);
         };
     }

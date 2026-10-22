@@ -26,7 +26,17 @@ public class ScriptAssetsService {
         return Path.of("assets-" + assetType.resourceDir() + "-" + scriptEntryId);
     }
 
-    public void createAssets(Long scriptEntryId, ResourcePackage resourcePackage) {
+    public void readAsset(Long scriptEntryId, Resource resource, OutputStream os) {
+        try (
+                var is = fileStorage.fileInput(assetsRoot(scriptEntryId, ScriptAssetType.IMG_THUMB).resolve(resource.path().path()));
+        ) {
+            is.transferTo(os);
+        } catch (Exception ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
+    public void createThumbs(Long scriptEntryId, ResourcePackage resourcePackage) {
         try {
 
             var posterResource = resourcePackage.scriptImage();
@@ -63,22 +73,12 @@ public class ScriptAssetsService {
             var srcImg = ImageIO.read(resource.inputStream());
             var thumbImg = ImageUtils.iconize(srcImg, 240, 240, 0.5f, 0.5f);
             var pngBytes = ImageUtils.toPngBytes(thumbImg, 0.9f);
-            var imgOs = fileStorage.fileOutput(assetsRoot(scriptEntryId, ScriptAssetType.THUMB).resolve(resource.path().path()));
+            var imgOs = fileStorage.fileOutput(assetsRoot(scriptEntryId, ScriptAssetType.IMG_THUMB).resolve(resource.path().path()));
             imgOs.write(pngBytes);
             imgOs.flush();
             imgOs.close();
         } catch (Exception e) {
             throw new RuntimeException(e);
-        }
-    }
-
-    public void readAsset(Long scriptEntryId, Resource resource, OutputStream os) {
-        try (
-                var is = fileStorage.fileInput(assetsRoot(scriptEntryId, ScriptAssetType.THUMB).resolve(resource.path().path()));
-        ) {
-            is.transferTo(os);
-        } catch (Exception ex) {
-            throw new RuntimeException(ex);
         }
     }
 

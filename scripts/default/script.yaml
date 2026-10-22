@@ -70,11 +70,11 @@ setting:
     
     # Detailed description
     description: |
-      Knows all the secrets and secret passages,  is cold-blooded, has the perfect motive for murder.
+      Knows all the secrets and secrest passages,  is cold-blooded, has the perfect motive for murder.
     
     # Optional asset ID
     # Used when appropriate asset id is not match the entity id
-    asset: P000
+    asset: P1
     
     # Hidden personage or not (default - false)
     hidden: true

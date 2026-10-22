@@ -74,7 +74,7 @@ setting:
     
     # Optional asset ID
     # Used when appropriate asset id is not match the entity id
-    asset: P000
+    asset: P1
     
     # Hidden personage or not (default - false)
     hidden: true

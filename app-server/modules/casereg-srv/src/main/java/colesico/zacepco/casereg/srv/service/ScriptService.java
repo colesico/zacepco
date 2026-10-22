@@ -71,7 +71,7 @@ public class ScriptService {
 
         try (var scriptPackage = resourcePackage(scriptEntryId);) {
             scriptPackage.importFrom(scriptPackageData);
-            assetsService.createAssets(scriptEntryId, scriptPackage);
+            assetsService.createThumbs(scriptEntryId, scriptPackage);
             script = scriptPackage.script().read();
         } catch (IOException e) {
             throw new RuntimeException(e);
