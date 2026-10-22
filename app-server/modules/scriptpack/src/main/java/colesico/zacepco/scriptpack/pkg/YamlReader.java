@@ -1,4 +1,4 @@
-package colesico.zacepco.scriptpack.pack;
+package colesico.zacepco.scriptpack.pkg;
 
 import module org.yaml.snakeyaml;
 import jakarta.inject.Provider;

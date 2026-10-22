@@ -3,8 +3,8 @@ package colesico.zacepco.casereg.srv.filestorage;
 import colesico.framework.ioc.message.IocMessage;
 import colesico.framework.ioc.scope.Unscoped;
 import colesico.zacepco.filestore.service.FileStorage;
-import colesico.zacepco.scriptpack.pack.PackageDriver;
-import colesico.zacepco.scriptpack.pack.ResourcePath;
+import colesico.zacepco.scriptpack.pkg.PackageDriver;
+import colesico.zacepco.scriptpack.pkg.ResourcePath;
 
 import java.io.IOException;
 import java.io.InputStream;

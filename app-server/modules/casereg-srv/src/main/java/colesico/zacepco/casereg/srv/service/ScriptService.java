@@ -13,7 +13,7 @@ import colesico.zacepco.casereg.srv.model.ScriptEntry;
 import colesico.zacepco.casereg.srv.model.ScriptEntryAccessType;
 import colesico.zacepco.casereg.srv.model.ScriptSummary;
 import colesico.zacepco.scriptpack.model.script.ScriptDocument;
-import colesico.zacepco.scriptpack.pack.*;
+import colesico.zacepco.scriptpack.pkg.*;
 import jakarta.inject.Provider;
 
 import java.io.IOException;

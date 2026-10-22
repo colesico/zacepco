@@ -1,4 +1,4 @@
-package colesico.zacepco.scriptpack.pack;
+package colesico.zacepco.scriptpack.pkg;
 
 import colesico.framework.ioc.message.IocMessage;
 import colesico.framework.ioc.scope.Unscoped;

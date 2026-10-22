@@ -3,7 +3,7 @@ package colesico.zacepco.scriptpack.test;
 import colesico.framework.ioc.Ioc;
 import colesico.framework.ioc.IocBuilder;
 import colesico.framework.ioc.key.ClassedKey;
-import colesico.zacepco.scriptpack.pack.*;
+import colesico.zacepco.scriptpack.pkg.*;
 import colesico.zacepco.scriptpack.model.script.ScriptDocument;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
