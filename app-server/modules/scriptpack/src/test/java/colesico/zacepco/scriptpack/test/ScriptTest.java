@@ -52,7 +52,7 @@ public class ScriptTest {
 
         var resList = scriptPackage.driver().listResources();
         for (ResourcePath rp : resList) {
-            IO.println("resource: " + rp.value());
+            IO.println("resource: " + rp.asString());
         }
 
         scriptPackage.exportTo(userDir.resolve("target/default.zsp.zip").toFile());

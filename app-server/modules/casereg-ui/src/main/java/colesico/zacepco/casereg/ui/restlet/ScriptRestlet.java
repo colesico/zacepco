@@ -42,7 +42,7 @@ public class ScriptRestlet {
     public ScriptOverview scriptOverview(Long scriptEntryId) {
         try {
             // var caseFile = caseFileService.findCaseFileById(caseFileId);
-            var scriptPackage = scriptService.resourcePackage(scriptEntryId);
+            var scriptPackage = scriptService.scriptPackage(scriptEntryId);
             var script = scriptPackage.script().read();
             var scriptOverview = new ScriptOverview();
 

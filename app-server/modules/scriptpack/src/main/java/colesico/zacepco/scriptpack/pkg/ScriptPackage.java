@@ -115,7 +115,7 @@ public class ScriptPackage implements Closeable {
 
     protected void validate(ResourcePath resourcePath) {
         for (Pattern pattern : validResources) {
-            Matcher matcher = pattern.matcher(resourcePath.value());
+            Matcher matcher = pattern.matcher(resourcePath.asString());
             if (matcher.matches()) {
                 return;
             }

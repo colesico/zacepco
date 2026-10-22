@@ -2,13 +2,14 @@ package colesico.zacepco.casereg.srv.service;
 
 import colesico.framework.service.Service;
 import colesico.framework.transaction.Transactional;
-import colesico.zacepco.casereg.srv.model.ScriptAssetType;
+import colesico.zacepco.casereg.srv.model.ImageScale;
 import colesico.zacepco.common.srv.utils.ImageUtils;
 import colesico.zacepco.filestore.service.FileStorage;
 import colesico.zacepco.scriptpack.pkg.Resource;
 import colesico.zacepco.scriptpack.pkg.ScriptPackage;
 
 import javax.imageio.ImageIO;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Path;
 
@@ -22,45 +23,39 @@ public class ScriptAssetsService {
         this.fileStorage = fileStorage;
     }
 
-    protected Path assetsRoot(Long scriptEntryId, ScriptAssetType assetType) {
-        return Path.of(assetType.resourceRoot() + "-" + scriptEntryId);
+    protected Path scaledImagesRoot(Long scriptEntryId, ImageScale scale) {
+        return Path.of(scale.storageRoot() + "-" + scriptEntryId);
     }
 
-    public void readAsset(Long scriptEntryId, Resource resource, OutputStream os) {
-        try (
-                var is = fileStorage.fileInput(assetsRoot(scriptEntryId, ScriptAssetType.IMG_THUMB).resolve(resource.path().path()));
-        ) {
-            is.transferTo(os);
-        } catch (Exception ex) {
-            throw new RuntimeException(ex);
-        }
+    public InputStream imageInput(Long scriptEntryId, Resource resource, ImageScale scale) {
+        return fileStorage.fileInput(scaledImagesRoot(scriptEntryId, scale).resolve(resource.path().asPath()));
     }
 
-    public void createThumbs(Long scriptEntryId, ScriptPackage scriptPackage) {
+    public void scaleImages(Long scriptEntryId, ScriptPackage scriptPackage) {
         try {
 
             var posterResource = scriptPackage.scriptImage();
-            createThumb(scriptEntryId, posterResource);
+            iconize(scriptEntryId, posterResource, ImageScale.THUMB);
             var script = scriptPackage.script().read();
 
             for (var personage : script.setting.personages) {
                 var personageResource = scriptPackage.entityImage(personage.asset());
-                createThumb(scriptEntryId, personageResource);
+                iconize(scriptEntryId, personageResource, ImageScale.THUMB);
             }
 
             for (var location : script.setting.scene.locations) {
                 var locationResource = scriptPackage.entityImage(location.asset());
-                createThumb(scriptEntryId, locationResource);
+                iconize(scriptEntryId, locationResource, ImageScale.THUMB);
             }
 
             for (var clue : script.setting.clues) {
                 var clueResource = scriptPackage.entityImage(clue.asset());
-                createThumb(scriptEntryId, clueResource);
+                iconize(scriptEntryId, clueResource, ImageScale.THUMB);
             }
 
             for (var detective : script.setting.detectives) {
                 var detResource = scriptPackage.entityImage(detective.asset());
-                createThumb(scriptEntryId, detResource);
+                iconize(scriptEntryId, detResource, ImageScale.THUMB);
             }
 
         } catch (Exception ex) {
@@ -68,12 +63,12 @@ public class ScriptAssetsService {
         }
     }
 
-    public void createThumb(Long scriptEntryId, Resource resource) {
+    public void iconize(Long scriptEntryId, Resource resource, ImageScale scale) {
         try {
             var srcImg = ImageIO.read(resource.inputStream());
-            var thumbImg = ImageUtils.iconize(srcImg, 240, 240, 0.5f, 0.5f);
+            var thumbImg = ImageUtils.iconize(srcImg, scale.width(), scale.height(), 0.5f, 0.5f);
             var pngBytes = ImageUtils.toPngBytes(thumbImg, 0.9f);
-            var imgOs = fileStorage.fileOutput(assetsRoot(scriptEntryId, ScriptAssetType.IMG_THUMB).resolve(resource.path().path()));
+            var imgOs = fileStorage.fileOutput(scaledImagesRoot(scriptEntryId, scale).resolve(resource.path().asPath()));
             imgOs.write(pngBytes);
             imgOs.flush();
             imgOs.close();

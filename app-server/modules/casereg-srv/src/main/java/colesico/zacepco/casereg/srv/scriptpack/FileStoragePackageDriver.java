@@ -1,4 +1,4 @@
-package colesico.zacepco.casereg.srv.filestorage;
+package colesico.zacepco.casereg.srv.scriptpack;
 
 import colesico.framework.ioc.message.IocMessage;
 import colesico.framework.ioc.scope.Unscoped;
@@ -19,13 +19,13 @@ import java.util.stream.Stream;
  * Stores package resources in FileStorage with hash-based directory structure.
  */
 @Unscoped
-public class StoragePackageDriver extends PackageDriver {
+public class FileStoragePackageDriver extends PackageDriver {
 
     private final String packageId;
     private final FileStorage fileStorage;
 
-    public StoragePackageDriver(@IocMessage String packageId,
-                                FileStorage fileStorage) {
+    public FileStoragePackageDriver(@IocMessage String packageId,
+                                    FileStorage fileStorage) {
 
         this.fileStorage = fileStorage;
         this.packageId = packageId;
@@ -39,7 +39,7 @@ public class StoragePackageDriver extends PackageDriver {
      * @return Path for FileStorage
      */
     protected Path resolve(ResourcePath resourcePath) {
-        return Path.of(packageId).resolve(resourcePath.path());
+        return Path.of(packageId).resolve(resourcePath.asPath());
     }
 
     @Override

@@ -83,7 +83,7 @@ abstract public class PackageDriver implements Closeable {
     public void exportPackage(OutputStream os) throws IOException {
         try (ZipOutputStream zos = new ZipOutputStream(os)) {
             for (ResourcePath resourcePath : listResources()) {
-                ZipEntry entry = new ZipEntry(resourcePath.value());
+                ZipEntry entry = new ZipEntry(resourcePath.asString());
                 zos.putNextEntry(entry);
                 try (InputStream is = resourceInput(resourcePath)) {
                     is.transferTo(zos);

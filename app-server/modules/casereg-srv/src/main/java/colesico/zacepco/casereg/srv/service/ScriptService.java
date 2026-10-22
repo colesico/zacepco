@@ -8,7 +8,7 @@ import colesico.framework.service.PlainMethod;
 import colesico.framework.service.Service;
 import colesico.framework.transaction.Transactional;
 import colesico.zacepco.casereg.srv.dao.ScriptEntryDao;
-import colesico.zacepco.casereg.srv.filestorage.StoragePackageDriver;
+import colesico.zacepco.casereg.srv.scriptpack.FileStoragePackageDriver;
 import colesico.zacepco.casereg.srv.model.ScriptEntry;
 import colesico.zacepco.casereg.srv.model.ScriptEntryAccessType;
 import colesico.zacepco.casereg.srv.model.ScriptSummary;
@@ -40,7 +40,7 @@ public class ScriptService {
 
     public ScriptService(
             ScriptEntryDao scriptEntryDao,
-            @Classed(StoragePackageDriver.class) Supplier<ScriptPackage> resourcePackage,
+            @Classed(FileStoragePackageDriver.class) Supplier<ScriptPackage> resourcePackage,
             Provider<Identity> identity,
             ScriptAssetsService assetsService) {
 
@@ -69,9 +69,9 @@ public class ScriptService {
 
         ScriptDocument script;
 
-        try (var scriptPackage = resourcePackage(scriptEntryId);) {
+        try (var scriptPackage = scriptPackage(scriptEntryId);) {
             scriptPackage.importFrom(scriptPackageData);
-            assetsService.createThumbs(scriptEntryId, scriptPackage);
+            assetsService.scaleImages(scriptEntryId, scriptPackage);
             script = scriptPackage.script().read();
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -121,12 +121,12 @@ public class ScriptService {
     }
 
     /**
-     * Get Resource package API
+     * Get Script package API
      *
      * @param scriptEntryId script entry id
      */
     @PlainMethod
-    public ScriptPackage resourcePackage(Long scriptEntryId) {
+    public ScriptPackage scriptPackage(Long scriptEntryId) {
         return resourcePackage.get(scriptPackageId(scriptEntryId));
     }
 }

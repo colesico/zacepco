@@ -50,7 +50,7 @@ public class DirectoryPackageDriver extends PackageDriver {
      */
     protected Path resolve(ResourcePath rp) {
         try {
-            var fullPath = packageDirectory.resolve(rp.path());
+            var fullPath = packageDirectory.resolve(rp.asPath());
             if (!fullPath.startsWith(packageDirectory)) {
                 throw new RuntimeException("Invalid resource path: " + rp);
             }

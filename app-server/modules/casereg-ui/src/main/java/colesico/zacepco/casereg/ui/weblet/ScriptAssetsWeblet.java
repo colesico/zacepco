@@ -5,6 +5,7 @@ import colesico.framework.httprouter.Route;
 import colesico.framework.telehttp.ParamOrigin;
 import colesico.framework.telehttp.origin.Origin;
 import colesico.framework.weblet.Weblet;
+import colesico.zacepco.casereg.srv.model.ImageScale;
 import colesico.zacepco.casereg.srv.service.ScriptService;
 import colesico.zacepco.casereg.srv.service.ScriptAssetsService;
 import colesico.zacepco.scriptpack.model.script.Entity;
@@ -25,20 +26,31 @@ public class ScriptAssetsWeblet {
         this.httpResponse = httpResponse;
     }
 
-    @Route("./:scriptEntryId/:assetId")
+    @Route("./image/:scriptEntryId/:assetKey/:scaleKey")
     @ParamOrigin(Origin.ROUTE)
-    public void asset(Long scriptEntryId, String assetId) {
+    public void image(Long scriptEntryId, String assetKey, String scaleKey) {
 
-        ScriptPackage sp = scriptService.resourcePackage(scriptEntryId);
+        ScriptPackage sp = scriptService.scriptPackage(scriptEntryId);
 
-        var res = switch (assetId) {
+        var res = switch (assetKey) {
             case "S" -> sp.scriptImage();
             default -> {
-                var entityId = Entity.UID.parse(assetId);
+                var entityId = Entity.UID.parse(assetKey);
                 yield sp.entityImage(entityId);
             }
         };
 
-        scriptAssetsService.readAsset(scriptEntryId, res, httpResponse.get().outputStream());
+        var scale = switch (scaleKey) {
+            case "thumb" -> ImageScale.THUMB;
+            case "medium" -> ImageScale.MEDIUM;
+        }
+
+        try (
+                var is = scriptAssetsService.imageInput(scriptEntryId, res, ImageScale.THUMB);
+        ) {
+            is.transferTo(httpResponse.get().outputStream());
+        } catch (Exception ex) {
+            throw new RuntimeException(ex);
+        }
     }
 }

@@ -23,11 +23,11 @@ public final class ResourcePath {
         return new ResourcePath(path.toString());
     }
 
-    public String value() {
+    public String asString() {
         return value;
     }
 
-    public Path path() {
+    public Path asPath() {
         return Paths.get(value);
     }
 
