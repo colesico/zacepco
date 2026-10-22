@@ -11,7 +11,7 @@ public class Scene {
     /**
      * Scene size
      */
-    @YamlComment(text = "Grid size for locations placement")
+    @YamlComment(text = "Grid size for locations placement", inline = true)
     public SceneSize size;
 
     /**

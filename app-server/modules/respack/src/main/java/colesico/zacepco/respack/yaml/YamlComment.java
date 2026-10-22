@@ -10,4 +10,5 @@ import java.lang.annotation.*;
 public @interface YamlComment {
     String[] text();
     boolean oneTime() default true;
+    boolean inline() default false;
 }

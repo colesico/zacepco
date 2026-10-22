@@ -76,13 +76,13 @@ public class ScriptMetainfo {
     /**
      * Estimated  time to play in minutes  (min-max)
      */
-    @YamlComment(text = "Estimated playtime, minutes")
+    @YamlComment(text = "Estimated playtime, minutes", inline = true)
     public IntInterval estimatedTime;
 
     /**
      * Recommended players number  (min-max)
      */
-    @YamlComment(text = "Recommended number of players (min-max)")
+    @YamlComment(text = "Recommended number of players (min-max)", inline = true)
     public IntInterval playersNum;
 
     public String getTitle() {
