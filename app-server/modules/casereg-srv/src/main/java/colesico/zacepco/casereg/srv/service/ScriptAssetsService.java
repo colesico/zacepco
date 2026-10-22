@@ -34,18 +34,23 @@ public class ScriptAssetsService {
             var script = resourcePackage.script().read();
 
             for (var personage : script.setting.personages) {
-                var personageResource = resourcePackage.entityImage(personage.id);
+                var personageResource = resourcePackage.entityImage(personage.asset());
                 createThumb(scriptEntryId, personageResource);
             }
 
             for (var location : script.setting.scene.locations) {
-                var locationResource = resourcePackage.entityImage(location.id);
+                var locationResource = resourcePackage.entityImage(location.asset());
                 createThumb(scriptEntryId, locationResource);
             }
 
             for (var clue : script.setting.clues) {
-                var clueResource = resourcePackage.entityImage(clue.id);
+                var clueResource = resourcePackage.entityImage(clue.asset());
                 createThumb(scriptEntryId, clueResource);
+            }
+
+            for (var detective : script.setting.detectives) {
+                var detResource = resourcePackage.entityImage(detective.asset());
+                createThumb(scriptEntryId, detResource);
             }
 
         } catch (Exception ex) {

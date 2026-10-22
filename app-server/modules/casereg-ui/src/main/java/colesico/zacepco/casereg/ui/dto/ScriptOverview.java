@@ -15,6 +15,8 @@ public class ScriptOverview {
 
     public SceneOverview scene;
 
+    public List<EntityOverview> detectives = new ArrayList<>();
+
     public Long getScriptEntryId() {
         return scriptEntryId;
     }
@@ -45,5 +47,13 @@ public class ScriptOverview {
 
     public void setScene(SceneOverview scene) {
         this.scene = scene;
+    }
+
+    public List<EntityOverview> getDetectives() {
+        return detectives;
+    }
+
+    public void setDetectives(List<EntityOverview> detectives) {
+        this.detectives = detectives;
     }
 }

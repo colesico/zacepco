@@ -53,11 +53,21 @@ public class ScriptRestlet {
                 if (personage.isHidden()) {
                     continue;
                 }
-                var personageOverview = new EntityOverview();
-                personageOverview.id = personage.id.asString();
-                personageOverview.name = personage.name;
-                personageOverview.description = personage.description;
-                scriptOverview.personages.add(personageOverview);
+                var persOverview = new EntityOverview();
+                persOverview.id = personage.id.asString();
+                persOverview.asset = personage.asset().asString();
+                persOverview.name = personage.name;
+                persOverview.description = personage.description;
+                scriptOverview.personages.add(persOverview);
+            }
+
+            for (var detective : script.setting.detectives) {
+                var detOverview = new EntityOverview();
+                detOverview.id = detective.id.asString();
+                detOverview.asset = detective.asset().asString();
+                detOverview.name = detective.name;
+                detOverview.description = detective.description;
+                scriptOverview.detectives.add(detOverview);
             }
 
             SceneOverview sceneOverview = new SceneOverview();
@@ -70,13 +80,14 @@ public class ScriptRestlet {
                 if (location.isHidden()) {
                     continue;
                 }
-                var locationOverview = new LocationOverview();
-                locationOverview.id = location.id.asString();
-                locationOverview.name = location.name;
-                locationOverview.description = location.description;
-                locationOverview.col = location.pos.col;
-                locationOverview.row = location.pos.row;
-                sceneOverview.locations.add(locationOverview);
+                var locOverview = new LocationOverview();
+                locOverview.id = location.id.asString();
+                locOverview.asset = location.asset().asString();
+                locOverview.name = location.name;
+                locOverview.description = location.description;
+                locOverview.col = location.pos.col;
+                locOverview.row = location.pos.row;
+                sceneOverview.locations.add(locOverview);
             }
 
             return scriptOverview;

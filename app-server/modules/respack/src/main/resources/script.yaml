@@ -165,7 +165,7 @@ setting:
   # Detectives dictionary
   # 
   detectives:
-  - id: C1
+  - id: D1
     name: Sherlock Holmes
     description: Famous detective
 

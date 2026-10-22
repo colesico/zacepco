@@ -14,6 +14,7 @@ import colesico.zacepco.respack.pkg.DirectoryPackageDriver;
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.Constructor;
+import org.yaml.snakeyaml.introspector.BeanAccess;
 import org.yaml.snakeyaml.nodes.Tag;
 import org.yaml.snakeyaml.representer.Representer;
 
@@ -29,6 +30,7 @@ public class ScriptProducer {
     @Unscoped
     public Yaml yaml() {
         Constructor constructor = new YamlCustomConstructor();
+        constructor.getPropertyUtils().setBeanAccess(BeanAccess.PROPERTY);
 
         DumperOptions dumperOptions = new DumperOptions();
         dumperOptions.setDefaultFlowStyle(DumperOptions.FlowStyle.BLOCK);

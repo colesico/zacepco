@@ -31,7 +31,7 @@
 
 		try {
 		    console.log('Call api');
-			const response = await scriptApi.createCaseEntry(file);
+			const response = await scriptApi.createScriptEntry(file);
 		} catch (ex) {
 			error = ex.data;
 		} finally {

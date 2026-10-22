@@ -5,6 +5,7 @@ import org.yaml.snakeyaml.LoaderOptions;
 import org.yaml.snakeyaml.constructor.AbstractConstruct;
 import org.yaml.snakeyaml.constructor.Construct;
 import org.yaml.snakeyaml.constructor.Constructor;
+import org.yaml.snakeyaml.introspector.BeanAccess;
 import org.yaml.snakeyaml.nodes.Node;
 import org.yaml.snakeyaml.nodes.ScalarNode;
 import org.yaml.snakeyaml.nodes.Tag;
@@ -15,6 +16,7 @@ public class YamlCustomConstructor extends Constructor {
 
     public YamlCustomConstructor() {
         super(new LoaderOptions());
+        getPropertyUtils().setBeanAccess(BeanAccess.PROPERTY);
     }
 
     @Override

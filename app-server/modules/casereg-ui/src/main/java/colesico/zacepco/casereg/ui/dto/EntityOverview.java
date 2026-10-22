@@ -4,6 +4,8 @@ public class EntityOverview {
 
     public String id;
 
+    public String asset;
+
     public String name;
 
     public String description;
@@ -30,5 +32,13 @@ public class EntityOverview {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getAsset() {
+        return asset;
+    }
+
+    public void setAsset(String asset) {
+        this.asset = asset;
     }
 }

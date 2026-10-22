@@ -133,7 +133,7 @@
   <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-6 g-3 mb-5">
 
     {#each overview.personages as personage}
-      <div class="col personage-col">
+      <div class="col card-col">
         <!-- Карточка персонажа -->
         <div class="card h-100 border-0 bg-light text-center shadow-sm"
 		 style="cursor: pointer;"
@@ -143,7 +143,7 @@
           <!-- Контейнер для квадратного или пропорционального фото -->
           <div class="ratio ratio-1x1 card-img-top overflow-hidden rounded-top">
             <img
-              src="/casereg/assets/{id}/{personage.id}"
+              src="/casereg/assets/{id}/{personage.asset}"
               alt={personage.name}
               class="object-fit-cover"
             />
@@ -177,7 +177,7 @@
 			 <div class="grid-item">
 			   {#if location}
 				 <img
-				   src="/casereg/assets/{id}/{location.id}"
+				   src="/casereg/assets/{id}/{location.asset}"
 				   alt={location.name || "Локация"}
 				   title={location.name || "Локация"}
 				   loading="lazy"
@@ -190,6 +190,43 @@
 		   {/each}
 		 {/each}
 	</div>
+	
+
+	
+	 <h2 class="mt-5 mb-4">Детективы</h2>
+
+  <!-- Сетка для карточек: 2 в ряд на мобильных, 3 на планшетах, 4 или 6 на десктопах -->
+  <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-6 g-3 mb-5">
+
+    {#each overview.detectives as detective}
+      <div class="col card-col">
+
+        <div class="card h-100 border-0 bg-light text-center shadow-sm"
+		 style="cursor: pointer;"
+		 onclick={() => entityDescription = detective.name+": "+detective.description}
+		>
+
+          <!-- Контейнер для квадратного или пропорционального фото -->
+          <div class="ratio ratio-1x1 card-img-top overflow-hidden rounded-top">
+            <img
+              src="/casereg/assets/{id}/{detective.asset}"
+              alt={detective.name}
+              class="object-fit-cover"
+            />
+          </div>
+
+
+          <div class="card-body p-2 d-flex align-items-center justify-content-center">
+            <h6 class="card-title mb-0 fw-semibold text-break">
+              {detective.name}
+            </h6>
+          </div>
+
+        </div>
+      </div>
+    {/each}
+</div>
+	
 
   {/if}
 
@@ -224,8 +261,8 @@
 
 <style>
 
-/* Ограничение карточек персонажей: не шире 240px, по центру своей колонки */
-.personage-col {
+/* Ограничение карточек : не шире 240px, по центру своей колонки */
+.card-col {
     max-width: 240px;
 }
 

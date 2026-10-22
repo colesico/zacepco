@@ -42,6 +42,10 @@ public abstract class Entity<ID extends Entity.UID> {
     })
     public ID asset;
 
+    public ID asset() {
+        return asset != null ? asset : id;
+    }
+
     public ID getId() {
         return id;
     }

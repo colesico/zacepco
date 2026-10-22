@@ -35,6 +35,11 @@ public class Personage extends Entity<Personage.Id> {
         return hidden != null ? hidden : false;
     }
 
+    @Override
+    public void setId(Id id) {
+        super.setId(id);
+    }
+
     public Boolean getHidden() {
         return hidden;
     }

@@ -35,10 +35,9 @@ public class ResourcePackage implements Closeable {
     static final String ENTITY_TEMPLATE_IMAGE = "template.png";
 
     protected static final Pattern[] validResources = {
-            Pattern.compile("^assets.yaml$"),
-            Pattern.compile("^script(.yaml|.png)$"),
-            Pattern.compile("^([LPCD])/([a-z_0-9]{1,16})(.png)$"),
-            Pattern.compile("^([PCLD])/card.png$"),
+            Pattern.compile("^script\\.(yaml|png)$"),
+            Pattern.compile("^(P/P|C/C|L/L|D/D)[A-Z0-9]{1,3}(\\.png)$"),
+            Pattern.compile("^([PCLD])/card\\.png$"),
     };
 
     /**
@@ -88,7 +87,7 @@ public class ResourcePackage implements Closeable {
     }
 
     public Resource entityImage(Entity.UID entityId) {
-        return new Resource(ResourcePath.of(entityId.type().name() + "/" + entityId + ENTITY_IMAGE_SUFFIX), packageDriver);
+        return new Resource(ResourcePath.of(entityId.type().code() + "/" + entityId + ENTITY_IMAGE_SUFFIX), packageDriver);
     }
 
     /**

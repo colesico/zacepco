@@ -27,6 +27,11 @@ public class Clue extends Entity<Clue.Id> {
         return falsity != null ? falsity : false;
     }
 
+    @Override
+    public void setId(Id id) {
+        super.setId(id);
+    }
+
     public Boolean getFalsity() {
         return falsity;
     }
