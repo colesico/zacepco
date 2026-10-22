@@ -8,8 +8,7 @@ import colesico.framework.weblet.Weblet;
 import colesico.zacepco.casereg.srv.service.ScriptService;
 import colesico.zacepco.casereg.srv.service.ScriptAssetsService;
 import colesico.zacepco.respack.model.script.Entity;
-import colesico.zacepco.respack.pkg.PackageResource;
-import colesico.zacepco.respack.pkg.ScriptPackage;
+import colesico.zacepco.respack.pkg.ResourcePackage;
 import jakarta.inject.Provider;
 
 @Weblet
@@ -30,12 +29,12 @@ public class ScriptAssetsWeblet {
     @ParamOrigin(Origin.ROUTE)
     public void asset(Long scriptEntryId, String assetId) {
 
-        ScriptPackage sp = scriptService.scriptPackage(scriptEntryId);
+        ResourcePackage sp = scriptService.resourcePackage(scriptEntryId);
 
-        PackageResource res = switch (assetId) {
+        var res = switch (assetId) {
             case "S" -> sp.scriptImage();
             default -> {
-                var entityId = Entity.TypedId.parse(assetId);
+                var entityId = Entity.UID.parse(assetId);
                 yield sp.entityImage(entityId);
             }
         };

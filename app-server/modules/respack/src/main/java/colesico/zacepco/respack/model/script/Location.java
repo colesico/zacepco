@@ -1,6 +1,7 @@
 package colesico.zacepco.respack.model.script;
 
 import colesico.zacepco.respack.yaml.YamlComment;
+import colesico.zacepco.respack.yaml.YamlCompact;
 
 import java.util.List;
 
@@ -28,6 +29,7 @@ public class Location extends Entity<Location.Id> {
      * Initially revealed clues for this location
      */
     @YamlComment(text = "Initially revealed clues for this location")
+    @YamlCompact
     public List<Clue.Id> revealedClues;
 
     /**
@@ -76,7 +78,7 @@ public class Location extends Entity<Location.Id> {
         this.log = log;
     }
 
-    public static final class Id extends TypedId {
+    public static final class Id extends UID {
 
         public Id(String key) {
             super(key);

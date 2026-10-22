@@ -32,10 +32,12 @@ public class ScriptProducer {
 
         DumperOptions dumperOptions = new DumperOptions();
         dumperOptions.setDefaultFlowStyle(DumperOptions.FlowStyle.BLOCK);
-        dumperOptions.setPrettyFlow(true);
+        dumperOptions.setPrettyFlow(false);
         dumperOptions.setIndent(2);
         dumperOptions.setProcessComments(true);
         dumperOptions.setAllowUnicode(true);
+        dumperOptions.setSplitLines(false);
+        dumperOptions.setWidth(Integer.MAX_VALUE);
 
         Representer representer = new YamlCustomRepresenter(dumperOptions);
         representer.addClassTag(ScriptDocument.class, Tag.MAP);

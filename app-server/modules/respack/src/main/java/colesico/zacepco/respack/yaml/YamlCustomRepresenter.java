@@ -33,7 +33,9 @@ public class YamlCustomRepresenter extends Representer {
         this.representers.put(Personage.Id.class, new RepresentEntityId());
         this.representers.put(Clue.Id.class, new RepresentEntityId());
         this.representers.put(TimeId.class, new RepresentEntityId());
-        this.representers.put(Entity.TypedId.class, new RepresentEntityId());
+        this.representers.put(Detective.Id.class, new RepresentEntityId());
+        this.representers.put(Entity.UID.class, new RepresentEntityId());
+
     }
 
     @Override
@@ -100,13 +102,28 @@ public class YamlCustomRepresenter extends Representer {
         if (propertyValue instanceof java.util.Collection && ((java.util.Collection<?>) propertyValue).isEmpty()) {
             return null;
         }
+
         if (propertyValue instanceof java.util.Map && ((java.util.Map<?, ?>) propertyValue).isEmpty()) {
             return null;
         }
 
-        return super.representJavaBeanProperty(javaBean, property, propertyValue, customTag);
-    }
+        if (propertyValue instanceof Set) {
+            propertyValue = new ArrayList<>((Set<?>) propertyValue);
+        }
 
+        NodeTuple tuple = super.representJavaBeanProperty(javaBean, property, propertyValue, customTag);
+
+        if (tuple != null) {
+            YamlCompact compactAnnotation = property.getAnnotation(YamlCompact.class);
+            if (compactAnnotation != null) {
+                Node valueNode = tuple.getValueNode();
+                if (valueNode instanceof SequenceNode) {
+                    ((SequenceNode) valueNode).setFlowStyle(DumperOptions.FlowStyle.FLOW);
+                }
+            }
+        }
+        return tuple;
+    }
 
     private class RepresentLocalDate implements Represent {
         @Override
@@ -120,7 +137,7 @@ public class YamlCustomRepresenter extends Representer {
     private class RepresentEntityId implements Represent {
         @Override
         public Node representData(Object data) {
-            Entity.TypedId entityId = (Entity.TypedId) data;
+            Entity.UID entityId = (Entity.UID) data;
             String id = entityId.asString();
             return representScalar(Tag.STR, id);
         }

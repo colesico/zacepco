@@ -1,6 +1,10 @@
 package colesico.zacepco.respack.model.script;
 
 import colesico.zacepco.respack.yaml.YamlComment;
+import colesico.zacepco.respack.yaml.YamlCompact;
+
+import java.util.List;
+import java.util.Set;
 
 /**
  * Unidirectional connection between two locations
@@ -10,12 +14,9 @@ public class Connection {
     /**
      * Related locations
      */
-    @YamlComment(text = "One location id")
-    public Location.Id locationU;
-
-    @YamlComment(text = "Other location id")
-    public Location.Id locationV;
-
+    @YamlComment(text = "IDs of the two connected locations")
+    @YamlCompact
+    public Set<Location.Id> locations;
     /**
      * Is hidden passage
      */
@@ -26,20 +27,15 @@ public class Connection {
         return hidden != null ? hidden : false;
     }
 
-    public Location.Id getLocationU() {
-        return locationU;
+    public void setLocations(Set<Location.Id> locations) {
+        if (locations == null || locations.size() != 2) {
+            throw new IllegalStateException("Invalid locations ID's. Specify two ID");
+        }
+        this.locations = locations;
     }
 
-    public void setLocationU(Location.Id locationU) {
-        this.locationU = locationU;
-    }
-
-    public Location.Id getLocationV() {
-        return locationV;
-    }
-
-    public void setLocationV(Location.Id locationV) {
-        this.locationV = locationV;
+    public Set<Location.Id> getLocations() {
+        return locations;
     }
 
     public Boolean getHidden() {

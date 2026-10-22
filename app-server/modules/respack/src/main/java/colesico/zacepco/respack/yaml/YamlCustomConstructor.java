@@ -26,7 +26,7 @@ public class YamlCustomConstructor extends Constructor {
         }
 
         // У поля супер тип EntityId?
-        if (Entity.TypedId.class.isAssignableFrom(node.getType())) {
+        if (Entity.UID.class.isAssignableFrom(node.getType())) {
             return new ConstructEntityId();
         }
 
@@ -46,7 +46,7 @@ public class YamlCustomConstructor extends Constructor {
         @Override
         public Object construct(Node node) {
             String value = ((ScalarNode) node).getValue();
-            return Entity.TypedId.parse(value);
+            return Entity.UID.parse(value);
         }
     }
 }

@@ -1,6 +1,7 @@
 package colesico.zacepco.respack.model.script;
 
 import colesico.zacepco.respack.yaml.YamlComment;
+import colesico.zacepco.respack.yaml.YamlCompact;
 
 import java.util.List;
 
@@ -12,12 +13,14 @@ import java.util.List;
 public class LocationEvent {
 
     @YamlComment(text = "Personages that was in this location at given time tick")
+    @YamlCompact
     public List<Personage.Id> personages;
 
     /**
      * The clues the location interacted with
      */
     @YamlComment(text = "Clue associated with the location")
+    @YamlCompact
     public List<Clue.Id> clues;
 
     public List<Personage.Id> getPersonages() {

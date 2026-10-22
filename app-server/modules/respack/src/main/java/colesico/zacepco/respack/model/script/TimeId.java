@@ -1,6 +1,6 @@
 package colesico.zacepco.respack.model.script;
 
-public final class TimeId extends Entity.TypedId {
+public final class TimeId extends Entity.UID {
 
     public TimeId(String key) {
         super(key);

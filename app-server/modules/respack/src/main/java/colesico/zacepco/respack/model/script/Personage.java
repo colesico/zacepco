@@ -1,6 +1,7 @@
 package colesico.zacepco.respack.model.script;
 
 import colesico.zacepco.respack.yaml.YamlComment;
+import colesico.zacepco.respack.yaml.YamlCompact;
 
 import java.util.List;
 
@@ -16,6 +17,7 @@ public class Personage extends Entity<Personage.Id> {
     public Boolean hidden;
 
     @YamlComment(text = "Initially revealed clues for this personage")
+    @YamlCompact
     public List<Clue.Id> revealedClues;
 
     /**
@@ -24,11 +26,11 @@ public class Personage extends Entity<Personage.Id> {
     @YamlComment(text = {
             "Personage event log for each time tick",
             "Each element of the array corresponds to a time tick, starting from 1.",
-            "Used to verify the investigation's findings"
+            "Used to verify the investigation's findings (answers)"
     })
     public List<PersonageEvent> log;
 
-    public boolean hidden() {
+    public boolean isHidden() {
         return hidden != null ? hidden : false;
     }
 
@@ -56,7 +58,7 @@ public class Personage extends Entity<Personage.Id> {
         this.revealedClues = revealedClues;
     }
 
-    public static final class Id extends TypedId {
+    public static final class Id extends UID {
 
         @Override
         public Type type() {

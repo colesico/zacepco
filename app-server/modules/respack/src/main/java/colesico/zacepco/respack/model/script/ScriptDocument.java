@@ -2,9 +2,6 @@ package colesico.zacepco.respack.model.script;
 
 import colesico.zacepco.respack.yaml.YamlComment;
 
-import java.util.List;
-import java.util.Optional;
-
 /**
  * Script document
  */
@@ -19,16 +16,6 @@ public class ScriptDocument {
             ""
     })
     public ScriptMetainfo metainfo;
-
-    @YamlComment(text = {
-            "",
-            "Assets id to use with this script.",
-            "Every script is strictly tied to one asset pack.",
-            "Different scripts can utilize the same asset packs,",
-            "but a single script cannot combine multiple asset packs",
-            "",
-    })
-    public String assets;
 
     /**
      * Environment spec
@@ -49,7 +36,7 @@ public class ScriptDocument {
             "Investigation specification",
             ""
     })
-    public Investigation investigation;
+    public InvestigationSpec investigation;
 
     /**
      * General answers
@@ -72,14 +59,6 @@ public class ScriptDocument {
         this.metainfo = metainfo;
     }
 
-    public String getAssets() {
-        return assets;
-    }
-
-    public void setAssets(String assets) {
-        this.assets = assets;
-    }
-
     public Setting getSetting() {
         return setting;
     }
@@ -88,11 +67,11 @@ public class ScriptDocument {
         this.setting = setting;
     }
 
-    public Investigation getInvestigation() {
+    public InvestigationSpec getInvestigation() {
         return investigation;
     }
 
-    public void setInvestigation(Investigation investigation) {
+    public void setInvestigation(InvestigationSpec investigation) {
         this.investigation = investigation;
     }
 

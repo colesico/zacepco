@@ -10,17 +10,37 @@ import java.util.regex.Pattern;
  * Abstract entity model.
  * This class must be extended by specific entities.
  */
-public abstract class Entity<ID extends Entity.TypedId> {
+public abstract class Entity<ID extends Entity.UID> {
 
     /**
      * Entity unique ID
      */
     @YamlComment(text = {
             "Unique within script ID",
-            "Must match the corresponding asset ID from the script 'assets' field",
-            "Format: [PLCT][A-Z0-9]{1,3}"
+            "Must match the corresponding asset ID",
+            "Format: [PLCTD][A-Z0-9]{1,3}"
     })
     public ID id;
+
+    /**
+     * Entity short name
+     */
+    @YamlComment(text = "Short name")
+    public String name;
+
+    /**
+     * Detailed description.
+     */
+    @YamlComment(text = {
+            "Detailed description",
+    })
+    public String description;
+
+    @YamlComment(text = {
+            "Optional asset ID",
+            "Used when appropriate asset id is not match the entity id",
+    })
+    public ID asset;
 
     public ID getId() {
         return id;
@@ -28,6 +48,30 @@ public abstract class Entity<ID extends Entity.TypedId> {
 
     public void setId(ID id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public ID getAsset() {
+        return asset;
+    }
+
+    public void setAsset(ID asset) {
+        this.asset = asset;
     }
 
     @Override
@@ -52,7 +96,7 @@ public abstract class Entity<ID extends Entity.TypedId> {
     /**
      * Entity identifier
      */
-    abstract public sealed static class TypedId
+    abstract public sealed static class UID
             permits Clue.Id, Detective.Id, Location.Id, Personage.Id, TimeId {
 
         public static final Pattern VALUE_PATTERN = Pattern.compile("^[A-Z0-9]{1,3}$");
@@ -62,7 +106,7 @@ public abstract class Entity<ID extends Entity.TypedId> {
          */
         protected final String key;
 
-        protected TypedId(String key) {
+        protected UID(String key) {
             if (key == null || !VALUE_PATTERN.matcher(key).matches()) {
                 throw new IllegalArgumentException("Invalid Id key");
             }
@@ -71,7 +115,7 @@ public abstract class Entity<ID extends Entity.TypedId> {
 
         abstract public Type type();
 
-        public static TypedId parse(String entityId) {
+        public static UID parse(String entityId) {
             if (StringUtils.isBlank(entityId)) {
                 return null;
             }
@@ -79,12 +123,13 @@ public abstract class Entity<ID extends Entity.TypedId> {
             if (entityType == null) {
                 throw new RuntimeException("Unknown entity type for id: " + entityId);
             }
-            String value = entityId.substring(1);
+            String key = entityId.substring(1);
             return switch (entityType) {
-                case PERSONAGE -> new Personage.Id(value);
-                case LOCATION -> new Location.Id(value);
-                case CLUE -> new Clue.Id(value);
-                case TIME -> new TimeId(value);
+                case PERSONAGE -> new Personage.Id(key);
+                case LOCATION -> new Location.Id(key);
+                case CLUE -> new Clue.Id(key);
+                case TIME -> new TimeId(key);
+                case DETECTIVE -> new Detective.Id(key);
             };
         }
 
@@ -103,7 +148,7 @@ public abstract class Entity<ID extends Entity.TypedId> {
 
         @Override
         public boolean equals(Object o) {
-            if (!(o instanceof Entity.TypedId entityId)) return false;
+            if (!(o instanceof Entity.UID entityId)) return false;
             return Objects.equals(key, entityId.key);
         }
 
@@ -118,7 +163,8 @@ public abstract class Entity<ID extends Entity.TypedId> {
         PERSONAGE('P'),
         LOCATION('L'),
         CLUE('C'),
-        TIME('T');
+        TIME('T'),
+        DETECTIVE('D');
 
         private final char code;
 
@@ -136,6 +182,7 @@ public abstract class Entity<ID extends Entity.TypedId> {
                 case 'L' -> Type.LOCATION;
                 case 'C' -> Type.CLUE;
                 case 'T' -> Type.TIME;
+                case 'D' -> Type.DETECTIVE;
                 default -> null;
             };
         }

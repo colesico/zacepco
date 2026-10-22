@@ -29,9 +29,9 @@ public class ScriptService {
     private final ScriptEntryDao scriptEntryDao;
 
     /**
-     * Script package API
+     * Resource package API
      */
-    private final Supplier<ResourcePackage> scriptPackage;
+    private final Supplier<ResourcePackage> resourcePackage;
 
     /**
      * Current user
@@ -40,12 +40,12 @@ public class ScriptService {
 
     public ScriptService(
             ScriptEntryDao scriptEntryDao,
-            @Classed(StoragePackageDriver.class) Supplier<ResourcePackage> scriptPackage,
+            @Classed(StoragePackageDriver.class) Supplier<ResourcePackage> resourcePackage,
             Provider<Identity> identity,
             ScriptAssetsService assetsService) {
 
         this.scriptEntryDao = scriptEntryDao;
-        this.scriptPackage = scriptPackage;
+        this.resourcePackage = resourcePackage;
         this.identity = identity;
         this.assetsService = assetsService;
     }
@@ -69,7 +69,7 @@ public class ScriptService {
 
         ScriptDocument script;
 
-        try (var scriptPackage = scriptPackage(scriptEntryId);) {
+        try (var scriptPackage = resourcePackage(scriptEntryId);) {
             scriptPackage.importFrom(scriptPackageData);
             assetsService.createAssets(scriptEntryId, scriptPackage);
             script = scriptPackage.script().read();
@@ -121,12 +121,12 @@ public class ScriptService {
     }
 
     /**
-     * Get Script package API
+     * Get Resource package API
      *
      * @param scriptEntryId script entry id
      */
     @PlainMethod
-    public ResourcePackage scriptPackage(Long scriptEntryId) {
-        return scriptPackage.get(scriptPackageId(scriptEntryId));
+    public ResourcePackage resourcePackage(Long scriptEntryId) {
+        return resourcePackage.get(scriptPackageId(scriptEntryId));
     }
 }

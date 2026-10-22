@@ -70,17 +70,6 @@ public class ResourcePackage implements Closeable {
     }
 
     /**
-     * Returns assets document resource
-     */
-    public AssetsResource assets() {
-        return new AssetsResource(
-                ResourcePath.of(ASSETS_DOCUMENT),
-                packageDriver,
-                reader,
-                writer);
-    }
-
-    /**
      * Returns script document resource
      */
     public ScriptResource script() {
@@ -98,7 +87,7 @@ public class ResourcePackage implements Closeable {
         return new Resource(ResourcePath.of(SCRIPT_IMAGE), packageDriver);
     }
 
-    public Resource entityImage(Entity.TypedId entityId) {
+    public Resource entityImage(Entity.UID entityId) {
         return new Resource(ResourcePath.of(entityId.type().name() + "/" + entityId + ENTITY_IMAGE_SUFFIX), packageDriver);
     }
 

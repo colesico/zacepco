@@ -2,7 +2,7 @@ package colesico.zacepco.respack.model.script;
 
 public class Detective extends Entity<Detective.Id> {
 
-    public static final class Id extends Entity.TypedId {
+    public static final class Id extends UID {
 
         public Id(String key) {
             super(key);

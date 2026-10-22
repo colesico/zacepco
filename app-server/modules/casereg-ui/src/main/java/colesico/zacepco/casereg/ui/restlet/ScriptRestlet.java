@@ -42,7 +42,7 @@ public class ScriptRestlet {
     public ScriptOverview scriptOverview(Long scriptEntryId) {
         try {
             // var caseFile = caseFileService.findCaseFileById(caseFileId);
-            var scriptPackage = scriptService.scriptPackage(scriptEntryId);
+            var scriptPackage = scriptService.resourcePackage(scriptEntryId);
             var script = scriptPackage.script().read();
             var scriptOverview = new ScriptOverview();
 
@@ -50,11 +50,11 @@ public class ScriptRestlet {
             scriptOverview.metainfo = script.metainfo;
 
             for (var personage : script.setting.personages) {
-                if (personage.hidden()) {
+                if (personage.isHidden()) {
                     continue;
                 }
                 var personageOverview = new EntityOverview();
-                personageOverview.id = personage.number.asString();
+                personageOverview.id = personage.id.asString();
                 personageOverview.name = personage.name;
                 personageOverview.description = personage.description;
                 scriptOverview.personages.add(personageOverview);
@@ -71,7 +71,7 @@ public class ScriptRestlet {
                     continue;
                 }
                 var locationOverview = new LocationOverview();
-                locationOverview.id = location.number.asString();
+                locationOverview.id = location.id.asString();
                 locationOverview.name = location.name;
                 locationOverview.description = location.description;
                 locationOverview.col = location.pos.col;

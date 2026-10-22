@@ -49,6 +49,13 @@ public class Setting {
     })
     public List<Clue> clues;
 
+    @YamlComment(text = {
+            "",
+            "Detectives dictionary",
+            ""
+    })
+    public List<Detective> detectives;
+
     public Optional<Personage> findPersonageById(Personage.Id id) {
         return personages.stream()
                 .filter(user -> user.getId().equals(id))

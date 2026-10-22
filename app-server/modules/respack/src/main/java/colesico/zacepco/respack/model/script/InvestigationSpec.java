@@ -5,7 +5,7 @@ import colesico.zacepco.respack.yaml.YamlComment;
 /**
  * Investigation specification
  */
-public class Investigation {
+public class InvestigationSpec {
 
     /**
      * Investigation budget (resource)

@@ -19,7 +19,7 @@ public class Clue extends Entity<Clue.Id> {
      * Entities to be open along with this clue
      */
     @YamlComment(text = "Entities to be open along with this clue")
-    public List<TypedId> open;
+    public List<UID> open;
 
     public boolean isFalsity() {
         return falsity != null ? falsity : false;
@@ -33,15 +33,15 @@ public class Clue extends Entity<Clue.Id> {
         this.falsity = falsity;
     }
 
-    public List<TypedId> getOpen() {
+    public List<UID> getOpen() {
         return open;
     }
 
-    public void setOpen(List<TypedId> open) {
+    public void setOpen(List<UID> open) {
         this.open = open;
     }
 
-    public static final class Id extends TypedId {
+    public static final class Id extends UID {
 
         public Id(String key) {
             super(key);

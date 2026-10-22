@@ -5,9 +5,9 @@ metainfo:
   # Script schema version (data model version)
   # SimVer (semver.org) notation (i.e. 1.2.3)
   schema: 1.0.0
-  # Unique script name
+  # Unique script id
   # Can only consist of ASCII letters, numbers, underscore '_'
-  usn: zacepco
+  id: zacepco
   title: Script document
   # A brief crime summary without spoilers
   annotation: |
@@ -60,24 +60,12 @@ setting:
     # Examples: Location is $L2. Personage say $msg
     description: |
       Knows all the secrets and secret passages,  is cold-blooded, has the perfect motive for murder.
-    # Entity reference
-    reference:
-      # Referenced script USN (target script)
-      # Must be mentioned in 'include' section
-      usn: script2
-      # Referenced script entity id (target entity)
-      entity: P2
-    # Variables definitions
-    # Variable can be used in entity texts referenced by '$' prefix
-    # Examples: CALIBRE: .37. Then in clue description: Gun calibre $calibre
-    vars:
-      varName: Any value
+    # Asset reference
+    asset: P000
     # Hidden personage or not (default - false)
     hidden: true
     # Initially revealed clues for this personage
-    revealedClues:
-    - C1
-    - C2
+    revealedClues: [C1, C2]
     # Personage event log for each time tick
     # Each element of the array corresponds to a time tick, starting from 1.
     # Used to verify the investigation's findings
@@ -135,9 +123,7 @@ setting:
     # Always connects only two locations, direction does not matter.
     connections:
     - # One location id
-      locationU: L1
-      # Other location id
-      locationV: L2
+      locations: [L1,L2]
       # Is hidden transition or not (default - false)
       hidden: true
   # 
@@ -158,6 +144,10 @@ setting:
     # Entities to be open along with this clue
     open:
     - L2
+  detectives:
+    - id: D1
+      name: Sherlock Holmes
+      description: Famous detective
 # 
 # Investigation specification
 # 

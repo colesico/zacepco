@@ -1,6 +1,7 @@
 package colesico.zacepco.respack.model.script;
 
 import colesico.zacepco.respack.yaml.YamlComment;
+import colesico.zacepco.respack.yaml.YamlCompact;
 
 import java.util.List;
 
@@ -9,7 +10,8 @@ public class FocusedClue {
      * Entities on which investigation action is focused
      */
     @YamlComment(text = "Entities on which investigation action is focused")
-    public List<Entity.TypedId> focus;
+    @YamlCompact
+    public List<Entity.UID> focus;
 
     /**
      * Clue discovery threshold
@@ -23,11 +25,11 @@ public class FocusedClue {
     @YamlComment(text = "Target clue")
     public Clue.Id clue;
 
-    public List<Entity.TypedId> getFocus() {
+    public List<Entity.UID> getFocus() {
         return focus;
     }
 
-    public void setFocus(List<Entity.TypedId> focus) {
+    public void setFocus(List<Entity.UID> focus) {
         this.focus = focus;
     }
 

@@ -43,7 +43,7 @@ public class Scene {
 
     public List<Connection> findConnectionsByLocationId(Location.Id id) {
         return connections.stream()
-                .filter(tr -> tr.getLocationU().equals(id) || tr.getLocationV().equals(id))
+                .filter(tr -> tr.getLocations().contains(id))
                 .collect(Collectors.toList());
     }
 
