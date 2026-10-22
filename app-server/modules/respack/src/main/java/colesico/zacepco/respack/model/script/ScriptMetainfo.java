@@ -23,6 +23,7 @@ public class ScriptMetainfo {
      * Unique Script Identifier
      */
     @YamlComment(text = {
+            
             "Unique script id",
             "Can only consist of ASCII letters, numbers, underscore '_'"
     })
@@ -42,13 +43,13 @@ public class ScriptMetainfo {
     /**
      * Script authors
      */
-    @YamlComment(text = "Script authors")
+    @YamlComment(text = { "Script authors"})
     public String[] authors;
 
     /**
      * Script licence name i.e. CC BY 4.0
      */
-    @YamlComment(text = "License under which the script is distributed")
+    @YamlComment(text = { "License under which the script is distributed"})
     public String licence;
 
     /**
@@ -67,7 +68,8 @@ public class ScriptMetainfo {
      * Estimated difficulty level.
      */
     @YamlComment(text = {
-            "Game difficulty.",
+            
+            "Game difficulty",
             "Dimensionless coefficient [0..1].",
             "0 - easy; 1 - highly difficult."
     })
@@ -76,13 +78,13 @@ public class ScriptMetainfo {
     /**
      * Estimated  time to play in minutes  (min-max)
      */
-    @YamlComment(text = "Estimated playtime, minutes", inline = true)
+    @YamlComment(text = "Estimated playtime, minutes", inline = false)
     public IntInterval estimatedTime;
 
     /**
      * Recommended players number  (min-max)
      */
-    @YamlComment(text = "Recommended number of players (min-max)", inline = true)
+    @YamlComment(text = "Recommended number of players (min-max)", inline = false)
     public IntInterval playersNum;
 
     public String getTitle() {

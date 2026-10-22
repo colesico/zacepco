@@ -11,13 +11,17 @@ public class Scene {
     /**
      * Scene size
      */
-    @YamlComment(text = "Grid size for locations placement", inline = true)
+    @YamlComment(text = "Grid size for locations placement", inline = false)
     public SceneSize size;
 
     /**
      * Locations dictionary
      */
-    @YamlComment(text = "Locations dictionary")
+    @YamlComment(text = {
+            "",
+            "Locations dictionary",
+            ""
+    })
     public List<Location> locations;
 
     /**

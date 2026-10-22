@@ -24,7 +24,7 @@ public class Personage extends Entity<Personage.Id> {
      * Personage-entity interaction for each time tick.
      */
     @YamlComment(text = {
-            "",
+            
             "Personage event log for each time tick",
             "Each element of the array corresponds to a time tick, starting from 1.",
             "Used to verify the investigation's findings (answers)",

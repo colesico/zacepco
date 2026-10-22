@@ -29,7 +29,7 @@ public class InvestigationSpec {
      * Location search
      */
     @YamlComment(text = {
-            "",
+            
             "Location search specification",
             ""
     })
@@ -39,7 +39,7 @@ public class InvestigationSpec {
      * Personage interrogation
      */
     @YamlComment(text = {
-            "",
+            
             "Personage interrogation specification",
             ""
     })
@@ -49,7 +49,7 @@ public class InvestigationSpec {
      * Forensic laboratory examination
      */
     @YamlComment(text = {
-            "",
+            
             "Criminal expertise specification",
             ""
     })

@@ -77,18 +77,15 @@ public class YamlCustomRepresenter extends Representer {
                 }
 
                 List<CommentLine> commentLines = new ArrayList<>();
+                if (!ann.inline()) {
+                    commentLines.add(new CommentLine(null, null, "", CommentType.BLANK_LINE));
+                }
                 for (var commentStr : ann.text()) {
                     var textLine = commentStr.trim();
-                    if (textLine.isEmpty()) {
-                        commentLines.add(new CommentLine(
-                                null, null, "", CommentType.BLANK_LINE)
-                        );
-                    } else {
-                        commentLines.add(new CommentLine(
-                                null, null, " " + textLine,
-                                ann.inline() ? CommentType.IN_LINE : CommentType.BLOCK)
-                        );
-                    }
+                    commentLines.add(new CommentLine(
+                            null, null, " " + textLine,
+                            ann.inline() ? CommentType.IN_LINE : CommentType.BLOCK)
+                    );
                 }
 
                 if (!commentLines.isEmpty()) {
