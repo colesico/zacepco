@@ -23,7 +23,7 @@ public class ScriptAssetsService {
     }
 
     protected Path assetsRoot(Long scriptEntryId, ScriptAssetType assetType) {
-        return Path.of("assets-" + assetType.resourceDir() + "-" + scriptEntryId);
+        return Path.of(assetType.resourceRoot() + "-" + scriptEntryId);
     }
 
     public void readAsset(Long scriptEntryId, Resource resource, OutputStream os) {
