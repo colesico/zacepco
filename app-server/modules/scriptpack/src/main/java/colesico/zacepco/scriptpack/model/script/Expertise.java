@@ -1,0 +1,25 @@
+package colesico.zacepco.scriptpack.model.script;
+
+import colesico.zacepco.scriptpack.yaml.YamlComment;
+
+import java.util.List;
+
+/**
+ * Clue expertise specification
+ */
+public class Expertise extends InvestigationAction {
+
+    /**
+     * Clues to be examined
+     */
+    @YamlComment(text = "Examined clues")
+    public List<FocusedClue> clues;
+
+    public List<FocusedClue> getClues() {
+        return clues;
+    }
+
+    public void setClues(List<FocusedClue> clues) {
+        this.clues = clues;
+    }
+}

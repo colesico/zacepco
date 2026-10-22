@@ -1,6 +1,6 @@
 package colesico.zacepco.casework.srv.model;
 
-import colesico.zacepco.respack.model.script.Clue;
+import colesico.zacepco.scriptpack.model.script.Clue;
 
 /**
  * Clue, opened by location search, personage interrogation, expertise

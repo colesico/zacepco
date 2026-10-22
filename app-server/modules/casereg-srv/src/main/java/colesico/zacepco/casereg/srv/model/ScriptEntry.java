@@ -5,7 +5,7 @@ import colesico.framework.jdbirec.Composition;
 import colesico.framework.jdbirec.Record;
 import colesico.framework.jdbirec.mediators.DateTextMediator;
 import colesico.zacepco.casereg.srv.jdbi.AccessTypeMediator;
-import colesico.zacepco.respack.model.script.ScriptDocument;
+import colesico.zacepco.scriptpack.model.script.ScriptDocument;
 
 import java.util.Date;
 

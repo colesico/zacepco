@@ -7,8 +7,8 @@ import colesico.framework.telehttp.origin.Origin;
 import colesico.framework.weblet.Weblet;
 import colesico.zacepco.casereg.srv.service.ScriptService;
 import colesico.zacepco.casereg.srv.service.ScriptAssetsService;
-import colesico.zacepco.respack.model.script.Entity;
-import colesico.zacepco.respack.pkg.ResourcePackage;
+import colesico.zacepco.scriptpack.model.script.Entity;
+import colesico.zacepco.scriptpack.pkg.ResourcePackage;
 import jakarta.inject.Provider;
 
 @Weblet

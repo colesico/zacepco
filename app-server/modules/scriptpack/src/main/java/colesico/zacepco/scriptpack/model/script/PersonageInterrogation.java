@@ -1,0 +1,36 @@
+package colesico.zacepco.scriptpack.model.script;
+
+import colesico.zacepco.scriptpack.yaml.YamlComment;
+
+import java.util.List;
+
+/**
+ * Personage interrogation
+ */
+public class PersonageInterrogation {
+
+    /**
+     * Personage Id
+     */
+    @YamlComment(text = "Personage ID")
+    public Personage.Id personage;
+
+    @YamlComment(text = "Personage clues")
+    public List<FocusedClue> clues;
+
+    public Personage.Id getPersonage() {
+        return personage;
+    }
+
+    public void setPersonage(Personage.Id personage) {
+        this.personage = personage;
+    }
+
+    public List<FocusedClue> getClues() {
+        return clues;
+    }
+
+    public void setClues(List<FocusedClue> clues) {
+        this.clues = clues;
+    }
+}

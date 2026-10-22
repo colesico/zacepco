@@ -5,8 +5,8 @@ import colesico.framework.transaction.Transactional;
 import colesico.zacepco.casereg.srv.model.ScriptAssetType;
 import colesico.zacepco.common.srv.utils.ImageUtils;
 import colesico.zacepco.filestore.service.FileStorage;
-import colesico.zacepco.respack.pkg.Resource;
-import colesico.zacepco.respack.pkg.ResourcePackage;
+import colesico.zacepco.scriptpack.pkg.Resource;
+import colesico.zacepco.scriptpack.pkg.ResourcePackage;
 
 import javax.imageio.ImageIO;
 import java.io.OutputStream;
