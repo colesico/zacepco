@@ -1,4 +1,4 @@
-package colesico.zacepco.scriptpack.pkg;
+package colesico.zacepco.scriptpack.pack;
 
 import colesico.framework.ioc.message.IocMessage;
 import colesico.framework.ioc.scope.Unscoped;
@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
  * Resource package API
  */
 @Unscoped
-public class ResourcePackage implements Closeable {
+public class ScriptPackage implements Closeable {
 
     /**
      * Assets document
@@ -49,9 +49,9 @@ public class ResourcePackage implements Closeable {
 
     final YamlWriter writer;
 
-    public ResourcePackage(@IocMessage PackageDriver packageDriver,
-                           YamlReader reader,
-                           YamlWriter writer) {
+    public ScriptPackage(@IocMessage PackageDriver packageDriver,
+                         YamlReader reader,
+                         YamlWriter writer) {
 
         if (packageDriver == null) {
             throw new RuntimeException("Package driver is not specified");

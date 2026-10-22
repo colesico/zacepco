@@ -3,8 +3,8 @@ package colesico.zacepco.casereg.srv.filestorage;
 import colesico.framework.ioc.message.IocMessage;
 import colesico.framework.ioc.scope.Unscoped;
 import colesico.zacepco.filestore.service.FileStorage;
-import colesico.zacepco.scriptpack.pkg.PackageDriver;
-import colesico.zacepco.scriptpack.pkg.ResourcePath;
+import colesico.zacepco.scriptpack.pack.PackageDriver;
+import colesico.zacepco.scriptpack.pack.ResourcePath;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -20,8 +20,6 @@ import java.util.stream.Stream;
  */
 @Unscoped
 public class StoragePackageDriver extends PackageDriver {
-
-    public static final String PACKAGE_ASSETS_ROOT = "package";
 
     private final String packageId;
     private final FileStorage fileStorage;
@@ -41,7 +39,7 @@ public class StoragePackageDriver extends PackageDriver {
      * @return Path for FileStorage
      */
     protected Path resolve(ResourcePath resourcePath) {
-        return Path.of(PACKAGE_ASSETS_ROOT + "-" + packageId).resolve(resourcePath.path());
+        return Path.of(packageId).resolve(resourcePath.path());
     }
 
     @Override

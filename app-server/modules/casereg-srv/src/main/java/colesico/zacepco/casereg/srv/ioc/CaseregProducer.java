@@ -8,8 +8,8 @@ import colesico.framework.ioc.production.Producer;
 import colesico.framework.ioc.production.Supplier;
 import colesico.framework.ioc.scope.Unscoped;
 import colesico.zacepco.casereg.srv.filestorage.StoragePackageDriver;
-import colesico.zacepco.scriptpack.pkg.PackageDriver;
-import colesico.zacepco.scriptpack.pkg.ResourcePackage;
+import colesico.zacepco.scriptpack.pack.PackageDriver;
+import colesico.zacepco.scriptpack.pack.ScriptPackage;
 
 @Producer
 @Produce(StoragePackageDriver.class)
@@ -17,10 +17,10 @@ public class CaseregProducer {
 
     @Classed(StoragePackageDriver.class)
     @Unscoped
-    public ResourcePackage scriptPackage(
+    public ScriptPackage scriptPackage(
             @IocMessage String packageId,
             Supplier<StoragePackageDriver> packageDriverFactory,
-            @Classed(PackageDriver.class) Supplier<ResourcePackage> scriptPackageFactory) {
+            @Classed(PackageDriver.class) Supplier<ScriptPackage> scriptPackageFactory) {
         return scriptPackageFactory.get(packageDriverFactory.get(packageId));
     }
 }

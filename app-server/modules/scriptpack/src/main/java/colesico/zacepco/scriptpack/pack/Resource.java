@@ -1,4 +1,4 @@
-package colesico.zacepco.scriptpack.pkg;
+package colesico.zacepco.scriptpack.pack;
 
 import java.io.IOException;
 import java.io.InputStream;

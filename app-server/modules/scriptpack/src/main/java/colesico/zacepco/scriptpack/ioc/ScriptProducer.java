@@ -7,10 +7,10 @@ import colesico.framework.ioc.production.Producer;
 import colesico.framework.ioc.production.Supplier;
 import colesico.framework.ioc.scope.Unscoped;
 import colesico.zacepco.scriptpack.model.script.ScriptDocument;
-import colesico.zacepco.scriptpack.pkg.*;
+import colesico.zacepco.scriptpack.pack.*;
 import colesico.zacepco.scriptpack.yaml.YamlCustomConstructor;
 import colesico.zacepco.scriptpack.yaml.YamlCustomRepresenter;
-import colesico.zacepco.scriptpack.pkg.DirectoryPackageDriver;
+import colesico.zacepco.scriptpack.pack.DirectoryPackageDriver;
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.Constructor;
@@ -24,7 +24,7 @@ import java.nio.file.Path;
 @Produce(YamlReader.class)
 @Produce(YamlWriter.class)
 @Produce(DirectoryPackageDriver.class)
-@Produce(value = ResourcePackage.class, classed = PackageDriver.class)
+@Produce(value = ScriptPackage.class, classed = PackageDriver.class)
 public class ScriptProducer {
 
     @Unscoped
@@ -49,8 +49,8 @@ public class ScriptProducer {
 
     // Default script package
     @Unscoped
-    public ResourcePackage scriptPackageDefault(
-            @Classed(PackageDriver.class) Supplier<ResourcePackage> scriptPackageFactory,
+    public ScriptPackage scriptPackageDefault(
+            @Classed(PackageDriver.class) Supplier<ScriptPackage> scriptPackageFactory,
             DirectoryPackageDriver packageDriver) {
         return scriptPackageFactory.get(packageDriver);
     }
@@ -60,8 +60,8 @@ public class ScriptProducer {
      */
     @Unscoped
     @Classed(DirectoryPackageDriver.class)
-    public ResourcePackage scriptPackageForScriptDirectory(
-            @Classed(PackageDriver.class) Supplier<ResourcePackage> scriptPackageFactory,
+    public ScriptPackage scriptPackageForScriptDirectory(
+            @Classed(PackageDriver.class) Supplier<ScriptPackage> scriptPackageFactory,
             Supplier<DirectoryPackageDriver> packageDriverFactory,
             @IocMessage Path scriptDir) {
         return scriptPackageFactory.get(packageDriverFactory.get(scriptDir));

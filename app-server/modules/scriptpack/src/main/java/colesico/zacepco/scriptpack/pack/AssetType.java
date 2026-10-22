@@ -1,4 +1,4 @@
-package colesico.zacepco.scriptpack.pkg;
+package colesico.zacepco.scriptpack.pack;
 
 public enum AssetType {
     PERSONAGE_IMG("personage/", ".png"),

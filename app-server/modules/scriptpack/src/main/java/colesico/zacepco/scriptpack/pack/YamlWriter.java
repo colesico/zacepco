@@ -1,4 +1,4 @@
-package colesico.zacepco.scriptpack.pkg;
+package colesico.zacepco.scriptpack.pack;
 
 import jakarta.inject.Provider;
 import jakarta.inject.Singleton;

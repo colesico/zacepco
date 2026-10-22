@@ -5,8 +5,8 @@ import colesico.framework.transaction.Transactional;
 import colesico.zacepco.casereg.srv.model.ScriptAssetType;
 import colesico.zacepco.common.srv.utils.ImageUtils;
 import colesico.zacepco.filestore.service.FileStorage;
-import colesico.zacepco.scriptpack.pkg.Resource;
-import colesico.zacepco.scriptpack.pkg.ResourcePackage;
+import colesico.zacepco.scriptpack.pack.Resource;
+import colesico.zacepco.scriptpack.pack.ScriptPackage;
 
 import javax.imageio.ImageIO;
 import java.io.OutputStream;
@@ -36,30 +36,30 @@ public class ScriptAssetsService {
         }
     }
 
-    public void createThumbs(Long scriptEntryId, ResourcePackage resourcePackage) {
+    public void createThumbs(Long scriptEntryId, ScriptPackage scriptPackage) {
         try {
 
-            var posterResource = resourcePackage.scriptImage();
+            var posterResource = scriptPackage.scriptImage();
             createThumb(scriptEntryId, posterResource);
-            var script = resourcePackage.script().read();
+            var script = scriptPackage.script().read();
 
             for (var personage : script.setting.personages) {
-                var personageResource = resourcePackage.entityImage(personage.asset());
+                var personageResource = scriptPackage.entityImage(personage.asset());
                 createThumb(scriptEntryId, personageResource);
             }
 
             for (var location : script.setting.scene.locations) {
-                var locationResource = resourcePackage.entityImage(location.asset());
+                var locationResource = scriptPackage.entityImage(location.asset());
                 createThumb(scriptEntryId, locationResource);
             }
 
             for (var clue : script.setting.clues) {
-                var clueResource = resourcePackage.entityImage(clue.asset());
+                var clueResource = scriptPackage.entityImage(clue.asset());
                 createThumb(scriptEntryId, clueResource);
             }
 
             for (var detective : script.setting.detectives) {
-                var detResource = resourcePackage.entityImage(detective.asset());
+                var detResource = scriptPackage.entityImage(detective.asset());
                 createThumb(scriptEntryId, detResource);
             }
 

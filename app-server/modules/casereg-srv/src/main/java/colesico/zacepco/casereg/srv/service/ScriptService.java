@@ -13,7 +13,7 @@ import colesico.zacepco.casereg.srv.model.ScriptEntry;
 import colesico.zacepco.casereg.srv.model.ScriptEntryAccessType;
 import colesico.zacepco.casereg.srv.model.ScriptSummary;
 import colesico.zacepco.scriptpack.model.script.ScriptDocument;
-import colesico.zacepco.scriptpack.pkg.*;
+import colesico.zacepco.scriptpack.pack.*;
 import jakarta.inject.Provider;
 
 import java.io.IOException;
@@ -31,7 +31,7 @@ public class ScriptService {
     /**
      * Resource package API
      */
-    private final Supplier<ResourcePackage> resourcePackage;
+    private final Supplier<ScriptPackage> resourcePackage;
 
     /**
      * Current user
@@ -40,7 +40,7 @@ public class ScriptService {
 
     public ScriptService(
             ScriptEntryDao scriptEntryDao,
-            @Classed(StoragePackageDriver.class) Supplier<ResourcePackage> resourcePackage,
+            @Classed(StoragePackageDriver.class) Supplier<ScriptPackage> resourcePackage,
             Provider<Identity> identity,
             ScriptAssetsService assetsService) {
 
@@ -126,7 +126,7 @@ public class ScriptService {
      * @param scriptEntryId script entry id
      */
     @PlainMethod
-    public ResourcePackage resourcePackage(Long scriptEntryId) {
+    public ScriptPackage resourcePackage(Long scriptEntryId) {
         return resourcePackage.get(scriptPackageId(scriptEntryId));
     }
 }
