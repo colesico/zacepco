@@ -26,7 +26,7 @@ public class ScriptAssetsWeblet {
         this.httpResponse = httpResponse;
     }
 
-    @Route("./image/:scaleCode/:scriptEntryId/:assetUid")
+    @Route("./images/:scaleCode/:scriptEntryId/:assetUid")
     @ParamOrigin(Origin.ROUTE)
     public void image(String scaleCode, Long scriptEntryId, String assetUid) {
 

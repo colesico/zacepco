@@ -66,7 +66,7 @@
 
 	  <!-- Изображение (размер регулируется через width) -->
 	  <img
-		src="/casereg/assets/image/thumb/{id}/S"
+		src="/casereg/assets/images/thumb/{id}/S"
 		alt="Обложка дела"
 		class="img-fluid rounded border text-muted"
 		style="width: 120px; min-width: 120px; object-fit: cover;"
@@ -143,7 +143,7 @@
           <!-- Контейнер для квадратного или пропорционального фото -->
           <div class="ratio ratio-1x1 card-img-top overflow-hidden rounded-top">
             <img
-              src="/casereg/assets/image/thumb/{id}/{personage.asset}"
+              src="/casereg/assets/images/thumb/{id}/{personage.asset}"
               alt={personage.name}
               class="object-fit-cover"
             />
@@ -177,7 +177,7 @@
 			 <div class="grid-item">
 			   {#if location}
 				 <img
-				   src="/casereg/assets/image/thumb/{id}/{location.asset}"
+				   src="/casereg/assets/images/thumb/{id}/{location.asset}"
 				   alt={location.name || "Локация"}
 				   title={location.name || "Локация"}
 				   loading="lazy"
@@ -209,7 +209,7 @@
           <!-- Контейнер для квадратного или пропорционального фото -->
           <div class="ratio ratio-1x1 card-img-top overflow-hidden rounded-top">
             <img
-              src="/casereg/assets/{id}/{detective.asset}"
+              src="/casereg/assets/images/thumb/{id}/{detective.asset}"
               alt={detective.name}
               class="object-fit-cover"
             />
