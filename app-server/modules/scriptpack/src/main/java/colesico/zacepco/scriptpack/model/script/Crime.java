@@ -10,7 +10,7 @@ import java.util.Optional;
  * Is a top-level element that encapsulates a specific crime scene environment,
  * its timeline, and all associated elements (the crime scene, characters, and clues)
  */
-public class Setting {
+public class Crime {
 
     /**
      * Crime duration in ticks
@@ -48,13 +48,6 @@ public class Setting {
             ""
     })
     public List<Clue> clues;
-
-    @YamlComment(text = {
-            "",
-            "Detectives dictionary",
-            ""
-    })
-    public List<Detective> detectives;
 
     public Optional<Personage> findPersonageById(Personage.Id id) {
         return personages.stream()
@@ -99,4 +92,5 @@ public class Setting {
     public void setClues(List<Clue> clues) {
         this.clues = clues;
     }
+
 }

@@ -17,26 +17,23 @@ public class ScriptDocument {
     })
     public ScriptMetainfo metainfo;
 
-    /**
-     * Environment spec
-     */
     @YamlComment(text = {
             "",
-            "Crime setting specification",
+            "Crime specification",
             "Describes entire crime environment",
             ""
     })
-    public Setting setting;
+    public Crime crime;
 
     /**
      * Investigation spec
      */
     @YamlComment(text = {
             "",
-            "Investigation specification",
+            "Investigation spec",
             ""
     })
-    public InvestigationSpec investigation;
+    public Investigation investigation;
 
     /**
      * General answers
@@ -59,19 +56,19 @@ public class ScriptDocument {
         this.metainfo = metainfo;
     }
 
-    public Setting getSetting() {
-        return setting;
+    public Crime getSetting() {
+        return crime;
     }
 
-    public void setSetting(Setting setting) {
-        this.setting = setting;
+    public void setSetting(Crime crime) {
+        this.crime = crime;
     }
 
-    public InvestigationSpec getInvestigation() {
+    public Investigation getInvestigation() {
         return investigation;
     }
 
-    public void setInvestigation(InvestigationSpec investigation) {
+    public void setInvestigation(Investigation investigation) {
         this.investigation = investigation;
     }
 

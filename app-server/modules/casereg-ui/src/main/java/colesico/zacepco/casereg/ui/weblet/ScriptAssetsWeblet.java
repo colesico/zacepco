@@ -26,27 +26,27 @@ public class ScriptAssetsWeblet {
         this.httpResponse = httpResponse;
     }
 
-    @Route("./image/:scriptEntryId/:assetKey/:scaleKey")
+    @Route("./image/:scaleCode/:scriptEntryId/:assetUid")
     @ParamOrigin(Origin.ROUTE)
-    public void image(Long scriptEntryId, String assetKey, String scaleKey) {
+    public void image(String scaleCode, Long scriptEntryId, String assetUid) {
 
         ScriptPackage sp = scriptService.scriptPackage(scriptEntryId);
 
-        var res = switch (assetKey) {
+        var res = switch (assetUid) {
             case "S" -> sp.scriptImage();
             default -> {
-                var entityId = Entity.UID.parse(assetKey);
-                yield sp.entityImage(entityId);
+                var uid = Entity.UID.parse(assetUid);
+                yield sp.entityImage(uid);
             }
         };
 
-        var scale = switch (scaleKey) {
-            case "thumb" -> ImageScale.THUMB;
-            case "medium" -> ImageScale.MEDIUM;
+        var scale = ImageScale.parse(scaleCode);
+        if (scale == null) {
+            throw new IllegalStateException("Unsupported image scale:" + scaleCode);
         }
 
         try (
-                var is = scriptAssetsService.imageInput(scriptEntryId, res, ImageScale.THUMB);
+                var is = scriptAssetsService.imageInput(scriptEntryId, res, scale);
         ) {
             is.transferTo(httpResponse.get().outputStream());
         } catch (Exception ex) {

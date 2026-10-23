@@ -11,7 +11,7 @@
 <div class="dir-card">
   <a href="/{script.id}" use:link  target={target}>
     <div class="dir-card-img">
-      <img src="/casereg/assets/{script.id}/S" alt={script.summary.title || ''} />
+      <img src="/casereg/assets/image/thumb/{script.id}/S" alt={script.summary.title || ''} />
     </div>
     <div class="dir-card-title">
       {script.summary.title} 

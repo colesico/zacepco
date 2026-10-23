@@ -46,10 +46,10 @@ metainfo:
     max: 8
 
 # 
-# Crime setting specification
+# Crime specification
 # Describes entire crime environment
 # 
-setting:
+crime:
   
   # Crime duration in ticks
   crimeDuration: 5
@@ -160,17 +160,9 @@ setting:
     
     # Entities to be open along with this clue
     open: [L2]
-  
-  # 
-  # Detectives dictionary
-  # 
-  detectives:
-  - id: D1
-    name: Sherlock Holmes
-    description: Famous detective
 
 # 
-# Investigation specification
+# Investigation spec
 # 
 investigation:
   
@@ -251,6 +243,14 @@ investigation:
     - focus: [C1, C2, P3, L2]
       threshold: 3.0
       clue: C6
+  
+  # 
+  # Detectives dictionary
+  # 
+  detectives:
+  - id: D1
+    name: Sherlock Holmes
+    description: Famous detective
 
 # 
 # General answers

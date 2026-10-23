@@ -49,7 +49,7 @@ public class ScriptRestlet {
             scriptOverview.scriptEntryId = scriptEntryId;
             scriptOverview.metainfo = script.metainfo;
 
-            for (var personage : script.setting.personages) {
+            for (var personage : script.crime.personages) {
                 if (personage.isHidden()) {
                     continue;
                 }
@@ -61,7 +61,7 @@ public class ScriptRestlet {
                 scriptOverview.personages.add(persOverview);
             }
 
-            for (var detective : script.setting.detectives) {
+            for (var detective : script.investigation.detectives) {
                 var detOverview = new EntityOverview();
                 detOverview.id = detective.id.asString();
                 detOverview.asset = detective.asset().asString();
@@ -73,10 +73,10 @@ public class ScriptRestlet {
             SceneOverview sceneOverview = new SceneOverview();
             scriptOverview.scene = sceneOverview;
 
-            sceneOverview.cols = script.setting.scene.size.cols;
-            sceneOverview.rows = script.setting.scene.size.rows;
+            sceneOverview.cols = script.crime.scene.size.cols;
+            sceneOverview.rows = script.crime.scene.size.rows;
 
-            for (var location : script.setting.scene.locations) {
+            for (var location : script.crime.scene.locations) {
                 if (location.isHidden()) {
                     continue;
                 }

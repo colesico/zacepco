@@ -9,8 +9,9 @@ import colesico.zacepco.scriptpack.pkg.Resource;
 import colesico.zacepco.scriptpack.pkg.ScriptPackage;
 
 import javax.imageio.ImageIO;
+import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.UncheckedIOException;
 import java.nio.file.Path;
 
 @Service
@@ -24,10 +25,17 @@ public class ScriptAssetsService {
     }
 
     protected Path scaledImagesRoot(Long scriptEntryId, ImageScale scale) {
-        return Path.of(scale.storageRoot() + "-" + scriptEntryId);
+        return Path.of(scale.code() + "-" + scriptEntryId);
     }
 
     public InputStream imageInput(Long scriptEntryId, Resource resource, ImageScale scale) {
+        if (scale.equals(ImageScale.FULL)) {
+            try {
+                return resource.inputStream();
+            } catch (IOException e) {
+                throw new UncheckedIOException(e);
+            }
+        }
         return fileStorage.fileInput(scaledImagesRoot(scriptEntryId, scale).resolve(resource.path().asPath()));
     }
 
@@ -38,22 +46,22 @@ public class ScriptAssetsService {
             iconize(scriptEntryId, posterResource, ImageScale.THUMB);
             var script = scriptPackage.script().read();
 
-            for (var personage : script.setting.personages) {
+            for (var personage : script.crime.personages) {
                 var personageResource = scriptPackage.entityImage(personage.asset());
                 iconize(scriptEntryId, personageResource, ImageScale.THUMB);
             }
 
-            for (var location : script.setting.scene.locations) {
+            for (var location : script.crime.scene.locations) {
                 var locationResource = scriptPackage.entityImage(location.asset());
                 iconize(scriptEntryId, locationResource, ImageScale.THUMB);
             }
 
-            for (var clue : script.setting.clues) {
+            for (var clue : script.crime.clues) {
                 var clueResource = scriptPackage.entityImage(clue.asset());
                 iconize(scriptEntryId, clueResource, ImageScale.THUMB);
             }
 
-            for (var detective : script.setting.detectives) {
+            for (var detective : script.investigation.detectives) {
                 var detResource = scriptPackage.entityImage(detective.asset());
                 iconize(scriptEntryId, detResource, ImageScale.THUMB);
             }

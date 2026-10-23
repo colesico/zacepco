@@ -2,10 +2,12 @@ package colesico.zacepco.scriptpack.model.script;
 
 import colesico.zacepco.scriptpack.yaml.YamlComment;
 
+import java.util.List;
+
 /**
  * Investigation specification
  */
-public class InvestigationSpec {
+public class Investigation {
 
     /**
      * Investigation budget (resource)
@@ -55,6 +57,13 @@ public class InvestigationSpec {
     })
     public Expertise expertise;
 
+    @YamlComment(text = {
+            "",
+            "Detectives dictionary",
+            ""
+    })
+    public List<Detective> detectives;
+
     public double randFactor() {
         return randFactor == null ? 1.0 : randFactor;
     }
@@ -97,5 +106,13 @@ public class InvestigationSpec {
 
     public void setExpertise(Expertise expertise) {
         this.expertise = expertise;
+    }
+
+    public List<Detective> getDetectives() {
+        return detectives;
+    }
+
+    public void setDetectives(List<Detective> detectives) {
+        this.detectives = detectives;
     }
 }
