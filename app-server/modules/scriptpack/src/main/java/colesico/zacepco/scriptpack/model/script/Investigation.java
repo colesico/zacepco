@@ -21,9 +21,9 @@ public class Investigation {
      * Default = 1.0
      */
     @YamlComment(text = {
-            "Randomness factor [1.0 .. 0.0]. Default = 1.0 ",
+            "Randomness factor [1.0 ... 0.0]. Default = 1.0 ",
             "Used to recalculate investigation table thresholds to adjust randomness.",
-            "New_threshold = Table_threshold/randFactor"
+            "New_threshold = Table_threshold * randFactor"
     })
     public Double randFactor;
 

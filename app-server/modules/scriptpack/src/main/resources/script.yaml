@@ -175,9 +175,9 @@ investigation:
   # Investigation budget in resource units
   budget: 9
   
-  # Randomness factor [1.0 .. 0.0]. Default = 1.0
+  # Randomness factor [1.0 ... 0.0]. Default = 1.0
   # Used to recalculate investigation table thresholds to adjust randomness.
-  # New_threshold = Table_threshold/randFactor
+  # New_threshold = Table_threshold * randFactor
   randFactor: 1.0
   
   # 
