@@ -6,7 +6,7 @@ import colesico.zacepco.scriptpack.yaml.YamlCompact;
 import java.util.Set;
 
 /**
- * Unidirectional connection between two locations
+ * Unidirectional way between two locations
  */
 public class Way {
 
@@ -23,7 +23,7 @@ public class Way {
     /**
      * Is hidden passage
      */
-    @YamlComment(text = "Is hidden transition or not (default - false)")
+    @YamlComment(text = "Is a hidden way or not (default - false)")
     public Boolean hidden;
 
     public boolean isHidden() {

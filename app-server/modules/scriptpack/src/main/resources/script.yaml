@@ -149,7 +149,7 @@ crime:
       # Restrictions or characteristics of the way
       description: length 10m
       
-      # Is hidden transition or not (default - false)
+      # Is a hidden way or not (default - false)
       hidden: true
   
   # 
