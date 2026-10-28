@@ -25,7 +25,7 @@ metainfo:
   licence: CC BY 4.0
   
   # Script creation date YYYY-MM-DD
-  creationDate: 2026-01-01
+  creationDate: '2026-01-01'
   
   # Script version (1..N)
   version: 1
@@ -51,8 +51,10 @@ metainfo:
 # 
 crime:
   
-  # Crime duration in ticks
-  crimeDuration: 5
+  # Crime timeline
+  # Timestamps for each tick
+  # Example: T10:00 or with date 2025-01-02T20:00
+  timeline: ['T10:00:00', 'T10:30:00', '2025-01-02T11:15:00']
   
   # 
   # Personages dictionary.
@@ -136,12 +138,16 @@ crime:
         # Clue associated with the location
         clues: [C1, C2]
     
-    # Connections between two locations.
+    # Ways between two locations.
     # Always connects only two locations, direction does not matter.
-    connections:
+    # Two locations can be connected by several ways with different restrictions
+    ways:
     - 
       # IDs of the two connected locations
       locations: [L1, L2]
+      
+      # Restrictions or characteristics of the way
+      description: length 10m
       
       # Is hidden transition or not (default - false)
       hidden: true

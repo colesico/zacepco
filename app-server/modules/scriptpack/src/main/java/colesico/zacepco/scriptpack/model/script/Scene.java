@@ -28,10 +28,11 @@ public class Scene {
      * Passages dictionary
      */
     @YamlComment(text = {
-            "Connections between two locations.",
-            "Always connects only two locations, direction does not matter."
+            "Ways between two locations.",
+            "Always connects only two locations, direction does not matter.",
+            "Two locations can be connected by several ways with different restrictions"
     })
-    public List<Connection> connections;
+    public List<Way> ways;
 
     public Optional<Location> findLocationById(Location.Id id) {
         return locations.stream()
@@ -45,8 +46,8 @@ public class Scene {
                 .findFirst();
     }
 
-    public List<Connection> findConnectionsByLocationId(Location.Id id) {
-        return connections.stream()
+    public List<Way> findConnectionsByLocationId(Location.Id id) {
+        return ways.stream()
                 .filter(tr -> tr.getLocations().contains(id))
                 .collect(Collectors.toList());
     }
@@ -67,11 +68,11 @@ public class Scene {
         this.locations = locations;
     }
 
-    public List<Connection> getPassages() {
-        return connections;
+    public List<Way> getPassages() {
+        return ways;
     }
 
-    public void setPassages(List<Connection> connections) {
-        this.connections = connections;
+    public void setPassages(List<Way> ways) {
+        this.ways = ways;
     }
 }

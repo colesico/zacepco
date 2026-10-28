@@ -11,8 +11,11 @@ import org.yaml.snakeyaml.nodes.ScalarNode;
 import org.yaml.snakeyaml.nodes.Tag;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class YamlCustomConstructor extends Constructor {
+
+    public static final LocalDate defaultDate = LocalDate.of(1970, 1, 1);
 
     public YamlCustomConstructor() {
         super(new LoaderOptions());
@@ -21,13 +24,13 @@ public class YamlCustomConstructor extends Constructor {
 
     @Override
     protected Construct getConstructor(Node node) {
-
-        // Если узел распознан как дата (TIMESTAMP)
-        if (Tag.TIMESTAMP.equals(node.getTag())) {
+        if (node.getType() == LocalDateTime.class) {
+            return new ConstructLocalDateTime();
+        }
+        if (node.getType() == LocalDate.class) {
             return new ConstructLocalDate();
         }
 
-        // У поля супер тип EntityId?
         if (Entity.UID.class.isAssignableFrom(node.getType())) {
             return new ConstructEntityId();
         }
@@ -41,6 +44,17 @@ public class YamlCustomConstructor extends Constructor {
             String value = ((ScalarNode) node).getValue();
             // Берем первые 10 символов (гггг-мм-дд) и парсим
             return LocalDate.parse(value.substring(0, 10));
+        }
+    }
+
+    static class ConstructLocalDateTime extends AbstractConstruct {
+        @Override
+        public Object construct(Node node) {
+            String value = ((ScalarNode) node).getValue();
+            if (value.startsWith("T")) {
+                value = defaultDate + value;
+            }
+            return LocalDateTime.parse(value);
         }
     }
 

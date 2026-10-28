@@ -104,7 +104,7 @@ In connection tables, focuses, and logs, only the tick number is used.
 
 
 
-== Crime Scene, Locations, Connections
+== Crime Scene, Locations, Ways
 
 In the scenario, the crime scene is defined as a graph.  
 In the preparation phase for the investigation, the players, based on this graph, assemble the crime scene — the stage — from individual *locations* (graph nodes). The stage is a grid of a certain size (the grid size is specified by the scenario). A location is placed in any cell of the stage grid. Some cells of the stage may be left empty.
@@ -116,33 +116,33 @@ Each location is represented by a square location card (reference or custom). A 
 * Description;
 * Location image.
 
-Two adjacent locations can be connected by *paths* that determine the possibility of a character moving between them.  
-If two non-adjacent locations need to be connected, path cards with different configurations (straight, turn) are used, laid out one after another in empty cells of the stage, connecting the required locations.  
-A path always connects only two locations. 
+Two adjacent locations can be connected by *ways* that determine the possibility of a character moving between them.  
+If two non-adjacent locations need to be connected, way cards with different configurations (straight, turn) are used, laid out one after another in empty cells of the stage, connecting the required locations.  
+A way always connects only two locations. 
 
-In the scenario, for movement along a path, certain restrictions or characteristics of the path can be specified in the form of a *description*. For example: a river, 10 meters wide. If the path description is absent, it is considered that for the investigation only the fact of the possibility of moving from one location to another is important.
-Two locations can be connected by several paths with different restrictions/characteristics.
+In the scenario, for movement along a way, certain restrictions or characteristics of the way can be specified in the form of a *description*. For example: a river, 10 meters wide. If the way description is absent, it is considered that for the investigation only the fact of the possibility of moving from one location to another is important.
+Two locations can be connected by several ways with different restrictions/characteristics.
 
-Nothing ever happens to characters on the path itself,  
-if it is necessary to model any character actions while on the path, the path is replaced by a full-fledged location.
+Nothing ever happens to characters on the way itself,  
+if it is necessary to model any character actions while on the way, the way is replaced by a full-fledged location.
 
-The scenario may also assume the presence of *"hidden" paths* between locations that are not indicated during the preparation phase for the investigation.  
-Detectives learn about the existence of such paths during the investigation.  
-When a clue indicating the presence of a hidden path (*hidden path clue*) is discovered in a location, the ID of the target location to which the path leads is determined.  
-A path card is placed on the stage, connecting the location where the hidden path clue was discovered with the target location.
+The scenario may also assume the presence of *"hidden" ways* between locations that are not indicated during the preparation phase for the investigation.  
+Detectives learn about the existence of such ways during the investigation.  
+When a clue indicating the presence of a hidden way (*hidden way clue*) is discovered in a location, the ID of the target location to which the way leads is determined.  
+A way card is placed on the stage, connecting the location where the hidden way clue was discovered with the target location.
 
-A hidden path may lead to a *hidden location*.  
+A hidden way may lead to a *hidden location*.  
 This is a location that the detectives do not know about before the investigation begins.  
 A hidden location is one of the *reference* locations not yet placed on the stage.  
 A discovered hidden location is placed on the stage in the cell specified in the scenario.  
-The location is connected by a path to the location where the hidden path clue was discovered.  
+The location is connected by a way to the location where the hidden way clue was discovered.  
 After discovery, the location becomes available for investigative actions.
 
-Information about all hidden paths and locations is included in the scenario's *answers*.
+Information about all hidden ways and locations is included in the scenario's *answers*.
 
-When developing a scenario, locations and path descriptions should be defined in such a way that their meaning in the investigation is taken into account.  
+When developing a scenario, locations and way descriptions should be defined in such a way that their meaning in the investigation is taken into account.  
 For example, there may be no light in a cave, a character can enter a basement only with a key, a poisonous plant may grow in a greenhouse, a bar operates from the 3rd to the 6th tick, etc.  
-The semantic load and description of locations and paths should help detectives in the investigation.
+The semantic load and description of locations and ways should help detectives in the investigation.
 
 For each location, the scenario describes the event log (log) of that location for each time tick.  
 The log event contains information about which characters were in this location and which clues appeared in the location (as a result of a character's actions).
@@ -168,7 +168,7 @@ The scenario may also imply the presence of *hidden characters*.
 A hidden character is one whose card has not yet been placed from the character deck face up on the table.  
 A hidden character is one of the *reference* characters.
 
-The presence of a hidden character can be determined during the investigation logically, based on discovered clues, or by discovering a clue with a direct reference to that hidden character (similar to clues pointing to a hidden path).  
+The presence of a hidden character can be determined during the investigation logically, based on discovered clues, or by discovering a clue with a direct reference to that hidden character (similar to clues pointing to a hidden way).  
 When a clue with a reference to a hidden character is discovered, their card from the character deck is placed face up next to the game board along with the cards of the other characters.  
 After that, the character becomes available for investigative actions.
 
@@ -185,8 +185,8 @@ For each character during the crime, *in each tick* of time Ti, there is only on
 * Move to an adjacent location and do nothing.
 * Move to an adjacent location and perform one action.
 
-Movement occurs to an adjacent location if they are connected by a path.  
-On the part of the scenario, there may be certain restrictions on the path, for example, a door that must be opened with a key.  
+Movement occurs to an adjacent location if they are connected by a way.  
+On the part of the scenario, there may be certain restrictions on the way, for example, a door that must be opened with a key.  
 In the general case, a character can visit the same location several times in different ticks.  
 For easier game variants, a character can visit a location only once.
 
@@ -355,7 +355,7 @@ For example, for the detective's focus "P2, T4, C?" and the table focus "P1, P2,
 ====
 
 [start=7]
-7. If all clues of the location are discovered, a "All clues discovered" token is placed on the location. Further searches of the location are impossible.
+7. If all clues of the location are discovered, an "All clues discovered" token is placed on the location. Further searches of the location are impossible.
 
 [[focus-weights-comp]]  
 === Calculating Focus Matching Weights
@@ -642,7 +642,7 @@ Connections are also defined according to the table:
 |===
 | |Location |Time |Clue |Character
 
-|*Location* |Paths between locations| Clue |Discovery of a clue in a location| Clue
+|*Location* |Ways between locations| Clue |Discovery of a clue in a location| Clue
 |*Time* | * |Adjacent ticks|Clue|Clue
 |*Clue* | *  | *  |Clue| Discovery of a clue on a character
 |*Character* | * | *  | *  |Clue

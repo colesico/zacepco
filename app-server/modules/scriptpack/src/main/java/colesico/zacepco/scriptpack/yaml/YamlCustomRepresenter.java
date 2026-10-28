@@ -11,6 +11,7 @@ import org.yaml.snakeyaml.representer.Represent;
 import org.yaml.snakeyaml.representer.Representer;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
@@ -29,6 +30,7 @@ public class YamlCustomRepresenter extends Representer {
 
         // Регистрация кастомных репрезентеров
         this.representers.put(LocalDate.class, new RepresentLocalDate());
+        this.representers.put(LocalDateTime.class, new RepresentLocalDateTime());
         this.representers.put(Location.Id.class, new RepresentEntityId());
         this.representers.put(Personage.Id.class, new RepresentEntityId());
         this.representers.put(Clue.Id.class, new RepresentEntityId());
@@ -140,7 +142,19 @@ public class YamlCustomRepresenter extends Representer {
         public Node representData(Object data) {
             LocalDate date = (LocalDate) data;
             String value = date.format(DateTimeFormatter.ISO_LOCAL_DATE);
-            return representScalar(Tag.TIMESTAMP, value);
+            return representScalar(Tag.STR, value);
+        }
+    }
+
+    private class RepresentLocalDateTime implements Represent {
+        @Override
+        public Node representData(Object data) {
+            LocalDateTime dateTime = (LocalDateTime) data;
+            String value = dateTime.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+            if (value.startsWith("1970-01-01T")){
+                value = value.substring(10);
+            }
+            return representScalar(Tag.STR, value);
         }
     }
 

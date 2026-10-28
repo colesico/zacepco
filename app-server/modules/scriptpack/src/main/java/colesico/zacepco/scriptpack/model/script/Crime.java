@@ -1,7 +1,9 @@
 package colesico.zacepco.scriptpack.model.script;
 
 import colesico.zacepco.scriptpack.yaml.YamlComment;
+import colesico.zacepco.scriptpack.yaml.YamlCompact;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,11 +14,13 @@ import java.util.Optional;
  */
 public class Crime {
 
-    /**
-     * Crime duration in ticks
-     */
-    @YamlComment(text = "Crime duration in ticks")
-    public Integer crimeDuration;
+    @YamlComment(text = {
+            "Crime timeline",
+            "Timestamps for each tick",
+            "Example: T10:00 or with date 2025-01-02T20:00"
+    })
+    @YamlCompact
+    public List<LocalDateTime> timeline;
 
     /**
      * Characters dictionary
@@ -61,12 +65,12 @@ public class Crime {
                 .findFirst();
     }
 
-    public Integer getCrimeDuration() {
-        return crimeDuration;
+    public List<LocalDateTime> getTimeline() {
+        return timeline;
     }
 
-    public void setCrimeDuration(Integer crimeDuration) {
-        this.crimeDuration = crimeDuration;
+    public void setTimeline(List<LocalDateTime> timeline) {
+        this.timeline = timeline;
     }
 
     public List<Personage> getPersonages() {

@@ -8,7 +8,7 @@ import java.util.Set;
 /**
  * Unidirectional connection between two locations
  */
-public class Connection {
+public class Way {
 
     /**
      * Related locations
@@ -16,6 +16,10 @@ public class Connection {
     @YamlComment(text = "IDs of the two connected locations")
     @YamlCompact
     public Set<Location.Id> locations;
+
+    @YamlComment(text = "Restrictions or characteristics of the way")
+    public String description;
+
     /**
      * Is hidden passage
      */
@@ -43,5 +47,13 @@ public class Connection {
 
     public void setHidden(Boolean hidden) {
         this.hidden = hidden;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
