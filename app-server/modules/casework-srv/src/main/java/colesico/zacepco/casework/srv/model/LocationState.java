@@ -8,16 +8,24 @@ import colesico.zacepco.scriptpack.model.script.Location;
 
 public class LocationState {
 
-    private Location.Id locationId;
+    public Location.Id locationId;
 
     /**
-     * Location is discovered.
-     * For hidden location that not discovered yet = false
+     * Location  discovered state.
+     * For hidden location that not discovered yet = true
      */
-    private Boolean discovered;
+    public Boolean hidden = false;
 
     /**
      * Clues that not discovered yet for this location
      */
-    private Integer cluesToDiscover;
+    public Integer cluesToDiscover;
+
+    public Boolean getHidden() {
+        return hidden;
+    }
+
+    public void setHidden(Boolean hidden) {
+        this.hidden = hidden;
+    }
 }
