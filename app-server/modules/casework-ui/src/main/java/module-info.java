@@ -3,7 +3,7 @@ module colesico.zacepco.casework.ui {
     requires transitive colesico.zacepco.casework.srv;
 
     requires colesico.framework.weblet;
-    requires colesico.zacepco.common.ui;
+    requires colesico.zacepco.core.ui;
 
     exports colesico.zacepco.casework.ui.weblet;
 

@@ -32,7 +32,7 @@
         </dependency>
         <dependency>
             <groupId>net.colesico.zacepco</groupId>
-            <artifactId>zacepco-common-ui</artifactId>
+            <artifactId>zacepco-core-ui</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>

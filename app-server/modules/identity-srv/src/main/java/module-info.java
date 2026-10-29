@@ -1,6 +1,6 @@
 module colesico.zacepco.identity.srv {
 
-    requires colesico.zacepco.common.srv;
+    requires colesico.zacepco.core.srv;
 
     exports colesico.zacepco.identity.srv.model;
     exports colesico.zacepco.identity.srv.service;

@@ -2,7 +2,7 @@ package colesico.zacepco.identity.srv.service;
 
 import colesico.framework.service.Service;
 import colesico.framework.transaction.Transactional;
-import colesico.zacepco.common.srv.utils.Base32;
+import colesico.zacepco.core.srv.utils.Base32;
 import colesico.zacepco.identity.srv.assist.HashUtils;
 import colesico.zacepco.identity.srv.dao.InviteDao;
 import colesico.zacepco.identity.srv.model.Invite;

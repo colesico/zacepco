@@ -11,7 +11,7 @@ import colesico.framework.teleapi.TeleResult;
 import colesico.framework.telehttp.result.NavigationResult;
 import colesico.framework.weblet.Weblet;
 import colesico.framework.weblet.result.ViewResult;
-import colesico.zacepco.common.ui.model.Notice;
+import colesico.zacepco.core.ui.model.Notice;
 import colesico.zacepco.identity.srv.dto.AuthUser;
 import colesico.zacepco.identity.srv.service.AuthService;
 import colesico.zacepco.identity.ui.dto.LoginForm;

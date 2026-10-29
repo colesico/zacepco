@@ -12,7 +12,7 @@ import colesico.framework.weblet.result.ViewResult;
 import colesico.zacepco.identity.srv.dto.RegUser;
 import colesico.zacepco.identity.srv.service.RegService;
 import colesico.zacepco.identity.ui.dto.RegForm;
-import colesico.zacepco.common.ui.model.Notice;
+import colesico.zacepco.core.ui.model.Notice;
 
 @Weblet
 @Route("./signup")

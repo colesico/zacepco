@@ -4,7 +4,7 @@ import colesico.framework.ioc.listener.PostConstruct;
 import colesico.framework.service.PlainMethod;
 import colesico.framework.service.Service;
 import colesico.framework.transaction.Transactional;
-import colesico.zacepco.common.srv.utils.Base58;
+import colesico.zacepco.core.srv.utils.Base58;
 
 import java.time.Period;
 import java.util.ArrayList;

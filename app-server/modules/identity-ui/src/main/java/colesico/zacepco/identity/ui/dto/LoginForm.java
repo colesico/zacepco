@@ -1,6 +1,6 @@
 package colesico.zacepco.identity.ui.dto;
 
-import colesico.zacepco.common.ui.model.ViewModel;
+import colesico.zacepco.core.ui.model.ViewModel;
 
 public class LoginForm extends ViewModel {
     public String username;

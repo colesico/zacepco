@@ -124,8 +124,8 @@
             </activation>
             <modules>
                 <module>modules/filestore</module>
-                <module>modules/common-srv</module>
-                <module>modules/common-ui</module>
+                <module>modules/core-srv</module>
+                <module>modules/core-ui</module>
                 <module>modules/identity-srv</module>
                 <module>modules/identity-ui</module>
                 <module>modules/scriptpack</module>

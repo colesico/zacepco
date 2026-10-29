@@ -2,7 +2,7 @@ module colesico.zacepco.casework.srv {
 
     requires jakarta.inject;
     requires colesico.framework.config;
-    requires transitive colesico.zacepco.common.srv;
+    requires transitive colesico.zacepco.core.srv;
     requires transitive colesico.zacepco.scriptpack;
     requires transitive colesico.zacepco.casereg.srv;
 

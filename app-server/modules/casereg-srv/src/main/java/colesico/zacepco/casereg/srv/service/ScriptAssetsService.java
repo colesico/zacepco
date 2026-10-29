@@ -3,7 +3,7 @@ package colesico.zacepco.casereg.srv.service;
 import colesico.framework.service.Service;
 import colesico.framework.transaction.Transactional;
 import colesico.zacepco.casereg.srv.model.ImageScale;
-import colesico.zacepco.common.srv.utils.ImageUtils;
+import colesico.zacepco.core.srv.utils.ImageUtils;
 import colesico.zacepco.filestore.service.FileStorage;
 import colesico.zacepco.scriptpack.pkg.Resource;
 import colesico.zacepco.scriptpack.pkg.ScriptPackage;
