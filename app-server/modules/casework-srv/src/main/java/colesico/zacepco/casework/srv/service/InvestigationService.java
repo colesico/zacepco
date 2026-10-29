@@ -25,25 +25,37 @@ public class InvestigationService {
         this.invEntryDao = invEntryDao;
     }
 
-    public InvestigationEntry createInvestigationEntry(Long scriptEntryId) {
+    public InvestigationEntry createInvestigationEntry(Long scriptEntryId, InvestigationSettings invSettings) {
         var scriptEntry = scriptService.findScriptEntryById(scriptEntryId);
 
         if (scriptEntry.isEmpty()) {
             throw new RuntimeException("Script entry not found. Id: " + scriptEntryId);
         }
 
-        InvestigationEntry invEntry = new InvestigationEntry();
-        invEntry.setScriptEntryId(scriptEntryId);
-        invEntry.setStatus(InvestigationStatus.OPEN);
+        try {
 
-        invEntry = invEntryDao.createInvestigationEntry(invEntry);
+            var script = scriptService.scriptPackage(scriptEntryId).script().read();
 
-        return invEntry;
+            InvestigationEntry invEntry = new InvestigationEntry();
+            invEntry.setScriptEntryId(scriptEntryId);
+            invEntry.setStatus(InvestigationStatus.OPEN);
+            invEntry.setState(buildInvestigationState(script, invSettings));
+
+            invEntry = invEntryDao.createInvestigationEntry(invEntry);
+
+            return invEntry;
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
 
     private InvestigationState buildInvestigationState(ScriptDocument script, InvestigationSettings invSettings) {
         var invState = new InvestigationState();
+
+        invState.setBudget(script.investigation.budget);
 
         // Build detectives state
 
@@ -70,6 +82,10 @@ public class InvestigationService {
                             return locState;
                         }
                 ));
+
+        invState.locations.putAll(locationState);
+
+
         return invState;
     }
 }
