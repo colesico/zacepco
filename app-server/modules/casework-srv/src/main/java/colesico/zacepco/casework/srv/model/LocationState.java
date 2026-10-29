@@ -11,24 +11,31 @@ import java.util.List;
  */
 public class LocationState {
 
-    public Location.Id locationId;
+    public Location.Id id;
 
     /**
-     * Location discover state
+     * Location uncover state
      */
     public Boolean hidden = false;
 
     /**
-     * Discovered clues for this location
+     * Exposed clues for this location
      */
-    public List<Clue.Id> discoveredClues = new ArrayList<>();
+    public List<Clue.Id> exposedClues = new ArrayList<>();
 
-    public Location.Id getLocationId() {
-        return locationId;
+    public LocationState() {
     }
 
-    public void setLocationId(Location.Id locationId) {
-        this.locationId = locationId;
+    public LocationState(Location.Id id) {
+        this.id = id;
+    }
+
+    public Location.Id getId() {
+        return id;
+    }
+
+    public void setId(Location.Id id) {
+        this.id = id;
     }
 
     public Boolean getHidden() {
@@ -39,11 +46,11 @@ public class LocationState {
         this.hidden = hidden;
     }
 
-    public List<Clue.Id> getDiscoveredClues() {
-        return discoveredClues;
+    public List<Clue.Id> getExposedClues() {
+        return exposedClues;
     }
 
-    public void setDiscoveredClues(List<Clue.Id> discoveredClues) {
-        this.discoveredClues = discoveredClues;
+    public void setExposedClues(List<Clue.Id> exposedClues) {
+        this.exposedClues = exposedClues;
     }
 }

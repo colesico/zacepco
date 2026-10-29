@@ -14,9 +14,9 @@ public class FocusedClue {
     public List<Entity.UID> focus;
 
     /**
-     * Clue discovery threshold
+     * Clue uncover threshold
      */
-    @YamlComment(text = "Clue discovery threshold")
+    @YamlComment(text = "Clue uncover threshold")
     public Double threshold;
 
     /**

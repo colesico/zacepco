@@ -28,9 +28,9 @@ public class Location extends Entity<Location.Id> {
     /**
      * Initially revealed clues for this location
      */
-    @YamlComment(text = "Initially revealed clues for this location")
+    @YamlComment(text = "Initially exposed clues for this location")
     @YamlCompact
-    public List<Clue.Id> revealedClues;
+    public List<Clue.Id> exposedClues;
 
     /**
      * Personage-entity interaction for each time tick.
@@ -67,12 +67,12 @@ public class Location extends Entity<Location.Id> {
         this.pos = pos;
     }
 
-    public List<Clue.Id> getRevealedClues() {
-        return revealedClues;
+    public List<Clue.Id> getExposedClues() {
+        return exposedClues;
     }
 
-    public void setRevealedClues(List<Clue.Id> revealedClues) {
-        this.revealedClues = revealedClues;
+    public void setExposedClues(List<Clue.Id> exposedClues) {
+        this.exposedClues = exposedClues;
     }
 
     public List<LocationEvent> getLog() {

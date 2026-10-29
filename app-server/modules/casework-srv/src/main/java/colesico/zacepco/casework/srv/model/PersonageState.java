@@ -11,12 +11,12 @@ public class PersonageState {
     public Personage.Id id;
 
     /**
-     * Personage discover state.
+     * Personage uncover  state.
      */
     public Boolean hidden = false;
 
 
-    public List<Clue.Id> discoveredClues = new ArrayList<>();
+    public List<Clue.Id> uncoveredClues = new ArrayList<>();
 
     public Personage.Id getId() {
         return id;
@@ -26,11 +26,11 @@ public class PersonageState {
         this.id = id;
     }
 
-    public List<Clue.Id> getDiscoveredClues() {
-        return discoveredClues;
+    public List<Clue.Id> getUncoveredClues() {
+        return uncoveredClues;
     }
 
-    public void setDiscoveredClues(List<Clue.Id> discoveredClues) {
-        this.discoveredClues = discoveredClues;
+    public void setUncoveredClues(List<Clue.Id> uncoveredClues) {
+        this.uncoveredClues = uncoveredClues;
     }
 }

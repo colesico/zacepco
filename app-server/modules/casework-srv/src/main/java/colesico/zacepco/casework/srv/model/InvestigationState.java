@@ -14,7 +14,9 @@ public class InvestigationState {
      */
     public Integer budget;
 
+    public Double randFactor;
+
     public Map<Location.Id, LocationState> locations = new HashMap<>();
-    public Map<Personage.Id, PersonageState> personages;
-    public Map<Detective.Id, DetectiveState> detectives;
+    public Map<Personage.Id, PersonageState> personages = new HashMap<>();
+    public Map<Detective.Id, DetectiveState> detectives = new HashMap<>();
 }

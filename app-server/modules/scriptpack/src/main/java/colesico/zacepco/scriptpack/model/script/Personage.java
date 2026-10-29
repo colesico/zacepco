@@ -16,9 +16,9 @@ public class Personage extends Entity<Personage.Id> {
     @YamlComment(text = "Initially hidden personage or not (default - false)")
     public Boolean hidden;
 
-    @YamlComment(text = "Initially revealed clues for this personage")
+    @YamlComment(text = "Initially exposed clues for this personage")
     @YamlCompact
-    public List<Clue.Id> revealedClues;
+    public List<Clue.Id> exposedClues;
 
     /**
      * Personage-entity interaction for each time tick.
@@ -55,12 +55,12 @@ public class Personage extends Entity<Personage.Id> {
         this.log = log;
     }
 
-    public List<Clue.Id> getRevealedClues() {
-        return revealedClues;
+    public List<Clue.Id> getExposedClues() {
+        return exposedClues;
     }
 
-    public void setRevealedClues(List<Clue.Id> revealedClues) {
-        this.revealedClues = revealedClues;
+    public void setExposedClues(List<Clue.Id> exposedClues) {
+        this.exposedClues = exposedClues;
     }
 
     public static final class Id extends UID {

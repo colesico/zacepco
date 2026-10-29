@@ -97,8 +97,8 @@ crime:
     # Initially hidden personage or not (default - false)
     hidden: false
     
-    # Initially revealed clues for this personage
-    revealedClues: [C1, C2]
+    # Initially exposed clues for this personage
+    exposedClues: [C1, C2]
     
     # Personage event log for each time tick
     # Each element of the array corresponds to a time tick, starting from 1.
@@ -145,8 +145,8 @@ crime:
       # Initially hidden location or not  (default - false)
       hidden: false
       
-      # Initially revealed clues for this location
-      revealedClues: [C1, C2]
+      # Initially exposed clues for this location
+      exposedClues: [C1, C2]
       
       # Location event log for each time tick
       # Each element of the array corresponds to a time tick, starting from 1
@@ -237,7 +237,7 @@ investigation:
         # Entities on which investigation action is focused
         focus: [C3, P2, T2]
         
-        # Clue discovery threshold
+        # Clue uncover threshold
         threshold: 8.1
         
         # The target clue to be uncovered

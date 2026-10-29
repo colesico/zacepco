@@ -7,6 +7,7 @@ module colesico.zacepco.casework.srv {
     requires transitive colesico.zacepco.casereg.srv;
 
     requires com.esotericsoftware.kryo;
+    requires org.jdbi.v3.core;
 
     exports colesico.zacepco.casework.srv.ioc;
     exports colesico.zacepco.casework.srv.model;
