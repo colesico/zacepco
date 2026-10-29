@@ -3,6 +3,7 @@ package colesico.zacepco.scriptpack.model.script;
 import colesico.framework.assist.StringUtils;
 import colesico.zacepco.scriptpack.yaml.YamlComment;
 
+import java.util.Map;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
@@ -42,8 +43,29 @@ public abstract class Entity<ID extends Entity.UID> {
     })
     public ID asset;
 
+    @YamlComment(text = {
+            "Reference script ID",
+            "If this entity is imported from another script, specify the ID of that reference script."
+    })
+    public String ref;
+
+
+    @YamlComment(text = {
+            "Placeholder values",
+            "Map of placeholder names to values substituted into the entity's description or name"
+    })
+    public Map<String,String> placeholders;
+
     public ID asset() {
         return asset != null ? asset : id;
+    }
+
+    public Map<String, String> getPlaceholders() {
+        return placeholders;
+    }
+
+    public void setPlaceholders(Map<String, String> placeholders) {
+        this.placeholders = placeholders;
     }
 
     public ID getId() {
@@ -76,6 +98,14 @@ public abstract class Entity<ID extends Entity.UID> {
 
     public void setAsset(ID asset) {
         this.asset = asset;
+    }
+
+    public String getRef() {
+        return ref;
+    }
+
+    public void setRef(String ref) {
+        this.ref = ref;
     }
 
     @Override

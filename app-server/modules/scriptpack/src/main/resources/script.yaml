@@ -44,7 +44,9 @@ metainfo:
   playersNum:
     min: 1
     max: 8
-
+  
+  # Recommended age for players
+  # Example: 18+ or 4-10
   age: 18+
 
 # 
@@ -82,8 +84,18 @@ crime:
     # Used when appropriate asset id is not match the entity id
     asset: P1
     
+    # Reference script ID
+    # If this entity is imported from another script, specify the ID of that reference script.
+    ref: zacepco
+    
+    # Placeholder values
+    # Map of placeholder names to values substituted into the entity's description or name
+    placeholders:
+      color: red
+      val: Some value
+    
     # Initially hidden personage or not (default - false)
-    hidden: true
+    hidden: false
     
     # Initially revealed clues for this personage
     revealedClues: [C1, C2]
@@ -119,6 +131,10 @@ crime:
       name: Cabinet
       description: |
         A gloomy study with dark shadows  shaped like Rorschach blots.
+      ref: zacepco
+      placeholders:
+        color: red
+        val: Some value
       
       # Location position on scene grid
       # (1,1) - left top scene corner
@@ -127,7 +143,7 @@ crime:
         row: 1
       
       # Initially hidden location or not  (default - false)
-      hidden: true
+      hidden: false
       
       # Initially revealed clues for this location
       revealedClues: [C1, C2]
@@ -152,9 +168,10 @@ crime:
       locations: [L1, L2]
       
       # Restrictions or characteristics of the way
+      # Used by detectives to estimate the travel time and whether a personage can move along it
       description: length 10m
       
-      # Is a hidden way or not (default - false)
+      # Is initially hidden way or not (default - false)
       hidden: true
   
   # 
@@ -165,6 +182,9 @@ crime:
     name: Butt
     description: |
       A Camel cigarette butt
+    placeholders:
+      time: '10:30'
+      val: Some value
     
     # False clue or not (default-false)
     # Used as answers to verify the investigation's findings and results

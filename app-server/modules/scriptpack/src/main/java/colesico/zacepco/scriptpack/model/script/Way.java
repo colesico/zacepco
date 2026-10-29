@@ -17,13 +17,16 @@ public class Way {
     @YamlCompact
     public Set<Location.Id> locations;
 
-    @YamlComment(text = "Restrictions or characteristics of the way")
+    @YamlComment(text = {
+            "Restrictions or characteristics of the way",
+            "Used by detectives to estimate the travel time and whether a personage can move along it"
+    })
     public String description;
 
     /**
      * Is hidden passage
      */
-    @YamlComment(text = "Is a hidden way or not (default - false)")
+    @YamlComment(text = "Is initially hidden way or not (default - false)")
     public Boolean hidden;
 
     public boolean isHidden() {
