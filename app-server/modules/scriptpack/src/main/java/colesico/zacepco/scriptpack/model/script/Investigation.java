@@ -47,9 +47,7 @@ public class Investigation {
     })
     public Interrogation interrogation;
 
-    /**
-     * Forensic laboratory examination
-     */
+
     @YamlComment(text = {
             "",
             "Criminal expertise specification",
@@ -60,6 +58,7 @@ public class Investigation {
     @YamlComment(text = {
             "",
             "Detectives dictionary",
+            "A subset of which can participate in the investigation",
             ""
     })
     public List<Detective> detectives;

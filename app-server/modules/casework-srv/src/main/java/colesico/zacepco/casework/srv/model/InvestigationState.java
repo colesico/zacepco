@@ -1,7 +1,6 @@
 package colesico.zacepco.casework.srv.model;
 
 import colesico.zacepco.scriptpack.model.script.Detective;
-import colesico.zacepco.scriptpack.model.script.Entity;
 import colesico.zacepco.scriptpack.model.script.Location;
 import colesico.zacepco.scriptpack.model.script.Personage;
 

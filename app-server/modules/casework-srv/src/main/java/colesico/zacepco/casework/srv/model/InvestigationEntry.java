@@ -24,13 +24,13 @@ import static colesico.framework.jdbirec.TagFilter.*;
 public class InvestigationEntry {
 
     /**
-     * Process id
+     * Investigation process id
      */
     @Column
     private Long id;
 
     /**
-     * User (owner) who created case and can manage it
+     * User (owner) who created entry and can manage it
      */
     @Column
     private Long userid;

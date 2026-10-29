@@ -22,7 +22,7 @@ public class FocusedClue {
     /**
      * Target clue
      */
-    @YamlComment(text = "Target clue")
+    @YamlComment(text = "The target clue to be uncovered")
     public Clue.Id clue;
 
     public List<Entity.UID> getFocus() {

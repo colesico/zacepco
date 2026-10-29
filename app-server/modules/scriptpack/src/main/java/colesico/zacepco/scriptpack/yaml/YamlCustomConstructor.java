@@ -42,7 +42,6 @@ public class YamlCustomConstructor extends Constructor {
         @Override
         public Object construct(Node node) {
             String value = ((ScalarNode) node).getValue();
-            // Берем первые 10 символов (гггг-мм-дд) и парсим
             return LocalDate.parse(value.substring(0, 10));
         }
     }
@@ -50,9 +49,9 @@ public class YamlCustomConstructor extends Constructor {
     static class ConstructLocalDateTime extends AbstractConstruct {
         @Override
         public Object construct(Node node) {
-            String value = ((ScalarNode) node).getValue();
-            if (value.startsWith("T")) {
-                value = defaultDate + value;
+            String value = ((ScalarNode) node).getValue().trim();
+            if (value.length()<=5) {
+                value = defaultDate +"T"+ value;
             }
             return LocalDateTime.parse(value);
         }

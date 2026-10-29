@@ -19,6 +19,10 @@ public class YamlCustomRepresenter extends Representer {
 
     private Set<String> oneTimeComments = new HashSet<>();
 
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+    private static final DateTimeFormatter TIME_ONLY_FORMATTER = DateTimeFormatter.ofPattern("HH:mm");
+
+
     public YamlCustomRepresenter(DumperOptions options) {
         super(options);
 
@@ -150,10 +154,14 @@ public class YamlCustomRepresenter extends Representer {
         @Override
         public Node representData(Object data) {
             LocalDateTime dateTime = (LocalDateTime) data;
-            String value = dateTime.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
-            if (value.startsWith("1970-01-01T")){
-                value = value.substring(10);
+            String value;
+
+            if (dateTime.toLocalDate().equals(YamlCustomConstructor.defaultDate)) {
+                value = dateTime.format(TIME_ONLY_FORMATTER);
+            } else {
+                value = dateTime.format(DATE_TIME_FORMATTER);
             }
+
             return representScalar(Tag.STR, value);
         }
     }

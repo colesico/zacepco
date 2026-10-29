@@ -25,7 +25,7 @@ metainfo:
   licence: CC BY 4.0
   
   # Script creation date YYYY-MM-DD
-  creationDate: 2026-01-01
+  creationDate: '2026-01-01'
   
   # Script version (1..N)
   version: 1
@@ -46,13 +46,17 @@ metainfo:
     max: 8
 
 # 
-# Crime setting specification
+# Crime specification
 # Describes entire crime environment
 # 
 crime:
   
-  # Crime duration in ticks
-  crimeDuration: 5
+  # Crime timeline
+  # Timestamps for each tick T1..Tn
+  # Format example: 10:00 or with date 2025-01-02T20:00
+  # Specify either the time only or the date-time only
+  # Mixing formats is not allowed
+  timeline: ['10:00', '10:30', '2025-01-02T11:15']
   
   # 
   # Personages dictionary.
@@ -70,14 +74,14 @@ crime:
     
     # Detailed description
     description: |
-      Knows all the secrets and secrest passages,  is cold-blooded, has the perfect motive for murder.
+      Knows all the secrets and secret passages,  is cold-blooded, has the perfect motive for murder.
     
     # Optional asset ID
     # Used when appropriate asset id is not match the entity id
     asset: P1
     
-    # Hidden personage or not (default - false)
-    hidden: false
+    # Initially hidden personage or not (default - false)
+    hidden: true
     
     # Initially revealed clues for this personage
     revealedClues: [C1, C2]
@@ -87,11 +91,12 @@ crime:
     # Used to verify the investigation's findings (answers)
     log:
     - 
-      # Personage destination location
+      # Personage destination location for tick
+      # Initial character location not specified - it refers to the previous tick
       location: L2
       
-      # Clue the character interacted with.
-      # Reflects the change of interaction state - gave, got,  noticed  ...
+      # Clue resulting from a personage's action
+      # Action examples: picking up or leaving an item, spotting someone somewhere
       clue: C2
   
   # 
@@ -119,31 +124,35 @@ crime:
         col: 1
         row: 1
       
-      # Hidden location or not  (default - false)
+      # Initially hidden location or not  (default - false)
       hidden: false
       
       # Initially revealed clues for this location
       revealedClues: [C1, C2]
       
       # Location event log for each time tick
-      # Each element of the array corresponds to a time tick, starting from 1.
-      # Used to verify the investigation's findings
+      # Each element of the array corresponds to a time tick, starting from 1
+      # Used to verify the investigation's findings as answers
       log:
       - 
-        # Personages that was in this location at given time tick
+        # Personages whose destination is this location for the given tick
         personages: [P1, P2]
         
-        # Clue associated with the location
+        # Clues linked to this location during the tick
         clues: [C1, C2]
     
-    # Connections between two locations.
+    # Ways between two locations.
     # Always connects only two locations, direction does not matter.
-    connections:
+    # There can be only one direct way between two locations
+    ways:
     - 
       # IDs of the two connected locations
       locations: [L1, L2]
       
-      # Is hidden transition or not (default - false)
+      # Restrictions or characteristics of the way
+      description: length 10m
+      
+      # Is a hidden way or not (default - false)
       hidden: true
   
   # 
@@ -156,23 +165,24 @@ crime:
       A Camel cigarette butt
     
     # False clue or not (default-false)
-    falsity: true
+    # Used as answers to verify the investigation's findings and results
+    falsity: false
     
     # Entities to be open along with this clue
+    # For example, this is a hidden location or a hidden personage
     open: [L2]
-  
-  
+
 # 
-# Investigation specification
+# Investigation spec
 # 
 investigation:
   
   # Investigation budget in resource units
   budget: 9
   
-  # Randomness factor [1.0 .. 0.0]. Default = 1.0
+  # Randomness factor [1.0 ... 0.0]. Default = 1.0
   # Used to recalculate investigation table thresholds to adjust randomness.
-  # New_threshold = Table_threshold/randFactor
+  # New_threshold = Table_threshold * randFactor
   randFactor: 1.0
   
   # 
@@ -191,6 +201,8 @@ investigation:
     
     # Cost of obtaining investigation subject statistics
     # (-1) - statistics is prohibited
+    # (0) - free statistics
+    # Default - 0
     statCost: -1
     
     # Locations to be searched
@@ -206,7 +218,7 @@ investigation:
         # Clue discovery threshold
         threshold: 8.1
         
-        # Target clue
+        # The target clue to be uncovered
         clue: C1
   
   # 
@@ -244,14 +256,15 @@ investigation:
     - focus: [C1, C2, P3, L2]
       threshold: 3.0
       clue: C6
-      
-    # 
-    # Detectives dictionary
-    # 
+  
+  # 
+  # Detectives dictionary
+  # A subset of which can participate in the investigation
+  # 
   detectives:
   - id: D1
     name: Sherlock Holmes
-    description: Famous detective      
+    description: Famous detective
 
 # 
 # General answers

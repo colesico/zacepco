@@ -87,6 +87,12 @@ public class ScriptMetainfo {
     @YamlComment(text = "Recommended number of players (min-max)", inline = false)
     public IntInterval playersNum;
 
+    @YamlComment(text = {
+            "Recommended age for players",
+            "Example: 18+ or 4-10"
+    })
+    public String age;
+
     public String getTitle() {
         return title;
     }
@@ -173,6 +179,14 @@ public class ScriptMetainfo {
 
     public void setPlayersNum(IntInterval playersNum) {
         this.playersNum = playersNum;
+    }
+
+    public String getAge() {
+        return age;
+    }
+
+    public void setAge(String age) {
+        this.age = age;
     }
 
     @Override

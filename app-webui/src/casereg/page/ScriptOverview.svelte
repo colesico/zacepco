@@ -84,10 +84,6 @@
 
 	  <!-- Левая колонка -->
 	  <div class="col-md-6 mb-3">
-		<dl class="row mb-0">
-		  <dt class="col-sm-4 text-muted fw-normal"><b>Кол-во игроков:</b></dt>
-		  <dd class="col-sm-8 text-break mb-1">{overview.metainfo.playersNum.min}-{overview.metainfo.playersNum.max} чел.</dd>
-		</dl>
 
 		<dl class="row mb-0">
 		  <dt class="col-sm-4 text-muted fw-normal"><b>Сложность:</b></dt>
@@ -97,6 +93,16 @@
 		<dl class="row mb-0">
 		  <dt class="col-sm-4 text-muted fw-normal"><b>Время игры:</b></dt>
 		  <dd class="col-sm-8 text-break mb-1">{overview.metainfo.estimatedTime.min}-{overview.metainfo.estimatedTime.max} минут</dd>
+		</dl>
+		
+		<dl class="row mb-0">
+		  <dt class="col-sm-4 text-muted fw-normal"><b>Кол-во игроков:</b></dt>
+		  <dd class="col-sm-8 text-break mb-1">{overview.metainfo.playersNum.min}-{overview.metainfo.playersNum.max} чел.</dd>
+		</dl>
+		
+		<dl class="row mb-0">
+		  <dt class="col-sm-4 text-muted fw-normal"><b>Рекомендуемый возраст:</b></dt>
+		  <dd class="col-sm-8 text-break mb-1">{overview.metainfo.age}</dd>
 		</dl>
 	  </div>
 

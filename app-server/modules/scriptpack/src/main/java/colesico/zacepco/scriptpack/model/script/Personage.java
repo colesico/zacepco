@@ -13,7 +13,7 @@ public class Personage extends Entity<Personage.Id> {
     /**
      * Hidden personage or not
      */
-    @YamlComment(text = "Hidden personage or not (default - false)")
+    @YamlComment(text = "Initially hidden personage or not (default - false)")
     public Boolean hidden;
 
     @YamlComment(text = "Initially revealed clues for this personage")
@@ -24,7 +24,6 @@ public class Personage extends Entity<Personage.Id> {
      * Personage-entity interaction for each time tick.
      */
     @YamlComment(text = {
-
             "Personage event log for each time tick",
             "Each element of the array corresponds to a time tick, starting from 1.",
             "Used to verify the investigation's findings (answers)"

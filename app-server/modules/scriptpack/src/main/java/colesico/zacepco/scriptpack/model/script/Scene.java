@@ -30,7 +30,7 @@ public class Scene {
     @YamlComment(text = {
             "Ways between two locations.",
             "Always connects only two locations, direction does not matter.",
-            "Two locations can be connected by several ways with different restrictions"
+            "There can be only one direct way between two locations"
     })
     public List<Way> ways;
 

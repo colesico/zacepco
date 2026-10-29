@@ -31,9 +31,11 @@ abstract public class InvestigationAction {
      */
     @YamlComment(text = {
             "Cost of obtaining investigation subject statistics",
-            "(-1) - statistics is prohibited"
+            "(-1) - statistics is prohibited",
+            "(0) - free statistics",
+            " Default - 0"
     })
-    public Integer statCost;
+    public Integer statCost = 0;
 
     public Integer getCost() {
         return cost;

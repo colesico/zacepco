@@ -16,8 +16,10 @@ public class Crime {
 
     @YamlComment(text = {
             "Crime timeline",
-            "Timestamps for each tick",
-            "Example: T10:00 or with date 2025-01-02T20:00"
+            "Timestamps for each tick T1..Tn",
+            "Format example: 10:00 or with date 2025-01-02T20:00",
+            "Specify either the time only or the date-time only",
+            "Mixing formats is not allowed"
     })
     @YamlCompact
     public List<LocalDateTime> timeline;

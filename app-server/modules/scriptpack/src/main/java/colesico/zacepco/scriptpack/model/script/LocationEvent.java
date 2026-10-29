@@ -12,14 +12,14 @@ import java.util.List;
  */
 public class LocationEvent {
 
-    @YamlComment(text = "Personages that was in this location at given time tick")
+    @YamlComment(text = "Personages whose destination is this location for the given tick")
     @YamlCompact
     public List<Personage.Id> personages;
 
     /**
      * The clues the location interacted with
      */
-    @YamlComment(text = "Clue associated with the location")
+    @YamlComment(text = "Clues linked to this location during the tick")
     @YamlCompact
     public List<Clue.Id> clues;
 

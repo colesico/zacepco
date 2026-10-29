@@ -22,7 +22,7 @@ public class Location extends Entity<Location.Id> {
     /**
      * Hidden location or not
      */
-    @YamlComment(text = "Hidden location or not  (default - false)")
+    @YamlComment(text = "Initially hidden location or not  (default - false)")
     public Boolean hidden;
 
     /**
@@ -36,10 +36,9 @@ public class Location extends Entity<Location.Id> {
      * Personage-entity interaction for each time tick.
      */
     @YamlComment(text = {
-
             "Location event log for each time tick",
-            "Each element of the array corresponds to a time tick, starting from 1.",
-            "Used to verify the investigation's findings"
+            "Each element of the array corresponds to a time tick, starting from 1",
+            "Used to verify the investigation's findings as answers"
     })
     public List<LocationEvent> log;
 

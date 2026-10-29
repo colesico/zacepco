@@ -13,13 +13,19 @@ public class Clue extends Entity<Clue.Id> {
     /**
      * False clue or not
      */
-    @YamlComment(text = "False clue or not (default-false)")
+    @YamlComment(text = {
+            "False clue or not (default-false)",
+            "Used as answers to verify the investigation's findings and results"
+    })
     public Boolean falsity;
 
     /**
      * Entities to be open along with this clue
      */
-    @YamlComment(text = "Entities to be open along with this clue")
+    @YamlComment(text = {
+            "Entities to be open along with this clue",
+            "For example, this is a hidden location or a hidden personage"
+    })
     @YamlCompact
     public List<UID> open;
 

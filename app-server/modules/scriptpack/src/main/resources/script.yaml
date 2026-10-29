@@ -45,6 +45,8 @@ metainfo:
     min: 1
     max: 8
 
+  age: 18+
+
 # 
 # Crime specification
 # Describes entire crime environment
@@ -52,9 +54,11 @@ metainfo:
 crime:
   
   # Crime timeline
-  # Timestamps for each tick
-  # Example: T10:00 or with date 2025-01-02T20:00
-  timeline: ['T10:00:00', 'T10:30:00', '2025-01-02T11:15:00']
+  # Timestamps for each tick T1..Tn
+  # Format example: 10:00 or with date 2025-01-02T20:00
+  # Specify either the time only or the date-time only
+  # Mixing formats is not allowed
+  timeline: ['10:00', '10:30', '2025-01-02T11:15']
   
   # 
   # Personages dictionary.
@@ -78,7 +82,7 @@ crime:
     # Used when appropriate asset id is not match the entity id
     asset: P1
     
-    # Hidden personage or not (default - false)
+    # Initially hidden personage or not (default - false)
     hidden: true
     
     # Initially revealed clues for this personage
@@ -89,11 +93,12 @@ crime:
     # Used to verify the investigation's findings (answers)
     log:
     - 
-      # Personage destination location
+      # Personage destination location for tick
+      # Initial character location not specified - it refers to the previous tick
       location: L2
       
-      # Clue the character interacted with.
-      # Reflects the change of interaction state - gave, got,  noticed  ...
+      # Clue resulting from a personage's action
+      # Action examples: picking up or leaving an item, spotting someone somewhere
       clue: C2
   
   # 
@@ -121,26 +126,26 @@ crime:
         col: 1
         row: 1
       
-      # Hidden location or not  (default - false)
+      # Initially hidden location or not  (default - false)
       hidden: true
       
       # Initially revealed clues for this location
       revealedClues: [C1, C2]
       
       # Location event log for each time tick
-      # Each element of the array corresponds to a time tick, starting from 1.
-      # Used to verify the investigation's findings
+      # Each element of the array corresponds to a time tick, starting from 1
+      # Used to verify the investigation's findings as answers
       log:
       - 
-        # Personages that was in this location at given time tick
+        # Personages whose destination is this location for the given tick
         personages: [P1, P2]
         
-        # Clue associated with the location
+        # Clues linked to this location during the tick
         clues: [C1, C2]
     
     # Ways between two locations.
     # Always connects only two locations, direction does not matter.
-    # Two locations can be connected by several ways with different restrictions
+    # There can be only one direct way between two locations
     ways:
     - 
       # IDs of the two connected locations
@@ -162,9 +167,11 @@ crime:
       A Camel cigarette butt
     
     # False clue or not (default-false)
+    # Used as answers to verify the investigation's findings and results
     falsity: true
     
     # Entities to be open along with this clue
+    # For example, this is a hidden location or a hidden personage
     open: [L2]
 
 # 
@@ -196,6 +203,8 @@ investigation:
     
     # Cost of obtaining investigation subject statistics
     # (-1) - statistics is prohibited
+    # (0) - free statistics
+    # Default - 0
     statCost: -1
     
     # Locations to be searched
@@ -211,7 +220,7 @@ investigation:
         # Clue discovery threshold
         threshold: 8.1
         
-        # Target clue
+        # The target clue to be uncovered
         clue: C1
   
   # 
@@ -252,6 +261,7 @@ investigation:
   
   # 
   # Detectives dictionary
+  # A subset of which can participate in the investigation
   # 
   detectives:
   - id: D1

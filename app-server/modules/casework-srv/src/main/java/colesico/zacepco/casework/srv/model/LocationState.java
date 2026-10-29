@@ -1,25 +1,35 @@
 package colesico.zacepco.casework.srv.model;
 
+import colesico.zacepco.scriptpack.model.script.Clue;
 import colesico.zacepco.scriptpack.model.script.Location;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Location state
  */
-
 public class LocationState {
 
     public Location.Id locationId;
 
     /**
-     * Location  discovered state.
-     * For hidden location that not discovered yet = true
+     * Location discover state
      */
     public Boolean hidden = false;
 
     /**
-     * Clues that not discovered yet for this location
+     * Discovered clues for this location
      */
-    public Integer cluesToDiscover;
+    public List<Clue.Id> discoveredClues = new ArrayList<>();
+
+    public Location.Id getLocationId() {
+        return locationId;
+    }
+
+    public void setLocationId(Location.Id locationId) {
+        this.locationId = locationId;
+    }
 
     public Boolean getHidden() {
         return hidden;
@@ -27,5 +37,13 @@ public class LocationState {
 
     public void setHidden(Boolean hidden) {
         this.hidden = hidden;
+    }
+
+    public List<Clue.Id> getDiscoveredClues() {
+        return discoveredClues;
+    }
+
+    public void setDiscoveredClues(List<Clue.Id> discoveredClues) {
+        this.discoveredClues = discoveredClues;
     }
 }
