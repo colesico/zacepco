@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Investigation specification
  */
-public class Investigation {
+public class InvestigationSpec {
 
     /**
      * Investigation budget (resource)
@@ -35,7 +35,7 @@ public class Investigation {
             "Location search specification",
             ""
     })
-    public Search search;
+    public SearchSpec search;
 
     /**
      * Personage interrogation
@@ -45,7 +45,7 @@ public class Investigation {
             "Personage interrogation specification",
             ""
     })
-    public Interrogation interrogation;
+    public InterrogationSpec interrogation;
 
 
     @YamlComment(text = {
@@ -53,7 +53,7 @@ public class Investigation {
             "Criminal expertise specification",
             ""
     })
-    public Expertise expertise;
+    public ExpertiseSpec expertise;
 
     @YamlComment(text = {
             "",
@@ -61,7 +61,7 @@ public class Investigation {
             "A subset of which can participate in the investigation",
             ""
     })
-    public List<Detective> detectives;
+    public List<DetectiveSpec> detectives;
 
     public double randFactor() {
         return randFactor == null ? 1.0 : randFactor;
@@ -83,35 +83,35 @@ public class Investigation {
         this.randFactor = randFactor;
     }
 
-    public Search getSearch() {
+    public SearchSpec getSearch() {
         return search;
     }
 
-    public void setSearch(Search search) {
+    public void setSearch(SearchSpec search) {
         this.search = search;
     }
 
-    public Interrogation getInterrogation() {
+    public InterrogationSpec getInterrogation() {
         return interrogation;
     }
 
-    public void setInterrogation(Interrogation interrogation) {
+    public void setInterrogation(InterrogationSpec interrogation) {
         this.interrogation = interrogation;
     }
 
-    public Expertise getExpertise() {
+    public ExpertiseSpec getExpertise() {
         return expertise;
     }
 
-    public void setExpertise(Expertise expertise) {
+    public void setExpertise(ExpertiseSpec expertise) {
         this.expertise = expertise;
     }
 
-    public List<Detective> getDetectives() {
+    public List<DetectiveSpec> getDetectives() {
         return detectives;
     }
 
-    public void setDetectives(List<Detective> detectives) {
+    public void setDetectives(List<DetectiveSpec> detectives) {
         this.detectives = detectives;
     }
 }

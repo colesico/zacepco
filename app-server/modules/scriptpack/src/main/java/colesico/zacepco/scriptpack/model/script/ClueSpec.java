@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Clue model
  */
-public class Clue extends Entity<Clue.Id> {
+public class ClueSpec extends EntitySpec<ClueSpec.Id> {
 
     /**
      * False clue or not

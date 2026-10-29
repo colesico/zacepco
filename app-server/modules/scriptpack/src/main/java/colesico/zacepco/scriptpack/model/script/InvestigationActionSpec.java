@@ -5,7 +5,7 @@ import colesico.zacepco.scriptpack.yaml.YamlComment;
 /**
  * Investigation action basics
  */
-abstract public class InvestigationAction {
+abstract public class InvestigationActionSpec {
 
     /**
      * Cost of investigation action on subject

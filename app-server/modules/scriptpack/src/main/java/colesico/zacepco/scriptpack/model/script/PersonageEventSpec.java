@@ -8,7 +8,7 @@ import colesico.zacepco.scriptpack.yaml.YamlComment;
  * Contains information about interactions with other entities at given time tick.
  * Used to verify the investigation's findings.
  */
-public class PersonageEvent {
+public class PersonageEventSpec {
 
     /**
      * The location the character was inside.
@@ -17,7 +17,7 @@ public class PersonageEvent {
             "Personage destination location for tick",
             "Initial character location not specified - it refers to the previous tick"
     })
-    public Location.Id location;
+    public LocationSpec.Id location;
 
     /**
      * The clue the character interacted with
@@ -26,21 +26,21 @@ public class PersonageEvent {
             "Clue resulting from a personage's action",
             "Action examples: picking up or leaving an item, spotting someone somewhere"
     })
-    public Clue.Id clue;
+    public ClueSpec.Id clue;
 
-    public Location.Id getLocation() {
+    public LocationSpec.Id getLocation() {
         return location;
     }
 
-    public void setLocation(Location.Id location) {
+    public void setLocation(LocationSpec.Id location) {
         this.location = location;
     }
 
-    public Clue.Id getClue() {
+    public ClueSpec.Id getClue() {
         return clue;
     }
 
-    public void setClue(Clue.Id clue) {
+    public void setClue(ClueSpec.Id clue) {
         this.clue = clue;
     }
 }

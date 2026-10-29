@@ -3,7 +3,7 @@ package colesico.zacepco.casereg.srv.model;
 import colesico.framework.jdbirec.Column;
 import colesico.framework.jdbirec.mediators.ListStringTextMediator;
 import colesico.framework.jdbirec.mediators.LocalDateTextMediator;
-import colesico.zacepco.scriptpack.model.script.ScriptMetainfo;
+import colesico.zacepco.scriptpack.model.script.ScriptMetainfoSpec;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -11,7 +11,7 @@ import java.util.List;
 public class ScriptSummary {
 
     /**
-     * Script ID {@link ScriptMetainfo#getId()}
+     * Script ID {@link ScriptMetainfoSpec#getId()}
      */
     @Column
     public String id;

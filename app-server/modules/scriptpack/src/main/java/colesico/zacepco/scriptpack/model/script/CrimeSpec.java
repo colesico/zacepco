@@ -12,17 +12,15 @@ import java.util.Optional;
  * Is a top-level element that encapsulates a specific crime scene environment,
  * its timeline, and all associated elements (the crime scene, characters, and clues)
  */
-public class Crime {
+public class CrimeSpec {
 
     @YamlComment(text = {
-            "Crime timeline",
-            "Timestamps for each tick T1..Tn",
-            "Format example: 10:00 or with date 2025-01-02T20:00",
+            "Crime timeline. Defines possible ticks",
+            "Timestamp format example: 10:00 or with date 2025-01-02T20:00",
             "Specify either the time only or the date-time only",
             "Mixing formats is not allowed"
     })
-    @YamlCompact
-    public List<LocalDateTime> timeline;
+    public List<TickSpec> timeline;
 
     /**
      * Characters dictionary
@@ -33,7 +31,7 @@ public class Crime {
             "Defines all personages involved in the crime",
             ""
     })
-    public List<Personage> personages;
+    public List<PersonageSpec> personages;
 
     /**
      * Scene
@@ -43,7 +41,7 @@ public class Crime {
             "Crime scene definition",
             ""
     })
-    public Scene scene;
+    public SceneSpec scene;
 
     /**
      * Clues dictionary
@@ -53,49 +51,49 @@ public class Crime {
             "Clues dictionary",
             ""
     })
-    public List<Clue> clues;
+    public List<ClueSpec> clues;
 
-    public Optional<Personage> findPersonageById(Personage.Id id) {
+    public Optional<PersonageSpec> findPersonageById(PersonageSpec.Id id) {
         return personages.stream()
                 .filter(user -> user.getId().equals(id))
                 .findFirst();
     }
 
-    public Optional<Clue> findClueById(Clue.Id id) {
+    public Optional<ClueSpec> findClueById(ClueSpec.Id id) {
         return clues.stream()
                 .filter(cl -> cl.getId().equals(id))
                 .findFirst();
     }
 
-    public List<LocalDateTime> getTimeline() {
+    public List<TickSpec> getTimeline() {
         return timeline;
     }
 
-    public void setTimeline(List<LocalDateTime> timeline) {
+    public void setTimeline(List<TickSpec> timeline) {
         this.timeline = timeline;
     }
 
-    public List<Personage> getPersonages() {
+    public List<PersonageSpec> getPersonages() {
         return personages;
     }
 
-    public void setPersonages(List<Personage> personages) {
+    public void setPersonages(List<PersonageSpec> personages) {
         this.personages = personages;
     }
 
-    public Scene getScene() {
+    public SceneSpec getScene() {
         return scene;
     }
 
-    public void setScene(Scene scene) {
+    public void setScene(SceneSpec scene) {
         this.scene = scene;
     }
 
-    public List<Clue> getClues() {
+    public List<ClueSpec> getClues() {
         return clues;
     }
 
-    public void setClues(List<Clue> clues) {
+    public void setClues(List<ClueSpec> clues) {
         this.clues = clues;
     }
 

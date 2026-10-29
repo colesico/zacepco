@@ -6,8 +6,8 @@ import colesico.zacepco.casereg.srv.service.ScriptService;
 import colesico.zacepco.casework.srv.dao.InvestigationEntryDao;
 import colesico.zacepco.casework.srv.dto.InvestigationSettings;
 import colesico.zacepco.casework.srv.model.*;
-import colesico.zacepco.scriptpack.model.script.Detective;
-import colesico.zacepco.scriptpack.model.script.Location;
+import colesico.zacepco.scriptpack.model.script.DetectiveSpec;
+import colesico.zacepco.scriptpack.model.script.LocationSpec;
 import colesico.zacepco.scriptpack.model.script.ScriptDocument;
 
 import java.util.*;
@@ -59,13 +59,13 @@ public class InvestigationService {
 
         // Build detectives state
 
-        List<Detective> allDetectives = new ArrayList<>(script.investigation.detectives);
+        List<DetectiveSpec> allDetectives = new ArrayList<>(script.investigation.detectives);
         Collections.shuffle(allDetectives, new Random());
         var randomDetectives = allDetectives.subList(0, Math.min(invSettings.detectivesNum, allDetectives.size()));
 
-        Map<Detective.Id, DetectiveState> detectiveState = randomDetectives.stream()
+        Map<DetectiveSpec.Id, DetectiveState> detectiveState = randomDetectives.stream()
                 .collect(Collectors.toMap(
-                        Detective::getId,
+                        DetectiveSpec::getId,
                         det -> new DetectiveState(det.id)        // Значение: сама сущность
                 ));
 
@@ -73,9 +73,9 @@ public class InvestigationService {
 
         // Build locations state
 
-        Map<Location.Id, LocationState> locationState = script.crime.scene.locations.stream()
+        Map<LocationSpec.Id, LocationState> locationState = script.crime.scene.locations.stream()
                 .collect(Collectors.toMap(
-                        Location::getId,
+                        LocationSpec::getId,
                         loc -> {
                             var locState = new LocationState(loc.id);
                             locState.exposedClues.addAll(loc.exposedClues);

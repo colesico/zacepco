@@ -4,9 +4,9 @@ import colesico.zacepco.scriptpack.yaml.YamlComment;
 
 /**
  * Scene size
- * @see LocationPos
+ * @see LocationPosSpec
  */
-public class SceneSize {
+public class SceneSizeSpec {
 
     @YamlComment(text = "Rows number", inline = true)
     public Integer rows;

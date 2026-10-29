@@ -1,28 +1,28 @@
 package colesico.zacepco.casework.srv.model;
 
-import colesico.zacepco.scriptpack.model.script.Detective;
+import colesico.zacepco.scriptpack.model.script.DetectiveSpec;
 
 public class DetectiveState {
 
-    public Detective.Id id;
+    public DetectiveSpec.Id id;
 
     /**
      * Awarded points
      */
     public Integer points = 0;
 
-    public DetectiveState(Detective.Id id) {
+    public DetectiveState(DetectiveSpec.Id id) {
         this.id = id;
     }
 
     public DetectiveState() {
     }
 
-    public Detective.Id getId() {
+    public DetectiveSpec.Id getId() {
         return id;
     }
 
-    public void setId(Detective.Id id) {
+    public void setId(DetectiveSpec.Id id) {
         this.id = id;
     }
 

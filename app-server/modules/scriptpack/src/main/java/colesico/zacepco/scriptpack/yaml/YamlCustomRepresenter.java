@@ -35,12 +35,12 @@ public class YamlCustomRepresenter extends Representer {
         // Регистрация кастомных репрезентеров
         this.representers.put(LocalDate.class, new RepresentLocalDate());
         this.representers.put(LocalDateTime.class, new RepresentLocalDateTime());
-        this.representers.put(Location.Id.class, new RepresentEntityId());
-        this.representers.put(Personage.Id.class, new RepresentEntityId());
-        this.representers.put(Clue.Id.class, new RepresentEntityId());
-        this.representers.put(TimeId.class, new RepresentEntityId());
-        this.representers.put(Detective.Id.class, new RepresentEntityId());
-        this.representers.put(Entity.UID.class, new RepresentEntityId());
+        this.representers.put(LocationSpec.Id.class, new RepresentEntityId());
+        this.representers.put(PersonageSpec.Id.class, new RepresentEntityId());
+        this.representers.put(ClueSpec.Id.class, new RepresentEntityId());
+        this.representers.put(TickSpec.Id.class, new RepresentEntityId());
+        this.representers.put(DetectiveSpec.Id.class, new RepresentEntityId());
+        this.representers.put(EntitySpec.UID.class, new RepresentEntityId());
 
     }
 
@@ -153,7 +153,9 @@ public class YamlCustomRepresenter extends Representer {
     private class RepresentLocalDateTime implements Represent {
         @Override
         public Node representData(Object data) {
+
             LocalDateTime dateTime = (LocalDateTime) data;
+
             String value;
 
             if (dateTime.toLocalDate().equals(YamlCustomConstructor.defaultDate)) {
@@ -169,7 +171,7 @@ public class YamlCustomRepresenter extends Representer {
     private class RepresentEntityId implements Represent {
         @Override
         public Node representData(Object data) {
-            Entity.UID entityId = (Entity.UID) data;
+            EntitySpec.UID entityId = (EntitySpec.UID) data;
             String id = entityId.asString();
             return representScalar(Tag.STR, id);
         }

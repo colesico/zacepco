@@ -5,13 +5,13 @@ import colesico.zacepco.scriptpack.yaml.YamlCompact;
 
 import java.util.List;
 
-public class FocusedClue {
+public class FocusedClueSpec {
     /**
      * Entities on which investigation action is focused
      */
     @YamlComment(text = "Entities on which investigation action is focused")
     @YamlCompact
-    public List<Entity.UID> focus;
+    public List<EntitySpec.UID> focus;
 
     /**
      * Clue uncover threshold
@@ -23,13 +23,13 @@ public class FocusedClue {
      * Target clue
      */
     @YamlComment(text = "The target clue to be uncovered")
-    public Clue.Id clue;
+    public ClueSpec.Id clue;
 
-    public List<Entity.UID> getFocus() {
+    public List<EntitySpec.UID> getFocus() {
         return focus;
     }
 
-    public void setFocus(List<Entity.UID> focus) {
+    public void setFocus(List<EntitySpec.UID> focus) {
         this.focus = focus;
     }
 
@@ -41,11 +41,11 @@ public class FocusedClue {
         this.threshold = threshold;
     }
 
-    public Clue.Id getClue() {
+    public ClueSpec.Id getClue() {
         return clue;
     }
 
-    public void setClue(Clue.Id clue) {
+    public void setClue(ClueSpec.Id clue) {
         this.clue = clue;
     }
 }

@@ -7,19 +7,19 @@ import java.util.List;
 /**
  * Search specification
  */
-public final class Search extends InvestigationAction {
+public final class SearchSpec extends InvestigationActionSpec {
 
     /**
      * Locations to be searched
      */
     @YamlComment(text = "Locations to be searched")
-    public List<LocationSearch> locations;
+    public List<LocationSearchSpec> locations;
 
-    public List<LocationSearch> getLocations() {
+    public List<LocationSearchSpec> getLocations() {
         return locations;
     }
 
-    public void setLocations(List<LocationSearch> locations) {
+    public void setLocations(List<LocationSearchSpec> locations) {
         this.locations = locations;
     }
 }

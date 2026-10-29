@@ -13,6 +13,7 @@ import colesico.zacepco.casereg.srv.model.ScriptEntry;
 import colesico.zacepco.casereg.srv.model.ScriptEntryAccessType;
 import colesico.zacepco.casereg.srv.model.ScriptSummary;
 import colesico.zacepco.scriptpack.model.script.ScriptDocument;
+import colesico.zacepco.scriptpack.model.script.ScriptMetainfoSpec;
 import colesico.zacepco.scriptpack.pkg.*;
 import jakarta.inject.Provider;
 
@@ -107,7 +108,7 @@ public class ScriptService {
     }
 
     /**
-     * Get script entry by {@link colesico.zacepco.scriptpack.model.script.ScriptMetainfo#id}
+     * Get script entry by {@link ScriptMetainfoSpec#id}
      */
     public Optional<ScriptEntry> findScriptEntryByUsn(String usn) {
         return scriptEntryDao.findScriptEntryByUsn(usn);

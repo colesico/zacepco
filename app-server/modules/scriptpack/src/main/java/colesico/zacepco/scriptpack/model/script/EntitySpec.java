@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
  * Abstract entity model.
  * This class must be extended by specific entities.
  */
-public abstract class Entity<ID extends Entity.UID> {
+public abstract class EntitySpec<ID extends EntitySpec.UID> {
 
     /**
      * Entity unique ID
@@ -111,7 +111,7 @@ public abstract class Entity<ID extends Entity.UID> {
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
-        Entity<?> entity = (Entity<?>) o;
+        EntitySpec<?> entity = (EntitySpec<?>) o;
         return Objects.equals(id, entity.id);
     }
 
@@ -131,7 +131,7 @@ public abstract class Entity<ID extends Entity.UID> {
      * Entity identifier
      */
     abstract public sealed static class UID
-            permits Clue.Id, Detective.Id, Location.Id, Personage.Id, TimeId {
+            permits ClueSpec.Id, DetectiveSpec.Id, LocationSpec.Id, PersonageSpec.Id, TickSpec.Id {
 
         public static final Pattern VALUE_PATTERN = Pattern.compile("^[A-Z0-9]{1,3}$");
 
@@ -159,11 +159,11 @@ public abstract class Entity<ID extends Entity.UID> {
             }
             String key = entityId.substring(1);
             return switch (entityType) {
-                case PERSONAGE -> new Personage.Id(key);
-                case LOCATION -> new Location.Id(key);
-                case CLUE -> new Clue.Id(key);
-                case TIME -> new TimeId(key);
-                case DETECTIVE -> new Detective.Id(key);
+                case PERSONAGE -> new PersonageSpec.Id(key);
+                case LOCATION -> new LocationSpec.Id(key);
+                case CLUE -> new ClueSpec.Id(key);
+                case TIME -> new TickSpec.Id(key);
+                case DETECTIVE -> new DetectiveSpec.Id(key);
             };
         }
 
@@ -182,7 +182,7 @@ public abstract class Entity<ID extends Entity.UID> {
 
         @Override
         public boolean equals(Object o) {
-            if (!(o instanceof Entity.UID entityId)) return false;
+            if (!(o instanceof EntitySpec.UID entityId)) return false;
             return Objects.equals(key, entityId.key);
         }
 

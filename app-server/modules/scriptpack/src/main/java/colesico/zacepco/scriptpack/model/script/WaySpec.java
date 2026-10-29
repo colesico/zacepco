@@ -8,14 +8,14 @@ import java.util.Set;
 /**
  * Unidirectional way between two locations
  */
-public class Way {
+public class WaySpec {
 
     /**
      * Related locations
      */
     @YamlComment(text = "IDs of the two connected locations")
     @YamlCompact
-    public Set<Location.Id> locations;
+    public Set<LocationSpec.Id> locations;
 
     @YamlComment(text = {
             "Restrictions or characteristics of the way",
@@ -33,14 +33,14 @@ public class Way {
         return hidden != null ? hidden : false;
     }
 
-    public void setLocations(Set<Location.Id> locations) {
+    public void setLocations(Set<LocationSpec.Id> locations) {
         if (locations == null || locations.size() != 2) {
             throw new IllegalStateException("Invalid locations ID's. Specify two ID");
         }
         this.locations = locations;
     }
 
-    public Set<Location.Id> getLocations() {
+    public Set<LocationSpec.Id> getLocations() {
         return locations;
     }
 

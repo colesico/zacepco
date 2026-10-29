@@ -55,12 +55,15 @@ metainfo:
 # 
 crime:
   
-  # Crime timeline
-  # Timestamps for each tick T1..Tn
-  # Format example: 10:00 or with date 2025-01-02T20:00
+  # Crime timeline. Defines possible ticks
+  # Timestamp format example: 10:00 or with date 2025-01-02T20:00
   # Specify either the time only or the date-time only
   # Mixing formats is not allowed
-  timeline: ['10:00', '10:30', '2025-01-02T11:15']
+  timeline:
+  - id: T1
+    timestamp: '10:00'
+  - id: T2
+    timestamp: 2025-01-02T11:15
   
   # 
   # Personages dictionary.

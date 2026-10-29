@@ -7,32 +7,32 @@ import java.util.List;
 /**
  * Location search
  */
-public class LocationSearch {
+public class LocationSearchSpec {
 
     /**
      * Location to be search
      */
     @YamlComment(text = "Location to be search")
-    public Location.Id location;
+    public LocationSpec.Id location;
 
     /**
      * Clues definitions
      */
-    public List<FocusedClue> clues;
+    public List<FocusedClueSpec> clues;
 
-    public Location.Id getLocation() {
+    public LocationSpec.Id getLocation() {
         return location;
     }
 
-    public void setLocation(Location.Id location) {
+    public void setLocation(LocationSpec.Id location) {
         this.location = location;
     }
 
-    public List<FocusedClue> getClues() {
+    public List<FocusedClueSpec> getClues() {
         return clues;
     }
 
-    public void setClues(List<FocusedClue> clues) {
+    public void setClues(List<FocusedClueSpec> clues) {
         this.clues = clues;
     }
 }

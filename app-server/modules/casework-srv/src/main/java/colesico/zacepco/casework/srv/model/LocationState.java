@@ -1,7 +1,7 @@
 package colesico.zacepco.casework.srv.model;
 
-import colesico.zacepco.scriptpack.model.script.Clue;
-import colesico.zacepco.scriptpack.model.script.Location;
+import colesico.zacepco.scriptpack.model.script.ClueSpec;
+import colesico.zacepco.scriptpack.model.script.LocationSpec;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class LocationState {
 
-    public Location.Id id;
+    public LocationSpec.Id id;
 
     /**
      * Location uncover state
@@ -21,20 +21,20 @@ public class LocationState {
     /**
      * Exposed clues for this location
      */
-    public List<Clue.Id> exposedClues = new ArrayList<>();
+    public List<ClueSpec.Id> exposedClues = new ArrayList<>();
 
     public LocationState() {
     }
 
-    public LocationState(Location.Id id) {
+    public LocationState(LocationSpec.Id id) {
         this.id = id;
     }
 
-    public Location.Id getId() {
+    public LocationSpec.Id getId() {
         return id;
     }
 
-    public void setId(Location.Id id) {
+    public void setId(LocationSpec.Id id) {
         this.id = id;
     }
 
@@ -46,11 +46,11 @@ public class LocationState {
         this.hidden = hidden;
     }
 
-    public List<Clue.Id> getExposedClues() {
+    public List<ClueSpec.Id> getExposedClues() {
         return exposedClues;
     }
 
-    public void setExposedClues(List<Clue.Id> exposedClues) {
+    public void setExposedClues(List<ClueSpec.Id> exposedClues) {
         this.exposedClues = exposedClues;
     }
 }

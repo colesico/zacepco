@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * General answers
  */
-public class Answers {
+public class AnswersSpec {
 
     @YamlComment(text = "Full crime fabula")
     public String fabula;

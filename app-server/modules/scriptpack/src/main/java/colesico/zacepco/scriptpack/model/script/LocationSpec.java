@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Scene location
  */
-public class Location extends Entity<Location.Id> {
+public class LocationSpec extends EntitySpec<LocationSpec.Id> {
 
     /**
      * Location position on scene grid
@@ -17,7 +17,7 @@ public class Location extends Entity<Location.Id> {
             "Location position on scene grid",
             "(1,1) - left top scene corner"
     })
-    public LocationPos pos;
+    public LocationPosSpec pos;
 
     /**
      * Hidden location or not
@@ -30,7 +30,7 @@ public class Location extends Entity<Location.Id> {
      */
     @YamlComment(text = "Initially exposed clues for this location")
     @YamlCompact
-    public List<Clue.Id> exposedClues;
+    public List<ClueSpec.Id> exposedClues;
 
     /**
      * Personage-entity interaction for each time tick.
@@ -40,7 +40,7 @@ public class Location extends Entity<Location.Id> {
             "Each element of the array corresponds to a time tick, starting from 1",
             "Used to verify the investigation's findings as answers"
     })
-    public List<LocationEvent> log;
+    public List<LocationEventSpec> log;
 
     public boolean isHidden() {
         return hidden != null ? hidden : false;
@@ -59,27 +59,27 @@ public class Location extends Entity<Location.Id> {
         this.hidden = hidden;
     }
 
-    public LocationPos getPos() {
+    public LocationPosSpec getPos() {
         return pos;
     }
 
-    public void setPos(LocationPos pos) {
+    public void setPos(LocationPosSpec pos) {
         this.pos = pos;
     }
 
-    public List<Clue.Id> getExposedClues() {
+    public List<ClueSpec.Id> getExposedClues() {
         return exposedClues;
     }
 
-    public void setExposedClues(List<Clue.Id> exposedClues) {
+    public void setExposedClues(List<ClueSpec.Id> exposedClues) {
         this.exposedClues = exposedClues;
     }
 
-    public List<LocationEvent> getLog() {
+    public List<LocationEventSpec> getLog() {
         return log;
     }
 
-    public void setLog(List<LocationEvent> log) {
+    public void setLog(List<LocationEventSpec> log) {
         this.log = log;
     }
 

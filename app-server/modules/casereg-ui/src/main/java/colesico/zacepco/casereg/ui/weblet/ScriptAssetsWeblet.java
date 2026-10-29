@@ -8,7 +8,7 @@ import colesico.framework.weblet.Weblet;
 import colesico.zacepco.casereg.srv.model.ImageScale;
 import colesico.zacepco.casereg.srv.service.ScriptService;
 import colesico.zacepco.casereg.srv.service.ScriptAssetsService;
-import colesico.zacepco.scriptpack.model.script.Entity;
+import colesico.zacepco.scriptpack.model.script.EntitySpec;
 import colesico.zacepco.scriptpack.pkg.ScriptPackage;
 import jakarta.inject.Provider;
 
@@ -35,7 +35,7 @@ public class ScriptAssetsWeblet {
         var res = switch (assetUid) {
             case "S" -> sp.scriptImage();
             default -> {
-                var uid = Entity.UID.parse(assetUid);
+                var uid = EntitySpec.UID.parse(assetUid);
                 yield sp.entityImage(uid);
             }
         };

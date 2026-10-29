@@ -1,6 +1,6 @@
 package colesico.zacepco.scriptpack.model.script;
 
-public class Detective extends Entity<Detective.Id> {
+public class DetectiveSpec extends EntitySpec<DetectiveSpec.Id> {
 
     @Override
     public void setId(Id id) {
@@ -14,7 +14,7 @@ public class Detective extends Entity<Detective.Id> {
         }
 
         @Override
-        public Entity.Type type() {
+        public EntitySpec.Type type() {
             return Type.DETECTIVE;
         }
     }

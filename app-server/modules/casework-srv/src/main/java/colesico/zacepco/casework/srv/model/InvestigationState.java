@@ -1,8 +1,8 @@
 package colesico.zacepco.casework.srv.model;
 
-import colesico.zacepco.scriptpack.model.script.Detective;
-import colesico.zacepco.scriptpack.model.script.Location;
-import colesico.zacepco.scriptpack.model.script.Personage;
+import colesico.zacepco.scriptpack.model.script.DetectiveSpec;
+import colesico.zacepco.scriptpack.model.script.LocationSpec;
+import colesico.zacepco.scriptpack.model.script.PersonageSpec;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,9 +16,9 @@ public class InvestigationState {
 
     public Double randFactor;
 
-    public Map<Location.Id, LocationState> locations = new HashMap<>();
-    public Map<Personage.Id, PersonageState> personages = new HashMap<>();
-    public Map<Detective.Id, DetectiveState> detectives = new HashMap<>();
+    public Map<LocationSpec.Id, LocationState> locations = new HashMap<>();
+    public Map<PersonageSpec.Id, PersonageState> personages = new HashMap<>();
+    public Map<DetectiveSpec.Id, DetectiveState> detectives = new HashMap<>();
 
     public Integer getBudget() {
         return budget;
@@ -36,27 +36,27 @@ public class InvestigationState {
         this.randFactor = randFactor;
     }
 
-    public Map<Location.Id, LocationState> getLocations() {
+    public Map<LocationSpec.Id, LocationState> getLocations() {
         return locations;
     }
 
-    public void setLocations(Map<Location.Id, LocationState> locations) {
+    public void setLocations(Map<LocationSpec.Id, LocationState> locations) {
         this.locations = locations;
     }
 
-    public Map<Personage.Id, PersonageState> getPersonages() {
+    public Map<PersonageSpec.Id, PersonageState> getPersonages() {
         return personages;
     }
 
-    public void setPersonages(Map<Personage.Id, PersonageState> personages) {
+    public void setPersonages(Map<PersonageSpec.Id, PersonageState> personages) {
         this.personages = personages;
     }
 
-    public Map<Detective.Id, DetectiveState> getDetectives() {
+    public Map<DetectiveSpec.Id, DetectiveState> getDetectives() {
         return detectives;
     }
 
-    public void setDetectives(Map<Detective.Id, DetectiveState> detectives) {
+    public void setDetectives(Map<DetectiveSpec.Id, DetectiveState> detectives) {
         this.detectives = detectives;
     }
 }

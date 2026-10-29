@@ -7,30 +7,30 @@ import java.util.List;
 /**
  * Personage interrogation
  */
-public class PersonageInterrogation {
+public class PersonageInterrogationSpec {
 
     /**
      * Personage Id
      */
     @YamlComment(text = "Personage ID")
-    public Personage.Id personage;
+    public PersonageSpec.Id personage;
 
     @YamlComment(text = "Personage clues")
-    public List<FocusedClue> clues;
+    public List<FocusedClueSpec> clues;
 
-    public Personage.Id getPersonage() {
+    public PersonageSpec.Id getPersonage() {
         return personage;
     }
 
-    public void setPersonage(Personage.Id personage) {
+    public void setPersonage(PersonageSpec.Id personage) {
         this.personage = personage;
     }
 
-    public List<FocusedClue> getClues() {
+    public List<FocusedClueSpec> getClues() {
         return clues;
     }
 
-    public void setClues(List<FocusedClue> clues) {
+    public void setClues(List<FocusedClueSpec> clues) {
         this.clues = clues;
     }
 }

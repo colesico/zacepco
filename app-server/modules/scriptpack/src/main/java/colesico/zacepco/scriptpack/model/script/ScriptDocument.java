@@ -15,7 +15,7 @@ public class ScriptDocument {
             "Script meta information",
             ""
     })
-    public ScriptMetainfo metainfo;
+    public ScriptMetainfoSpec metainfo;
 
     @YamlComment(text = {
             "",
@@ -23,7 +23,7 @@ public class ScriptDocument {
             "Describes entire crime environment",
             ""
     })
-    public Crime crime;
+    public CrimeSpec crime;
 
     /**
      * Investigation spec
@@ -33,7 +33,7 @@ public class ScriptDocument {
             "Investigation spec",
             ""
     })
-    public Investigation investigation;
+    public InvestigationSpec investigation;
 
     /**
      * General answers
@@ -43,40 +43,40 @@ public class ScriptDocument {
             "General answers",
             ""
     })
-    public Answers answers;
+    public AnswersSpec answers;
 
     public ScriptDocument() {
     }
 
-    public ScriptMetainfo getMetainfo() {
+    public ScriptMetainfoSpec getMetainfo() {
         return metainfo;
     }
 
-    public void setMetainfo(ScriptMetainfo metainfo) {
+    public void setMetainfo(ScriptMetainfoSpec metainfo) {
         this.metainfo = metainfo;
     }
 
-    public Crime getSetting() {
+    public CrimeSpec getSetting() {
         return crime;
     }
 
-    public void setSetting(Crime crime) {
+    public void setSetting(CrimeSpec crime) {
         this.crime = crime;
     }
 
-    public Investigation getInvestigation() {
+    public InvestigationSpec getInvestigation() {
         return investigation;
     }
 
-    public void setInvestigation(Investigation investigation) {
+    public void setInvestigation(InvestigationSpec investigation) {
         this.investigation = investigation;
     }
 
-    public Answers getAnswers() {
+    public AnswersSpec getAnswers() {
         return answers;
     }
 
-    public void setAnswers(Answers answers) {
+    public void setAnswers(AnswersSpec answers) {
         this.answers = answers;
     }
 

@@ -1,14 +1,14 @@
 package colesico.zacepco.casework.srv.model;
 
-import colesico.zacepco.scriptpack.model.script.Clue;
-import colesico.zacepco.scriptpack.model.script.Personage;
+import colesico.zacepco.scriptpack.model.script.ClueSpec;
+import colesico.zacepco.scriptpack.model.script.PersonageSpec;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class PersonageState {
 
-    public Personage.Id id;
+    public PersonageSpec.Id id;
 
     /**
      * Personage uncover  state.
@@ -16,21 +16,21 @@ public class PersonageState {
     public Boolean hidden = false;
 
 
-    public List<Clue.Id> uncoveredClues = new ArrayList<>();
+    public List<ClueSpec.Id> uncoveredClues = new ArrayList<>();
 
-    public Personage.Id getId() {
+    public PersonageSpec.Id getId() {
         return id;
     }
 
-    public void setId(Personage.Id id) {
+    public void setId(PersonageSpec.Id id) {
         this.id = id;
     }
 
-    public List<Clue.Id> getUncoveredClues() {
+    public List<ClueSpec.Id> getUncoveredClues() {
         return uncoveredClues;
     }
 
-    public void setUncoveredClues(List<Clue.Id> uncoveredClues) {
+    public void setUncoveredClues(List<ClueSpec.Id> uncoveredClues) {
         this.uncoveredClues = uncoveredClues;
     }
 }

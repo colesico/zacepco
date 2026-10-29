@@ -7,16 +7,16 @@ import java.util.List;
 /**
  * Interrogation specification
  */
-public class Interrogation extends InvestigationAction {
+public class InterrogationSpec extends InvestigationActionSpec {
 
     @YamlComment(text = "Personage to be interrogated")
-    public List<PersonageInterrogation> personages;
+    public List<PersonageInterrogationSpec> personages;
 
-    public List<PersonageInterrogation> getPersonages() {
+    public List<PersonageInterrogationSpec> getPersonages() {
         return personages;
     }
 
-    public void setPersonages(List<PersonageInterrogation> personages) {
+    public void setPersonages(List<PersonageInterrogationSpec> personages) {
         this.personages = personages;
     }
 }

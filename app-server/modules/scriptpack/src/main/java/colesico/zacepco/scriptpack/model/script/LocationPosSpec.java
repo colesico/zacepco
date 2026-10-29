@@ -3,10 +3,10 @@ package colesico.zacepco.scriptpack.model.script;
 import java.util.Objects;
 
 /**
- * Grid position
- * @see SceneSize
+ * Scene grid  location position
+ * @see SceneSizeSpec
  */
-public class LocationPos {
+public class LocationPosSpec {
 
     /**
      * Column number
@@ -37,7 +37,7 @@ public class LocationPos {
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
-        LocationPos pos = (LocationPos) o;
+        LocationPosSpec pos = (LocationPosSpec) o;
         return Objects.equals(col, pos.col) && Objects.equals(row, pos.row);
     }
 

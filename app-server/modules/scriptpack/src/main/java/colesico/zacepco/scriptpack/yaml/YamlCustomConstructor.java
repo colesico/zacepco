@@ -1,6 +1,7 @@
 package colesico.zacepco.scriptpack.yaml;
 
-import colesico.zacepco.scriptpack.model.script.Entity;
+import colesico.zacepco.scriptpack.model.script.EntitySpec;
+import colesico.zacepco.scriptpack.model.script.TickSpec;
 import org.yaml.snakeyaml.LoaderOptions;
 import org.yaml.snakeyaml.constructor.AbstractConstruct;
 import org.yaml.snakeyaml.constructor.Construct;
@@ -8,7 +9,6 @@ import org.yaml.snakeyaml.constructor.Constructor;
 import org.yaml.snakeyaml.introspector.BeanAccess;
 import org.yaml.snakeyaml.nodes.Node;
 import org.yaml.snakeyaml.nodes.ScalarNode;
-import org.yaml.snakeyaml.nodes.Tag;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -31,7 +31,7 @@ public class YamlCustomConstructor extends Constructor {
             return new ConstructLocalDate();
         }
 
-        if (Entity.UID.class.isAssignableFrom(node.getType())) {
+        if (EntitySpec.UID.class.isAssignableFrom(node.getType())) {
             return new ConstructEntityId();
         }
 
@@ -47,11 +47,12 @@ public class YamlCustomConstructor extends Constructor {
     }
 
     static class ConstructLocalDateTime extends AbstractConstruct {
+
         @Override
         public Object construct(Node node) {
             String value = ((ScalarNode) node).getValue().trim();
-            if (value.length()<=5) {
-                value = defaultDate +"T"+ value;
+            if (value.length() <= 5) {
+                value = defaultDate + "T" + value;
             }
             return LocalDateTime.parse(value);
         }
@@ -61,7 +62,7 @@ public class YamlCustomConstructor extends Constructor {
         @Override
         public Object construct(Node node) {
             String value = ((ScalarNode) node).getValue();
-            return Entity.UID.parse(value);
+            return EntitySpec.UID.parse(value);
         }
     }
 }

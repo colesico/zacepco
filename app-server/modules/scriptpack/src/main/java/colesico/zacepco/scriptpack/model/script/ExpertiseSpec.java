@@ -7,19 +7,19 @@ import java.util.List;
 /**
  * Clue expertise specification
  */
-public class Expertise extends InvestigationAction {
+public class ExpertiseSpec extends InvestigationActionSpec {
 
     /**
      * Clues to be examined
      */
     @YamlComment(text = "Examined clues")
-    public List<FocusedClue> clues;
+    public List<FocusedClueSpec> clues;
 
-    public List<FocusedClue> getClues() {
+    public List<FocusedClueSpec> getClues() {
         return clues;
     }
 
-    public void setClues(List<FocusedClue> clues) {
+    public void setClues(List<FocusedClueSpec> clues) {
         this.clues = clues;
     }
 }

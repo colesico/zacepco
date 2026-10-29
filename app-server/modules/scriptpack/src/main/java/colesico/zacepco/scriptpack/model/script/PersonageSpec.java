@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Game character
  */
-public class Personage extends Entity<Personage.Id> {
+public class PersonageSpec extends EntitySpec<PersonageSpec.Id> {
 
     /**
      * Hidden personage or not
@@ -18,7 +18,7 @@ public class Personage extends Entity<Personage.Id> {
 
     @YamlComment(text = "Initially exposed clues for this personage")
     @YamlCompact
-    public List<Clue.Id> exposedClues;
+    public List<ClueSpec.Id> exposedClues;
 
     /**
      * Personage-entity interaction for each time tick.
@@ -28,7 +28,7 @@ public class Personage extends Entity<Personage.Id> {
             "Each element of the array corresponds to a time tick, starting from 1.",
             "Used to verify the investigation's findings (answers)"
     })
-    public List<PersonageEvent> log;
+    public List<PersonageEventSpec> log;
 
     public boolean isHidden() {
         return hidden != null ? hidden : false;
@@ -47,19 +47,19 @@ public class Personage extends Entity<Personage.Id> {
         this.hidden = hidden;
     }
 
-    public List<PersonageEvent> getLog() {
+    public List<PersonageEventSpec> getLog() {
         return log;
     }
 
-    public void setLog(List<PersonageEvent> log) {
+    public void setLog(List<PersonageEventSpec> log) {
         this.log = log;
     }
 
-    public List<Clue.Id> getExposedClues() {
+    public List<ClueSpec.Id> getExposedClues() {
         return exposedClues;
     }
 
-    public void setExposedClues(List<Clue.Id> exposedClues) {
+    public void setExposedClues(List<ClueSpec.Id> exposedClues) {
         this.exposedClues = exposedClues;
     }
 

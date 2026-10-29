@@ -1,6 +1,6 @@
 package colesico.zacepco.casereg.ui.dto;
 
-import colesico.zacepco.scriptpack.model.script.ScriptMetainfo;
+import colesico.zacepco.scriptpack.model.script.ScriptMetainfoSpec;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +9,7 @@ public class ScriptOverview {
 
     public Long scriptEntryId;
 
-    public ScriptMetainfo metainfo;
+    public ScriptMetainfoSpec metainfo;
 
     public List<EntityOverview> personages = new ArrayList<>();
 
@@ -25,11 +25,11 @@ public class ScriptOverview {
         this.scriptEntryId = scriptEntryId;
     }
 
-    public ScriptMetainfo getMetainfo() {
+    public ScriptMetainfoSpec getMetainfo() {
         return metainfo;
     }
 
-    public void setMetainfo(ScriptMetainfo metainfo) {
+    public void setMetainfo(ScriptMetainfoSpec metainfo) {
         this.metainfo = metainfo;
     }
 
