@@ -8,9 +8,9 @@ public class L10nOptions extends L10nOptionsPrototype {
 
     @Override
     public void configure(Options options) {
-        options.baseName("colesico/zacepco/common/ui/t9n/Strings{Q}")
+        options.baseName("colesico/zacepco/core/ui/t9n/Strings{Q}")
                     .qualifiers().language("ru")
-               .baseName("colesico/zacepco/common/ui/t9n/Errors{Q}")
+               .baseName("colesico/zacepco/core/ui/t9n/Errors{Q}")
                     .qualifiers().language("ru");
     }
 }
