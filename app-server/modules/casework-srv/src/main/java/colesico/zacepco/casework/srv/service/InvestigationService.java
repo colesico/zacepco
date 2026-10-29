@@ -32,12 +32,17 @@ public class InvestigationService {
             throw new RuntimeException("Script entry not found. Id: " + scriptEntryId);
         }
 
+        var prevEntry = invEntryDao.findInvestigationEntryByIdAndUser(scriptEntryId);
+        if (prevEntry.isPresent()){
+            throw new RuntimeException("Investigation on case already started by user. Id: " + scriptEntryId);
+        }
+
         try {
 
             var script = scriptService.scriptPackage(scriptEntryId).script().read();
 
             InvestigationEntry invEntry = new InvestigationEntry();
-            invEntry.setScriptEntryId(scriptEntryId);
+            invEntry.setId(scriptEntryId);
             invEntry.setStatus(InvestigationStatus.OPEN);
             invEntry.setState(buildInvestigationState(script, invSettings));
 
@@ -56,6 +61,7 @@ public class InvestigationService {
         var invState = new InvestigationState();
 
         invState.setBudget(script.investigation.budget);
+        invState.setRandFactor(invSettings.randFactor != null ? invSettings.randFactor : script.investigation.randFactor);
 
         // Build detectives state
 

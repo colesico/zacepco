@@ -3,10 +3,13 @@ package colesico.zacepco.casework.srv.dao;
 import colesico.framework.jdbirec.RecordView;
 import colesico.framework.service.Service;
 import colesico.framework.transaction.Transactional;
+import colesico.zacepco.casereg.srv.model.ScriptEntry;
 import colesico.zacepco.casework.srv.model.InvestigationEntry;
 import jakarta.inject.Named;
 import jakarta.inject.Provider;
 import org.jdbi.v3.core.Handle;
+
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -40,6 +43,13 @@ public class InvestigationEntryDao {
                 .one();
 
         invEntry.setId(id);
+
         return invEntry;
     }
+
+    public Optional<InvestigationEntry> findInvestigationEntryById(Long id) {
+        String sql = invEntryFullRk.sql("select @columns from @records where id = :id");
+        return handle.get().createQuery(sql).bind("id", id).map(invEntryFullRk.mapper()).findOne();
+    }
+
 }
