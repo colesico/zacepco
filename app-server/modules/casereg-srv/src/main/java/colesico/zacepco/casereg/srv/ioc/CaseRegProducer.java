@@ -13,7 +13,7 @@ import colesico.zacepco.scriptpack.pkg.ScriptPackage;
 
 @Producer
 @Produce(FileStoragePackageDriver.class)
-public class CaseregProducer {
+public class CaseRegProducer {
 
     @Classed(FileStoragePackageDriver.class)
     @Unscoped

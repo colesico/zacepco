@@ -30,7 +30,7 @@ public class PersonageSpec extends EntitySpec<PersonageSpec.Id> {
     })
     public List<PersonageEventSpec> log;
 
-    public boolean isHidden() {
+    public boolean hidden() {
         return hidden != null ? hidden : false;
     }
 

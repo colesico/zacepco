@@ -1,4 +1,4 @@
-package colesico.zacepco.casework.srv.model;
+package colesico.zacepco.invproc.model;
 
 import colesico.zacepco.scriptpack.model.script.DetectiveSpec;
 

@@ -50,7 +50,7 @@ public class ScriptRestlet {
             scriptOverview.metainfo = script.metainfo;
 
             for (var personage : script.crime.personages) {
-                if (personage.isHidden()) {
+                if (personage.hidden()) {
                     continue;
                 }
                 var persOverview = new EntityOverview();
@@ -77,7 +77,7 @@ public class ScriptRestlet {
             sceneOverview.rows = script.crime.scene.size.rows;
 
             for (var location : script.crime.scene.locations) {
-                if (location.isHidden()) {
+                if (location.hidden()) {
                     continue;
                 }
                 var locOverview = new LocationOverview();

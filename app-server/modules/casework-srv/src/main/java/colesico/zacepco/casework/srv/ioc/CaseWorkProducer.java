@@ -5,7 +5,7 @@ import colesico.framework.ioc.production.Producer;
 
 @Producer
 
-public class CaseworkProducer {
+public class CaseWorkProducer {
 
 
 }

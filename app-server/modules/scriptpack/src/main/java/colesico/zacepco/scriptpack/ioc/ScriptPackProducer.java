@@ -25,7 +25,7 @@ import java.nio.file.Path;
 @Produce(YamlWriter.class)
 @Produce(DirectoryPackageDriver.class)
 @Produce(value = ScriptPackage.class, classed = PackageDriver.class)
-public class ScriptProducer {
+public class ScriptPackProducer {
 
     @Unscoped
     public Yaml yaml() {

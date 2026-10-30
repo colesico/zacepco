@@ -1,4 +1,4 @@
-package colesico.zacepco.casework.srv.model;
+package colesico.zacepco.invproc.model;
 
 import colesico.zacepco.scriptpack.model.script.DetectiveSpec;
 import colesico.zacepco.scriptpack.model.script.LocationSpec;
@@ -12,9 +12,14 @@ public class InvestigationState {
     /**
      * Current investigation budget
      */
-    public Integer budget;
+    private int budget;
 
-    public Double randFactor;
+    private double randFactor;
+
+    /**
+     * Current detective
+     */
+    private int detectiveTurn = 0;
 
     public Map<LocationSpec.Id, LocationState> locations = new HashMap<>();
     public Map<PersonageSpec.Id, PersonageState> personages = new HashMap<>();
@@ -28,11 +33,15 @@ public class InvestigationState {
         this.budget = budget;
     }
 
-    public Double getRandFactor() {
+    public void setBudget(int budget) {
+        this.budget = budget;
+    }
+
+    public double getRandFactor() {
         return randFactor;
     }
 
-    public void setRandFactor(Double randFactor) {
+    public void setRandFactor(double randFactor) {
         this.randFactor = randFactor;
     }
 

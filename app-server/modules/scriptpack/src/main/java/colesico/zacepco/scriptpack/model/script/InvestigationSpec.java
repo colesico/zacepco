@@ -63,7 +63,13 @@ public class InvestigationSpec {
     })
     public List<DetectiveSpec> detectives;
 
-    public double randFactor() {
+    public double randFactor(Double value) {
+        if (value != null) {
+            if (value < 0.0 || value > 1.0) {
+                throw new RuntimeException("Invalid randFactor value: " + value);
+            }
+            return value;
+        }
         return randFactor == null ? 1.0 : randFactor;
     }
 

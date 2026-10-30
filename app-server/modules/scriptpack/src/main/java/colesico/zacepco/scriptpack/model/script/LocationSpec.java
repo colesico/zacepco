@@ -42,7 +42,7 @@ public class LocationSpec extends EntitySpec<LocationSpec.Id> {
     })
     public List<LocationEventSpec> log;
 
-    public boolean isHidden() {
+    public boolean hidden() {
         return hidden != null ? hidden : false;
     }
 

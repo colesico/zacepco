@@ -1,4 +1,4 @@
-package colesico.zacepco.casework.srv.model;
+package colesico.zacepco.invproc.model;
 
 import colesico.zacepco.scriptpack.model.script.ClueSpec;
 import colesico.zacepco.scriptpack.model.script.LocationSpec;
@@ -16,7 +16,7 @@ public class LocationState {
     /**
      * Location uncover state
      */
-    public Boolean hidden = false;
+    public boolean hidden = false;
 
     /**
      * Exposed clues for this location
@@ -38,11 +38,11 @@ public class LocationState {
         this.id = id;
     }
 
-    public Boolean getHidden() {
+    public boolean isHidden() {
         return hidden;
     }
 
-    public void setHidden(Boolean hidden) {
+    public void setHidden(boolean hidden) {
         this.hidden = hidden;
     }
 

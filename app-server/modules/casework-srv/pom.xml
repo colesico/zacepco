@@ -32,6 +32,12 @@
 
         <dependency>
             <groupId>net.colesico.zacepco</groupId>
+            <artifactId>zacepco-invproc</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>net.colesico.zacepco</groupId>
             <artifactId>zacepco-casereg-srv</artifactId>
             <version>${project.version}</version>
         </dependency>
