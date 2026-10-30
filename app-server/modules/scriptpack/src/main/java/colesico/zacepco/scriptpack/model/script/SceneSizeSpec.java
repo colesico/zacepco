@@ -4,29 +4,15 @@ import colesico.zacepco.scriptpack.yaml.YamlComment;
 
 /**
  * Scene size
+ *
  * @see LocationPosSpec
  */
-public class SceneSizeSpec {
+public final class SceneSizeSpec {
 
     @YamlComment(text = "Rows number", inline = true)
-    public Integer rows;
+    public Integer rows = 1;
 
     @YamlComment(text = "Columns number", inline = true)
-    public Integer cols;
+    public Integer cols = 1;
 
-    public Integer getRows() {
-        return rows;
-    }
-
-    public void setRows(Integer rows) {
-        this.rows = rows;
-    }
-
-    public Integer getCols() {
-        return cols;
-    }
-
-    public void setCols(Integer cols) {
-        this.cols = cols;
-    }
 }

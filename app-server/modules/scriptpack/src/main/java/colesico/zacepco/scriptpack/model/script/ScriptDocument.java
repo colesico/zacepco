@@ -5,7 +5,7 @@ import colesico.zacepco.scriptpack.yaml.YamlComment;
 /**
  * Script document
  */
-public class ScriptDocument {
+public final class ScriptDocument {
 
     /**
      * Meta information
@@ -15,7 +15,7 @@ public class ScriptDocument {
             "Script meta information",
             ""
     })
-    public ScriptMetainfoSpec metainfo;
+    public ScriptMetainfoSpec metainfo = new ScriptMetainfoSpec();
 
     @YamlComment(text = {
             "",
@@ -23,7 +23,7 @@ public class ScriptDocument {
             "Describes entire crime environment",
             ""
     })
-    public CrimeSpec crime;
+    public CrimeSpec crime = new CrimeSpec();
 
     /**
      * Investigation spec
@@ -33,7 +33,7 @@ public class ScriptDocument {
             "Investigation spec",
             ""
     })
-    public InvestigationSpec investigation;
+    public InvestigationSpec investigation = new InvestigationSpec();
 
     /**
      * General answers
@@ -43,42 +43,7 @@ public class ScriptDocument {
             "General answers",
             ""
     })
-    public AnswersSpec answers;
-
-    public ScriptDocument() {
-    }
-
-    public ScriptMetainfoSpec getMetainfo() {
-        return metainfo;
-    }
-
-    public void setMetainfo(ScriptMetainfoSpec metainfo) {
-        this.metainfo = metainfo;
-    }
-
-    public CrimeSpec getSetting() {
-        return crime;
-    }
-
-    public void setSetting(CrimeSpec crime) {
-        this.crime = crime;
-    }
-
-    public InvestigationSpec getInvestigation() {
-        return investigation;
-    }
-
-    public void setInvestigation(InvestigationSpec investigation) {
-        this.investigation = investigation;
-    }
-
-    public AnswersSpec getAnswers() {
-        return answers;
-    }
-
-    public void setAnswers(AnswersSpec answers) {
-        this.answers = answers;
-    }
+    public AnswersSpec answers = new AnswersSpec();
 
     @Override
     public String toString() {

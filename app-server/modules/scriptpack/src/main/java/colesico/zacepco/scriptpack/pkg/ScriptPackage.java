@@ -87,7 +87,7 @@ public class ScriptPackage implements Closeable {
     }
 
     public Resource entityImage(EntitySpec.UID uid) {
-        return new Resource(ResourcePath.of(uid.type().code() + "/" + uid + ENTITY_IMAGE_SUFFIX), packageDriver);
+        return new Resource(ResourcePath.of(uid.type().code + "/" + uid + ENTITY_IMAGE_SUFFIX), packageDriver);
     }
 
     /**

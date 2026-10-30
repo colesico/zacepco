@@ -2,12 +2,13 @@ package colesico.zacepco.scriptpack.model.script;
 
 import colesico.zacepco.scriptpack.yaml.YamlComment;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * General answers
  */
-public class AnswersSpec {
+public final class AnswersSpec {
 
     @YamlComment(text = "Full crime fabula")
     public String fabula;
@@ -17,21 +18,6 @@ public class AnswersSpec {
             " - Search library L2 -> C1",
             " - Interrogate gardener P3 -> C4"
     })
-    public List<String> strategy;
+    public List<String> strategy = new ArrayList<>();
 
-    public String getFabula() {
-        return fabula;
-    }
-
-    public void setFabula(String fabula) {
-        this.fabula = fabula;
-    }
-
-    public List<String> getStrategy() {
-        return strategy;
-    }
-
-    public void setStrategy(List<String> strategy) {
-        this.strategy = strategy;
-    }
 }

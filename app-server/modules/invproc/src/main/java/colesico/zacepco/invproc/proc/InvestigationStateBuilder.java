@@ -3,8 +3,8 @@ package colesico.zacepco.invproc.proc;
 import colesico.zacepco.invproc.model.DetectiveState;
 import colesico.zacepco.invproc.model.InvestigationState;
 import colesico.zacepco.invproc.model.LocationState;
+import colesico.zacepco.invproc.model.PersonageState;
 import colesico.zacepco.scriptpack.model.script.DetectiveSpec;
-import colesico.zacepco.scriptpack.model.script.LocationSpec;
 import colesico.zacepco.scriptpack.model.script.ScriptDocument;
 
 import java.util.*;
@@ -14,15 +14,8 @@ public class InvestigationStateBuilder {
 
     private final ScriptDocument script;
 
-    /**
-     * Detectives number for investigation
-     */
-    private Integer detectivesNum;
-
-    /**
-     * Rand factor or null
-     * Value [0.0 ... 1.0]
-     */
+    // Задаем дефолтное значение, чтобы избежать NullPointerException
+    private Integer detectivesNum = 4;
     private Double randFactor;
 
     public InvestigationStateBuilder(ScriptDocument script) {
@@ -30,7 +23,9 @@ public class InvestigationStateBuilder {
     }
 
     public InvestigationStateBuilder detectivesNum(Integer detectivesNum) {
-        this.detectivesNum = detectivesNum;
+        if (detectivesNum != null) {
+            this.detectivesNum = detectivesNum;
+        }
         return this;
     }
 
@@ -39,43 +34,74 @@ public class InvestigationStateBuilder {
         return this;
     }
 
-    public InvestigationState build() {
-        var invState = new InvestigationState();
+    public ScriptDocument script() {
+        return script;
+    }
 
-        invState.setBudget(script.investigation.budget);
-        invState.setRandFactor(script.investigation.randFactor(randFactor));
+    public InvestigationState build() {
+        var invState = new InvestigationState(script.metainfo.id);
+
+        invState.currentBudget = script.investigation.budget;
+        invState.randFactor = script.investigation.randFactor(randFactor);
 
         invState.detectives.putAll(buildDetectiveStates());
         invState.locations.putAll(buildLocationStates());
+        invState.personages.putAll(buildPersonageStates());
+
+        if (!invState.detectives.isEmpty()) {
+            throw new RuntimeException("Detectives not specified");
+        }
 
         return invState;
     }
 
-    private Map<LocationSpec.Id, LocationState> buildLocationStates() {
-        Map<LocationSpec.Id, LocationState> locationStates = script.crime.scene.locations.stream()
+    private Map<String, PersonageState> buildPersonageStates() {
+        return script.crime.personages.stream()
                 .collect(Collectors.toMap(
-                        LocationSpec::getId,
+                        per -> per.id.toString(),
+                        per -> {
+                            var perState = new PersonageState(per.id.toString());
+                            perState.exposedClues.addAll(per.exposedClues);
+                            perState.hidden = per.hidden();
+                            return perState;
+                        },
+                        (u, v) -> u,
+                        LinkedHashMap::new
+                ));
+    }
+
+    private Map<String, LocationState> buildLocationStates() {
+        return script.crime.scene.locations.stream()
+                .collect(Collectors.toMap(
+                        loc -> loc.id.toString(),
                         loc -> {
-                            var locState = new LocationState(loc.id);
+                            var locState = new LocationState(loc.id.toString());
                             locState.exposedClues.addAll(loc.exposedClues);
                             locState.hidden = loc.hidden();
                             return locState;
-                        }
+                        },
+                        (u, v) -> u,
+                        LinkedHashMap::new
                 ));
-        return locationStates;
     }
 
-    private Map<DetectiveSpec.Id, DetectiveState> buildDetectiveStates() {
+
+    private Map<String, DetectiveState> buildDetectiveStates() {
+        if (script.investigation.detectives == null || script.investigation.detectives.isEmpty()) {
+            return new LinkedHashMap<>();
+        }
+
         List<DetectiveSpec> allDetectives = new ArrayList<>(script.investigation.detectives);
         Collections.shuffle(allDetectives, new Random());
-        var randomDetectives = allDetectives.subList(0, Math.min(detectivesNum, allDetectives.size()));
 
-        Map<DetectiveSpec.Id, DetectiveState> resultDetectives = randomDetectives.stream()
+        // Ограничиваем стрим вместо опасного subList и собираем строго в LinkedHashMap
+        return allDetectives.stream()
+                .limit(Math.max(0, detectivesNum))
                 .collect(Collectors.toMap(
-                        DetectiveSpec::getId,
-                        det -> new DetectiveState(det.id)        // Значение: сама сущность
+                        det -> det.id.toString(),
+                        det -> new DetectiveState(det.id.toString()),
+                        (existing, replacement) -> existing,
+                        LinkedHashMap::new
                 ));
-
-        return resultDetectives;
     }
 }

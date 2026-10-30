@@ -16,9 +16,9 @@
     <version>1.0.0</version>
     <packaging>jar</packaging>
 
-    <name>Zacepco - Investigation Processor</name>
+    <name>Zacepco - Investigation Process</name>
     <description>
-        Zacepco investigation processor
+        Zacepco investigation process control
     </description>
 
     <properties>

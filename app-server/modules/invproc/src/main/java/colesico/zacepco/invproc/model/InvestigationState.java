@@ -1,71 +1,64 @@
 package colesico.zacepco.invproc.model;
 
-import colesico.zacepco.scriptpack.model.script.DetectiveSpec;
-import colesico.zacepco.scriptpack.model.script.LocationSpec;
-import colesico.zacepco.scriptpack.model.script.PersonageSpec;
-
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class InvestigationState {
 
+    public final String scriptId;
+
     /**
      * Current investigation budget
      */
-    private int budget;
+    public int currentBudget = 0;
 
-    private double randFactor;
+    public double randFactor = 1.0;
 
     /**
      * Current detective
      */
-    private int detectiveTurn = 0;
+    public String activeDetectiveId;
 
-    public Map<LocationSpec.Id, LocationState> locations = new HashMap<>();
-    public Map<PersonageSpec.Id, PersonageState> personages = new HashMap<>();
-    public Map<DetectiveSpec.Id, DetectiveState> detectives = new HashMap<>();
+    public final Map<String, LocationState> locations = new LinkedHashMap<>();
+    public final Map<String, PersonageState> personages = new LinkedHashMap<>();
+    public final Map<String, DetectiveState> detectives = new LinkedHashMap<>();
 
-    public Integer getBudget() {
-        return budget;
+    public InvestigationState(String scriptId) {
+        this.scriptId = scriptId;
     }
 
-    public void setBudget(Integer budget) {
-        this.budget = budget;
+    public String nextDetective() {
+        if (detectives.isEmpty()) {
+            throw new RuntimeException("Detectives not defined");
+        }
+
+        if (activeDetectiveId == null) {
+            activeDetectiveId = detectives.keySet().iterator().next();
+            return activeDetectiveId;
+        }
+
+        var iterator = detectives.keySet().iterator();
+
+        while (iterator.hasNext()) {
+            if (iterator.next().equals(activeDetectiveId)) {
+                if (iterator.hasNext()) {
+                    activeDetectiveId = iterator.next();
+                } else {
+                    activeDetectiveId = detectives.keySet().iterator().next();
+                }
+                return activeDetectiveId;
+            }
+        }
+
+        activeDetectiveId = detectives.keySet().iterator().next();
+        return activeDetectiveId;
     }
 
-    public void setBudget(int budget) {
-        this.budget = budget;
+    public DetectiveState activeDetective() {
+        if (activeDetectiveId == null) {
+            nextDetective();
+        }
+        return detectives.get(activeDetectiveId);
     }
 
-    public double getRandFactor() {
-        return randFactor;
-    }
-
-    public void setRandFactor(double randFactor) {
-        this.randFactor = randFactor;
-    }
-
-    public Map<LocationSpec.Id, LocationState> getLocations() {
-        return locations;
-    }
-
-    public void setLocations(Map<LocationSpec.Id, LocationState> locations) {
-        this.locations = locations;
-    }
-
-    public Map<PersonageSpec.Id, PersonageState> getPersonages() {
-        return personages;
-    }
-
-    public void setPersonages(Map<PersonageSpec.Id, PersonageState> personages) {
-        this.personages = personages;
-    }
-
-    public Map<DetectiveSpec.Id, DetectiveState> getDetectives() {
-        return detectives;
-    }
-
-    public void setDetectives(Map<DetectiveSpec.Id, DetectiveState> detectives) {
-        this.detectives = detectives;
-    }
 }

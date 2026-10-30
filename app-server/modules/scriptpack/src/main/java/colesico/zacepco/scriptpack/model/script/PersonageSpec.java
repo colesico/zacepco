@@ -3,22 +3,26 @@ package colesico.zacepco.scriptpack.model.script;
 import colesico.zacepco.scriptpack.yaml.YamlComment;
 import colesico.zacepco.scriptpack.yaml.YamlCompact;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Game character
  */
-public class PersonageSpec extends EntitySpec<PersonageSpec.Id> {
+public final class PersonageSpec extends EntitySpec<PersonageSpec.Id> {
 
     /**
      * Hidden personage or not
      */
-    @YamlComment(text = "Initially hidden personage or not (default - false)")
-    public Boolean hidden;
+    @YamlComment(text = {
+            "Initially hidden personage or not",
+            "Default: false"
+    })
+    public Boolean hidden = false;
 
     @YamlComment(text = "Initially exposed clues for this personage")
     @YamlCompact
-    public List<ClueSpec.Id> exposedClues;
+    public List<ClueSpec.Id> exposedClues = new ArrayList<>();
 
     /**
      * Personage-entity interaction for each time tick.
@@ -28,40 +32,7 @@ public class PersonageSpec extends EntitySpec<PersonageSpec.Id> {
             "Each element of the array corresponds to a time tick, starting from 1.",
             "Used to verify the investigation's findings (answers)"
     })
-    public List<PersonageEventSpec> log;
-
-    public boolean hidden() {
-        return hidden != null ? hidden : false;
-    }
-
-    @Override
-    public void setId(Id id) {
-        super.setId(id);
-    }
-
-    public Boolean getHidden() {
-        return hidden;
-    }
-
-    public void setHidden(Boolean hidden) {
-        this.hidden = hidden;
-    }
-
-    public List<PersonageEventSpec> getLog() {
-        return log;
-    }
-
-    public void setLog(List<PersonageEventSpec> log) {
-        this.log = log;
-    }
-
-    public List<ClueSpec.Id> getExposedClues() {
-        return exposedClues;
-    }
-
-    public void setExposedClues(List<ClueSpec.Id> exposedClues) {
-        this.exposedClues = exposedClues;
-    }
+    public List<PersonageEventSpec> log = new ArrayList<>();
 
     public static final class Id extends UID {
 

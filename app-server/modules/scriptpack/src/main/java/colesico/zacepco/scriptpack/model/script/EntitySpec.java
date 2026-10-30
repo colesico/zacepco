@@ -3,6 +3,7 @@ package colesico.zacepco.scriptpack.model.script;
 import colesico.framework.assist.StringUtils;
 import colesico.zacepco.scriptpack.yaml.YamlComment;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.regex.Pattern;
@@ -27,7 +28,7 @@ public abstract class EntitySpec<ID extends EntitySpec.UID> {
      * Entity short name
      */
     @YamlComment(text = "Short name")
-    public String name;
+    public String name = "Name";
 
     /**
      * Detailed description.
@@ -35,7 +36,7 @@ public abstract class EntitySpec<ID extends EntitySpec.UID> {
     @YamlComment(text = {
             "Detailed description",
     })
-    public String description;
+    public String description = "Description";
 
     @YamlComment(text = {
             "Optional asset ID",
@@ -54,69 +55,20 @@ public abstract class EntitySpec<ID extends EntitySpec.UID> {
             "Placeholder values",
             "Map of placeholder names to values substituted into the entity's description or name"
     })
-    public Map<String,String> placeholders;
+    public Map<String, String> placeholders = new HashMap<>();
 
     public ID asset() {
         return asset != null ? asset : id;
     }
 
-    public Map<String, String> getPlaceholders() {
-        return placeholders;
-    }
-
-    public void setPlaceholders(Map<String, String> placeholders) {
-        this.placeholders = placeholders;
-    }
-
-    public ID getId() {
-        return id;
-    }
-
-    public void setId(ID id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public ID getAsset() {
-        return asset;
-    }
-
-    public void setAsset(ID asset) {
-        this.asset = asset;
-    }
-
-    public String getRef() {
-        return ref;
-    }
-
-    public void setRef(String ref) {
-        this.ref = ref;
+    @Override
+    public final boolean equals(Object o) {
+        if (!(o instanceof EntitySpec<?> that)) return false;
+        return Objects.equals(id, that.id);
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        EntitySpec<?> entity = (EntitySpec<?>) o;
-        return Objects.equals(id, entity.id);
-    }
-
-    @Override
-    public int hashCode() {
+    public final int hashCode() {
         return Objects.hashCode(id);
     }
 
@@ -133,32 +85,32 @@ public abstract class EntitySpec<ID extends EntitySpec.UID> {
     abstract public sealed static class UID
             permits ClueSpec.Id, DetectiveSpec.Id, LocationSpec.Id, PersonageSpec.Id, TickSpec.Id {
 
-        public static final Pattern VALUE_PATTERN = Pattern.compile("^[A-Z0-9]{1,3}$");
+        public static final Pattern KEY_PATTERN = Pattern.compile("^([A-Z0-9]{1,3})$");
 
         /**
          * Id key
          */
-        protected final String key;
+        public final String key;
 
         protected UID(String key) {
-            if (key == null || !VALUE_PATTERN.matcher(key).matches()) {
-                throw new IllegalArgumentException("Invalid Id key");
+            if (key == null || !KEY_PATTERN.matcher(key).matches()) {
+                throw new IllegalArgumentException("Invalid UID key");
             }
             this.key = key;
         }
 
         abstract public Type type();
 
-        public static UID parse(String entityId) {
-            if (StringUtils.isBlank(entityId)) {
+        public static UID parse(String uid) {
+            if (StringUtils.isBlank(uid)) {
                 return null;
             }
-            Type entityType = Type.of(entityId.charAt(0));
-            if (entityType == null) {
-                throw new RuntimeException("Unknown entity type for id: " + entityId);
+            Type type = Type.of(uid.charAt(0));
+            if (type == null) {
+                throw new RuntimeException("Unknown type for UID: " + uid);
             }
-            String key = entityId.substring(1);
-            return switch (entityType) {
+            String key = uid.substring(1);
+            return switch (type) {
                 case PERSONAGE -> new PersonageSpec.Id(key);
                 case LOCATION -> new LocationSpec.Id(key);
                 case CLUE -> new ClueSpec.Id(key);
@@ -167,28 +119,20 @@ public abstract class EntitySpec<ID extends EntitySpec.UID> {
             };
         }
 
-        public final String asString() {
-            return type().code() + key;
-        }
-
-        public String key() {
-            return key;
-        }
-
         @Override
         public final String toString() {
-            return type() + key;
+            return type().code + key;
         }
 
         @Override
-        public boolean equals(Object o) {
-            if (!(o instanceof EntitySpec.UID entityId)) return false;
-            return Objects.equals(key, entityId.key);
+        public final boolean equals(Object o) {
+            if (!(o instanceof EntitySpec.UID uid)) return false;
+            return Objects.equals(toString(), uid.toString());
         }
 
         @Override
-        public int hashCode() {
-            return Objects.hashCode(key);
+        public final int hashCode() {
+            return Objects.hashCode(toString());
         }
     }
 
@@ -200,7 +144,7 @@ public abstract class EntitySpec<ID extends EntitySpec.UID> {
         TIME('T'),
         DETECTIVE('D');
 
-        private final char code;
+        public final char code;
 
         Type(char code) {
             this.code = code;
@@ -222,8 +166,9 @@ public abstract class EntitySpec<ID extends EntitySpec.UID> {
         }
 
         @Override
-        public String toString() {
+        public final String toString() {
             return "" + code;
         }
+
     }
 }

@@ -3,6 +3,7 @@ package colesico.zacepco.scriptpack.model.script;
 import colesico.zacepco.scriptpack.yaml.YamlComment;
 import colesico.zacepco.scriptpack.yaml.YamlCompact;
 
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -15,7 +16,7 @@ public class WaySpec {
      */
     @YamlComment(text = "IDs of the two connected locations")
     @YamlCompact
-    public Set<LocationSpec.Id> locations;
+    public Set<LocationSpec.Id> locations = new HashSet<>();
 
     @YamlComment(text = {
             "Restrictions or characteristics of the way",
@@ -26,12 +27,11 @@ public class WaySpec {
     /**
      * Is hidden passage
      */
-    @YamlComment(text = "Is initially hidden way or not (default - false)")
-    public Boolean hidden;
-
-    public boolean isHidden() {
-        return hidden != null ? hidden : false;
-    }
+    @YamlComment(text = {
+            "Is initially hidden way or not",
+            "Default: false"
+    })
+    public Boolean hidden = false;
 
     public void setLocations(Set<LocationSpec.Id> locations) {
         if (locations == null || locations.size() != 2) {
@@ -40,23 +40,4 @@ public class WaySpec {
         this.locations = locations;
     }
 
-    public Set<LocationSpec.Id> getLocations() {
-        return locations;
-    }
-
-    public Boolean getHidden() {
-        return hidden;
-    }
-
-    public void setHidden(Boolean hidden) {
-        this.hidden = hidden;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
 }

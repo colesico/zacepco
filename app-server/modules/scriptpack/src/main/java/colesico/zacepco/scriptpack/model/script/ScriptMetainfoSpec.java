@@ -8,7 +8,7 @@ import java.time.LocalDate;
 /**
  * Script general meta information
  */
-public class ScriptMetainfoSpec {
+public final class ScriptMetainfoSpec {
 
     /**
      * Script schema version (<a href="https://semver.org/">SemVer</a>)
@@ -17,13 +17,12 @@ public class ScriptMetainfoSpec {
             "Script schema version (data model version)",
             "SimVer (semver.org) notation (i.e. 1.2.3)"
     })
-    public String schema;
+    public String schema = "0.0.0";
 
     /**
      * Unique Script Identifier
      */
     @YamlComment(text = {
-            
             "Unique script id",
             "Can only consist of ASCII letters, numbers, underscore '_'"
     })
@@ -32,7 +31,7 @@ public class ScriptMetainfoSpec {
     /**
      * Script title
      */
-    public String title;
+    public String title = "Title";
 
     /**
      * Crime brief description
@@ -43,14 +42,14 @@ public class ScriptMetainfoSpec {
     /**
      * Script authors
      */
-    @YamlComment(text = { "Script authors"})
-    public String[] authors;
+    @YamlComment(text = {"Script authors"})
+    public String[] authors = new String[]{};
 
     /**
      * Script licence name i.e. CC BY 4.0
      */
-    @YamlComment(text = { "License under which the script is distributed"})
-    public String licence;
+    @YamlComment(text = {"License under which the script is distributed"})
+    public String licence = "CC BY 4.0";
 
     /**
      * Script creation date
@@ -62,132 +61,36 @@ public class ScriptMetainfoSpec {
      * Script content version (1..N)
      */
     @YamlComment(text = "Script version (1..N)")
-    public Integer version;
+    public Integer version = 1;
 
     /**
      * Estimated difficulty level.
      */
     @YamlComment(text = {
-            
+
             "Game difficulty",
             "Dimensionless coefficient [0..1].",
             "0 - easy; 1 - highly difficult."
     })
-    public Double difficulty;
+    public Double difficulty = 0.0;
 
     /**
      * Estimated  time to play in minutes  (min-max)
      */
     @YamlComment(text = "Estimated playtime, minutes", inline = false)
-    public IntInterval estimatedTime;
+    public IntInterval estimatedTime = new IntInterval(0, 0);
 
     /**
      * Recommended players number  (min-max)
      */
     @YamlComment(text = "Recommended number of players (min-max)", inline = false)
-    public IntInterval playersNum;
+    public IntInterval playersNum = new IntInterval(1, 10);
 
     @YamlComment(text = {
             "Recommended age for players",
             "Example: 18+ or 4-10"
     })
-    public String age;
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getAnnotation() {
-        return annotation;
-    }
-
-    public void setAnnotation(String annotation) {
-        this.annotation = annotation;
-    }
-
-    public String[] getAuthors() {
-        return authors;
-    }
-
-    public void setAuthors(String[] authors) {
-        this.authors = authors;
-    }
-
-    public String getLicence() {
-        return licence;
-    }
-
-    public String getSchema() {
-        return schema;
-    }
-
-    public void setSchema(String schema) {
-        this.schema = schema;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public void setLicence(String licence) {
-        this.licence = licence;
-    }
-
-    public LocalDate getCreationDate() {
-        return creationDate;
-    }
-
-    public void setCreationDate(LocalDate creationDate) {
-        this.creationDate = creationDate;
-    }
-
-    public Integer getVersion() {
-        return version;
-    }
-
-    public void setVersion(Integer version) {
-        this.version = version;
-    }
-
-    public Double getDifficulty() {
-        return difficulty;
-    }
-
-    public void setDifficulty(Double difficulty) {
-        this.difficulty = difficulty;
-    }
-
-    public IntInterval getEstimatedTime() {
-        return estimatedTime;
-    }
-
-    public void setEstimatedTime(IntInterval estimatedTime) {
-        this.estimatedTime = estimatedTime;
-    }
-
-    public IntInterval getPlayersNum() {
-        return playersNum;
-    }
-
-    public void setPlayersNum(IntInterval playersNum) {
-        this.playersNum = playersNum;
-    }
-
-    public String getAge() {
-        return age;
-    }
-
-    public void setAge(String age) {
-        this.age = age;
-    }
+    public String age = "18+";
 
     @Override
     public String toString() {

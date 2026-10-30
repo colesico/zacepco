@@ -2,12 +2,13 @@ package colesico.zacepco.scriptpack.model.script;
 
 import colesico.zacepco.scriptpack.yaml.YamlComment;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Location search
  */
-public class LocationSearchSpec {
+public final class LocationSearchSpec {
 
     /**
      * Location to be search
@@ -18,21 +19,6 @@ public class LocationSearchSpec {
     /**
      * Clues definitions
      */
-    public List<FocusedClueSpec> clues;
+    public List<FocusedClueSpec> clues = new ArrayList<>();
 
-    public LocationSpec.Id getLocation() {
-        return location;
-    }
-
-    public void setLocation(LocationSpec.Id location) {
-        this.location = location;
-    }
-
-    public List<FocusedClueSpec> getClues() {
-        return clues;
-    }
-
-    public void setClues(List<FocusedClueSpec> clues) {
-        this.clues = clues;
-    }
 }

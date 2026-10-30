@@ -2,18 +2,22 @@ package colesico.zacepco.scriptpack.model.script;
 
 import colesico.zacepco.scriptpack.yaml.YamlComment;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Investigation specification
  */
-public class InvestigationSpec {
+public final class InvestigationSpec {
 
     /**
      * Investigation budget (resource)
      */
-    @YamlComment(text = {"Investigation budget in resource units"})
-    public Integer budget;
+    @YamlComment(text = {
+            "Investigation budget in resource units",
+            "Default: 2147483647"
+    })
+    public Integer budget = Integer.MAX_VALUE;
 
     /**
      * Randomness factor [1..0]. Used to recalculate table thresholds to change the randomness factor.
@@ -21,11 +25,12 @@ public class InvestigationSpec {
      * Default = 1.0
      */
     @YamlComment(text = {
-            "Randomness factor [1.0 ... 0.0]. Default = 1.0 ",
+            "Randomness factor [1.0 ... 0.0]",
             "Used to recalculate investigation table thresholds to adjust randomness.",
-            "New_threshold = Table_threshold * randFactor"
+            "New_threshold = Table_threshold * randFactor",
+            "Default: 1.0"
     })
-    public Double randFactor;
+    public Double randFactor = 1.0;
 
     /**
      * Location search
@@ -35,7 +40,7 @@ public class InvestigationSpec {
             "Location search specification",
             ""
     })
-    public SearchSpec search;
+    public SearchSpec search = new SearchSpec();
 
     /**
      * Personage interrogation
@@ -45,7 +50,7 @@ public class InvestigationSpec {
             "Personage interrogation specification",
             ""
     })
-    public InterrogationSpec interrogation;
+    public InterrogationSpec interrogation = new InterrogationSpec();
 
 
     @YamlComment(text = {
@@ -53,7 +58,7 @@ public class InvestigationSpec {
             "Criminal expertise specification",
             ""
     })
-    public ExpertiseSpec expertise;
+    public ExpertiseSpec expertise = new ExpertiseSpec();
 
     @YamlComment(text = {
             "",
@@ -61,7 +66,7 @@ public class InvestigationSpec {
             "A subset of which can participate in the investigation",
             ""
     })
-    public List<DetectiveSpec> detectives;
+    public List<DetectiveSpec> detectives = new ArrayList<>();
 
     public double randFactor(Double value) {
         if (value != null) {
@@ -73,51 +78,4 @@ public class InvestigationSpec {
         return randFactor == null ? 1.0 : randFactor;
     }
 
-    public Integer getBudget() {
-        return budget;
-    }
-
-    public void setBudget(Integer budget) {
-        this.budget = budget;
-    }
-
-    public Double getRandFactor() {
-        return randFactor;
-    }
-
-    public void setRandFactor(Double randFactor) {
-        this.randFactor = randFactor;
-    }
-
-    public SearchSpec getSearch() {
-        return search;
-    }
-
-    public void setSearch(SearchSpec search) {
-        this.search = search;
-    }
-
-    public InterrogationSpec getInterrogation() {
-        return interrogation;
-    }
-
-    public void setInterrogation(InterrogationSpec interrogation) {
-        this.interrogation = interrogation;
-    }
-
-    public ExpertiseSpec getExpertise() {
-        return expertise;
-    }
-
-    public void setExpertise(ExpertiseSpec expertise) {
-        this.expertise = expertise;
-    }
-
-    public List<DetectiveSpec> getDetectives() {
-        return detectives;
-    }
-
-    public void setDetectives(List<DetectiveSpec> detectives) {
-        this.detectives = detectives;
-    }
 }

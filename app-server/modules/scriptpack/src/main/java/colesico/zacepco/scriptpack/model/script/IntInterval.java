@@ -3,7 +3,7 @@ package colesico.zacepco.scriptpack.model.script;
 /**
  * Integer interval
  */
-public class IntInterval {
+public final class IntInterval {
 
     /**
      * Interval min value
@@ -15,19 +15,11 @@ public class IntInterval {
      */
     public Integer max;
 
-    public Integer getMin() {
-        return min;
+    public IntInterval() {
     }
 
-    public void setMin(Integer min) {
+    public IntInterval(Integer min, Integer max) {
         this.min = min;
-    }
-
-    public Integer getMax() {
-        return max;
-    }
-
-    public void setMax(Integer max) {
         this.max = max;
     }
 }

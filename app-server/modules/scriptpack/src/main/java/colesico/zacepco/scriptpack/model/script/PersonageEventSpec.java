@@ -8,7 +8,7 @@ import colesico.zacepco.scriptpack.yaml.YamlComment;
  * Contains information about interactions with other entities at given time tick.
  * Used to verify the investigation's findings.
  */
-public class PersonageEventSpec {
+public final class PersonageEventSpec {
 
     /**
      * The location the character was inside.
@@ -28,19 +28,4 @@ public class PersonageEventSpec {
     })
     public ClueSpec.Id clue;
 
-    public LocationSpec.Id getLocation() {
-        return location;
-    }
-
-    public void setLocation(LocationSpec.Id location) {
-        this.location = location;
-    }
-
-    public ClueSpec.Id getClue() {
-        return clue;
-    }
-
-    public void setClue(ClueSpec.Id clue) {
-        this.clue = clue;
-    }
 }
