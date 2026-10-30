@@ -49,7 +49,7 @@ public final class SceneSpec {
 
     public List<WaySpec> findConnectionsByLocationId(LocationSpec.Id id) {
         return ways.stream()
-                .filter(tr -> tr.getLocations().contains(id))
+                .filter(tr -> tr.locations.contains(id))
                 .collect(Collectors.toList());
     }
 
