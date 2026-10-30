@@ -6,6 +6,7 @@ import colesico.framework.jdbirec.RecordView;
 import colesico.framework.jdbirec.TagFilter;
 import colesico.zacepco.casereg.srv.model.ScriptEntry;
 import colesico.zacepco.casework.srv.jdbi.InvStateMediator;
+import colesico.zacepco.invproc.model.InvestigationState;
 
 import java.util.Date;
 

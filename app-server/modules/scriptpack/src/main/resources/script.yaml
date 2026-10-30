@@ -97,7 +97,8 @@ crime:
       color: red
       val: Some value
     
-    # Initially hidden personage or not (default - false)
+    # Initially hidden personage or not
+    # Default: false
     hidden: false
     
     # Initially exposed clues for this personage
@@ -145,7 +146,8 @@ crime:
         col: 1
         row: 1
       
-      # Initially hidden location or not  (default - false)
+      # Initially hidden location or not
+      # Default: false
       hidden: false
       
       # Initially exposed clues for this location
@@ -174,7 +176,8 @@ crime:
       # Used by detectives to estimate the travel time and whether a personage can move along it
       description: length 10m
       
-      # Is initially hidden way or not (default - false)
+      # Is initially hidden way or not
+      # Default: false
       hidden: true
   
   # 
@@ -189,8 +192,9 @@ crime:
       time: '10:30'
       val: Some value
     
-    # False clue or not (default-false)
+    # False clue or not
     # Used as answers to verify the investigation's findings and results
+    # Default: false
     falsity: true
     
     # Entities to be open along with this clue
@@ -203,11 +207,13 @@ crime:
 investigation:
   
   # Investigation budget in resource units
+  # Default: 2147483647
   budget: 9
   
-  # Randomness factor [1.0 ... 0.0]. Default = 1.0
+  # Randomness factor [1.0 ... 0.0]
   # Used to recalculate investigation table thresholds to adjust randomness.
   # New_threshold = Table_threshold * randFactor
+  # Default: 1.0
   randFactor: 1.0
   
   # 
@@ -216,18 +222,21 @@ investigation:
   search:
     
     # Cost in resource units of investigation action on subject (int)
+    # Default: 1
     cost: 3
     
     # Base points for investigation action (int)
+    # Default: 1
     points: 2
     
     # Maximum number of elements in detective focus
+    # Default: 3
     focusLimit: 3
     
     # Cost of obtaining investigation subject statistics
     # (-1) - statistics is prohibited
     # (0) - free statistics
-    # Default - 0
+    # Default:  0
     statCost: -1
     
     # Locations to be searched
@@ -241,6 +250,7 @@ investigation:
         focus: [C3, P2, T2]
         
         # Clue uncover threshold
+        # Default: 0.0
         threshold: 8.1
         
         # The target clue to be uncovered

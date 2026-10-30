@@ -62,7 +62,7 @@ public class InvestigationStateBuilder {
                         per -> {
                             var perState = new PersonageState(per.id.toString());
                             perState.exposedClues.addAll(per.exposedClues);
-                            perState.hidden = per.hidden();
+                            perState.hidden = per.hidden;
                             return perState;
                         },
                         (u, v) -> u,
@@ -77,7 +77,7 @@ public class InvestigationStateBuilder {
                         loc -> {
                             var locState = new LocationState(loc.id.toString());
                             locState.exposedClues.addAll(loc.exposedClues);
-                            locState.hidden = loc.hidden();
+                            locState.hidden = loc.hidden;
                             return locState;
                         },
                         (u, v) -> u,

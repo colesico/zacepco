@@ -50,12 +50,12 @@ public class ScriptRestlet {
             scriptOverview.metainfo = script.metainfo;
 
             for (var personage : script.crime.personages) {
-                if (personage.hidden()) {
+                if (personage.hidden) {
                     continue;
                 }
                 var persOverview = new EntityOverview();
-                persOverview.id = personage.id.asString();
-                persOverview.asset = personage.asset().asString();
+                persOverview.id = personage.id.toString();
+                persOverview.asset = personage.asset().toString();
                 persOverview.name = personage.name;
                 persOverview.description = personage.description;
                 scriptOverview.personages.add(persOverview);
@@ -63,8 +63,8 @@ public class ScriptRestlet {
 
             for (var detective : script.investigation.detectives) {
                 var detOverview = new EntityOverview();
-                detOverview.id = detective.id.asString();
-                detOverview.asset = detective.asset().asString();
+                detOverview.id = detective.id.toString();
+                detOverview.asset = detective.asset().toString();
                 detOverview.name = detective.name;
                 detOverview.description = detective.description;
                 scriptOverview.detectives.add(detOverview);
@@ -77,12 +77,12 @@ public class ScriptRestlet {
             sceneOverview.rows = script.crime.scene.size.rows;
 
             for (var location : script.crime.scene.locations) {
-                if (location.hidden()) {
+                if (location.hidden) {
                     continue;
                 }
                 var locOverview = new LocationOverview();
-                locOverview.id = location.id.asString();
-                locOverview.asset = location.asset().asString();
+                locOverview.id = location.id.toString();
+                locOverview.asset = location.asset().toString();
                 locOverview.name = location.name;
                 locOverview.description = location.description;
                 locOverview.col = location.pos.col;

@@ -2,7 +2,7 @@ package colesico.zacepco.casework.srv.jdbi;
 
 import colesico.framework.jdbirec.FieldMediator;
 import colesico.framework.jdbirec.RecordKitApi;
-import colesico.zacepco.casework.srv.model.InvestigationState;
+import colesico.zacepco.invproc.model.InvestigationState;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
