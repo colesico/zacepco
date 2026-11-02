@@ -41,7 +41,7 @@
     </dependencies>
 
     <build>
-        <finalName>zacepco-invproc</finalName>
+        <finalName>zacepco-investigation</finalName>
         <plugins>
         </plugins>
     </build>

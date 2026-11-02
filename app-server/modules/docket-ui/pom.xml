@@ -11,49 +11,28 @@
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
-    <artifactId>zacepco-casereg-srv</artifactId>
+    <artifactId>zacepco-docket-ui</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
 
-    <name>Zacepco - Case Registry Service</name>
+    <name>Zacepco - Docket UI</name>
     <description>
-        Zacepco case(script) registry service
+        Zacepco cases management and investigation service UI
     </description>
     <properties>
     </properties>
 
     <dependencies>
         <!-- Zacepco -->
-
         <dependency>
             <groupId>net.colesico.zacepco</groupId>
-            <artifactId>zacepco-filestore</artifactId>
+            <artifactId>zacepco-core-ui</artifactId>
             <version>${project.version}</version>
         </dependency>
-
         <dependency>
             <groupId>net.colesico.zacepco</groupId>
-            <artifactId>zacepco-script</artifactId>
+            <artifactId>zacepco-docket-srv</artifactId>
             <version>${project.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>net.colesico.zacepco</groupId>
-            <artifactId>zacepco-investigation</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>net.colesico.zacepco</groupId>
-            <artifactId>zacepco-core-srv</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-
-        <!-- Kryo for game state persistence-->
-        <dependency>
-            <groupId>com.esotericsoftware</groupId>
-            <artifactId>kryo</artifactId>
-            <version>${kryo.version}</version>
         </dependency>
 
     </dependencies>

@@ -130,8 +130,8 @@
                 <module>modules/identity-ui</module>
                 <module>modules/script</module>
 			    <module>modules/investigation</module>
-                <module>modules/casereg-srv</module>
-                <module>modules/casereg-ui</module>
+                <module>modules/docket-srv</module>
+                <module>modules/docket-ui</module>
                 <module>modules/main</module>
             </modules>
         </profile>
