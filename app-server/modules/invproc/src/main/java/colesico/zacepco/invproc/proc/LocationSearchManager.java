@@ -1,6 +1,6 @@
 package colesico.zacepco.invproc.proc;
 
-import colesico.zacepco.scriptpack.model.script.ClueSpec;
+import colesico.zacepco.script.model.scriptdoc.ClueSpec;
 
 public class LocationSearchManager {
 

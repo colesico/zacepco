@@ -4,7 +4,7 @@ module colesico.zacepco.casereg.srv {
     requires colesico.framework.config;
     requires colesico.zacepco.filestore;
     requires transitive colesico.zacepco.core.srv;
-    requires transitive colesico.zacepco.scriptpack;
+    requires transitive colesico.zacepco.script;
 
 
     exports colesico.zacepco.casereg.srv.ioc;

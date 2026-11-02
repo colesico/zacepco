@@ -1,7 +1,7 @@
 package colesico.zacepco.invproc.proc;
 
 import colesico.zacepco.invproc.model.InvestigationState;
-import colesico.zacepco.scriptpack.model.script.ScriptDocument;
+import colesico.zacepco.script.model.scriptdoc.ScriptDocument;
 
 public class InvestigationManager {
 

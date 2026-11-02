@@ -34,7 +34,7 @@
 
         <dependency>
             <groupId>net.colesico.zacepco</groupId>
-            <artifactId>zacepco-scriptpack</artifactId>
+            <artifactId>zacepco-script</artifactId>
             <version>${project.version}</version>
         </dependency>
 

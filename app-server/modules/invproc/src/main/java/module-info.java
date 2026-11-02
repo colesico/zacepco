@@ -3,7 +3,7 @@ module colesico.zacepco.invproc {
     requires colesico.framework.ioc;
 
     requires org.yaml.snakeyaml;
-    requires colesico.zacepco.scriptpack;
+    requires colesico.zacepco.script;
 
 
     exports colesico.zacepco.invproc.ioc;

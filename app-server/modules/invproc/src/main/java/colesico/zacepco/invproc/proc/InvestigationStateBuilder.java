@@ -4,8 +4,8 @@ import colesico.zacepco.invproc.model.DetectiveState;
 import colesico.zacepco.invproc.model.InvestigationState;
 import colesico.zacepco.invproc.model.LocationState;
 import colesico.zacepco.invproc.model.PersonageState;
-import colesico.zacepco.scriptpack.model.script.DetectiveSpec;
-import colesico.zacepco.scriptpack.model.script.ScriptDocument;
+import colesico.zacepco.script.model.scriptdoc.DetectiveSpec;
+import colesico.zacepco.script.model.scriptdoc.ScriptDocument;
 
 import java.util.*;
 import java.util.stream.Collectors;

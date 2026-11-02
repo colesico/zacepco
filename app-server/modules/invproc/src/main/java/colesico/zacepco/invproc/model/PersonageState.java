@@ -1,7 +1,6 @@
 package colesico.zacepco.invproc.model;
 
-import colesico.zacepco.scriptpack.model.script.ClueSpec;
-import colesico.zacepco.scriptpack.model.script.PersonageSpec;
+import colesico.zacepco.script.model.scriptdoc.ClueSpec;
 
 import java.util.ArrayList;
 import java.util.List;

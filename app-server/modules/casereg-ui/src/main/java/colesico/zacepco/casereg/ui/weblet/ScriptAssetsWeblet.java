@@ -8,8 +8,8 @@ import colesico.framework.weblet.Weblet;
 import colesico.zacepco.casereg.srv.model.ImageScale;
 import colesico.zacepco.casereg.srv.service.ScriptService;
 import colesico.zacepco.casereg.srv.service.ScriptAssetsService;
-import colesico.zacepco.scriptpack.model.script.EntitySpec;
-import colesico.zacepco.scriptpack.pkg.ScriptPackage;
+import colesico.zacepco.script.model.scriptdoc.EntitySpec;
+import colesico.zacepco.script.pkg.ScriptPackage;
 import jakarta.inject.Provider;
 
 @Weblet

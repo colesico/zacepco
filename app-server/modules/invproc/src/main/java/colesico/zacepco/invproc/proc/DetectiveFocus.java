@@ -1,6 +1,6 @@
 package colesico.zacepco.invproc.proc;
 
-import colesico.zacepco.scriptpack.model.script.EntitySpec;
+import colesico.zacepco.script.model.scriptdoc.EntitySpec;
 
 import java.util.Set;
 

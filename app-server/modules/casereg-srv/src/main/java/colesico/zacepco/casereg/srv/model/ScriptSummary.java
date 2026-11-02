@@ -3,7 +3,7 @@ package colesico.zacepco.casereg.srv.model;
 import colesico.framework.jdbirec.Column;
 import colesico.framework.jdbirec.mediators.ListStringTextMediator;
 import colesico.framework.jdbirec.mediators.LocalDateTextMediator;
-import colesico.zacepco.scriptpack.model.script.ScriptMetainfoSpec;
+import colesico.zacepco.script.model.scriptdoc.ScriptMetainfoSpec;
 
 import java.time.LocalDate;
 import java.util.List;
