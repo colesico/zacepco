@@ -5,6 +5,9 @@ module colesico.zacepco.casereg.srv {
     requires colesico.zacepco.filestore;
     requires transitive colesico.zacepco.core.srv;
     requires transitive colesico.zacepco.script;
+    requires transitive colesico.zacepco.investigation;
+
+    requires com.esotericsoftware.kryo;
 
 
     exports colesico.zacepco.casereg.srv.ioc;

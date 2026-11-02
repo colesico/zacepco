@@ -129,11 +129,9 @@
                 <module>modules/identity-srv</module>
                 <module>modules/identity-ui</module>
                 <module>modules/script</module>
-			    <module>modules/invproc</module>
+			    <module>modules/investigation</module>
                 <module>modules/casereg-srv</module>
                 <module>modules/casereg-ui</module>
-                <module>modules/casework-srv</module>
-                <module>modules/casework-ui</module>
                 <module>modules/main</module>
             </modules>
         </profile>

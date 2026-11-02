@@ -39,10 +39,22 @@
 
         <dependency>
             <groupId>net.colesico.zacepco</groupId>
+            <artifactId>zacepco-investigation</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>net.colesico.zacepco</groupId>
             <artifactId>zacepco-core-srv</artifactId>
             <version>${project.version}</version>
         </dependency>
 
+        <!-- Kryo for game state persistence-->
+        <dependency>
+            <groupId>com.esotericsoftware</groupId>
+            <artifactId>kryo</artifactId>
+            <version>${kryo.version}</version>
+        </dependency>
 
     </dependencies>
 </project>
