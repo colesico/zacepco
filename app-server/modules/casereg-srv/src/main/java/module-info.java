@@ -1,4 +1,4 @@
-module colesico.zacepco.casereg.srv {
+module colesico.zacepco.docket.srv {
 
     requires jakarta.inject;
     requires colesico.framework.config;
@@ -10,10 +10,10 @@ module colesico.zacepco.casereg.srv {
     requires com.esotericsoftware.kryo;
 
 
-    exports colesico.zacepco.casereg.srv.ioc;
-    exports colesico.zacepco.casereg.srv.model;
-    exports colesico.zacepco.casereg.srv.dao;
-    exports colesico.zacepco.casereg.srv.service;
+    exports colesico.zacepco.docket.srv.ioc;
+    exports colesico.zacepco.docket.srv.model;
+    exports colesico.zacepco.docket.srv.dao;
+    exports colesico.zacepco.docket.srv.service;
     // exports colesico.zacepco.inquiry.srv.dto;
 
 }

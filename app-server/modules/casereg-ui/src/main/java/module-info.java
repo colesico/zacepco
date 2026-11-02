@@ -1,13 +1,13 @@
-module colesico.zacepco.casereg.ui {
+module colesico.zacepco.docket.ui {
 
-    requires transitive colesico.zacepco.casereg.srv;
+    requires transitive colesico.zacepco.docket.srv;
 
     requires colesico.framework.weblet;
     requires colesico.zacepco.core.ui;
 
-    exports colesico.zacepco.casereg.ui.weblet;
+    exports colesico.zacepco.docket.ui.weblet;
 
-    opens colesico.zacepco.casereg.ui.dto;
-    opens colesico.zacepco.casereg.ui.webpub.app.js;
-    opens colesico.zacepco.casereg.ui.webpub.app.css;
+    opens colesico.zacepco.docket.ui.dto;
+    opens colesico.zacepco.docket.ui.webpub.app.js;
+    opens colesico.zacepco.docket.ui.webpub.app.css;
 }

@@ -16,9 +16,9 @@
     <version>1.0.0</version>
     <packaging>jar</packaging>
 
-    <name>Zacepco - Script Package</name>
+    <name>Zacepco - Script</name>
     <description>
-        Zacepco script package module
+        Zacepco script package API
     </description>
 
     <properties>
