@@ -4,13 +4,13 @@ import colesico.zacepco.scriptpack.model.script.ClueSpec;
 
 public class LocationSearchManager {
 
-    private final InvestigationManager manager;
+    private final InvestigationManager investigationManager;
 
-    public LocationSearchManager(InvestigationManager manager) {
-        this.manager = manager;
+    public LocationSearchManager(InvestigationManager investigationManager) {
+        this.investigationManager = investigationManager;
     }
 
-    public ClueSpec search(DetectiveFocus detectiveFocus, Integer d12) {
+    public ClueSpec search(DetectiveFocus detectiveFocus, Integer d12DieValue) {
         return null;
     }
 }
