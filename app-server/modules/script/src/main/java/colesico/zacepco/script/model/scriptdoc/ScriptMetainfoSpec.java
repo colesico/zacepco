@@ -28,6 +28,9 @@ public final class ScriptMetainfoSpec {
     })
     public String id;
 
+    @YamlComment(text = "Script version (1..N)")
+    public Integer version = 1;
+
     /**
      * Script title
      */
@@ -56,12 +59,6 @@ public final class ScriptMetainfoSpec {
      */
     @YamlComment(text = "Script creation date YYYY-MM-DD")
     public LocalDate creationDate;
-
-    /**
-     * Script content version (1..N)
-     */
-    @YamlComment(text = "Script version (1..N)")
-    public Integer version = 1;
 
     /**
      * Estimated difficulty level.

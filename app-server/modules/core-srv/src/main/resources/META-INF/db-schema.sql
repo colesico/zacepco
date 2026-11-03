@@ -37,15 +37,30 @@ CREATE INDEX IF NOT EXISTS idx_invites_user_id ON invites(user_id);
 CREATE TABLE IF NOT EXISTS scripts (
     id INTEGER PRIMARY KEY NOT NULL,
     user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    is_active INTEGER DEFAULT 1,
     access TEXT NOT NULL CHECK (access IN ('PRIVATE', 'PROTECTED', 'PUBLIC')),
     created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
     script_id TEXT NOT NULL,
+    script_version INTEGER NOT NULL,
     script_title TEXT NOT NULL,
     script_annotation TEXT NOT NULL,
     script_authors TEXT NOT NULL,
-    script_version INTEGER NOT NULL,
-    script_creation_date TEXT NOT NULL
+    script_creation_date TEXT NOT NULL,
+    UNIQUE(script_id, script_version)
 ) STRICT;
+
+CREATE TRIGGER IF NOT EXISTS update_script_active
+BEFORE INSERT ON scripts
+FOR EACH ROW
+BEGIN
+    UPDATE scripts
+    SET is_active = 0
+    WHERE script_id = NEW.script_id AND is_active = 1;
+END;
+
+CREATE INDEX IF NOT EXISTS idx_scripts_active
+    ON scripts (script_id)
+    WHERE is_active = 1;
 
 CREATE UNIQUE INDEX IF NOT EXISTS idx_scripts_author_unique
     ON scripts (user_id, script_id)

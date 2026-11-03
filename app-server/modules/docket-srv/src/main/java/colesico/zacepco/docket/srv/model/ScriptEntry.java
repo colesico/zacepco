@@ -17,6 +17,9 @@ import java.util.Date;
 @Record(table = "scripts")
 public class ScriptEntry {
 
+    /**
+     * Script entry id
+     */
     @Column
     private Long id;
 

@@ -11,10 +11,16 @@ import java.util.List;
 public class ScriptSummary {
 
     /**
-     * Script ID {@link ScriptMetainfoSpec#getId()}
+     * Script ID {@link ScriptMetainfoSpec}
      */
     @Column
     public String id;
+
+    /**
+     * Script version
+     */
+    @Column
+    public Integer version;
 
     /**
      * Script title
@@ -30,12 +36,6 @@ public class ScriptSummary {
 
     @Column(mediator = ListStringTextMediator.class)
     public List<String> authors;
-
-    /**
-     * Script version
-     */
-    @Column
-    public Integer version;
 
     /**
      * Script creation date

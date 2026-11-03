@@ -88,10 +88,10 @@ public class ScriptService {
         scriptEntry.setSummary(summary);
 
         summary.setId(script.metainfo.id);
+        summary.setVersion(script.metainfo.version);
         summary.setTitle(script.metainfo.title);
         summary.setAnnotation(script.metainfo.annotation);
         summary.setAuthors(Arrays.asList(script.metainfo.authors));
-        summary.setVersion(script.metainfo.version);
         summary.setCreationDate(script.metainfo.creationDate);
 
         scriptEntryDao.createScriptEntry(scriptEntry);
