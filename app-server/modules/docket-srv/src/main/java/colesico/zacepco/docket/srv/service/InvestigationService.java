@@ -5,9 +5,11 @@ import colesico.framework.security.authorization.RequireIdentity;
 import colesico.framework.service.Service;
 import colesico.framework.transaction.Transactional;
 import colesico.zacepco.docket.srv.dao.InvestigationEntryDao;
+import colesico.zacepco.docket.srv.dto.CreateInvestigationRequest;
 import colesico.zacepco.docket.srv.model.InvestigationEntry;
 import colesico.zacepco.docket.srv.model.InvestigationStatus;
 import colesico.zacepco.docket.srv.model.ScriptEntry;
+import colesico.zacepco.investigation.model.InvestigationStateBuilder;
 import jakarta.inject.Provider;
 
 import java.io.InputStream;
@@ -34,31 +36,38 @@ public class InvestigationService {
     }
 
     @RequireIdentity
-    public InvestigationEntry createInvestigationEntry(Long scriptEntryId) {
+    public InvestigationEntry createInvestigationEntry(CreateInvestigationRequest request) {
         Long userId = identity.get().longId();
-        return createInvestigationEntry(userId, scriptEntryId);
+        return createInvestigationEntry(userId, request);
     }
 
-    public InvestigationEntry createInvestigationEntry(Long userId, Long scriptEntryId) {
-        var scriptEntry = scriptService.findScriptEntryById(scriptEntryId);
+    public InvestigationEntry createInvestigationEntry(Long userId, CreateInvestigationRequest request) {
+        var scriptEntry = scriptService.findScriptEntryById(request.scriptEntryId);
 
         if (scriptEntry.isEmpty()) {
-            throw new RuntimeException("Script entry not found. Id: " + scriptEntryId);
+            throw new RuntimeException("Script entry not found. Id: " + request.scriptEntryId);
         }
 
-        var prevInvEntry = invEntryDao.findUserInvestigationEntryById(userId, scriptEntryId);
+        var prevInvEntry = invEntryDao.findUserInvestigationEntryById(userId, request.scriptEntryId);
         if (prevInvEntry.isPresent()) {
-            throw new RuntimeException("Investigation on case already started by user. Id: " + scriptEntryId);
+            throw new RuntimeException("Investigation on case already started by user. Id: " + request.scriptEntryId);
         }
 
         try {
 
-            var script = scriptService.scriptPackage(scriptEntryId).script().read();
+            var script = scriptService.scriptPackage(request.scriptEntryId).script().read();
 
             InvestigationEntry invEntry = new InvestigationEntry();
-            invEntry.setScriptEntryId(scriptEntryId);
+            invEntry.setScriptEntryId(request.scriptEntryId);
             invEntry.setStatus(InvestigationStatus.OPEN);
-            invEntry.setState(null);
+
+
+            var stateBuilder = new InvestigationStateBuilder(script);
+            stateBuilder
+                    .detectivesNum(request.detectivesNum)
+                    .randFactor(request.randFactor);
+
+            invEntry.setState(stateBuilder.build());
 
             invEntry = invEntryDao.createInvestigationEntry(invEntry);
 

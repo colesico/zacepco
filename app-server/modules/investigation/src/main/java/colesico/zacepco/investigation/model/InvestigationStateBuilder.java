@@ -1,9 +1,5 @@
-package colesico.zacepco.investigation.service;
+package colesico.zacepco.investigation.model;
 
-import colesico.zacepco.investigation.model.DetectiveState;
-import colesico.zacepco.investigation.model.InvestigationState;
-import colesico.zacepco.investigation.model.LocationState;
-import colesico.zacepco.investigation.model.PersonageState;
 import colesico.zacepco.script.model.scriptdoc.DetectiveSpec;
 import colesico.zacepco.script.model.scriptdoc.ScriptDocument;
 
@@ -39,8 +35,10 @@ public class InvestigationStateBuilder {
     }
 
     public InvestigationState build() {
-        var invState = new InvestigationState(script.metainfo.id);
+        var invState = new InvestigationState();
 
+        invState.scriptId = script.metainfo.id;
+        invState.scriptVersion = script.metainfo.version;
         invState.currentBudget = script.investigation.budget;
         invState.randFactor = script.investigation.randFactor(randFactor);
 

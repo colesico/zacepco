@@ -6,7 +6,9 @@ import colesico.framework.httprouter.Route;
 import colesico.framework.jjwt.WebJwt;
 import colesico.framework.restlet.Restlet;
 import colesico.framework.security.authentication.Authentication;
-import colesico.framework.telehttp.ParamName;
+import colesico.framework.telehttp.ParamOrigin;
+import colesico.framework.telehttp.origin.Origin;
+import colesico.zacepco.docket.srv.dto.CreateInvestigationRequest;
 import colesico.zacepco.docket.srv.model.InvestigationEntry;
 import colesico.zacepco.docket.srv.service.InvestigationService;
 
@@ -23,8 +25,8 @@ public class InvestigationRestlet {
     @RequestMethod(HttpMethod.POST)
     @Route("./")
     @Authentication(WebJwt.class)
-    public InvestigationEntry createInvestigationEntry(@ParamName("scriptEntry") Long scriptEntryId) {
-        return investigationService.createInvestigationEntry(scriptEntryId);
+    public InvestigationEntry createInvestigationEntry(@ParamOrigin(Origin.BODY) CreateInvestigationRequest request) {
+        return investigationService.createInvestigationEntry(request);
     }
 
 }

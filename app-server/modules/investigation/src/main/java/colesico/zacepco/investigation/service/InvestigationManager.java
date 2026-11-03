@@ -1,6 +1,7 @@
 package colesico.zacepco.investigation.service;
 
 import colesico.zacepco.investigation.model.InvestigationState;
+import colesico.zacepco.investigation.model.InvestigationStateBuilder;
 import colesico.zacepco.script.model.scriptdoc.ScriptDocument;
 
 public class InvestigationManager {
