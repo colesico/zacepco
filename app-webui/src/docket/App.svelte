@@ -7,9 +7,10 @@
 
   
   const routes = {
-    '/': ScriptList,
-	'/registration': ScriptRegistration,
-	'/:id': ScriptOverview
+    '/scripts': ScriptList,
+	'/scripts/add': ScriptRegistration,
+	'/scripts/:id': ScriptOverview,
+	'/': ScriptList
   };
   
 </script>

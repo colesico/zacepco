@@ -9,9 +9,9 @@
 </script>
 
 <div class="dir-card">
-  <a href="/{script.id}" use:link  target={target}>
+  <a href="/scripts/{script.id}" use:link  target={target}>
     <div class="dir-card-img">
-      <img src="/casereg/assets/images/thumb/{script.id}/S" alt={script.summary.title || ''} />
+      <img src="/docket/script-assets/images/thumb/{script.id}/S" alt={script.summary.title || ''} />
     </div>
     <div class="dir-card-title">
       {script.summary.title} 

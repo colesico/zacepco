@@ -12,9 +12,9 @@ import org.yaml.snakeyaml.nodes.ScalarNode;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-public class YamlCustomConstructor extends Constructor {
+import static colesico.zacepco.script.model.scriptdoc.TickSpec.DEFAULT_DATE;
 
-    public static final LocalDate defaultDate = LocalDate.of(1970, 1, 1);
+public class YamlCustomConstructor extends Constructor {
 
     public YamlCustomConstructor() {
         super(new LoaderOptions());
@@ -51,7 +51,7 @@ public class YamlCustomConstructor extends Constructor {
         public Object construct(Node node) {
             String value = ((ScalarNode) node).getValue().trim();
             if (value.length() <= 5) {
-                value = defaultDate + "T" + value;
+                value = DEFAULT_DATE + "T" + value;
             }
             return LocalDateTime.parse(value);
         }

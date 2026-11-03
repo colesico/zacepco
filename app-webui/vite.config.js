@@ -6,8 +6,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '@common': resolve(import.meta.dirname, './src/common'),
-	  '@casereg': resolve(import.meta.dirname, './src/casereg'),
-	  '@casework': resolve(import.meta.dirname, './src/casework')
+	  '@docket': resolve(import.meta.dirname, './src/docket')
     },
 	extensions: ['.js', '.svelte']
   },
@@ -36,8 +35,7 @@ export default defineConfig({
     rollupOptions: {
       // Array of inputs forces Rollup to treat them as completely separate entry points
       input: {
-		'casereg': resolve(import.meta.dirname, 'src/casereg/index.html'),
-        'casework': resolve(import.meta.dirname, 'src/casework/index.html')
+		'docket': resolve(import.meta.dirname, 'src/docket/index.html')
       },
 
       output: {

@@ -15,6 +15,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
+import static colesico.zacepco.script.model.scriptdoc.TickSpec.DEFAULT_DATE;
+
 public class YamlCustomRepresenter extends Representer {
 
     private Set<String> oneTimeComments = new HashSet<>();
@@ -158,7 +160,7 @@ public class YamlCustomRepresenter extends Representer {
 
             String value;
 
-            if (dateTime.toLocalDate().equals(YamlCustomConstructor.defaultDate)) {
+            if (dateTime.toLocalDate().equals(DEFAULT_DATE)) {
                 value = dateTime.format(TIME_ONLY_FORMATTER);
             } else {
                 value = dateTime.format(DATE_TIME_FORMATTER);

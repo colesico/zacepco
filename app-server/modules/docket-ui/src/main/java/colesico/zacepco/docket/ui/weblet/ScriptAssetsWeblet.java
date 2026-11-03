@@ -13,7 +13,7 @@ import colesico.zacepco.script.pkg.ScriptPackage;
 import jakarta.inject.Provider;
 
 @Weblet
-@Route("./assets")
+@Route("./script-assets")
 public class ScriptAssetsWeblet {
 
     private final ScriptAssetsService scriptAssetsService;
