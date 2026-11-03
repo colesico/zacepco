@@ -110,8 +110,8 @@ public class ScriptService {
     /**
      * Get script entry by {@link ScriptMetainfoSpec#id}
      */
-    public Optional<ScriptEntry> findScriptEntryByUsn(String usn) {
-        return scriptEntryDao.findScriptEntryByUsn(usn);
+    public Optional<ScriptEntry> findScriptEntryByScriptId(String usn) {
+        return scriptEntryDao.findScriptEntryByScriptId(usn);
     }
 
     /**

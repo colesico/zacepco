@@ -35,9 +35,6 @@ public class InvestigationEntry {
     @Column
     private Long userid;
 
-    @Column
-    private InvestigationStatus status;
-
     /**
      * Script ref
      *
@@ -46,15 +43,14 @@ public class InvestigationEntry {
     @Column
     private Long scriptEntryId;
 
+    @Column
+    private InvestigationStatus status;
+
     /**
      * When case entity was created
      */
     @Column
     private Date createdAt;
-
-
-    @Column
-    private String title;
 
     @Column(mediator = InvStateMediator.class, tags = TG_FULL)
     private InvestigationState state;
@@ -97,14 +93,6 @@ public class InvestigationEntry {
 
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     public InvestigationState getState() {

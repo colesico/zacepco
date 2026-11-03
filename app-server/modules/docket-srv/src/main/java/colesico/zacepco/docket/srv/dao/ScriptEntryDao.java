@@ -42,9 +42,9 @@ public class ScriptEntryDao {
         return handle.get().createQuery(sql).bind("id", id).map(scriptEntryRk.mapper()).findOne();
     }
 
-    public Optional<ScriptEntry> findScriptEntryByUsn(String usn) {
-        String sql = scriptEntryRk.sql("select @columns from @records where script_usn = :usn");
-        return handle.get().createQuery(sql).bind("usn", usn).map(scriptEntryRk.mapper()).findOne();
+    public Optional<ScriptEntry> findScriptEntryByScriptId(String scriptId) {
+        String sql = scriptEntryRk.sql("select @columns from @records where script_id = :scriptId");
+        return handle.get().createQuery(sql).bind("scriptId", scriptId).map(scriptEntryRk.mapper()).findOne();
     }
 
     public List<ScriptEntry> listScriptEntries(int limit, long offset) {
@@ -56,7 +56,7 @@ public class ScriptEntryDao {
                 """;
         var handle = this.handle.get();
         String sql = scriptEntryRk.sql(query);
-        return  handle.createQuery(sql)
+        return handle.createQuery(sql)
                 .bind("limit", limit)
                 .bind("offset", offset)
                 .map(scriptEntryRk.mapper())

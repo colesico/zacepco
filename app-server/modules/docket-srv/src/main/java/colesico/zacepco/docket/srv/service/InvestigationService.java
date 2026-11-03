@@ -18,17 +18,17 @@ public class InvestigationService {
         this.invEntryDao = invEntryDao;
     }
 
-    public InvestigationEntry createInvestigationEntry(Long scriptEntryId) {
+    public InvestigationEntry createInvestigationEntry(Long userId, Long scriptEntryId) {
         var scriptEntry = scriptService.findScriptEntryById(scriptEntryId);
 
         if (scriptEntry.isEmpty()) {
             throw new RuntimeException("Script entry not found. Id: " + scriptEntryId);
         }
 
-//        var prevEntry = invEntryDao.findInvestigationEntryByIdAndUser(scriptEntryId);
-//        if (prevEntry.isPresent()){
-//            throw new RuntimeException("Investigation on case already started by user. Id: " + scriptEntryId);
-//        }
+        var prevEntry = invEntryDao.findUserInvestigationById(scriptEntryId);
+        if (prevEntry.isPresent()) {
+            throw new RuntimeException("Investigation on case already started by user. Id: " + scriptEntryId);
+        }
 
         try {
 
@@ -48,7 +48,6 @@ public class InvestigationService {
         }
 
     }
-
 
 
 }
