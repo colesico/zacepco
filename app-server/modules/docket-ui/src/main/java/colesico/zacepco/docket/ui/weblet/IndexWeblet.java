@@ -8,7 +8,7 @@ import colesico.framework.weblet.result.ViewResult;
 @Route("./")
 public class IndexWeblet {
 
-    static final String INDEX_VIEW = "$casereg/ui/tmpl/JsApp";
+    static final String INDEX_VIEW = "$docket/ui/tmpl/JsApp";
 
     public ViewResult index() {
         return ViewResult.view(INDEX_VIEW).build();

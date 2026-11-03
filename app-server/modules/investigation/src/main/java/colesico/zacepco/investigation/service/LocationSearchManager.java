@@ -1,4 +1,4 @@
-package colesico.zacepco.investigation.proc;
+package colesico.zacepco.investigation.service;
 
 import colesico.zacepco.script.model.scriptdoc.ClueSpec;
 

@@ -5,6 +5,9 @@ import java.util.Map;
 
 public class InvestigationState {
 
+    /**
+     * Investigation script ref
+     */
     public final String scriptId;
 
     /**

@@ -1,4 +1,4 @@
 package colesico.zacepco.investigation.ioc;
 
-public class InvProcProducer {
+public class InvestigationProducer {
 }

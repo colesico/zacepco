@@ -2,7 +2,7 @@ package colesico.zacepco.script.model.scriptdoc;
 
 import java.time.LocalDateTime;
 
-public  final class TickSpec {
+public final class TickSpec {
 
     public Id id;
 

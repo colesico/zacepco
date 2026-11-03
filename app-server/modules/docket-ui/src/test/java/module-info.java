@@ -1,4 +1,4 @@
-module colesico.zacepco.casereg.ui.test {
+module colesico.zacepco.docket.ui.test {
 
     requires org.testng;
     requires colesico.framework.ioc;

@@ -30,7 +30,7 @@ public class ResourcesWeblet {
 
 
     public ResourcesWeblet(StaticResource.Builder srBuilder) {
-        staticResource = srBuilder.resourcesRoot("$casereg/ui/webpub").build();
+        staticResource = srBuilder.resourcesRoot("$docket/ui/webpub").build();
     }
 
     @Route("*")

@@ -1,4 +1,4 @@
-package colesico.zacepco.investigation.proc;
+package colesico.zacepco.investigation.service;
 
 import colesico.zacepco.investigation.model.InvestigationState;
 import colesico.zacepco.script.model.scriptdoc.ScriptDocument;
