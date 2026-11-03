@@ -1,9 +1,9 @@
 <script>
 
-    import UiErrorMessage from "@common/widget/UiErrorMessage.svelte"
-	import UiLoadingIndicator from "@common/widget/UiLoadingIndicator.svelte"
-	import UiLabel from "@common/widget/UiLabel.svelte";
-	import UiButton from "@common/widget/UiButton";
+    import UiErrorMessage from "@core/widget/UiErrorMessage.svelte"
+	import UiLoadingIndicator from "@core/widget/UiLoadingIndicator.svelte"
+	import UiLabel from "@core/widget/UiLabel.svelte";
+	import UiButton from "@core/widget/UiButton";
 	
 	import { push, replace } from 'svelte-spa-router';
   

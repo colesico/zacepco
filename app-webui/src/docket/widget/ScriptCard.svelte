@@ -1,6 +1,6 @@
 <script>
   import { link } from 'svelte-spa-router';
-  import { isEmpty } from '@common/assist/CommonUtils';
+  import { isEmpty } from '@core/assist/CommonUtils';
 
   let { script = {}, 
         target = '_self' 

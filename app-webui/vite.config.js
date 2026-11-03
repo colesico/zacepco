@@ -5,7 +5,7 @@ import { resolve } from 'path';
 export default defineConfig({
   resolve: {
     alias: {
-      '@common': resolve(import.meta.dirname, './src/common'),
+      '@core': resolve(import.meta.dirname, './src/core'),
 	  '@docket': resolve(import.meta.dirname, './src/docket')
     },
 	extensions: ['.js', '.svelte']

@@ -1,10 +1,10 @@
 <script>
   import * as scriptApi from "../api/ScriptApi.js";
   
-  import UiErrorMessage from "@common/widget/UiErrorMessage.svelte"
-  import UiLoadingIndicator from "@common/widget/UiLoadingIndicator.svelte"
-  import UiLocalMenu from "@common/widget/UiLocalMenu.svelte";
-  import UiLocalMenuItem from "@common/widget/UiLocalMenuItem.svelte";
+  import UiErrorMessage from "@core/widget/UiErrorMessage.svelte"
+  import UiLoadingIndicator from "@core/widget/UiLoadingIndicator.svelte"
+  import UiLocalMenu from "@core/widget/UiLocalMenu.svelte";
+  import UiLocalMenuItem from "@core/widget/UiLocalMenuItem.svelte";
   
   
   import ScriptScroll from "@docket/widget/ScriptScroll"

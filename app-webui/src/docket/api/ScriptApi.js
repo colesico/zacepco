@@ -1,4 +1,4 @@
-import  * as restletUtils from "@common/assist/RestletUtils.js"; 
+import  * as restletUtils from "@core/assist/RestletUtils.js"; 
 
 export async function listScriptEntries(limit, offset){
 	return await restletUtils.restletGet("/docket/api/script",{limit,offset});
