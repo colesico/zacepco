@@ -11,6 +11,9 @@ metainfo:
   # Unique script id
   # Can only consist of ASCII letters, numbers, underscore '_'
   id: zacepco
+  
+  # Script version (1..N)
+  version: 1
   title: Script document
   
   # A brief crime summary without spoilers
@@ -26,9 +29,6 @@ metainfo:
   
   # Script creation date YYYY-MM-DD
   creationDate: '2026-01-01'
-  
-  # Script version (1..N)
-  version: 1
   
   # Game difficulty
   # Dimensionless coefficient [0..1].
@@ -213,12 +213,6 @@ investigation:
   # Investigation budget in resource units
   # Default: 2147483647
   budget: 9
-  
-  # Randomness factor [1.0 ... 0.0]
-  # Used to recalculate investigation table thresholds to adjust randomness.
-  # New_threshold = Table_threshold * randFactor
-  # Default: 1.0
-  randFactor: 1.0
   
   # 
   # Location search specification

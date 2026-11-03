@@ -12,7 +12,7 @@ public class InvestigationStateBuilder {
 
     // Задаем дефолтное значение, чтобы избежать NullPointerException
     private Integer detectivesNum = 4;
-    private Double randFactor;
+    private Double randFactor = 1.0;
 
     public InvestigationStateBuilder(ScriptDocument script) {
         this.script = script;
@@ -26,6 +26,9 @@ public class InvestigationStateBuilder {
     }
 
     public InvestigationStateBuilder randFactor(Double randFactor) {
+        if (randFactor < 0 || randFactor > 1) {
+            throw new IllegalArgumentException("Rand factor out of bounds [0-1]: " + randFactor);
+        }
         this.randFactor = randFactor;
         return this;
     }
@@ -40,7 +43,7 @@ public class InvestigationStateBuilder {
         invState.scriptId = script.metainfo.id;
         invState.scriptVersion = script.metainfo.version;
         invState.currentBudget = script.investigation.budget;
-        invState.randFactor = script.investigation.randFactor(randFactor);
+        invState.randFactor = randFactor;
 
         invState.detectives.putAll(buildDetectiveStates());
         invState.locations.putAll(buildLocationStates());

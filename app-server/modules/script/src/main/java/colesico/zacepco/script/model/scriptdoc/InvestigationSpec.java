@@ -20,19 +20,6 @@ public final class InvestigationSpec {
     public Integer budget = Integer.MAX_VALUE;
 
     /**
-     * Randomness factor [1..0]. Used to recalculate table thresholds to change the randomness factor.
-     * New_Threshold = Table_Threshold * randomnessFactor
-     * Default = 1.0
-     */
-    @YamlComment(text = {
-            "Randomness factor [1.0 ... 0.0]",
-            "Used to recalculate investigation table thresholds to adjust randomness.",
-            "New_threshold = Table_threshold * randFactor",
-            "Default: 1.0"
-    })
-    public Double randFactor = 1.0;
-
-    /**
      * Location search
      */
     @YamlComment(text = {
@@ -67,15 +54,5 @@ public final class InvestigationSpec {
             ""
     })
     public List<DetectiveSpec> detectives = new ArrayList<>();
-
-    public double randFactor(Double value) {
-        if (value != null) {
-            if (value < 0.0 || value > 1.0) {
-                throw new RuntimeException("Invalid randFactor value: " + value);
-            }
-            return value;
-        }
-        return randFactor == null ? 1.0 : randFactor;
-    }
 
 }
