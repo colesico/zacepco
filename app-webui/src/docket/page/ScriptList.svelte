@@ -40,7 +40,7 @@
   <UiErrorMessage {error} />
    <UiLocalMenu>
     <UiLocalMenuItem
-      icon="fas fa-clipboard-check"
+      icon="fas fa-folder-plus"
       title="Регистрация нового дела на базе сценария преступления"
       caption="Добавить дело"
       href="/scripts/add"

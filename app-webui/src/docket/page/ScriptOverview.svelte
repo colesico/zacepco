@@ -50,6 +50,14 @@
 <div class="container">
   <UiLoadingIndicator {loading} />
   <UiErrorMessage {error} />
+  <UiLocalMenu>
+    <UiLocalMenuItem
+      icon="fas fa-circle-play"
+      title="Начать новое расследование"
+      caption="Начать расследование"
+      href="/investigation/start/{id}"
+    />
+  </UiLocalMenu>
 
   {#if overview}
   
@@ -125,16 +133,7 @@
       </div>
     </div>
 	
-	<div class="d-flex justify-content-center flex-wrap gap-2 mb-3 mt-3">
-	  <button
-		type="button"
-		class="btn btn-primary btn-lg px-4"
-		onclick={startInvestigation}
-	  >
-		Начать расследование
-	  </button>
-	</div>
-	
+
     <h2 class="mt-5 mb-4">Персонажи</h2>
 
     <!-- Сетка для карточек: 2 в ряд на мобильных, 3 на планшетах, 4 или 6 на десктопах -->
