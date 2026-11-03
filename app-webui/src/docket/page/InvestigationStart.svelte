@@ -80,6 +80,19 @@
 			 </select>
 		  </div>
 		</div>
+		<div class="row mt-3">
+		  <div class="col-xl-3 col-lg-4 col-md-5">
+			<UiLabel caption="Бюджет:" required={false} forId="scriptFile" />
+		  </div>
+		  <div class="col-xl-9 col-lg-8 col-md-7">
+			<select class="form-control mr-sm-2" id="inlineFormCustomSelect">
+	    		<option value="1.0" selected>100%</option>
+				<option value="1.3">130%</option>
+				<option value="1.6">160%</option>
+				<option value="2.0">200%</option>
+			 </select>
+		  </div>
+		</div>
 		
 		 <div class="d-flex justify-content-center mt-4">
 			<div>
