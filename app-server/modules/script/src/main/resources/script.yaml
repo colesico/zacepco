@@ -200,6 +200,10 @@ crime:
     # Entities to be open along with this clue
     # For example, this is a hidden location or a hidden personage
     open: [L2]
+    
+    # Target entities that this clue leads to
+    # Used as answers to verify the investigation results
+    leads: [P1]
 
 # 
 # Investigation spec

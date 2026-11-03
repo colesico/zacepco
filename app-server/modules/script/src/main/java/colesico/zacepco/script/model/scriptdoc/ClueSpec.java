@@ -32,7 +32,7 @@ public final class ClueSpec extends EntitySpec<ClueSpec.Id> {
     public List<UID> open = new ArrayList<>();
 
     @YamlComment(text = {
-            "Target clues that this clue leads to",
+            "Target entities that this clue leads to",
             "Used as answers to verify the investigation results"
     })
     @YamlCompact
