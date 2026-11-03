@@ -17,8 +17,8 @@ import static colesico.framework.jdbirec.TagFilter.*;
  */
 @Record(table = "investigations",
         views = {
-                @RecordView(name = VIEW_FULL, tagFilter = @TagFilter(anyOf = {TG_FULL, TF_NO_TAGS})),
-                @RecordView(name = VIEW_BRIEF, tagFilter = @TagFilter(anyOf = {TG_BRIEF, TF_NO_TAGS}))
+                @RecordView(name = VIEW_FULL, tagFilter = @TagFilter(anyOf = {TAG_FULL, TF_NO_TAGS})),
+                @RecordView(name = VIEW_BRIEF, tagFilter = @TagFilter(anyOf = {TAG_BRIEF, TF_NO_TAGS}))
         }
 )
 public class InvestigationEntry {
@@ -30,18 +30,18 @@ public class InvestigationEntry {
     private Long id;
 
     /**
-     * User (owner) who created entry and can manage it
-     */
-    @Column
-    private Long userid;
-
-    /**
      * Script ref
      *
      * @see ScriptEntry
      */
     @Column
     private Long scriptEntryId;
+
+    /**
+     * User (owner) who created entry and can manage it
+     */
+    @Column
+    private Long userid;
 
     @Column
     private InvestigationStatus status;
@@ -52,7 +52,7 @@ public class InvestigationEntry {
     @Column
     private Date createdAt;
 
-    @Column(mediator = InvStateMediator.class, tags = TG_FULL)
+    @Column(mediator = InvStateMediator.class, tags = TAG_FULL)
     private InvestigationState state;
 
     public Long getId() {

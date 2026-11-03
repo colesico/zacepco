@@ -83,7 +83,6 @@ CREATE TABLE IF NOT EXISTS investigations (
     status TEXT NOT NULL CHECK (status IN ('OPEN', 'CLOSED')),
     script_entry_id INTEGER REFERENCES scripts(id) ON DELETE CASCADE,
     created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    title TEXT,
     state BLOB
 ) STRICT;
 
