@@ -3,7 +3,8 @@ package colesico.zacepco.docket.srv.dto;
 public class CreateInvestigationRequest {
     public Long scriptEntryId;
     public Integer detectivesNum;
-    public Double randFactor;
+    public Double randFactor = 1.0;
+    public Double budgetScale = 1.0;
 
     public Long getScriptEntryId() {
         return scriptEntryId;
@@ -27,5 +28,13 @@ public class CreateInvestigationRequest {
 
     public void setRandFactor(Double randFactor) {
         this.randFactor = randFactor;
+    }
+
+    public Double getBudgetScale() {
+        return budgetScale;
+    }
+
+    public void setBudgetScale(Double budgetScale) {
+        this.budgetScale = budgetScale;
     }
 }

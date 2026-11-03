@@ -65,7 +65,8 @@ public class InvestigationService {
             var stateBuilder = new InvestigationStateBuilder(script);
             stateBuilder
                     .detectivesNum(request.detectivesNum)
-                    .randFactor(request.randFactor);
+                    .randFactor(request.randFactor)
+                    .budgetScale(request.budgetScale);
 
             invEntry.setState(stateBuilder.build());
 

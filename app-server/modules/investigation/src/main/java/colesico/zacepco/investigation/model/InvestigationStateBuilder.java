@@ -13,6 +13,7 @@ public class InvestigationStateBuilder {
     // Задаем дефолтное значение, чтобы избежать NullPointerException
     private Integer detectivesNum = 4;
     private Double randFactor = 1.0;
+    private Double budgetScale = 1.0;
 
     public InvestigationStateBuilder(ScriptDocument script) {
         this.script = script;
@@ -33,6 +34,14 @@ public class InvestigationStateBuilder {
         return this;
     }
 
+    public InvestigationStateBuilder budgetScale(Double budgetScale) {
+        if (budgetScale < 0 || budgetScale > 3) {
+            throw new IllegalArgumentException("Budget scale out of bounds [0-3]: " + budgetScale);
+        }
+        this.budgetScale = budgetScale;
+        return this;
+    }
+
     public ScriptDocument script() {
         return script;
     }
@@ -42,7 +51,7 @@ public class InvestigationStateBuilder {
 
         invState.scriptId = script.metainfo.id;
         invState.scriptVersion = script.metainfo.version;
-        invState.currentBudget = script.investigation.budget;
+        invState.currentBudget = (int) Math.ceil(script.investigation.budget * budgetScale);
         invState.randFactor = randFactor;
 
         invState.detectives.putAll(buildDetectiveStates());
