@@ -1,4 +1,4 @@
-package colesico.zacepco.investigation.service;
+package colesico.zacepco.investigation.model;
 
 import colesico.zacepco.script.model.scriptdoc.EntitySpec;
 

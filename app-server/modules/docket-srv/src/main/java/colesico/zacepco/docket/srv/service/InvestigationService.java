@@ -9,7 +9,7 @@ import colesico.zacepco.docket.srv.dto.CreateInvestigationRequest;
 import colesico.zacepco.docket.srv.model.InvestigationEntry;
 import colesico.zacepco.docket.srv.model.InvestigationStatus;
 import colesico.zacepco.investigation.service.InvestigationStateBuilder;
-import colesico.zacepco.investigation.service.StateEnricher;
+import colesico.zacepco.investigation.service.InvestigationStateEnricher;
 import jakarta.inject.Provider;
 
 import java.util.Date;
@@ -92,7 +92,7 @@ public class InvestigationService {
 
         var script = scriptService.scriptPackage(invEntry.getScriptEntryId()).script().read();
 
-        StateEnricher enricher = new StateEnricher(invEntry.getState(), script);
+        InvestigationStateEnricher enricher = new InvestigationStateEnricher(invEntry.getState(), script);
         invEntry.setState(enricher.enrich());
 
         return invEntryOpt;

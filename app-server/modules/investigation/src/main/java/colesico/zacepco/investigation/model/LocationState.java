@@ -13,10 +13,14 @@ public class LocationState {
     public String id;
 
     @Stateless
-    public String title;
+    public String name;
 
     @Stateless
     public String description;
+
+    @Stateless
+    public String ref;
+
 
     /**
      * Location uncover state

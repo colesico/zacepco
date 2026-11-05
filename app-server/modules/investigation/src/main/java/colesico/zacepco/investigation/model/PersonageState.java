@@ -9,6 +9,15 @@ public class PersonageState {
 
     public String id;
 
+    @Stateless
+    public String name;
+
+    @Stateless
+    public String description;
+
+    @Stateless
+    public String ref;
+
     /**
      * Personage uncover  state.
      */
