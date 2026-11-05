@@ -7,7 +7,7 @@ import colesico.framework.ioc.production.Produce;
 import colesico.framework.ioc.production.Producer;
 import colesico.framework.ioc.production.Supplier;
 import colesico.framework.ioc.scope.Unscoped;
-import colesico.zacepco.docket.srv.scriptext.FileStoragePackageDriver;
+import colesico.zacepco.docket.srv.script.FileStoragePackageDriver;
 import colesico.zacepco.script.pkg.PackageDriver;
 import colesico.zacepco.script.pkg.ScriptPackage;
 

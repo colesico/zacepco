@@ -8,7 +8,7 @@ import colesico.framework.service.PlainMethod;
 import colesico.framework.service.Service;
 import colesico.framework.transaction.Transactional;
 import colesico.zacepco.docket.srv.dao.ScriptEntryDao;
-import colesico.zacepco.docket.srv.scriptext.FileStoragePackageDriver;
+import colesico.zacepco.docket.srv.script.FileStoragePackageDriver;
 import colesico.zacepco.docket.srv.model.ScriptEntry;
 import colesico.zacepco.docket.srv.model.ScriptEntryAccessType;
 import colesico.zacepco.docket.srv.model.ScriptSummary;
@@ -17,7 +17,6 @@ import colesico.zacepco.script.model.scriptdoc.ScriptMetainfoSpec;
 import colesico.zacepco.script.pkg.*;
 import jakarta.inject.Provider;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
 
