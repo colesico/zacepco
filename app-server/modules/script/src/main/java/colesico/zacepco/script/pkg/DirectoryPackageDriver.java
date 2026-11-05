@@ -62,36 +62,50 @@ public class DirectoryPackageDriver extends PackageDriver {
     }
 
     @Override
-    public OutputStream resourceOutput(ResourcePath resourcePath) throws IOException {
-        Path path = resolve(resourcePath);
-        Path parent = path.getParent();
-        if (parent != null) {
-            Files.createDirectories(parent);
+    public OutputStream resourceOutput(ResourcePath resourcePath) {
+        try {
+            Path path = resolve(resourcePath);
+            Path parent = path.getParent();
+            if (parent != null) {
+                Files.createDirectories(parent);
+            }
+            return Files.newOutputStream(path,
+                    StandardOpenOption.CREATE,
+                    StandardOpenOption.WRITE,
+                    StandardOpenOption.TRUNCATE_EXISTING);
+        } catch (IOException ioe) {
+            throw new UncheckedIOException(ioe);
         }
-        return Files.newOutputStream(path,
-                StandardOpenOption.CREATE,
-                StandardOpenOption.WRITE,
-                StandardOpenOption.TRUNCATE_EXISTING);
     }
 
     @Override
-    public InputStream resourceInput(ResourcePath resourcePath) throws IOException {
-        return Files.newInputStream(resolve(resourcePath));
+    public InputStream resourceInput(ResourcePath resourcePath) {
+        try {
+            return Files.newInputStream(resolve(resourcePath));
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
+        }
     }
 
     @Override
-    public void removeResource(ResourcePath resourcePath) throws IOException {
-        Files.delete(resolve(resourcePath));
+    public void removeResource(ResourcePath resourcePath) {
+        try {
+            Files.delete(resolve(resourcePath));
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
+        }
     }
 
     @Override
-    public Collection<ResourcePath> listResources() throws IOException {
+    public Collection<ResourcePath> listResources() {
         List<ResourcePath> result = new ArrayList<>();
         try (Stream<Path> stream = Files.walk(packageDirectory)) {
             stream.filter(Files::isRegularFile)
                     .map(packageDirectory::relativize)
                     .map(ResourcePath::of)
                     .forEach(result::add);
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
         }
         return result;
     }
@@ -100,7 +114,7 @@ public class DirectoryPackageDriver extends PackageDriver {
      * Remove entire packageDirectory
      */
     @Override
-    public void close() throws IOException {
+    public void close() {
         if (!Files.exists(packageDirectory)) return;
 
         try (var stream = Files.walk(packageDirectory)) {
@@ -112,6 +126,8 @@ public class DirectoryPackageDriver extends PackageDriver {
                             throw new RuntimeException(e);
                         }
                     });
+        } catch (IOException ioe) {
+            throw new UncheckedIOException(ioe);
         }
     }
 }

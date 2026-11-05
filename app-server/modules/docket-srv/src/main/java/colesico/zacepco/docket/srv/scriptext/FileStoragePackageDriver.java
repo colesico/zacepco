@@ -43,25 +43,25 @@ public class FileStoragePackageDriver extends PackageDriver {
     }
 
     @Override
-    public OutputStream resourceOutput(ResourcePath resourcePath) throws IOException {
+    public OutputStream resourceOutput(ResourcePath resourcePath) {
         Path storagePath = resolve(resourcePath);
         return fileStorage.fileOutput(storagePath);
     }
 
     @Override
-    public InputStream resourceInput(ResourcePath resourcePath) throws IOException {
+    public InputStream resourceInput(ResourcePath resourcePath) {
         Path storagePath = resolve(resourcePath);
         return fileStorage.fileInput(storagePath);
     }
 
     @Override
-    public void removeResource(ResourcePath resourcePath) throws IOException {
+    public void removeResource(ResourcePath resourcePath) {
         Path storagePath = resolve(resourcePath);
         fileStorage.delete(storagePath);
     }
 
     @Override
-    public Collection<ResourcePath> listResources() throws IOException {
+    public Collection<ResourcePath> listResources() {
         Path packageRoot = Path.of(packageId);
 
         try (Stream<Path> stream = fileStorage.list(packageRoot, Files::isRegularFile)) {
@@ -72,7 +72,7 @@ public class FileStoragePackageDriver extends PackageDriver {
     }
 
     @Override
-    public void close() throws IOException {
+    public void close() {
         // Nothing to close, FileStorage is managed by DI
     }
 }

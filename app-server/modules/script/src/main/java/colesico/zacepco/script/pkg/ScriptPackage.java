@@ -93,23 +93,27 @@ public class ScriptPackage implements Closeable {
     /**
      * Export package to zip file
      */
-    public void exportTo(File scriptZip) throws IOException {
+    public void exportTo(File scriptZip) {
         try (OutputStream os = Files.newOutputStream(scriptZip.toPath())) {
             packageDriver.exportPackage(os);
+        } catch (IOException ioe) {
+            throw new UncheckedIOException(ioe);
         }
     }
 
-    public void exportTo(OutputStream os) throws IOException {
+    public void exportTo(OutputStream os) {
         packageDriver.exportPackage(os);
     }
 
-    public void importFrom(File scriptPackage) throws IOException {
+    public void importFrom(File scriptPackage) {
         try (InputStream is = Files.newInputStream(scriptPackage.toPath())) {
             packageDriver.importPackage(is, this::validate);
+        } catch (IOException ioe) {
+            throw new UncheckedIOException(ioe);
         }
     }
 
-    public void importFrom(InputStream is) throws IOException {
+    public void importFrom(InputStream is) {
         packageDriver.importPackage(is, this::validate);
     }
 
@@ -124,7 +128,11 @@ public class ScriptPackage implements Closeable {
     }
 
     @Override
-    public void close() throws IOException {
-        packageDriver.close();
+    public void close() {
+        try {
+            packageDriver.close();
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
+        }
     }
 }
