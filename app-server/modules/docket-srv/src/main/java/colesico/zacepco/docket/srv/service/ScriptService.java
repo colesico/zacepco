@@ -74,8 +74,6 @@ public class ScriptService {
             scriptPackage.importFrom(scriptPackageData);
             assetsService.scaleImages(scriptEntryId, scriptPackage);
             script = scriptPackage.script().read();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         }
 
         ScriptEntry scriptEntry = new ScriptEntry();

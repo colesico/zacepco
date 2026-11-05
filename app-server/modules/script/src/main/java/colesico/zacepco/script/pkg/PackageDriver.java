@@ -1,9 +1,6 @@
 package colesico.zacepco.script.pkg;
 
-import java.io.Closeable;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.util.Collection;
 import java.util.function.Consumer;
 import java.util.zip.ZipEntry;
@@ -23,30 +20,30 @@ abstract public class PackageDriver implements Closeable {
      * Unexisted resource will be created, existed - rewrote.
      * Output stream must be explicitly closed after use.
      */
-    abstract public OutputStream resourceOutput(ResourcePath resourcePath) throws IOException;
+    abstract public OutputStream resourceOutput(ResourcePath resourcePath);
 
     /**
      * Input stream for reading resource from package.
      * The stream must be explicitly closed after use.
      */
-    abstract public InputStream resourceInput(ResourcePath resourcePath) throws IOException;
+    abstract public InputStream resourceInput(ResourcePath resourcePath);
 
     /**
      * Remove resource from package
      */
-    abstract public void removeResource(ResourcePath resourcePath) throws IOException;
+    abstract public void removeResource(ResourcePath resourcePath);
 
     /**
      * List all resources inside package
      */
-    abstract public Collection<ResourcePath> listResources() throws IOException;
+    abstract public Collection<ResourcePath> listResources();
 
     /**
      * Import package from zip archive
      *
      * @param is stream to read zip bytes
      */
-    public void importPackage(InputStream is, Consumer<ResourcePath> pathValidator) throws IOException {
+    public void importPackage(InputStream is, Consumer<ResourcePath> pathValidator) {
         if (pathValidator == null) {
             pathValidator = resourcePath -> {
             };
@@ -69,9 +66,11 @@ abstract public class PackageDriver implements Closeable {
                 }
                 zis.closeEntry();
             }
-            if (entriesCount < 2){
+            if (entriesCount < 2) {
                 throw new RuntimeException("Invalid script package");
             }
+        } catch (IOException ioe) {
+            throw new UncheckedIOException(ioe);
         }
     }
 
@@ -80,7 +79,7 @@ abstract public class PackageDriver implements Closeable {
      *
      * @param os stream to write zip bytes
      */
-    public void exportPackage(OutputStream os) throws IOException {
+    public void exportPackage(OutputStream os) {
         try (ZipOutputStream zos = new ZipOutputStream(os)) {
             for (ResourcePath resourcePath : listResources()) {
                 ZipEntry entry = new ZipEntry(resourcePath.asString());
@@ -90,6 +89,8 @@ abstract public class PackageDriver implements Closeable {
                 }
                 zos.closeEntry();
             }
+        } catch (IOException ioe) {
+            throw new UncheckedIOException(ioe);
         }
     }
 

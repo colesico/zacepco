@@ -28,6 +28,7 @@ import java.awt.image.RenderedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.util.Iterator;
 
 /**
@@ -176,7 +177,7 @@ public class ImageUtils {
             img = ImageIO.read(input);
             return img;
         } catch (IOException e) {
-            throw new RuntimeException("Error reading image bytes");
+            throw new UncheckedIOException("Error reading image bytes", e);
         } finally {
             if (input != null) {
                 try {

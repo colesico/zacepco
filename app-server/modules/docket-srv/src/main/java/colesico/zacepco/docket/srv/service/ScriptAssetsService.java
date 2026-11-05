@@ -30,45 +30,38 @@ public class ScriptAssetsService {
 
     public InputStream imageInput(Long scriptEntryId, Resource resource, ImageScale scale) {
         if (scale.equals(ImageScale.FULL)) {
-            try {
-                return resource.inputStream();
-            } catch (IOException e) {
-                throw new UncheckedIOException(e);
-            }
+            return resource.inputStream();
         }
         return fileStorage.fileInput(scaledImagesRoot(scriptEntryId, scale).resolve(resource.path().asPath()));
     }
 
     public void scaleImages(Long scriptEntryId, ScriptPackage scriptPackage) {
-        try {
 
-            var posterResource = scriptPackage.scriptImage();
-            iconize(scriptEntryId, posterResource, ImageScale.THUMB);
-            var script = scriptPackage.script().read();
 
-            for (var personage : script.crime.personages) {
-                var personageResource = scriptPackage.entityImage(personage.asset());
-                iconize(scriptEntryId, personageResource, ImageScale.THUMB);
-            }
+        var posterResource = scriptPackage.scriptImage();
+        iconize(scriptEntryId, posterResource, ImageScale.THUMB);
+        var script = scriptPackage.script().read();
 
-            for (var location : script.crime.scene.locations) {
-                var locationResource = scriptPackage.entityImage(location.asset());
-                iconize(scriptEntryId, locationResource, ImageScale.THUMB);
-            }
-
-            for (var clue : script.crime.clues) {
-                var clueResource = scriptPackage.entityImage(clue.asset());
-                iconize(scriptEntryId, clueResource, ImageScale.THUMB);
-            }
-
-            for (var detective : script.investigation.detectives) {
-                var detResource = scriptPackage.entityImage(detective.asset());
-                iconize(scriptEntryId, detResource, ImageScale.THUMB);
-            }
-
-        } catch (Exception ex) {
-            throw new RuntimeException(ex);
+        for (var personage : script.crime.personages) {
+            var personageResource = scriptPackage.entityImage(personage.asset());
+            iconize(scriptEntryId, personageResource, ImageScale.THUMB);
         }
+
+        for (var location : script.crime.scene.locations) {
+            var locationResource = scriptPackage.entityImage(location.asset());
+            iconize(scriptEntryId, locationResource, ImageScale.THUMB);
+        }
+
+        for (var clue : script.crime.clues) {
+            var clueResource = scriptPackage.entityImage(clue.asset());
+            iconize(scriptEntryId, clueResource, ImageScale.THUMB);
+        }
+
+        for (var detective : script.investigation.detectives) {
+            var detResource = scriptPackage.entityImage(detective.asset());
+            iconize(scriptEntryId, detResource, ImageScale.THUMB);
+        }
+
     }
 
     public void iconize(Long scriptEntryId, Resource resource, ImageScale scale) {
@@ -80,8 +73,8 @@ public class ScriptAssetsService {
             imgOs.write(pngBytes);
             imgOs.flush();
             imgOs.close();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
         }
     }
 

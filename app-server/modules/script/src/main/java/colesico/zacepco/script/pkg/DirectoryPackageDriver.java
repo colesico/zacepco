@@ -6,6 +6,7 @@ import colesico.framework.ioc.scope.Unscoped;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
@@ -41,7 +42,7 @@ public class DirectoryPackageDriver extends PackageDriver {
             Files.createDirectories(subDir);
             return Files.createTempDirectory(subDir, "pkg_");
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new UncheckedIOException(e);
         }
     }
 
@@ -49,15 +50,11 @@ public class DirectoryPackageDriver extends PackageDriver {
      * Append working di to relative resource path
      */
     protected Path resolve(ResourcePath rp) {
-        try {
-            var fullPath = packageDirectory.resolve(rp.asPath());
-            if (!fullPath.startsWith(packageDirectory)) {
-                throw new RuntimeException("Invalid resource path: " + rp);
-            }
-            return fullPath;
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        var fullPath = packageDirectory.resolve(rp.asPath());
+        if (!fullPath.startsWith(packageDirectory)) {
+            throw new RuntimeException("Invalid resource path: " + rp);
         }
+        return fullPath;
     }
 
     public Path workingDir() {

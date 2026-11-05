@@ -56,7 +56,7 @@
   <UiErrorMessage {error} />
 
   {#if invEntry}
-    <h1>Дело #{state.scriptId}: {state.scriptTitle}</h1>
+    <h1>Дело "{state.scriptTitle}" #{state.scriptId} </h1>
 
    
   {/if}

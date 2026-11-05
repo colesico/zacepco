@@ -4,10 +4,7 @@ import jakarta.inject.Provider;
 import jakarta.inject.Singleton;
 import org.yaml.snakeyaml.Yaml;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 
 @Singleton
@@ -31,7 +28,7 @@ public class YamlWriter {
             write(document, osw);
             osw.flush();
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new UncheckedIOException(e);
         }
     }
 
@@ -42,7 +39,7 @@ public class YamlWriter {
             osw.flush();
             return baos.toString(StandardCharsets.UTF_8);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new UncheckedIOException(e);
         }
     }
 }

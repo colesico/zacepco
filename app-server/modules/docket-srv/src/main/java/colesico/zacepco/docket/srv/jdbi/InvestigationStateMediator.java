@@ -10,6 +10,8 @@ import com.esotericsoftware.kryo.io.Output;
 import com.esotericsoftware.kryo.util.Pool;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -37,8 +39,6 @@ public class InvestigationStateMediator implements FieldMediator<InvestigationSt
         Kryo kryo = kryoPool.obtain();
         try (Input input = new Input(bytes)) {
             return kryo.readObject(input, InvestigationState.class);
-        } catch (Exception e) {
-            throw new RuntimeException("Failed to deserialize InvestigationState", e);
         } finally {
             kryoPool.free(kryo);
         }
@@ -60,8 +60,8 @@ public class InvestigationStateMediator implements FieldMediator<InvestigationSt
 
             byte[] stateData = buffer.toByteArray();
             fr.set(fieldName, stateData);
-        } catch (Exception e) {
-            throw new RuntimeException("Failed to serialize InvestigationState", e);
+        } catch (IOException e) {
+            throw new UncheckedIOException("Failed to serialize InvestigationState", e);
         } finally {
             kryoPool.free(kryo);
         }

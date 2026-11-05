@@ -1,6 +1,5 @@
 package colesico.zacepco.script.pkg;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
@@ -35,7 +34,7 @@ public class Resource {
      * Input stream for reading resource.
      * Stream must be closed after reading.
      */
-    public InputStream inputStream() throws IOException {
+    public InputStream inputStream() {
         return packageDriver.resourceInput(path);
     }
 
@@ -43,14 +42,14 @@ public class Resource {
      * Output stream for writing resource.
      * Stream must be closed after writing.
      */
-    public OutputStream outputStream() throws IOException {
+    public OutputStream outputStream() {
         return packageDriver.resourceOutput(path);
     }
 
     /**
      * Remove resource  from package
      */
-    public void remove() throws IOException {
+    public void remove() {
         packageDriver.removeResource(path);
     }
 

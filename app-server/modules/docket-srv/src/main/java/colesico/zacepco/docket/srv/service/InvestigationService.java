@@ -9,6 +9,7 @@ import colesico.zacepco.docket.srv.dto.CreateInvestigationRequest;
 import colesico.zacepco.docket.srv.model.InvestigationEntry;
 import colesico.zacepco.docket.srv.model.InvestigationStatus;
 import colesico.zacepco.investigation.service.InvestigationStateBuilder;
+import colesico.zacepco.investigation.service.StateEnricher;
 import jakarta.inject.Provider;
 
 import java.util.Date;
@@ -53,32 +54,27 @@ public class InvestigationService {
             throw new RuntimeException("Investigation on case already started by user. Id: " + request.scriptEntryId);
         }
 
-        try {
 
-            var script = scriptService.scriptPackage(request.scriptEntryId).script().read();
+        var script = scriptService.scriptPackage(request.scriptEntryId).script().read();
 
-            InvestigationEntry invEntry = new InvestigationEntry();
-            invEntry.setUserId(userId);
-            invEntry.setScriptEntryId(request.scriptEntryId);
-            invEntry.setStatus(InvestigationStatus.OPEN);
-            invEntry.setCreatedAt(new Date());
+        InvestigationEntry invEntry = new InvestigationEntry();
+        invEntry.setUserId(userId);
+        invEntry.setScriptEntryId(request.scriptEntryId);
+        invEntry.setStatus(InvestigationStatus.OPEN);
+        invEntry.setCreatedAt(new Date());
 
 
-            var stateBuilder = new InvestigationStateBuilder(script);
-            stateBuilder
-                    .detectivesNum(request.detectivesNum)
-                    .randFactor(request.randFactor)
-                    .budgetScale(request.budgetScale);
+        var stateBuilder = new InvestigationStateBuilder(script);
+        stateBuilder
+                .detectivesNum(request.detectivesNum)
+                .randFactor(request.randFactor)
+                .budgetScale(request.budgetScale);
 
-            invEntry.setState(stateBuilder.build());
+        invEntry.setState(stateBuilder.build());
 
-            invEntry = invEntryDao.createInvestigationEntry(invEntry);
+        invEntry = invEntryDao.createInvestigationEntry(invEntry);
 
-            return invEntry;
-
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        return invEntry;
 
     }
 
@@ -87,6 +83,18 @@ public class InvestigationService {
     }
 
     public Optional<InvestigationEntry> findInvestigationEntryById(Long id) {
-        return invEntryDao.findInvestigationEntryById(id);
+        var invEntryOpt = invEntryDao.findInvestigationEntryById(id);
+        if (invEntryOpt.isEmpty()) {
+            return Optional.empty();
+        }
+
+        var invEntry = invEntryOpt.get();
+
+        var script = scriptService.scriptPackage(invEntry.getScriptEntryId()).script().read();
+
+        StateEnricher enricher = new StateEnricher(invEntry.getState(), script);
+        invEntry.setState(enricher.enrich());
+
+        return invEntryOpt;
     }
 }

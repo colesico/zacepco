@@ -29,7 +29,7 @@ public class YamlReader {
         try (FileInputStream fis = new FileInputStream(file)) {
             return read(fis, documentClass);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new UncheckedIOException(e);
         }
     }
 
