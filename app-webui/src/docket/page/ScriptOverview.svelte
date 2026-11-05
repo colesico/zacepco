@@ -62,7 +62,7 @@
   {#if overview}
   
 
-	<h1>Дело #{id} {overview.metainfo.title}</h1>
+	<h1>Дело "{overview.metainfo.title}" #{overview.metainfo.id}</h1>
 	
     <!-- Контейнер для картинки и текста аннотации -->
     <div class="d-flex align-items-start">

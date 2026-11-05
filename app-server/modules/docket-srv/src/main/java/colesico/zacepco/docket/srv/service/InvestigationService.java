@@ -12,6 +12,7 @@ import colesico.zacepco.investigation.service.InvestigationStateBuilder;
 import jakarta.inject.Provider;
 
 import java.util.Date;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -47,7 +48,7 @@ public class InvestigationService {
             throw new RuntimeException("Script entry not found. Id: " + request.scriptEntryId);
         }
 
-        var prevInvEntry = invEntryDao.findUserInvestigationEntryById(userId, request.scriptEntryId);
+        var prevInvEntry = invEntryDao.findUserInvestigationEntry(userId, request.scriptEntryId);
         if (prevInvEntry.isPresent()) {
             throw new RuntimeException("Investigation on case already started by user. Id: " + request.scriptEntryId);
         }
@@ -81,5 +82,11 @@ public class InvestigationService {
 
     }
 
+    public Optional<InvestigationEntry> findUserInvestigationEntry(Long userId, Long scriptEntryId) {
+        return invEntryDao.findUserInvestigationEntry(userId, scriptEntryId);
+    }
 
+    public Optional<InvestigationEntry> findInvestigationEntryById(Long id) {
+        return invEntryDao.findInvestigationEntryById(id);
+    }
 }

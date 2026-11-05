@@ -5,6 +5,7 @@
   import ScriptRegistration from './page/ScriptRegistration.svelte';
   import ScriptOverview from './page/ScriptOverview';
   import InvestigationStart from './page/InvestigationStart';
+  import Investigation from './page/Investigation';
 
   
   const routes = {
@@ -12,6 +13,7 @@
 	'/scripts/add': ScriptRegistration,
 	'/scripts/:id': ScriptOverview,
 	'/investigation/start/:id': InvestigationStart,
+	'/investigation/:id': Investigation,
 	'/': ScriptList
   };
   

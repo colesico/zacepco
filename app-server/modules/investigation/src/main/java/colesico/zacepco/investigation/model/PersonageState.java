@@ -7,7 +7,7 @@ import java.util.List;
 
 public class PersonageState {
 
-    public final String id;
+    public String id;
 
     /**
      * Personage uncover  state.
@@ -15,6 +15,9 @@ public class PersonageState {
     public boolean hidden = false;
 
     public List<ClueSpec.Id> exposedClues = new ArrayList<>();
+
+    public PersonageState() {
+    }
 
     public PersonageState(String id) {
         this.id = id;

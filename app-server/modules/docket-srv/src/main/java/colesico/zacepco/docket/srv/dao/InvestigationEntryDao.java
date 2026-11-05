@@ -51,7 +51,7 @@ public class InvestigationEntryDao {
         return handle.get().createQuery(sql).bind("id", id).map(invEntryFullRk.mapper()).findOne();
     }
 
-    public Optional<InvestigationEntry> findUserInvestigationEntryById(Long userId, Long scriptEntryId) {
+    public Optional<InvestigationEntry> findUserInvestigationEntry(Long userId, Long scriptEntryId) {
         String sql = invEntryFullRk.sql("select @columns from @table where user_id = :userId and script_entry_id = :scriptEntryId");
         return handle.get()
                 .createQuery(sql)

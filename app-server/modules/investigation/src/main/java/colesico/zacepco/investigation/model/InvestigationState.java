@@ -1,7 +1,5 @@
 package colesico.zacepco.investigation.model;
 
-import colesico.zacepco.script.model.scriptdoc.ScriptDocument;
-
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -12,6 +10,9 @@ public class InvestigationState {
      */
     public String scriptId;
     public Integer scriptVersion;
+
+    @Stateless
+    public String scriptTitle;
 
     /**
      * Current investigation budget
@@ -28,6 +29,10 @@ public class InvestigationState {
     public final Map<String, LocationState> locations = new LinkedHashMap<>();
     public final Map<String, PersonageState> personages = new LinkedHashMap<>();
     public final Map<String, DetectiveState> detectives = new LinkedHashMap<>();
+
+
+    public InvestigationState() {
+    }
 
     public String nextDetective() {
         if (detectives.isEmpty()) {

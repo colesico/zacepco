@@ -2,12 +2,15 @@ package colesico.zacepco.investigation.model;
 
 public class DetectiveState {
 
-    public final String id;
+    public String id;
 
     /**
      * Awarded points
      */
     public int points = 0;
+
+    public DetectiveState() {
+    }
 
     public DetectiveState(String id) {
         this.id = id;

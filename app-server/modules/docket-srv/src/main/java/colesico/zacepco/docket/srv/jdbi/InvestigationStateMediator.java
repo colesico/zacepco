@@ -2,6 +2,7 @@ package colesico.zacepco.docket.srv.jdbi;
 
 import colesico.framework.jdbirec.FieldMediator;
 import colesico.framework.jdbirec.RecordKitApi;
+import colesico.zacepco.docket.srv.kryo.KryoFactory;
 import colesico.zacepco.investigation.model.InvestigationState;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.io.Input;
@@ -20,10 +21,7 @@ public class InvestigationStateMediator implements FieldMediator<InvestigationSt
         this.kryoPool = new Pool<Kryo>(true, false, 16) {
             @Override
             protected Kryo create() {
-                Kryo kryo = new Kryo();
-                kryo.setRegistrationRequired(false);
-                kryo.register(InvestigationState.class);
-                return kryo;
+                return KryoFactory.create();
             }
         };
     }

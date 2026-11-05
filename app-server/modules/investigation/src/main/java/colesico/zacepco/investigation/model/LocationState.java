@@ -12,6 +12,12 @@ public class LocationState {
 
     public String id;
 
+    @Stateless
+    public String title;
+
+    @Stateless
+    public String description;
+
     /**
      * Location uncover state
      */
@@ -21,6 +27,9 @@ public class LocationState {
      * Exposed clues for this location
      */
     public List<ClueSpec.Id> exposedClues = new ArrayList<>();
+
+    public LocationState() {
+    }
 
     public LocationState(String id) {
         this.id = id;

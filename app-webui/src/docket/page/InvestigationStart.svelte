@@ -30,41 +30,25 @@
   });
 
   $effect(() => {
-    let cancelled = false;
 
     async function loadData() {
-      if (!id) {
-        loading = false;
-        return;
-      }
 
       loading = true;
       error = null;
 
       try {
-        const data = await scriptApi.scriptOverview(id);
-
-        if (cancelled) return;
-
-        overview = data;
-        detectivesNum = data?.metainfo?.playersNum?.min ?? 1;
+        overview = await scriptApi.scriptOverview(id);
+        detectivesNum = overview.metainfo.playersNum.min;
       } catch (ex) {
-        if (cancelled) return;
-
-        error = ex?.data ?? ex;
-        overview = null;
+         error = ex.data;
+         overview = null;
       } finally {
-        if (!cancelled) {
           loading = false;
-        }
       }
     }
 
     loadData();
 
-    return () => {
-      cancelled = true;
-    };
   });
 
   async function onStart(e) {
@@ -85,7 +69,7 @@
       const invEntry = await investigationApi.createInvestigationEntry(formData);
       replace(`/investigation/${invEntry.id}`);
     } catch (ex) {
-      error = ex?.data ?? ex;
+      error = ex.data;
     } finally {
       loading = false;
     }
@@ -94,6 +78,7 @@
   function onCancel() {
     replace(`/scripts/${id}`);
   }
+  
 </script>
 
 <div class="container">
@@ -101,7 +86,7 @@
   <UiErrorMessage {error} />
 
   {#if overview}
-    <h1>Начать расследование дела #{id}: {overview.metainfo.title}</h1>
+    <h1>Начать расследование "{overview.metainfo.title}" #{overview.metainfo.id}</h1>
 
     <form onsubmit={onStart}>
       <!-- Кол-во детективов: варианты min..max, по умолчанию playersNum.min -->
