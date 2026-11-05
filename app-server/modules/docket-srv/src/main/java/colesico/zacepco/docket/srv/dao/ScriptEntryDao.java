@@ -38,12 +38,12 @@ public class ScriptEntryDao {
     }
 
     public Optional<ScriptEntry> findScriptEntryById(Long id) {
-        String sql = scriptEntryRk.sql("select @columns from @records where id = :id");
+        String sql = scriptEntryRk.sql("select @columns from @table where id = :id");
         return handle.get().createQuery(sql).bind("id", id).map(scriptEntryRk.mapper()).findOne();
     }
 
     public Optional<ScriptEntry> findScriptEntryByScriptId(String scriptId) {
-        String sql = scriptEntryRk.sql("select @columns from @records where script_id = :scriptId");
+        String sql = scriptEntryRk.sql("select @columns from @table where script_id = :scriptId");
         return handle.get().createQuery(sql).bind("scriptId", scriptId).map(scriptEntryRk.mapper()).findOne();
     }
 

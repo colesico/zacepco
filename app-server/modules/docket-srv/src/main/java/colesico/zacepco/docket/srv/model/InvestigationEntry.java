@@ -4,7 +4,9 @@ import colesico.framework.jdbirec.Column;
 import colesico.framework.jdbirec.Record;
 import colesico.framework.jdbirec.RecordView;
 import colesico.framework.jdbirec.TagFilter;
-import colesico.zacepco.docket.srv.jdbi.InvStateMediator;
+import colesico.framework.jdbirec.mediators.DateTextMediator;
+import colesico.zacepco.docket.srv.jdbi.InvestigationStateMediator;
+import colesico.zacepco.docket.srv.jdbi.InvestigationStatusMediator;
 import colesico.zacepco.investigation.model.InvestigationState;
 
 import java.util.Date;
@@ -41,18 +43,18 @@ public class InvestigationEntry {
      * User (owner) who created entry and can manage it
      */
     @Column
-    private Long userid;
+    private Long userId;
 
-    @Column
+    @Column(mediator = InvestigationStatusMediator.class)
     private InvestigationStatus status;
 
     /**
      * When case entity was created
      */
-    @Column
+    @Column(mediator = DateTextMediator.class)
     private Date createdAt;
 
-    @Column(mediator = InvStateMediator.class, tags = TAG_FULL)
+    @Column(mediator = InvestigationStateMediator.class, tags = TAG_FULL)
     private InvestigationState state;
 
     public Long getId() {
@@ -63,12 +65,12 @@ public class InvestigationEntry {
         this.id = id;
     }
 
-    public Long getUserid() {
-        return userid;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setUserid(Long userid) {
-        this.userid = userid;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public InvestigationStatus getStatus() {

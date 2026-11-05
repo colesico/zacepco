@@ -8,11 +8,10 @@ import colesico.zacepco.docket.srv.dao.InvestigationEntryDao;
 import colesico.zacepco.docket.srv.dto.CreateInvestigationRequest;
 import colesico.zacepco.docket.srv.model.InvestigationEntry;
 import colesico.zacepco.docket.srv.model.InvestigationStatus;
-import colesico.zacepco.docket.srv.model.ScriptEntry;
-import colesico.zacepco.investigation.model.InvestigationStateBuilder;
+import colesico.zacepco.investigation.service.InvestigationStateBuilder;
 import jakarta.inject.Provider;
 
-import java.io.InputStream;
+import java.util.Date;
 
 @Service
 @Transactional
@@ -58,8 +57,10 @@ public class InvestigationService {
             var script = scriptService.scriptPackage(request.scriptEntryId).script().read();
 
             InvestigationEntry invEntry = new InvestigationEntry();
+            invEntry.setUserId(userId);
             invEntry.setScriptEntryId(request.scriptEntryId);
             invEntry.setStatus(InvestigationStatus.OPEN);
+            invEntry.setCreatedAt(new Date());
 
 
             var stateBuilder = new InvestigationStateBuilder(script);

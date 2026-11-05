@@ -12,11 +12,11 @@ import java.io.ByteArrayOutputStream;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class InvStateMediator implements FieldMediator<InvestigationState> {
+public class InvestigationStateMediator implements FieldMediator<InvestigationState> {
 
     private final Pool<Kryo> kryoPool;
 
-    public InvStateMediator() {
+    public InvestigationStateMediator() {
         this.kryoPool = new Pool<Kryo>(true, false, 16) {
             @Override
             protected Kryo create() {

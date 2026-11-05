@@ -1,5 +1,9 @@
-package colesico.zacepco.investigation.model;
+package colesico.zacepco.investigation.service;
 
+import colesico.zacepco.investigation.model.DetectiveState;
+import colesico.zacepco.investigation.model.InvestigationState;
+import colesico.zacepco.investigation.model.LocationState;
+import colesico.zacepco.investigation.model.PersonageState;
 import colesico.zacepco.script.model.scriptdoc.DetectiveSpec;
 import colesico.zacepco.script.model.scriptdoc.ScriptDocument;
 
@@ -58,7 +62,7 @@ public class InvestigationStateBuilder {
         invState.locations.putAll(buildLocationStates());
         invState.personages.putAll(buildPersonageStates());
 
-        if (!invState.detectives.isEmpty()) {
+        if (invState.detectives.isEmpty()) {
             throw new RuntimeException("Detectives not specified");
         }
 
