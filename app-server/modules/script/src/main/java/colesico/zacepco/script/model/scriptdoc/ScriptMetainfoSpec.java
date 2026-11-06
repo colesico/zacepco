@@ -24,7 +24,7 @@ public final class ScriptMetainfoSpec {
      */
     @YamlComment(text = {
             "Unique script id",
-            "Can only consist of ASCII letters, numbers, underscore '_'"
+            "Can only consist of ASCII uppercase letters, numbers, underscore '_'"
     })
     public String id;
 

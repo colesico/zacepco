@@ -11,32 +11,28 @@ abstract public class InvestigationActionSpec {
      * Cost of investigation action on subject
      */
     @YamlComment(text = {
-            "Cost in resource units of investigation action on subject (int)",
-            "Default: 1"
+            "Cost in resource units of investigation action on subject (int)"
     })
-    public Integer cost = 1;
+    public Integer cost = null;
 
     /**
      * Base points for investigation action
      */
     @YamlComment(text = {
-            "Base points for investigation action (int)",
-            "Default: 1"
+            "Base points for investigation action (int)"
     })
-    public Integer points = 1;
+    public Integer points = null;
 
     /**
      * Maximum number of elements in detective focus
      */
     @YamlComment(text = {
-            "Maximum number of elements in detective focus",
-            "Default: 3"
+            "Maximum number of elements in detective focus"
     })
-    public Integer focusLimit = 3;
+    public Integer focusLimit = null;
 
     /**
      * Cost of obtaining investigation subject statistics
-     * (-1) - statistics is prohibited
      */
     @YamlComment(text = {
             "Cost of obtaining investigation subject statistics",
@@ -46,4 +42,6 @@ abstract public class InvestigationActionSpec {
     })
     public Integer statCost = 0;
 
+    public InvestigationActionSpec() {
+    }
 }

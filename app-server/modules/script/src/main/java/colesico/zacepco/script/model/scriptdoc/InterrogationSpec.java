@@ -13,4 +13,9 @@ public final class InterrogationSpec extends InvestigationActionSpec {
     @YamlComment(text = "Personage to be interrogated")
     public List<PersonageInterrogationSpec> personages = new ArrayList<>();
 
+    public InterrogationSpec() {
+        this.cost = 2;
+        this.points = 2;
+        this.focusLimit = 2;
+    }
 }

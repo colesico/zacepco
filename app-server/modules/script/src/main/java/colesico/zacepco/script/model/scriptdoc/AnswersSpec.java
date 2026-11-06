@@ -14,10 +14,17 @@ public final class AnswersSpec {
     public String fabula;
 
     @YamlComment(text = {
-            "Planned crime solving strategy. Example: ",
-            " - Search library L2 -> C1",
-            " - Interrogate gardener P3 -> C4"
+            "Planned crime solving strategy. ",
+            " Specify field: ",
+            " 'location' for search; ",
+            " 'personage' for interrogation; ",
+            " nothing for expertise",
+            "",
+            "Example for location search: ",
+            "   - location: L2",
+            "   focus: [T4,C2]",
+            "   result: C5"
     })
-    public List<String> strategy = new ArrayList<>();
+    public List<StrategyItemSpec> strategy = new ArrayList<>();
 
 }

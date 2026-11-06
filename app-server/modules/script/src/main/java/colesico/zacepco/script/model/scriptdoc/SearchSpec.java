@@ -16,4 +16,9 @@ public final class SearchSpec extends InvestigationActionSpec {
     @YamlComment(text = "Locations to be searched")
     public List<LocationSearchSpec> locations = new ArrayList<>();
 
+    public SearchSpec() {
+        this.cost = 3;
+        this.points = 1;
+        this.focusLimit = 1;
+    }
 }
