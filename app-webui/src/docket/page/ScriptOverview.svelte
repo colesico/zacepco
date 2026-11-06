@@ -13,6 +13,9 @@
   let loading = $state(true);
 
   let overview = $state(null);
+  let script = $state(null);
+  let entry = $state(null);
+  
   let entityDescription = $state(null);
 
   $inspect(error);
@@ -21,7 +24,10 @@
   $effect(() => {
     async function loadData() {
       try {
-        overview = await scriptApi.scriptOverview(id);
+        let o = await scriptApi.scriptOverview(id);
+		script = o.script;
+		entry = o.entry;
+		overview = o;
       } catch (ex) {
         error = ex.data;
       } finally {
@@ -33,10 +39,8 @@
   });
 
   function getSceneLocation(row, col) {
-    if (!overview || !overview.scene || !overview.scene.locations) return null;
-
-    return overview.scene.locations.find(
-      (loc) => loc.row === row && loc.col === col
+    return script.crime.scene.locations.find(
+      (loc) => loc.pos.row === row && loc.pos.col === col
     );
   }
 
@@ -62,21 +66,21 @@
   {#if overview}
   
 
-	<h1>Дело "{overview.metainfo.title}" #{overview.metainfo.id}</h1>
+	<h1>Дело "{script.metainfo.title}" #{script.metainfo.id}</h1>
 	
     <!-- Контейнер для картинки и текста аннотации -->
     <div class="d-flex align-items-start">
       <!-- Изображение (размер регулируется через width) -->
       <img
         src="/docket/script-assets/images/thumb/{id}/S"
-        alt="Обложка дела"
+        alt="{script.metainfo.title}"
         class="img-fluid rounded border text-muted"
         style="width: 120px; min-width: 120px; object-fit: cover;"
       />
 
       <!-- Текст аннотации с серой чертой слева -->
       <p class="ps-3 fs-5 mb-0">
-        {overview.metainfo.annotation}
+        {script.metainfo.annotation}
       </p>
     </div>
 
@@ -86,26 +90,26 @@
       <div class="col-md-6 mb-3">
         <dl class="row mb-0">
           <dt class="col-sm-4 text-muted fw-normal"><b>Сложность:</b></dt>
-          <dd class="col-sm-8 text-break mb-1">{overview.metainfo.difficulty}</dd>
+          <dd class="col-sm-8 text-break mb-1">{script.metainfo.difficulty}</dd>
         </dl>
 
         <dl class="row mb-0">
           <dt class="col-sm-4 text-muted fw-normal"><b>Время игры:</b></dt>
           <dd class="col-sm-8 text-break mb-1">
-            {overview.metainfo.estimatedTime.min}-{overview.metainfo.estimatedTime.max} минут
+            {script.metainfo.estimatedTime.min}-{script.metainfo.estimatedTime.max} минут
           </dd>
         </dl>
 
         <dl class="row mb-0">
           <dt class="col-sm-4 text-muted fw-normal"><b>Кол-во игроков:</b></dt>
           <dd class="col-sm-8 text-break mb-1">
-            {overview.metainfo.playersNum.min}-{overview.metainfo.playersNum.max} чел.
+            {script.metainfo.playersNum.min}-{script.metainfo.playersNum.max} чел.
           </dd>
         </dl>
 
         <dl class="row mb-0">
           <dt class="col-sm-4 text-muted fw-normal"><b>Возраст:</b></dt>
-          <dd class="col-sm-8 text-break mb-1">{overview.metainfo.age}</dd>
+          <dd class="col-sm-8 text-break mb-1">{script.metainfo.age}</dd>
         </dl>
       </div>
 
@@ -113,22 +117,22 @@
       <div class="col-md-6 mb-3">
         <dl class="row mb-0">
           <dt class="col-sm-4 text-muted fw-normal"><b>Авторы:</b></dt>
-          <dd class="col-sm-8 text-break mb-1">{overview.metainfo.authors}</dd>
+          <dd class="col-sm-8 text-break mb-1">{script.metainfo.authors}</dd>
         </dl>
 
         <dl class="row mb-0">
           <dt class="col-sm-4 text-muted fw-normal"><b>Лицензия:</b></dt>
-          <dd class="col-sm-8 text-break mb-1">{overview.metainfo.licence}</dd>
+          <dd class="col-sm-8 text-break mb-1">{script.metainfo.licence}</dd>
         </dl>
 
         <dl class="row mb-0">
           <dt class="col-sm-4 text-muted fw-normal"><b>Дата создания:</b></dt>
-          <dd class="col-sm-8 text-break mb-1">{overview.metainfo.creationDate}</dd>
+          <dd class="col-sm-8 text-break mb-1">{script.metainfo.creationDate}</dd>
         </dl>
 
         <dl class="row mb-0">
           <dt class="col-sm-4 text-muted fw-normal"><b>Версия:</b></dt>
-          <dd class="col-sm-8 text-break mb-1">v{overview.metainfo.version}</dd>
+          <dd class="col-sm-8 text-break mb-1">v{script.metainfo.version}</dd>
         </dl>
       </div>
     </div>
@@ -138,7 +142,7 @@
 
     <!-- Сетка для карточек: 2 в ряд на мобильных, 3 на планшетах, 4 или 6 на десктопах -->
     <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-6 g-3 mb-5">
-      {#each overview.personages as personage}
+      {#each script.crime.personages as personage}
         <div class="col card-col">
           <!-- Карточка персонажа -->
           <div
@@ -169,10 +173,10 @@
 
     <div
       class="grid-container"
-      style="--cols: {overview.scene.cols}; --rows: {overview.scene.rows};"
+      style="--cols: {script.crime.scene.size.cols}; --rows: {script.crime.scene.size.rows};"
     >
-      {#each Array(overview.scene.rows) as _, currentRow}
-        {#each Array(overview.scene.cols) as _, currentCol}
+      {#each Array(script.crime.scene.size.rows) as _, currentRow}
+        {#each Array(script.crime.scene.size.cols) as _, currentCol}
           {@const location = getSceneLocation(currentRow + 1, currentCol + 1)}
 
           <div class="grid-item">
@@ -195,7 +199,7 @@
 
     <!-- Сетка для карточек: 2 в ряд на мобильных, 3 на планшетах, 4 или 6 на десктопах -->
     <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-6 g-3 mb-5">
-      {#each overview.detectives as detective}
+      {#each script.investigation.detectives as detective}
         <div class="col card-col">
           <div
             class="card h-100 border-0 bg-light text-center shadow-sm"
