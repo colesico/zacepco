@@ -22,10 +22,7 @@ public final class PersonageEventSpec {
     /**
      * The clue the character interacted with
      */
-    @YamlComment(text = {
-            "Clue resulting from a personage's action",
-            "Action examples: picking up or leaving an item, spotting someone somewhere"
-    })
+    @YamlComment(text = "Clue linked to this personage during the tick")
     public ClueSpec.Id clue;
 
 }

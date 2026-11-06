@@ -12,8 +12,8 @@ public class InvestigationManager {
     public LocationSearchManager locationSearchManager;
 
     public InvestigationManager(ScriptDocument script, InvestigationState state) {
-        if (!script.metainfo.id.equals(state.scriptId)) {
-            throw new IllegalStateException("State script id mismatch");
+        if (!(script.metainfo.id.equals(state.script.id) && script.metainfo.version.equals(state.script.version))) {
+            throw new IllegalStateException("State script mismatch");
         }
         this.script = script;
         this.state = state;

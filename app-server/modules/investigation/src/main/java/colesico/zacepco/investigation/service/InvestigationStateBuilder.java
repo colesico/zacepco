@@ -53,14 +53,15 @@ public class InvestigationStateBuilder {
     public InvestigationState build() {
         var invState = new InvestigationState();
 
-        invState.scriptId = script.metainfo.id;
-        invState.scriptVersion = script.metainfo.version;
-        invState.currentBudget = (int) Math.ceil(script.investigation.budget * budgetScale);
+        invState.script.id = script.metainfo.id;
+        invState.script.version = script.metainfo.version;
+        invState.budget = (int) Math.ceil(script.investigation.budget * budgetScale);
         invState.randFactor = randFactor;
 
-        invState.detectives.putAll(buildDetectiveStates());
-        invState.locations.putAll(buildLocationStates());
+        invState.scene.locations.putAll(buildLocationStates());
         invState.personages.putAll(buildPersonageStates());
+        invState.detectives.putAll(buildDetectiveStates());
+
 
         if (invState.detectives.isEmpty()) {
             throw new RuntimeException("Detectives not specified");

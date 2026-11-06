@@ -6,18 +6,14 @@ import java.util.Map;
 public class InvestigationState {
 
     /**
-     * Investigation script ref
+     * Script reference
      */
-    public String scriptId;
-    public Integer scriptVersion;
-
-    @Stateless
-    public String scriptTitle;
+    public ScriptRef script = new ScriptRef();
 
     /**
      * Current investigation budget
      */
-    public int currentBudget = 0;
+    public int budget = 0;
 
     public double randFactor = 1.0;
 
@@ -26,7 +22,7 @@ public class InvestigationState {
      */
     public String activeDetectiveId;
 
-    public final Map<String, LocationState> locations = new LinkedHashMap<>();
+    public SceneState scene = new SceneState();
     public final Map<String, PersonageState> personages = new LinkedHashMap<>();
     public final Map<String, DetectiveState> detectives = new LinkedHashMap<>();
 
@@ -34,6 +30,11 @@ public class InvestigationState {
     public InvestigationState() {
     }
 
+    /**
+     * Set next active detective
+     *
+     * @return active detective id
+     */
     public String nextDetective() {
         if (detectives.isEmpty()) {
             throw new RuntimeException("Detectives not defined");
