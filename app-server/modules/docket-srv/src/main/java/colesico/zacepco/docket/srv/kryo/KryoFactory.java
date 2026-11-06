@@ -1,14 +1,14 @@
 package colesico.zacepco.docket.srv.kryo;
 
-import colesico.zacepco.investigation.model.DetectiveState;
-import colesico.zacepco.investigation.model.InvestigationState;
-import colesico.zacepco.investigation.model.LocationState;
-import colesico.zacepco.investigation.model.PersonageState;
+import colesico.zacepco.investigation.model.*;
 import com.esotericsoftware.kryo.Kryo;
+
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 public class KryoFactory {
 
-    private static void registerClasses(Kryo kryo, Class<?>... classes){
+    private static void registerBeanClasses(Kryo kryo, Class<?>... classes){
         for (var clazz:classes){
             kryo.register(clazz, new ZacepcoSerializer<>(kryo, clazz));
         }
@@ -16,12 +16,19 @@ public class KryoFactory {
 
     public static Kryo create() {
         Kryo kryo = new Kryo();
-        kryo.setRegistrationRequired(false);
-        registerClasses(kryo,
+        kryo.setRegistrationRequired(true);
+
+        kryo.register(LinkedHashMap.class);
+        kryo.register(ArrayList.class);
+
+        registerBeanClasses(kryo,
                 InvestigationState.class,
                 LocationState.class,
                 PersonageState.class,
-                DetectiveState.class);
+                DetectiveState.class,
+                SceneState.class,
+                ScriptRef.class);
+
         return kryo;
     }
 }

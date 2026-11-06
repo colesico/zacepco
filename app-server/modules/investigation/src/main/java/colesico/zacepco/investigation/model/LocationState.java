@@ -30,7 +30,7 @@ public class LocationState {
     /**
      * Exposed clues for this location
      */
-    public List<ClueSpec.Id> exposedClues = new ArrayList<>();
+    public List<String> exposedClues = new ArrayList<>();
 
     public LocationState() {
     }

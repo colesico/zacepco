@@ -1,6 +1,6 @@
 package colesico.zacepco.investigation.service;
 
-import colesico.zacepco.investigation.model.DetectiveFocus;
+import colesico.zacepco.investigation.dto.DetectiveFocus;
 import colesico.zacepco.script.model.scriptdoc.ClueSpec;
 
 public class LocationSearchManager {

@@ -23,7 +23,7 @@ public class PersonageState {
      */
     public boolean hidden = false;
 
-    public List<ClueSpec.Id> exposedClues = new ArrayList<>();
+    public List<String> exposedClues = new ArrayList<>();
 
     public PersonageState() {
     }

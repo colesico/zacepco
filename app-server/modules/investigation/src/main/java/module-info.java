@@ -10,5 +10,7 @@ module colesico.zacepco.investigation {
     exports colesico.zacepco.investigation.service;
 
     opens colesico.zacepco.investigation.model;
+    exports colesico.zacepco.investigation.dto;
+    opens colesico.zacepco.investigation.dto;
 
 }

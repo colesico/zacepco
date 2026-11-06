@@ -76,7 +76,9 @@ public class InvestigationStateBuilder {
                         per -> per.id.toString(),
                         per -> {
                             var perState = new PersonageState(per.id.toString());
-                            perState.exposedClues.addAll(per.exposedClues);
+                            perState.exposedClues.addAll(per.exposedClues.stream()
+                                    .map(Object::toString)
+                                    .toList());
                             perState.hidden = per.hidden;
                             return perState;
                         },
@@ -91,7 +93,9 @@ public class InvestigationStateBuilder {
                         loc -> loc.id.toString(),
                         loc -> {
                             var locState = new LocationState(loc.id.toString());
-                            locState.exposedClues.addAll(loc.exposedClues);
+                            locState.exposedClues.addAll(loc.exposedClues.stream()
+                                    .map(Object::toString)
+                                    .toList());
                             locState.hidden = loc.hidden;
                             return locState;
                         },
