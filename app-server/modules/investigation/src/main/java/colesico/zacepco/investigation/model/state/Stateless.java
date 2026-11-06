@@ -1,4 +1,4 @@
-package colesico.zacepco.investigation.model;
+package colesico.zacepco.investigation.model.state;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

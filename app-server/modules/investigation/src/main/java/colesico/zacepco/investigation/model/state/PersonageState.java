@@ -1,6 +1,4 @@
-package colesico.zacepco.investigation.model;
-
-import colesico.zacepco.script.model.scriptdoc.ClueSpec;
+package colesico.zacepco.investigation.model.state;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,8 +1,8 @@
 package colesico.zacepco.investigation.service;
 
-import colesico.zacepco.investigation.model.InvestigationState;
-import colesico.zacepco.investigation.model.LocationPos;
-import colesico.zacepco.investigation.model.SceneSize;
+import colesico.zacepco.investigation.model.state.InvestigationState;
+import colesico.zacepco.investigation.model.state.LocationPos;
+import colesico.zacepco.investigation.model.state.SceneSize;
 import colesico.zacepco.script.model.scriptdoc.ScriptDocument;
 
 public class InvestigationStateEnricher {

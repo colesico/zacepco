@@ -1,59 +1,21 @@
 package colesico.zacepco.docket.ui.dto;
 
+import colesico.zacepco.docket.srv.model.ScriptEntry;
+import colesico.zacepco.script.model.scriptdoc.ScriptDocument;
 import colesico.zacepco.script.model.scriptdoc.ScriptMetainfoSpec;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ScriptOverview {
+    public ScriptEntry entry;
+    public ScriptDocument document;
 
-    public Long scriptEntryId;
-
-    public ScriptMetainfoSpec metainfo;
-
-    public List<EntityOverview> personages = new ArrayList<>();
-
-    public SceneOverview scene;
-
-    public List<EntityOverview> detectives = new ArrayList<>();
-
-    public Long getScriptEntryId() {
-        return scriptEntryId;
+    public ScriptOverview() {
     }
 
-    public void setScriptEntryId(Long scriptEntryId) {
-        this.scriptEntryId = scriptEntryId;
-    }
-
-    public ScriptMetainfoSpec getMetainfo() {
-        return metainfo;
-    }
-
-    public void setMetainfo(ScriptMetainfoSpec metainfo) {
-        this.metainfo = metainfo;
-    }
-
-    public List<EntityOverview> getPersonages() {
-        return personages;
-    }
-
-    public void setPersonages(List<EntityOverview> personages) {
-        this.personages = personages;
-    }
-
-    public SceneOverview getScene() {
-        return scene;
-    }
-
-    public void setScene(SceneOverview scene) {
-        this.scene = scene;
-    }
-
-    public List<EntityOverview> getDetectives() {
-        return detectives;
-    }
-
-    public void setDetectives(List<EntityOverview> detectives) {
-        this.detectives = detectives;
+    public ScriptOverview(ScriptEntry entry, ScriptDocument document) {
+        this.entry = entry;
+        this.document = document;
     }
 }

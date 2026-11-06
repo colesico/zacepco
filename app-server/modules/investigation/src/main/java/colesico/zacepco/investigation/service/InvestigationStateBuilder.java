@@ -1,9 +1,9 @@
 package colesico.zacepco.investigation.service;
 
-import colesico.zacepco.investigation.model.DetectiveState;
-import colesico.zacepco.investigation.model.InvestigationState;
-import colesico.zacepco.investigation.model.LocationState;
-import colesico.zacepco.investigation.model.PersonageState;
+import colesico.zacepco.investigation.model.state.DetectiveState;
+import colesico.zacepco.investigation.model.state.InvestigationState;
+import colesico.zacepco.investigation.model.state.LocationState;
+import colesico.zacepco.investigation.model.state.PersonageState;
 import colesico.zacepco.script.model.scriptdoc.DetectiveSpec;
 import colesico.zacepco.script.model.scriptdoc.ScriptDocument;
 

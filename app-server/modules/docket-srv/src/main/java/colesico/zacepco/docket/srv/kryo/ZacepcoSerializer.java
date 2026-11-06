@@ -1,6 +1,6 @@
 package colesico.zacepco.docket.srv.kryo;
 
-import colesico.zacepco.investigation.model.Stateless;
+import colesico.zacepco.investigation.model.state.Stateless;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.serializers.FieldSerializer;
 

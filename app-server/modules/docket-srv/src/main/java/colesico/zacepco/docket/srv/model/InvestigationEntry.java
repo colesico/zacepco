@@ -7,7 +7,7 @@ import colesico.framework.jdbirec.TagFilter;
 import colesico.framework.jdbirec.mediators.DateTextMediator;
 import colesico.zacepco.docket.srv.jdbi.InvestigationStateMediator;
 import colesico.zacepco.docket.srv.jdbi.InvestigationStatusMediator;
-import colesico.zacepco.investigation.model.InvestigationState;
+import colesico.zacepco.investigation.model.state.InvestigationState;
 
 import java.util.Date;
 

@@ -1,6 +1,6 @@
 package colesico.zacepco.docket.srv.kryo;
 
-import colesico.zacepco.investigation.model.*;
+import colesico.zacepco.investigation.model.state.*;
 import com.esotericsoftware.kryo.Kryo;
 
 import java.util.ArrayList;

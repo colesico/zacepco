@@ -11,9 +11,6 @@ import colesico.framework.telehttp.ParamName;
 import colesico.zacepco.docket.srv.model.ScriptEntry;
 import colesico.zacepco.docket.srv.service.ScriptService;
 import colesico.zacepco.docket.ui.dto.ScriptOverview;
-import colesico.zacepco.docket.ui.dto.EntityOverview;
-import colesico.zacepco.docket.ui.dto.LocationOverview;
-import colesico.zacepco.docket.ui.dto.SceneOverview;
 
 import java.util.List;
 
@@ -40,61 +37,10 @@ public class ScriptRestlet {
 
     @Route("./overview/:scriptEntryId")
     public ScriptOverview scriptOverview(Long scriptEntryId) {
-        try {
-            // var caseFile = caseFileService.findCaseFileById(caseFileId);
-            var scriptPackage = scriptService.scriptPackage(scriptEntryId);
-            var script = scriptPackage.script().read();
-            var scriptOverview = new ScriptOverview();
-
-            scriptOverview.scriptEntryId = scriptEntryId;
-            scriptOverview.metainfo = script.metainfo;
-
-            for (var personage : script.crime.personages) {
-                if (personage.hidden) {
-                    continue;
-                }
-                var persOverview = new EntityOverview();
-                persOverview.id = personage.id.toString();
-                persOverview.asset = personage.asset().toString();
-                persOverview.name = personage.name;
-                persOverview.description = personage.description;
-                scriptOverview.personages.add(persOverview);
-            }
-
-            for (var detective : script.investigation.detectives) {
-                var detOverview = new EntityOverview();
-                detOverview.id = detective.id.toString();
-                detOverview.asset = detective.asset().toString();
-                detOverview.name = detective.name;
-                detOverview.description = detective.description;
-                scriptOverview.detectives.add(detOverview);
-            }
-
-            SceneOverview sceneOverview = new SceneOverview();
-            scriptOverview.scene = sceneOverview;
-
-            sceneOverview.cols = script.crime.scene.size.cols;
-            sceneOverview.rows = script.crime.scene.size.rows;
-
-            for (var location : script.crime.scene.locations) {
-                if (location.hidden) {
-                    continue;
-                }
-                var locOverview = new LocationOverview();
-                locOverview.id = location.id.toString();
-                locOverview.asset = location.asset().toString();
-                locOverview.name = location.name;
-                locOverview.description = location.description;
-                locOverview.col = location.pos.col;
-                locOverview.row = location.pos.row;
-                sceneOverview.locations.add(locOverview);
-            }
-
-            return scriptOverview;
-
-        } catch (Exception ex) {
-            throw new RuntimeException(ex);
-        }
+        var scriptEntry = scriptService.findScriptEntryById(scriptEntryId).get();
+        var scriptPackage = scriptService.scriptPackage(scriptEntryId);
+        var scriptDoc = scriptPackage.script().read();
+        return new ScriptOverview(scriptEntry, scriptDoc);
     }
 
 }
