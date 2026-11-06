@@ -1,6 +1,8 @@
 package colesico.zacepco.investigation.service;
 
 import colesico.zacepco.investigation.model.InvestigationState;
+import colesico.zacepco.investigation.model.LocationPos;
+import colesico.zacepco.investigation.model.SceneSize;
 import colesico.zacepco.script.model.scriptdoc.ScriptDocument;
 
 public class InvestigationStateEnricher {
@@ -32,15 +34,15 @@ public class InvestigationStateEnricher {
     }
 
     private void enrichScene() {
-        state.scene.title = script.crime.scene.title;
-        state.scene.cols = script.crime.scene.size.cols;
-        state.scene.rows = script.crime.scene.size.rows;
+        state.scene.name = script.crime.scene.name;
+        state.scene.size = new SceneSize(script.crime.scene.size.cols, script.crime.scene.size.rows);
 
         for (var locationSpec : script.crime.scene.locations) {
             var locationState = state.scene.locations.get(locationSpec.id.toString());
             locationState.name = locationSpec.name;
             locationState.description = locationSpec.description;
             locationState.ref = locationSpec.ref;
+            locationState.pos = new LocationPos(locationSpec.pos.col, locationSpec.pos.row);
         }
     }
 }

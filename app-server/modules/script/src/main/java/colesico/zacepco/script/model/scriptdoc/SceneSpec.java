@@ -9,8 +9,8 @@ import java.util.stream.Collectors;
 
 public final class SceneSpec {
 
-    @YamlComment(text = "Scene title")
-    public String title;
+    @YamlComment(text = "Scene short name")
+    public String name;
 
     /**
      * Scene size

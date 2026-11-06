@@ -21,6 +21,8 @@ public class LocationState {
     @Stateless
     public String ref;
 
+    @Stateless
+    public LocationPos pos;
 
     /**
      * Location uncover state

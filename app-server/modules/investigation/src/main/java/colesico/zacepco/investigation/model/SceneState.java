@@ -6,13 +6,10 @@ import java.util.Map;
 public class SceneState {
 
     @Stateless
-    public String title;
+    public String name;
 
     @Stateless
-    public Integer rows;
-
-    @Stateless
-    public Integer cols;
+    public SceneSize size;
 
     public final Map<String, LocationState> locations = new LinkedHashMap<>();
 }
