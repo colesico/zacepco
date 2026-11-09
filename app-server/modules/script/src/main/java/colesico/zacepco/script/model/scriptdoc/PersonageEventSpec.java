@@ -10,6 +10,9 @@ import colesico.zacepco.script.yaml.YamlComment;
  */
 public final class PersonageEventSpec {
 
+    @YamlComment(text = "Time tick id")
+    public TickSpec.Id tick;
+
     /**
      * The location the character was inside.
      */

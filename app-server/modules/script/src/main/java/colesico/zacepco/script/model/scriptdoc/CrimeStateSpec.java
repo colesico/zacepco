@@ -1,17 +1,16 @@
 package colesico.zacepco.script.model.scriptdoc;
 
 import colesico.zacepco.script.yaml.YamlComment;
+import colesico.zacepco.script.yaml.YamlCompact;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 /**
- * Crime world specification
+ * Crime state specification
  * Is a top-level element that encapsulates a specific crime scene environment,
  * its timeline, and all associated elements (the crime scene, characters, and clues)
  */
-public final class CrimeSpec {
+public final class CrimeStateSpec {
 
     @YamlComment(text = {
             "Crime timeline. Defines possible ticks",
@@ -51,6 +50,18 @@ public final class CrimeSpec {
             ""
     })
     public List<ClueSpec> clues = new ArrayList<>();
+
+
+    @YamlComment(text = {
+            "Initially hidden personages or locations"
+    })
+    @YamlCompact
+    public List<EntitySpec.UID> hiddenEntities = new ArrayList<>();
+
+    @YamlComment(text = "Initially exposed clues for personages or locations")
+    @YamlCompact
+    public Map<EntitySpec.UID, List<ClueSpec.Id>> exposedClues = new LinkedHashMap<>();
+
 
     public Optional<PersonageSpec> findPersonageById(PersonageSpec.Id id) {
         return personages.stream()
