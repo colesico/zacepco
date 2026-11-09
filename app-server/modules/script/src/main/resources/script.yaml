@@ -91,20 +91,22 @@ crime:
     placeholders:
       color: red
       val: Some value
-
-    exposedClues: [C1, C2]
-
+    
     # Initially hidden personage or not
     # Default: false
     hidden: false
+    
+    # Initially exposed clues for this personage
+    exposedClues: [C1, C2]
   
   # 
   # Crime scene definition
   # 
   scene:
-
+    
+    # Scene short name
     name: Maryno estate
-
+    
     # Grid size for locations placement
     size:
       rows: 3 # Rows number
@@ -174,10 +176,15 @@ investigation:
   # Investigation budget in resource units
   # Default: 2147483647
   budget: 9
-
+  
+  # Entities to be open along with this clue
+  # For example, this is a hidden location or a hidden personage
   clueOpens:
-    C1: [L2]
-    C4: [P5]
+    C1:
+    - L2
+    C4:
+    - P5
+  
   # 
   # Location search specification
   # 
