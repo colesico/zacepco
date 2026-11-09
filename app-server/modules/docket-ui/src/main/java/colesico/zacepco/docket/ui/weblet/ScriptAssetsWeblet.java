@@ -35,8 +35,8 @@ public class ScriptAssetsWeblet {
         var res = switch (asset) {
             case "S" -> sp.scriptImage();
             default -> {
-                var uid = EntitySpec.UID.parse(asset);
-                yield sp.entityImage(uid);
+                var entityId = EntitySpec.UID.parse(asset);
+                yield sp.entityImage(entityId);
             }
         };
 

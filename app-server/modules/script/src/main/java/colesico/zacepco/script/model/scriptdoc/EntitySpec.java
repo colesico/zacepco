@@ -38,12 +38,6 @@ public abstract class EntitySpec<ID extends EntitySpec.UID> {
     public String description = "Description";
 
     @YamlComment(text = {
-            "Image asset ID",
-            "Format: [A-Z0-9_]{1,16}"
-    })
-    public String asset;
-
-    @YamlComment(text = {
             "Reference script ID",
             "If this entity is imported from another script, specify the ID of that reference script."
     })
@@ -97,7 +91,7 @@ public abstract class EntitySpec<ID extends EntitySpec.UID> {
 
         public static UID parse(String uid) {
             if (StringUtils.isBlank(uid)) {
-                return null;
+                throw new RuntimeException("Empty UID string");
             }
             Type type = Type.of(uid.charAt(0));
             if (type == null) {

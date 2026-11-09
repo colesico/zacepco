@@ -36,7 +36,7 @@ public class ScriptPackage implements Closeable {
 
     protected static final Pattern[] validResources = {
             Pattern.compile("^script\\.(yaml|png)$"),
-            Pattern.compile("^([PCLD])/[A-Z0-9_]{1,16}(\\.png)$"),
+            Pattern.compile("^(P/P|C/C|L/L|D/D)[A-Z0-9]{1,3}(\\.png)$"),
             Pattern.compile("^([PCLD])/card\\.png$"),
     };
 
@@ -86,8 +86,8 @@ public class ScriptPackage implements Closeable {
         return new Resource(ResourcePath.of(SCRIPT_IMAGE), packageDriver);
     }
 
-    public Resource entityImage(EntitySpec entity) {
-        return new Resource(ResourcePath.of(entity.id.type().code + "/" + entity.asset + ENTITY_IMAGE_SUFFIX), packageDriver);
+    public Resource entityImage(EntitySpec.UID entityId) {
+        return new Resource(ResourcePath.of(entityId.type().code + "/" + entityId + ENTITY_IMAGE_SUFFIX), packageDriver);
     }
 
     /**

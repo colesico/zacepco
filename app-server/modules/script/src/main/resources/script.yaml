@@ -82,10 +82,6 @@ crime:
     description: |
       Knows all the secrets and secret passages,  is cold-blooded, has the perfect motive for murder.
     
-    # Image asset ID
-    # Format: [A-Z0-9_]{1,16}
-    asset: BUTLER
-    
     # Reference script ID
     # If this entity is imported from another script, specify the ID of that reference script.
     ref: ZACEPCO
@@ -119,8 +115,6 @@ crime:
       description: |
         A gloomy study with $color shadows  shaped like Rorschach blots.
       ref: ZACEPCO
-      
-      asset: LIBRARY
       placeholders:
         color: dark
         val: Some value
@@ -163,7 +157,6 @@ crime:
     description: |
       A Camel cigarette butt
     ref: ZACEPCO
-    asset: BUTT
     placeholders:
       time: '10:30'
       val: Some value
