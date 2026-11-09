@@ -19,7 +19,6 @@ public abstract class EntitySpec<ID extends EntitySpec.UID> {
      */
     @YamlComment(text = {
             "Unique within script ID",
-            "Must match the corresponding asset ID",
             "Format: [PLCTD][A-Z0-9]{1,3}"
     })
     public ID id;
@@ -39,10 +38,10 @@ public abstract class EntitySpec<ID extends EntitySpec.UID> {
     public String description = "Description";
 
     @YamlComment(text = {
-            "Optional asset ID",
-            "Used when appropriate asset id is not match the entity id",
+            "Image asset ID",
+            "Format: [A-Z0-9_]{1,16}"
     })
-    public ID asset;
+    public String asset;
 
     @YamlComment(text = {
             "Reference script ID",
@@ -50,16 +49,11 @@ public abstract class EntitySpec<ID extends EntitySpec.UID> {
     })
     public String ref;
 
-
     @YamlComment(text = {
             "Placeholder values",
             "Map of placeholder names to values substituted into the entity's description or name"
     })
     public Map<String, String> placeholders = new HashMap<>();
-
-    public ID asset() {
-        return asset != null ? asset : id;
-    }
 
     @Override
     public final boolean equals(Object o) {

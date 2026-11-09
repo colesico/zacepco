@@ -20,6 +20,23 @@ public final class LocationSpec extends EntitySpec<LocationSpec.Id> {
     })
     public LocationPosSpec pos = new LocationPosSpec();
 
+    /**
+     * Hidden location or not
+     */
+    @YamlComment(text = {
+            "Initially hidden location or not",
+            "Default: false"
+    })
+    public Boolean hidden = false;
+
+    /**
+     * Initially revealed clues for this location
+     */
+    @YamlComment(text = "Initially exposed clues for this location")
+    @YamlCompact
+    public List<ClueSpec.Id> exposedClues = new ArrayList<>();
+
+
     public static final class Id extends UID {
 
         public Id(String key) {

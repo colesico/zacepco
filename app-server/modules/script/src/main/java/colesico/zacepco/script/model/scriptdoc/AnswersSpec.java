@@ -17,6 +17,13 @@ public final class AnswersSpec {
     public String fabula;
 
     @YamlComment(text = {
+            "False clues",
+            "Used as answers to verify the investigation's findings and results"
+    })
+    @YamlCompact
+    public List<ClueSpec.Id> falsityClues = new ArrayList<>();
+
+    @YamlComment(text = {
             "Personages event log for each time tick",
             "Each element of the log array corresponds to a time tick",
             "Used to verify the investigation's findings (answers)"
@@ -29,13 +36,6 @@ public final class AnswersSpec {
             "Used to verify the investigation's findings as answers"
     })
     public Map<LocationSpec.Id, List<LocationEventSpec>> locationLogs = new LinkedHashMap<>();
-
-    @YamlComment(text = {
-            "False clues",
-            "Used as answers to verify the investigation's findings and results"
-    })
-    @YamlCompact
-    public List<ClueSpec.Id> falsityClues = new ArrayList<>();
 
     @YamlComment(text = {
             "Target entities that this clue leads to",

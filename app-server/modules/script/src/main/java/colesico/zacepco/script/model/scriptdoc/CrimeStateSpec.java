@@ -52,17 +52,6 @@ public final class CrimeStateSpec {
     public List<ClueSpec> clues = new ArrayList<>();
 
 
-    @YamlComment(text = {
-            "Initially hidden personages or locations"
-    })
-    @YamlCompact
-    public List<EntitySpec.UID> hiddenEntities = new ArrayList<>();
-
-    @YamlComment(text = "Initially exposed clues for personages or locations")
-    @YamlCompact
-    public Map<EntitySpec.UID, List<ClueSpec.Id>> exposedClues = new LinkedHashMap<>();
-
-
     public Optional<PersonageSpec> findPersonageById(PersonageSpec.Id id) {
         return personages.stream()
                 .filter(user -> user.id.equals(id))

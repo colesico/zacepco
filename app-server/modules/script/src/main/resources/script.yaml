@@ -50,7 +50,7 @@ metainfo:
   age: 18+
 
 # 
-# Crime specification
+# Crime state specification
 # Describes entire crime environment
 # 
 crime:
@@ -72,7 +72,6 @@ crime:
   personages:
   - 
     # Unique within script ID
-    # Must match the corresponding asset ID
     # Format: [PLCTD][A-Z0-9]{1,3}
     id: P1
     
@@ -83,9 +82,9 @@ crime:
     description: |
       Knows all the secrets and secret passages,  is cold-blooded, has the perfect motive for murder.
     
-    # Optional asset ID
-    # Used when appropriate asset id is not match the entity id
-    asset: P1
+    # Image asset ID
+    # Format: [A-Z0-9_]{1,16}
+    asset: BUTLER
     
     # Reference script ID
     # If this entity is imported from another script, specify the ID of that reference script.
@@ -100,29 +99,11 @@ crime:
     # Initially hidden personage or not
     # Default: false
     hidden: false
-    
-    # Initially exposed clues for this personage
-    exposedClues: [C1, C2]
-    
-    # Personage event log for each time tick
-    # Each element of the array corresponds to a time tick, starting from 1.
-    # Used to verify the investigation's findings (answers)
-    log:
-    - 
-      # Personage destination location for tick
-      # Initial character location not specified - it refers to the previous tick
-      location: L2
-      
-      # Clue linked to this personage during the tick
-      clue: C2
   
   # 
   # Crime scene definition
   # 
   scene:
-    
-    # Scene title
-    title: Maryino Estate
     
     # Grid size for locations placement
     size:
@@ -138,6 +119,8 @@ crime:
       description: |
         A gloomy study with $color shadows  shaped like Rorschach blots.
       ref: ZACEPCO
+      
+      asset: LIBRARY
       placeholders:
         color: dark
         val: Some value
@@ -154,17 +137,6 @@ crime:
       
       # Initially exposed clues for this location
       exposedClues: [C1, C2]
-      
-      # Location event log for each time tick
-      # Each element of the array corresponds to a time tick, starting from 1
-      # Used to verify the investigation's findings as answers
-      log:
-      - 
-        # Personages whose destination is this location for the given tick
-        personages: [P1, P2]
-        
-        # Clues linked to this location during the tick
-        clues: [C1, C2]
     
     # Ways between two locations.
     # Always connects only two locations, direction does not matter.
@@ -191,25 +163,14 @@ crime:
     description: |
       A Camel cigarette butt
     ref: ZACEPCO
+    asset: BUTT
     placeholders:
       time: '10:30'
       val: Some value
-    
-    # False clue or not
-    # Used as answers to verify the investigation's findings and results
-    # Default: false
-    falsity: true
-    
-    # Entities to be open along with this clue
-    # For example, this is a hidden location or a hidden personage
-    open: [L2]
-    
-    # Target entities that this clue leads to
-    # Used as answers to verify the investigation results
-    leads: [P1]
 
 # 
 # Investigation spec
+# Describes
 # 
 investigation:
   
@@ -307,6 +268,39 @@ answers:
   # Full crime fabula
   fabula: |
     The Gardener killed the Butler,  buried the body under a birch tree in the garden,  and burned the evidence in the fireplace in the library.
+  
+  # False clues
+  # Used as answers to verify the investigation's findings and results
+  falsityClues: [C1, C2]
+  
+  # Personages event log for each time tick
+  # Each element of the log array corresponds to a time tick
+  # Used to verify the investigation's findings (answers)
+  personageLogs:
+    P1:
+    - tick: T1
+      location: L2
+      clue: C1
+  
+  # Location event log for each time tick
+  # Each element of the array corresponds to a time tick
+  # Used to verify the investigation's findings as answers
+  locationLogs:
+    L1:
+    - tick: T3
+      personages:
+      - P1
+      - P2
+      clues:
+      - C1
+      - C2
+  
+  # Target entities that this clue leads to
+  # Used as answers to verify the investigation results
+  clueLeads:
+    C1:
+    - L1
+    - L2
   
   # Planned crime solving strategy.
   # Specify field:
