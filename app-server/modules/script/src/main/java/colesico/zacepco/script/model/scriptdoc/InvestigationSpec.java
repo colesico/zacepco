@@ -22,16 +22,12 @@ public final class InvestigationSpec {
     })
     public Integer budget = Integer.MAX_VALUE;
 
-
-    /**
-     * Entities to be open along with this clue
-     */
     @YamlComment(text = {
-            "Entities to be open along with this clue",
-            "For example, this is a hidden location or a hidden personage"
+            "Entities to be reveal (open) along with given clue",
+            "For example, C1 reveals a hidden way or a hidden personage"
     })
     @YamlCompact
-    public Map<ClueSpec.Id, List<EntitySpec.UID>> clueOpens = new LinkedHashMap<>();
+    public Map<ClueSpec.Id, List<TId>> revealChain = new LinkedHashMap<>();
 
     /**
      * Location search

@@ -6,19 +6,19 @@ import colesico.zacepco.script.yaml.YamlCompact;
 import java.util.*;
 
 /**
- * Crime state specification
+ * Crime specification
  * Is a top-level element that encapsulates a specific crime scene environment,
  * its timeline, and all associated elements (the crime scene, characters, and clues)
  */
-public final class CrimeStateSpec {
+public final class CrimeSpec {
 
     @YamlComment(text = {
-            "Crime timeline. Defines possible ticks",
-            "Timestamp format example: 10:00 or with date 2025-01-02T20:00",
-            "Specify either the time only or the date-time only",
-            "Mixing formats is not allowed"
+            "Crime timeline. Defines all possible ticks",
+            "Example: T1: 10:00 or with date  T2: 2025-01-02T20:00",
+            "Specify either the time only or the date-time only, mixing formats is not allowed."
     })
-    public List<TickSpec> timeline = new ArrayList<>();
+    @YamlCompact
+    public Map<TickSpec.Id, TickSpec> timeline = new LinkedHashMap<>();
 
     /**
      * Characters dictionary

@@ -11,6 +11,12 @@ import java.util.Set;
  */
 public class WaySpec {
 
+    @YamlComment(text = {
+            "Way id",
+            "Format: W[0-9A-Z]{1,3}"
+    })
+    public Id id;
+
     /**
      * Related locations
      */
@@ -40,4 +46,17 @@ public class WaySpec {
         this.locations = locations;
     }
 
+
+    public static final class Id extends TId {
+
+        public Id(String key) {
+            super(key);
+        }
+
+        @Override
+        public Type type() {
+            return Type.WAY;
+        }
+
+    }
 }

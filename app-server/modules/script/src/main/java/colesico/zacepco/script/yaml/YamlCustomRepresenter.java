@@ -37,12 +37,14 @@ public class YamlCustomRepresenter extends Representer {
         // Регистрация кастомных репрезентеров
         this.representers.put(LocalDate.class, new RepresentLocalDate());
         this.representers.put(LocalDateTime.class, new RepresentLocalDateTime());
-        this.representers.put(LocationSpec.Id.class, new RepresentEntityId());
-        this.representers.put(PersonageSpec.Id.class, new RepresentEntityId());
-        this.representers.put(ClueSpec.Id.class, new RepresentEntityId());
-        this.representers.put(TickSpec.Id.class, new RepresentEntityId());
-        this.representers.put(DetectiveSpec.Id.class, new RepresentEntityId());
-        this.representers.put(EntitySpec.UID.class, new RepresentEntityId());
+        this.representers.put(LocationSpec.Id.class, new RepresentTID());
+        this.representers.put(WaySpec.Id.class, new RepresentTID());
+        this.representers.put(PersonageSpec.Id.class, new RepresentTID());
+        this.representers.put(ClueSpec.Id.class, new RepresentTID());
+        this.representers.put(TickSpec.Id.class, new RepresentTID());
+        this.representers.put(DetectiveSpec.Id.class, new RepresentTID());
+        this.representers.put(TId.class, new RepresentTID());
+        this.representers.put(TickSpec.class, new RepresentTickSpec());
 
     }
 
@@ -170,12 +172,20 @@ public class YamlCustomRepresenter extends Representer {
         }
     }
 
-    private class RepresentEntityId implements Represent {
+    private class RepresentTID implements Represent {
         @Override
         public Node representData(Object data) {
-            EntitySpec.UID entityId = (EntitySpec.UID) data;
+            TId entityId = (TId) data;
             String id = entityId.toString();
             return representScalar(Tag.STR, id);
+        }
+    }
+
+    private class RepresentTickSpec implements Represent {
+        @Override
+        public Node representData(Object data) {
+            TickSpec tick = (TickSpec) data;
+            return new RepresentLocalDateTime().representData(tick.timestamp);
         }
     }
 }

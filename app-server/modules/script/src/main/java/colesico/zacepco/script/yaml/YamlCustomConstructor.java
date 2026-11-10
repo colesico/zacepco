@@ -1,6 +1,7 @@
 package colesico.zacepco.script.yaml;
 
-import colesico.zacepco.script.model.scriptdoc.EntitySpec;
+import colesico.zacepco.script.model.scriptdoc.TId;
+import colesico.zacepco.script.model.scriptdoc.TickSpec;
 import org.yaml.snakeyaml.LoaderOptions;
 import org.yaml.snakeyaml.constructor.AbstractConstruct;
 import org.yaml.snakeyaml.constructor.Construct;
@@ -23,15 +24,21 @@ public class YamlCustomConstructor extends Constructor {
 
     @Override
     protected Construct getConstructor(Node node) {
+
+        if (node.getType() == TickSpec.class) {
+            return new ConstructTickSpec();
+        }
+
         if (node.getType() == LocalDateTime.class) {
             return new ConstructLocalDateTime();
         }
+
         if (node.getType() == LocalDate.class) {
             return new ConstructLocalDate();
         }
 
-        if (EntitySpec.UID.class.isAssignableFrom(node.getType())) {
-            return new ConstructEntityId();
+        if (TId.class.isAssignableFrom(node.getType())) {
+            return new ConstructTID();
         }
 
         return super.getConstructor(node);
@@ -57,11 +64,19 @@ public class YamlCustomConstructor extends Constructor {
         }
     }
 
-    static class ConstructEntityId extends AbstractConstruct {
+    static class ConstructTID extends AbstractConstruct {
         @Override
         public Object construct(Node node) {
             String value = ((ScalarNode) node).getValue();
-            return EntitySpec.UID.parse(value);
+            return TId.parse(value);
+        }
+    }
+
+    static class ConstructTickSpec extends AbstractConstruct {
+        @Override
+        public Object construct(Node node) {
+            String ts = ((ScalarNode) node).getValue();
+            return new TickSpec(ts);
         }
     }
 }

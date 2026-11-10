@@ -5,7 +5,7 @@ package colesico.zacepco.script.model.scriptdoc;
  */
 public final class ClueSpec extends EntitySpec<ClueSpec.Id> {
 
-    public static final class Id extends UID {
+    public static final class Id extends TId {
 
         public Id(String key) {
             super(key);

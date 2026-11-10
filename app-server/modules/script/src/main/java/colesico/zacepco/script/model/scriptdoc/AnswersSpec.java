@@ -42,7 +42,7 @@ public final class AnswersSpec {
             "Used as answers to verify the investigation results"
     })
     @YamlCompact
-    public Map<ClueSpec.Id,List<EntitySpec.UID>> clueLeads = new LinkedHashMap<>();
+    public Map<ClueSpec.Id,List<TId>> clueLeads = new LinkedHashMap<>();
 
     @YamlComment(text = {
             "Planned crime solving strategy. ",

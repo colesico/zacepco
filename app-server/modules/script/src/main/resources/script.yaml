@@ -50,20 +50,17 @@ metainfo:
   age: 18+
 
 # 
-# Crime state specification
-# Describes entire crime environment
+# Crime specification
+# Describes entire crime environment (entities, state)
 # 
 crime:
   
-  # Crime timeline. Defines possible ticks
-  # Timestamp format example: 10:00 or with date 2025-01-02T20:00
-  # Specify either the time only or the date-time only
-  # Mixing formats is not allowed
+  # Crime timeline. Defines all possible ticks
+  # Example: T1: 10:00 or with date  T2: 2025-01-02T20:00
+  # Specify either the time only or the date-time only, mixing formats is not allowed.
   timeline:
-  - id: T1
-    timestamp: '10:00'
-  - id: T2
-    timestamp: 2025-01-02T11:15
+    T1: '10:00'
+    T2: 2025-01-02T11:15
   
   # 
   # Personages dictionary.
@@ -72,7 +69,7 @@ crime:
   personages:
   - 
     # Unique within script ID
-    # Format: [PLCTD][A-Z0-9]{1,3}
+    # Format: [PLCT][A-Z0-9]{1,3}
     id: P1
     
     # Short name
@@ -143,6 +140,10 @@ crime:
     # There can be only one direct way between two locations
     ways:
     - 
+      # Way id
+      # Format: W[0-9A-Z]{1,3}
+      id: W1
+      
       # IDs of the two connected locations
       locations: [L1, L2]
       
@@ -169,7 +170,7 @@ crime:
 
 # 
 # Investigation spec
-# Describes
+# Describes relationships between crime entities for discovery
 # 
 investigation:
   
@@ -177,13 +178,14 @@ investigation:
   # Default: 2147483647
   budget: 9
   
-  # Entities to be open along with this clue
-  # For example, this is a hidden location or a hidden personage
-  clueOpens:
+  # Entities to be reveal (open) along with given clue
+  # For example, C1 reveals a hidden way or a hidden personage
+  revealChain:
     C1:
+    - W1
     - L2
-    C4:
-    - P5
+    C3:
+    - P4
   
   # 
   # Location search specification
@@ -263,9 +265,13 @@ investigation:
   # A subset of which can participate in the investigation
   # 
   detectives:
-  - id: D1
+  - 
+    # Unique detective ID
+    # Format: D[A-Z0-9]{1,3}
+    id: D1
+    
+    # Detective name
     name: Sherlock Holmes
-    description: Famous detective
 
 # 
 # General answers

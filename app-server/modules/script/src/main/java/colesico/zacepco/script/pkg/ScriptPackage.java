@@ -2,7 +2,7 @@ package colesico.zacepco.script.pkg;
 
 import colesico.framework.ioc.message.IocMessage;
 import colesico.framework.ioc.scope.Unscoped;
-import colesico.zacepco.script.model.scriptdoc.EntitySpec;
+import colesico.zacepco.script.model.scriptdoc.TId;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -86,7 +86,7 @@ public class ScriptPackage implements Closeable {
         return new Resource(ResourcePath.of(SCRIPT_IMAGE), packageDriver);
     }
 
-    public Resource entityImage(EntitySpec.UID entityId) {
+    public Resource entityImage(TId entityId) {
         return new Resource(ResourcePath.of(entityId.type().code + "/" + entityId + ENTITY_IMAGE_SUFFIX), packageDriver);
     }
 

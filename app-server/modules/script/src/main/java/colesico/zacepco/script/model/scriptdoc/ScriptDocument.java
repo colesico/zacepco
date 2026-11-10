@@ -19,11 +19,11 @@ public final class ScriptDocument {
 
     @YamlComment(text = {
             "",
-            "Crime state specification",
-            "Describes entire crime environment",
+            "Crime specification",
+            "Describes entire crime environment (entities, state)",
             ""
     })
-    public CrimeStateSpec crime = new CrimeStateSpec();
+    public CrimeSpec crime = new CrimeSpec();
 
     /**
      * Investigation spec
@@ -31,7 +31,7 @@ public final class ScriptDocument {
     @YamlComment(text = {
             "",
             "Investigation spec",
-            "Describes ",
+            "Describes relationships between crime entities for discovery",
             ""
     })
     public InvestigationSpec investigation = new InvestigationSpec();
