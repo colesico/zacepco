@@ -9,6 +9,10 @@ import java.util.List;
 /**
  * Scene location
  */
+@YamlComment(text = {
+        "Unique location ID",
+        "Format: L[A-Z0-9]{1,3}"
+}, field = "id")
 public final class LocationSpec extends EntitySpec<LocationSpec.Id> {
 
     /**

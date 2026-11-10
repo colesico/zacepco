@@ -71,7 +71,7 @@ public class InvestigationStateBuilder {
     }
 
     private Map<String, PersonageState> buildPersonageStates() {
-        return script.crime.personages.stream()
+        return script.crime.personages.values().stream()
                 .collect(Collectors.toMap(
                         per -> per.id.toString(),
                         per -> {
@@ -88,7 +88,7 @@ public class InvestigationStateBuilder {
     }
 
     private Map<String, LocationState> buildLocationStates() {
-        return script.crime.scene.locations.stream()
+        return script.crime.scene.locations.values().stream()
                 .collect(Collectors.toMap(
                         loc -> loc.id.toString(),
                         loc -> {

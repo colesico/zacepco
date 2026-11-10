@@ -2,9 +2,7 @@ package colesico.zacepco.script.model.scriptdoc;
 
 import colesico.zacepco.script.yaml.YamlComment;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public final class SceneSpec {
@@ -24,28 +22,30 @@ public final class SceneSpec {
     @YamlComment(text = {
             "",
             "Locations dictionary",
+            "Location ID - unique within script",
+            "ID format: L[A-Z0-9]{1,3}",
             ""
     })
-    public List<LocationSpec> locations = new ArrayList<>();
+    public Map<LocationSpec.Id, LocationSpec> locations = new LinkedHashMap<>();
 
     /**
      * Passages dictionary
      */
     @YamlComment(text = {
-            "Ways between two locations.",
-            "Always connects only two locations, direction does not matter.",
-            "There can be only one direct way between two locations"
+            "Ways between two locations",
+            "Always connects only two locations, direction does not matter",
+            "There can be only one direct way between two locations",
     })
     public List<WaySpec> ways = new ArrayList<>();
 
     public Optional<LocationSpec> findLocationById(LocationSpec.Id id) {
-        return locations.stream()
+        return locations.values().stream()
                 .filter(loc -> loc.id.equals(id))
                 .findFirst();
     }
 
     public Optional<LocationSpec> findLocationByPos(LocationPosSpec pos) {
-        return locations.stream()
+        return locations.values().stream()
                 .filter(loc -> loc.pos.equals(pos))
                 .findFirst();
     }

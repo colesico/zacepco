@@ -9,13 +9,13 @@ import java.util.Set;
 /**
  * Unidirectional way between two locations
  */
-public class WaySpec {
-
-    @YamlComment(text = {
-            "Way id",
-            "Format: W[0-9A-Z]{1,3}"
-    })
-    public Id id;
+@YamlComment(text =
+        {
+                "Restrictions or characteristics of the way",
+                "Restriction used by detectives to estimate the travel time and whether a personage can move along it"
+        },
+        field = "description")
+public class WaySpec extends EntitySpec<WaySpec.Id> {
 
     /**
      * Related locations
@@ -23,12 +23,6 @@ public class WaySpec {
     @YamlComment(text = "IDs of the two connected locations")
     @YamlCompact
     public Set<LocationSpec.Id> locations = new HashSet<>();
-
-    @YamlComment(text = {
-            "Restrictions or characteristics of the way",
-            "Used by detectives to estimate the travel time and whether a personage can move along it"
-    })
-    public String description;
 
     /**
      * Is hidden passage

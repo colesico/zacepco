@@ -42,17 +42,17 @@ public class ScriptAssetsService {
         iconize(scriptEntryId, posterResource, ImageScale.THUMB);
         var script = scriptPackage.script().read();
 
-        for (var personage : script.crime.personages) {
+        for (var personage : script.crime.personages.values()) {
             var personageResource = scriptPackage.entityImage(personage.id);
             iconize(scriptEntryId, personageResource, ImageScale.THUMB);
         }
 
-        for (var location : script.crime.scene.locations) {
+        for (var location : script.crime.scene.locations.values()) {
             var locationResource = scriptPackage.entityImage(location.id);
             iconize(scriptEntryId, locationResource, ImageScale.THUMB);
         }
 
-        for (var clue : script.crime.clues) {
+        for (var clue : script.crime.clues.values()) {
             var clueResource = scriptPackage.entityImage(clue.id);
             iconize(scriptEntryId, clueResource, ImageScale.THUMB);
         }

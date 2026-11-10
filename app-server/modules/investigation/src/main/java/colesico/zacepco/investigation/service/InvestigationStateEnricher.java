@@ -25,7 +25,7 @@ public class InvestigationStateEnricher {
     }
 
     private void enrichPersonages() {
-        for (var personageSpec : script.crime.personages) {
+        for (var personageSpec : script.crime.personages.values()) {
             var personageState = state.personages.get(personageSpec.id.toString());
             personageState.name = personageSpec.name;
             personageState.description = personageSpec.description;
@@ -37,7 +37,7 @@ public class InvestigationStateEnricher {
         state.scene.name = script.crime.scene.name;
         state.scene.size = new SceneSize(script.crime.scene.size.cols, script.crime.scene.size.rows);
 
-        for (var locationSpec : script.crime.scene.locations) {
+        for (var locationSpec : script.crime.scene.locations.values()) {
             var locationState = state.scene.locations.get(locationSpec.id.toString());
             locationState.name = locationSpec.name;
             locationState.description = locationSpec.description;

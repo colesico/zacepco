@@ -109,27 +109,27 @@ crime:
     # Locations dictionary
     # 
     locations:
-    - id: L1
-      name: Cabinet
-      description: |
-        A gloomy study with $color shadows  shaped like Rorschach blots.
-      ref: ZACEPCO
-      placeholders:
-        color: dark
-        val: Some value
-      
-      # Location position on scene grid
-      # (1,1) - left top scene corner
-      pos:
-        col: 1
-        row: 1
-      
-      # Initially hidden location or not
-      # Default: false
-      hidden: false
-      
-      # Initially exposed clues for this location
-      exposedClues: [C1, C2]
+      L1:
+        name: Cabinet
+        description: |
+          A gloomy study with $color shadows  shaped like Rorschach blots.
+        ref: ZACEPCO
+        placeholders:
+          color: dark
+          val: Some value
+
+        # Location position on scene grid
+        # (1,1) - left top scene corner
+        pos:
+          col: 1
+          row: 1
+
+        # Initially hidden location or not
+        # Default: false
+        hidden: false
+
+        # Initially exposed clues for this location
+        exposedClues: [C1, C2]
     
     # Ways between two locations.
     # Always connects only two locations, direction does not matter.

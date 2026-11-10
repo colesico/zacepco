@@ -8,11 +8,14 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
- * Abstract entity model.
+ * Abstract game entity model.
  * This class must be extended by specific entities.
  */
-public abstract class EntitySpec<ID extends TId> implements ScriptReferencer {
+public abstract class EntitySpec<ID extends TId> {
 
+    /**
+     * Entity id
+     */
     @YamlIgnore
     public ID id;
 
@@ -31,8 +34,8 @@ public abstract class EntitySpec<ID extends TId> implements ScriptReferencer {
     public String description = "";
 
     @YamlComment(text = {
-            "Reference script ID",
-            "If this entity is imported from another script, specify the ID of that reference script."
+            "Referenced script ID",
+            "If this entity is imported from another script, specify the ID of that script"
     })
     public String ref;
 
@@ -41,11 +44,6 @@ public abstract class EntitySpec<ID extends TId> implements ScriptReferencer {
             "Map of placeholder names to values substituted into the entity's description or name"
     })
     public Map<String, String> placeholders = new HashMap<>();
-
-    @Override
-    public String ref() {
-        return ref;
-    }
 
     @Override
     public final boolean equals(Object o) {
