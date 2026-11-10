@@ -137,8 +137,21 @@ public class YamlCustomRepresenter extends Representer {
             YamlCompact compactAnnotation = property.getAnnotation(YamlCompact.class);
             if (compactAnnotation != null) {
                 Node valueNode = tuple.getValueNode();
-                if (valueNode instanceof SequenceNode) {
-                    ((SequenceNode) valueNode).setFlowStyle(DumperOptions.FlowStyle.FLOW);
+
+                // Случай 1: свойство само является коллекцией
+                if (valueNode instanceof SequenceNode seq) {
+                    seq.setFlowStyle(DumperOptions.FlowStyle.FLOW);
+                }
+
+                // Случай 2: свойство является Map, а её значения — списки
+                // (например, Map<ClueSpec.Id, List<TId>> revealChain)
+                if (valueNode instanceof MappingNode mappingNode) {
+                    for (NodeTuple entry : mappingNode.getValue()) {
+                        Node entryValue = entry.getValueNode();
+                        if (entryValue instanceof SequenceNode seq) {
+                            seq.setFlowStyle(DumperOptions.FlowStyle.FLOW);
+                        }
+                    }
                 }
             }
         }

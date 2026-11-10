@@ -181,11 +181,8 @@ investigation:
   # Entities to be reveal (open) along with given clue
   # For example, C1 reveals a hidden way or a hidden personage
   revealChain:
-    C1:
-    - W1
-    - L2
-    C3:
-    - P4
+    C1: [W1, L2]
+    C3: [P4]
   
   # 
   # Location search specification
@@ -311,9 +308,7 @@ answers:
   # Target entities that this clue leads to
   # Used as answers to verify the investigation results
   clueLeads:
-    C1:
-    - L1
-    - L2
+    C1: [L1, L2]
   
   # Planned crime solving strategy.
   # Specify field:
