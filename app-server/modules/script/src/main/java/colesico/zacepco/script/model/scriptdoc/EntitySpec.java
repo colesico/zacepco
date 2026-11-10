@@ -1,6 +1,7 @@
 package colesico.zacepco.script.model.scriptdoc;
 
 import colesico.zacepco.script.yaml.YamlComment;
+import colesico.zacepco.script.yaml.YamlIgnore;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,13 +13,7 @@ import java.util.Objects;
  */
 public abstract class EntitySpec<ID extends TId> implements ScriptReferencer {
 
-    /**
-     * Entity unique ID
-     */
-    @YamlComment(text = {
-            "Unique within script ID",
-            "Format: [PLCT][A-Z0-9]{1,3}"
-    })
+    @YamlIgnore
     public ID id;
 
     /**

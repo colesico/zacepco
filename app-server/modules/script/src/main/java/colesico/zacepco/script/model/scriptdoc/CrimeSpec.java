@@ -20,16 +20,16 @@ public final class CrimeSpec {
     @YamlCompact
     public Map<TickSpec.Id, TickSpec> timeline = new LinkedHashMap<>();
 
-    /**
-     * Characters dictionary
-     */
     @YamlComment(text = {
             "",
-            "Personages dictionary.",
+            "Personages dictionary",
             "Defines all personages involved in the crime",
+            "Personage ID - unique within script",
+            "ID format: P[A-Z0-9]{1,3}",
             ""
     })
-    public List<PersonageSpec> personages = new ArrayList<>();
+
+    public Map<PersonageSpec.Id, PersonageSpec> personages = new LinkedHashMap<>();
 
     /**
      * Scene
@@ -47,19 +47,21 @@ public final class CrimeSpec {
     @YamlComment(text = {
             "",
             "Clues dictionary",
+            "Defines all clues involved in the crime",
+            "Clue ID - unique within script",
+            "ID format: C[A-Z0-9]{1,3}",
             ""
     })
-    public List<ClueSpec> clues = new ArrayList<>();
-
+    public Map<ClueSpec.Id, ClueSpec> clues = new LinkedHashMap<>();
 
     public Optional<PersonageSpec> findPersonageById(PersonageSpec.Id id) {
-        return personages.stream()
+        return personages.values().stream()
                 .filter(user -> user.id.equals(id))
                 .findFirst();
     }
 
     public Optional<ClueSpec> findClueById(ClueSpec.Id id) {
-        return clues.stream()
+        return clues.values().stream()
                 .filter(cl -> cl.id.equals(id))
                 .findFirst();
     }

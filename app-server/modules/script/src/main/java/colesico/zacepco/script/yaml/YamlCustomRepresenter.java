@@ -48,9 +48,15 @@ public class YamlCustomRepresenter extends Representer {
 
     }
 
-    @Override
     protected Set<Property> getProperties(Class<? extends Object> type) {
-        return getPropertyUtils().getProperties(type);
+        Set<Property> properties = getPropertyUtils().getProperties(type);
+        Set<Property> filtered = new LinkedHashSet<>();
+        for (Property prop : properties) {
+            if (prop.getAnnotation(YamlIgnore.class) == null) {
+                filtered.add(prop);
+            }
+        }
+        return filtered;
     }
 
     @Override
