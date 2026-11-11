@@ -11,6 +11,6 @@ export async function createScriptEntry(file){
 	return await restletUtils.restletPost("/docket/api/script",formData,{});
 }
 
-export async function scriptOverview(scriptEntryId){
-	return await restletUtils.restletGet("/docket/api/script/overview/"+scriptEntryId);
+export async function scriptDocument(scriptEntryId){
+	return await restletUtils.restletGet("/docket/api/script/entry/"+scriptEntryId+"/document");
 }

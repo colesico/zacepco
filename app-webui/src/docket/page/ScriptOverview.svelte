@@ -11,23 +11,19 @@
 
   let error = $state(null);
   let loading = $state(true);
-
-  let overview = $state(null);
   let script = $state(null);
-  let entry = $state(null);
+  
   
   let entityDescription = $state(null);
 
   $inspect(error);
-  $inspect(overview);
+  $inspect(script);  
 
   $effect(() => {
     async function loadData() {
       try {
-        let o = await scriptApi.scriptOverview(id);
-		script = o.script;
-		entry = o.entry;
-		overview = o;
+        let o = await scriptApi.scriptDocument(id);
+		script = o;
       } catch (ex) {
         error = ex.data;
       } finally {
@@ -39,7 +35,7 @@
   });
 
   function getSceneLocation(row, col) {
-    return script.crime.scene.locations.find(
+    return Object.values(script.crime.scene.locations).find(
       (loc) => loc.pos.row === row && loc.pos.col === col
     );
   }
@@ -63,7 +59,7 @@
     />
   </UiLocalMenu>
 
-  {#if overview}
+  {#if script}
   
 
 	<h1>Дело "{script.metainfo.title}" #{script.metainfo.id}</h1>
@@ -83,6 +79,8 @@
         {script.metainfo.annotation}
       </p>
     </div>
+	
+	<br/>
 
     <!-- Внешняя строка-контейнер для двух колонок -->
     <div class="row">
@@ -142,7 +140,7 @@
 
     <!-- Сетка для карточек: 2 в ряд на мобильных, 3 на планшетах, 4 или 6 на десктопах -->
     <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-6 g-3 mb-5">
-      {#each script.crime.personages as personage}
+      {#each Object.values(script.crime.personages) as personage}
         <div class="col card-col">
           <!-- Карточка персонажа -->
           <div
@@ -153,7 +151,7 @@
             <!-- Контейнер для квадратного или пропорционального фото -->
             <div class="ratio ratio-1x1 card-img-top overflow-hidden rounded-top">
               <img
-                src="/docket/script-assets/images/thumb/{id}/{personage.asset}"
+                src="/docket/script-assets/images/thumb/{id}/{personage.id}"
                 alt={personage.name}
                 class="object-fit-cover"
               />
@@ -182,7 +180,7 @@
           <div class="grid-item">
             {#if location}
               <img
-                src="/docket/script-assets/images/thumb/{id}/{location.asset}"
+                src="/docket/script-assets/images/thumb/{id}/{location.id}"
                 alt={location.name || "Локация"}
                 title={location.name || "Локация"}
                 loading="lazy"
@@ -199,7 +197,7 @@
 
     <!-- Сетка для карточек: 2 в ряд на мобильных, 3 на планшетах, 4 или 6 на десктопах -->
     <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-6 g-3 mb-5">
-      {#each script.investigation.detectives as detective}
+      {#each Object.values(script.investigation.detectives) as detective}
         <div class="col card-col">
           <div
             class="card h-100 border-0 bg-light text-center shadow-sm"
@@ -209,7 +207,7 @@
             <!-- Контейнер для квадратного или пропорционального фото -->
             <div class="ratio ratio-1x1 card-img-top overflow-hidden rounded-top">
               <img
-                src="/docket/script-assets/images/thumb/{id}/{detective.asset}"
+                src="/docket/script-assets/images/thumb/{id}/{detective.id}"
                 alt={detective.name}
                 class="object-fit-cover"
               />

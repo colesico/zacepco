@@ -10,7 +10,7 @@ import colesico.framework.security.authentication.Authentication;
 import colesico.framework.telehttp.ParamName;
 import colesico.zacepco.docket.srv.model.ScriptEntry;
 import colesico.zacepco.docket.srv.service.ScriptService;
-import colesico.zacepco.docket.ui.dto.ScriptOverview;
+import colesico.zacepco.script.model.scriptdoc.ScriptDocument;
 
 import java.util.List;
 
@@ -35,12 +35,11 @@ public class ScriptRestlet {
         return scriptService.listScriptEntries(limit, offset);
     }
 
-    @Route("./overview/:scriptEntryId")
-    public ScriptOverview scriptOverview(Long scriptEntryId) {
-        var scriptEntry = scriptService.findScriptEntryById(scriptEntryId).get();
+    @Route("./entry/:scriptEntryId/document")
+    public ScriptDocument scriptDocument(Long scriptEntryId) {
         var scriptPackage = scriptService.scriptPackage(scriptEntryId);
         var scriptDoc = scriptPackage.script().read();
-        return new ScriptOverview(scriptEntry, scriptDoc);
+        return scriptDoc;
     }
 
 }
