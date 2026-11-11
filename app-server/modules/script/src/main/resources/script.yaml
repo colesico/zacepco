@@ -2,7 +2,7 @@
 # 
 # Script meta information
 # 
-script:
+metainfo:
   
   # Script schema version (data model version)
   # SimVer (semver.org) notation (i.e. 1.2.3)

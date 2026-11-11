@@ -19,7 +19,7 @@ public class ScriptEntry {
 
     /**
      * Script id (PK)
-     * @see ScriptDocument#script#id
+     * @see ScriptDocument#metainfo#id
      */
     @Column
     private String id;

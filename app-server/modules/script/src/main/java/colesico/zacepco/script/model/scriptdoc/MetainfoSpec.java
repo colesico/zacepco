@@ -8,7 +8,7 @@ import java.time.LocalDate;
 /**
  * Script meta information
  */
-public final class ScriptSpec {
+public final class MetainfoSpec {
 
     @YamlComment(text = {
             "Script schema version (data model version)",

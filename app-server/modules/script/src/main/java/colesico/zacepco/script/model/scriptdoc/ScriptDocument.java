@@ -12,7 +12,7 @@ public final class ScriptDocument {
             "Script meta information",
             ""
     })
-    public ScriptSpec script = new ScriptSpec();
+    public MetainfoSpec metainfo = new MetainfoSpec();
 
     @YamlComment(text = {
             "",
@@ -40,7 +40,7 @@ public final class ScriptDocument {
     @Override
     public String toString() {
         return "Script{" +
-                "script=" + script +
+                "script=" + metainfo +
                 '}';
     }
 }
