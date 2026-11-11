@@ -63,6 +63,6 @@ public final class InvestigationSpec {
             "A subset of which can participate in the investigation",
             ""
     })
-    public List<DetectiveSpec> detectives = new ArrayList<>();
+    public Map<DetectiveSpec.Id, DetectiveSpec> detectives = new LinkedHashMap<>();
 
 }

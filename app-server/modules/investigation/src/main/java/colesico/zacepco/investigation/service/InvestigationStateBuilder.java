@@ -110,7 +110,7 @@ public class InvestigationStateBuilder {
             return new LinkedHashMap<>();
         }
 
-        List<DetectiveSpec> allDetectives = new ArrayList<>(script.investigation.detectives);
+        List<DetectiveSpec> allDetectives = new ArrayList<>(script.investigation.detectives.values());
         Collections.shuffle(allDetectives, new Random());
 
         // Ограничиваем стрим вместо опасного subList и собираем строго в LinkedHashMap

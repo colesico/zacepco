@@ -44,6 +44,10 @@ public class ScriptPostprocessor implements ReadPostprocessor<ScriptDocument> {
             focusedClue.getValue().clue = focusedClue.getKey();
         }
 
+        for (var detective : document.investigation.detectives.entrySet()) {
+            detective.getValue().id = detective.getKey();
+        }
+
         for (var personageLog : document.answers.personageLogs.entrySet()) {
             personageLog.getValue().personage = personageLog.getKey();
             for (var personageEvent : personageLog.getValue().events.entrySet()) {

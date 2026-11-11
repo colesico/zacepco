@@ -57,7 +57,7 @@ public class ScriptAssetsService {
             iconize(scriptEntryId, clueResource, ImageScale.THUMB);
         }
 
-        for (var detective : script.investigation.detectives) {
+        for (var detective : script.investigation.detectives.values()) {
             var detResource = scriptPackage.entityImage(detective.id);
             iconize(scriptEntryId, detResource, ImageScale.THUMB);
         }

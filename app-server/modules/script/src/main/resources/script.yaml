@@ -258,8 +258,9 @@ investigation:
   # A subset of which can participate in the investigation
   # 
   detectives:
-  - name: Sherlock Holmes
-
+    D1:
+      name: Sherlock Holmes
+      description: Famous detective
 # 
 # General answers
 # 
