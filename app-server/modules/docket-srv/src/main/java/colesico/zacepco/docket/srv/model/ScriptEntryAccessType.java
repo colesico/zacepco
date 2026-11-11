@@ -15,8 +15,4 @@ public enum ScriptEntryAccessType {
      */
     PROTECTED,
 
-    /**
-     * Private  case. Visible and accessible only to the creator.
-     */
-    PRIVATE
 }

@@ -18,10 +18,11 @@ import java.util.Date;
 public class ScriptEntry {
 
     /**
-     * Script entry id
+     * Script id (PK)
+     * @see ScriptDocument#script#id
      */
     @Column
-    private Long id;
+    private String id;
 
     /**
      * User who created this entry
@@ -44,14 +45,14 @@ public class ScriptEntry {
     /**
      * Script summary
      */
-    @Composition(renaming = "script_@column")
+    @Composition(renaming = "@column")
     private ScriptSummary summary;
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

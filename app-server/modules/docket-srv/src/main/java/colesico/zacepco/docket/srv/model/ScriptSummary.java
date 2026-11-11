@@ -2,92 +2,22 @@ package colesico.zacepco.docket.srv.model;
 
 import colesico.framework.jdbirec.Column;
 import colesico.framework.jdbirec.mediators.ListStringTextMediator;
-import colesico.framework.jdbirec.mediators.LocalDateTextMediator;
-import colesico.zacepco.script.model.scriptdoc.ScriptSpec;
 
-import java.time.LocalDate;
 import java.util.List;
 
 public class ScriptSummary {
 
-    /**
-     * Script ID {@link ScriptSpec}
-     */
-    @Column
-    public String id;
-
-    /**
-     * Script version
-     */
-    @Column
-    public Integer version;
-
-    /**
-     * Script title
-     */
     @Column
     public String title;
-
-    /**
-     * Crime brief description
-     */
-    @Column
-    public String annotation;
 
     @Column(mediator = ListStringTextMediator.class)
     public List<String> authors;
 
-    /**
-     * Script creation date
-     */
-    @Column(mediator = LocalDateTextMediator.class)
-    private LocalDate creationDate;
-
-    public String getId() {
-        return id;
+    public ScriptSummary() {
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
+    public ScriptSummary(String title, List<String> authors) {
         this.title = title;
-    }
-
-    public String getAnnotation() {
-        return annotation;
-    }
-
-    public void setAnnotation(String annotation) {
-        this.annotation = annotation;
-    }
-
-    public List<String> getAuthors() {
-        return authors;
-    }
-
-    public void setAuthors(List<String> authors) {
         this.authors = authors;
-    }
-
-    public Integer getVersion() {
-        return version;
-    }
-
-    public void setVersion(Integer version) {
-        this.version = version;
-    }
-
-    public LocalDate getCreationDate() {
-        return creationDate;
-    }
-
-    public void setCreationDate(LocalDate creationDate) {
-        this.creationDate = creationDate;
     }
 }
