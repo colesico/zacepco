@@ -13,6 +13,9 @@ import java.util.List;
  */
 public final class LocationEventSpec {
 
+    @YamlComment(text = "Time tick id")
+    public TickSpec.Id tick;
+
     @YamlComment(text = "Personages whose destination is this location for the given tick")
     @YamlCompact
     public List<PersonageSpec.Id> personages = new ArrayList<>();

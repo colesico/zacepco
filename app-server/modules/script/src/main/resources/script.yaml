@@ -2,7 +2,7 @@
 # 
 # Script meta information
 # 
-metainfo:
+script:
   
   # Script schema version (data model version)
   # SimVer (semver.org) notation (i.e. 1.2.3)
@@ -12,8 +12,6 @@ metainfo:
   # Can only consist of ASCII uppercase letters, numbers, underscore '_'
   id: ZACEPCO
   
-  # Script version (1..N)
-  version: 1
   title: Script document
   
   # A brief crime summary without spoilers
@@ -51,78 +49,57 @@ metainfo:
 
 # 
 # Crime specification
-# Describes entire crime environment
+# Describes entire crime environment (entities, state)
 # 
 crime:
   
-  # Crime timeline. Defines possible ticks
-  # Timestamp format example: 10:00 or with date 2025-01-02T20:00
-  # Specify either the time only or the date-time only
-  # Mixing formats is not allowed
+  # Crime timeline. Defines all possible ticks
+  # Example: T1: 10:00 or with date  T2: 2025-01-02T20:00
+  # Specify either the time only or the date-time only, mixing formats is not allowed.
   timeline:
-  - id: T1
-    timestamp: '10:00'
-  - id: T2
-    timestamp: 2025-01-02T11:15
+    T1: '10:00'
+    T2: 2025-01-02T11:15
   
   # 
-  # Personages dictionary.
+  # Personages dictionary
   # Defines all personages involved in the crime
+  # Personage ID - unique within script
+  # ID format: P[A-Z0-9]{1,3}
   # 
   personages:
-  - 
-    # Unique within script ID
-    # Must match the corresponding asset ID
-    # Format: [PLCTD][A-Z0-9]{1,3}
-    id: P1
-    
-    # Short name
-    name: Butler
-    
-    # Detailed description
-    description: |
-      Knows all the secrets and secret passages,  is cold-blooded, has the perfect motive for murder.
-    
-    # Optional asset ID
-    # Used when appropriate asset id is not match the entity id
-    asset: P1
-    
-    # Reference script ID
-    # If this entity is imported from another script, specify the ID of that reference script.
-    ref: ZACEPCO
-    
-    # Placeholder values
-    # Map of placeholder names to values substituted into the entity's description or name
-    placeholders:
-      color: red
-      val: Some value
-    
-    # Initially hidden personage or not
-    # Default: false
-    hidden: false
-    
-    # Initially exposed clues for this personage
-    exposedClues: [C1, C2]
-    
-    # Personage event log for each time tick
-    # Each element of the array corresponds to a time tick, starting from 1.
-    # Used to verify the investigation's findings (answers)
-    log:
-    - 
-      # Personage destination location for tick
-      # Initial character location not specified - it refers to the previous tick
-      location: L2
+    P1:
       
-      # Clue linked to this personage during the tick
-      clue: C2
+      # Short name
+      name: Butler
+      
+      # Detailed description
+      description: |
+        Knows all the secrets and secret passages,  is cold-blooded, has the perfect motive for murder.
+      
+      # Referenced script ID
+      # If this entity is imported from another script, specify the ID of that script
+      ref: ZACEPCO
+      
+      # Placeholder values
+      # Map of placeholder names to values substituted into the entity's description or name
+      placeholders:
+        color: red
+        val: Some value
+      
+      # Initially hidden personage or not
+      # Default: false
+      hidden: false
+      
+      # Initially exposed clues for this personage
+      exposedClues: [C1, C2]
   
   # 
   # Crime scene definition
   # 
   scene:
     
-    # Scene title
-    title: Maryino Estate
+    # Scene short name
+    name: Maryino Estate
     
     # Grid size for locations placement
     size:
@@ -131,91 +108,79 @@ crime:
     
     # 
     # Locations dictionary
+    # Location ID - unique within script
+    # ID format: L[A-Z0-9]{1,3}
     # 
     locations:
-    - id: L1
-      name: Cabinet
-      description: |
-        A gloomy study with $color shadows  shaped like Rorschach blots.
-      ref: ZACEPCO
-      placeholders:
-        color: dark
-        val: Some value
-      
-      # Location position on scene grid
-      # (1,1) - left top scene corner
-      pos:
-        col: 1
-        row: 1
-      
-      # Initially hidden location or not
-      # Default: false
-      hidden: false
-      
-      # Initially exposed clues for this location
-      exposedClues: [C1, C2]
-      
-      # Location event log for each time tick
-      # Each element of the array corresponds to a time tick, starting from 1
-      # Used to verify the investigation's findings as answers
-      log:
-      - 
-        # Personages whose destination is this location for the given tick
-        personages: [P1, P2]
+      L1:
+        name: Cabinet
+        description: |
+          A gloomy study with $color shadows  shaped like Rorschach blots.
+        ref: ZACEPCO
+        placeholders:
+          color: dark
+          val: Some value
         
-        # Clues linked to this location during the tick
-        clues: [C1, C2]
+        # Location position on scene grid
+        # (1,1) - left top scene corner
+        pos:
+          col: 1
+          row: 1
+        
+        # Initially hidden location or not
+        # Default: false
+        hidden: false
+        
+        # Initially exposed clues for this location
+        exposedClues: [C1, C2]
     
-    # Ways between two locations.
-    # Always connects only two locations, direction does not matter.
+    # Ways between two locations
+    # Always connects only two locations, direction does not matter
     # There can be only one direct way between two locations
+    # Way ID - unique within script
+    # ID format: W[A-Z0-9]{1,3}
     ways:
-    - 
-      # IDs of the two connected locations
-      locations: [L1, L2]
-      
-      # Restrictions or characteristics of the way
-      # Used by detectives to estimate the travel time and whether a personage can move along it
-      description: length 10m
-      
-      # Is initially hidden way or not
-      # Default: false
-      hidden: true
+      W1:
+        description: length 10m
+        
+        # IDs of the two connected locations
+        locations: [L1, L2]
+        
+        # Is initially hidden way or not
+        # Default: false
+        hidden: true
   
   # 
   # Clues dictionary
+  # Defines all clues involved in the crime
+  # Clue ID - unique within script
+  # ID format: C[A-Z0-9]{1,3}
   # 
   clues:
-  - id: CBUT
-    name: Butt
-    description: |
-      A Camel cigarette butt
-    ref: ZACEPCO
-    placeholders:
-      time: '10:30'
-      val: Some value
-    
-    # False clue or not
-    # Used as answers to verify the investigation's findings and results
-    # Default: false
-    falsity: true
-    
-    # Entities to be open along with this clue
-    # For example, this is a hidden location or a hidden personage
-    open: [L2]
-    
-    # Target entities that this clue leads to
-    # Used as answers to verify the investigation results
-    leads: [P1]
+    C1:
+      name: Butt
+      description: |
+        A Camel cigarette butt
+      ref: ZACEPCO
+      placeholders:
+        time: '10:30'
+        val: Some value
 
 # 
 # Investigation spec
+# Describes relationships between crime entities for discovery
 # 
 investigation:
   
   # Investigation budget in resource units
   # Default: 2147483647
   budget: 9
+  
+  # Entities to be reveal (open) along with given clue
+  # For example, C1 reveals a hidden way or a hidden personage
+  revealChain:
+    C1: [W1, L2]
+    C3: [P4]
   
   # 
   # Location search specification
@@ -239,20 +204,18 @@ investigation:
     
     # Locations to be searched
     locations:
-    - 
-      # Location to be search
-      location: L3
-      clues:
-      - 
-        # Entities on which investigation action is focused
-        focus: [C3, P2, T2]
+      L3:
         
-        # Clue uncover threshold
-        # Default: 0.0
-        threshold: 8.1
-        
-        # The target clue to be uncovered
-        clue: C1
+        # Target location clues to be uncovered
+        clues:
+          C1:
+            
+            # Entities on which investigation action is focused
+            focus: [C3, P2, T2]
+            
+            # Clue uncover threshold
+            # Default: 0.0
+            threshold: 8.1
   
   # 
   # Personage interrogation specification
@@ -263,17 +226,15 @@ investigation:
     focusLimit: 2
     statCost: -1
     
-    # Personage to be interrogated
+    # Personages to be interrogated
     personages:
-    - 
-      # Personage ID
-      personage: P1
-      
-      # Personage clues
-      clues:
-      - focus: [T2, P1, L3]
-        threshold: 7.0
-        clue: C2
+      P1:
+        
+        # Target personage clues to be uncovered
+        clues:
+          C2:
+            focus: [T2, P1, L3]
+            threshold: 7.0
   
   # 
   # Criminal expertise specification
@@ -286,19 +247,18 @@ investigation:
     
     # Examined clues
     clues:
-    - focus: [C1, C2, P3, L2]
-      threshold: 3.0
-      clue: C6
+      C6:
+        focus: [C1, C2, P3, L2]
+        threshold: 3.0
   
   # 
   # Detectives dictionary
   # A subset of which can participate in the investigation
   # 
   detectives:
-  - id: D1
-    name: Sherlock Holmes
-    description: Famous detective
-
+    D1:
+      name: Sherlock Holmes
+      description: Famous detective
 # 
 # General answers
 # 
@@ -307,6 +267,52 @@ answers:
   # Full crime fabula
   fabula: |
     The Gardener killed the Butler,  buried the body under a birch tree in the garden,  and burned the evidence in the fireplace in the library.
+  
+  # False clues
+  # Used as answers to verify the investigation's findings and results
+  falsityClues: [C1, C2]
+  
+  # Personages event log for each time tick
+  # Used to verify the investigation's findings (answers)
+  personageLogs:
+    P1:
+      
+      # Personage events for each tick
+      events:
+        T1:
+          
+          # Personage destination location for tick
+          # Initial character location not specified - it refers to the previous tick
+          location: L2
+          
+          # Clue linked to this personage during the tick
+          clue: C1
+        T2:
+          location: L3
+  
+  # Location event log for each time tick
+  # Each element of the array corresponds to a time tick
+  # Used to verify the investigation's findings as answers
+  locationLogs:
+    L1:
+      
+      # Location events for each tick
+      events:
+        T3:
+          
+          # Time tick id
+          tick: T3
+          
+          # Personages whose destination is this location for the given tick
+          personages: [P1, P2]
+          
+          # Clues linked to this location during the tick
+          clues: [C1, C2]
+  
+  # Target entities that this clue leads to
+  # Used as answers to verify the investigation results
+  clueLeads:
+    C1: [L1, L2]
   
   # Planned crime solving strategy.
   # Specify field:

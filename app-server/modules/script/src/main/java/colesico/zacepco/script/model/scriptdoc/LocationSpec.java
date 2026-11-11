@@ -9,6 +9,10 @@ import java.util.List;
 /**
  * Scene location
  */
+@YamlComment(text = {
+        "Unique location ID",
+        "Format: L[A-Z0-9]{1,3}"
+}, field = "id")
 public final class LocationSpec extends EntitySpec<LocationSpec.Id> {
 
     /**
@@ -36,17 +40,8 @@ public final class LocationSpec extends EntitySpec<LocationSpec.Id> {
     @YamlCompact
     public List<ClueSpec.Id> exposedClues = new ArrayList<>();
 
-    /**
-     * Personage-entity interaction for each time tick.
-     */
-    @YamlComment(text = {
-            "Location event log for each time tick",
-            "Each element of the array corresponds to a time tick, starting from 1",
-            "Used to verify the investigation's findings as answers"
-    })
-    public List<LocationEventSpec> log = new ArrayList<>();
 
-    public static final class Id extends UID {
+    public static final class Id extends TypedId {
 
         public Id(String key) {
             super(key);

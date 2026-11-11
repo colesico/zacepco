@@ -56,7 +56,7 @@ public class ScriptProducer {
     }
 
     /**
-     *  To get ScriptPackage instance with DirectoryPackageDriver for specified path
+     * To get ScriptPackage instance with DirectoryPackageDriver for specified path
      */
     @Unscoped
     @Classed(DirectoryPackageDriver.class)
@@ -66,4 +66,10 @@ public class ScriptProducer {
             @IocMessage Path scriptDir) {
         return scriptPackageFactory.get(packageDriverFactory.get(scriptDir));
     }
+
+    @Unscoped
+    public ReadPostprocessor readPostprocessor(@IocMessage Class<?> documentClass) {
+        return new ScriptPostprocessor();
+    }
+
 }

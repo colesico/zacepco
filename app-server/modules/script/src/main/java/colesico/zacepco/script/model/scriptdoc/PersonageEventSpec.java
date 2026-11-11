@@ -1,6 +1,7 @@
 package colesico.zacepco.script.model.scriptdoc;
 
 import colesico.zacepco.script.yaml.YamlComment;
+import colesico.zacepco.script.yaml.YamlIgnore;
 
 
 /**
@@ -9,6 +10,10 @@ import colesico.zacepco.script.yaml.YamlComment;
  * Used to verify the investigation's findings.
  */
 public final class PersonageEventSpec {
+
+
+    @YamlIgnore
+    public TickSpec.Id tick;
 
     /**
      * The location the character was inside.

@@ -1,36 +1,35 @@
 package colesico.zacepco.script.model.scriptdoc;
 
 import colesico.zacepco.script.yaml.YamlComment;
+import colesico.zacepco.script.yaml.YamlCompact;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 /**
- * Crime world specification
+ * Crime specification
  * Is a top-level element that encapsulates a specific crime scene environment,
  * its timeline, and all associated elements (the crime scene, characters, and clues)
  */
 public final class CrimeSpec {
 
     @YamlComment(text = {
-            "Crime timeline. Defines possible ticks",
-            "Timestamp format example: 10:00 or with date 2025-01-02T20:00",
-            "Specify either the time only or the date-time only",
-            "Mixing formats is not allowed"
+            "Crime timeline. Defines all possible ticks",
+            "Example: T1: 10:00 or with date  T2: 2025-01-02T20:00",
+            "Specify either the time only or the date-time only, mixing formats is not allowed."
     })
-    public List<TickSpec> timeline = new ArrayList<>();
+    @YamlCompact
+    public Map<TickSpec.Id, TickSpec> timeline = new LinkedHashMap<>();
 
-    /**
-     * Characters dictionary
-     */
     @YamlComment(text = {
             "",
-            "Personages dictionary.",
+            "Personages dictionary",
             "Defines all personages involved in the crime",
+            "Personage ID - unique within script",
+            "ID format: P[A-Z0-9]{1,3}",
             ""
     })
-    public List<PersonageSpec> personages = new ArrayList<>();
+
+    public Map<PersonageSpec.Id, PersonageSpec> personages = new LinkedHashMap<>();
 
     /**
      * Scene
@@ -48,18 +47,21 @@ public final class CrimeSpec {
     @YamlComment(text = {
             "",
             "Clues dictionary",
+            "Defines all clues involved in the crime",
+            "Clue ID - unique within script",
+            "ID format: C[A-Z0-9]{1,3}",
             ""
     })
-    public List<ClueSpec> clues = new ArrayList<>();
+    public Map<ClueSpec.Id, ClueSpec> clues = new LinkedHashMap<>();
 
     public Optional<PersonageSpec> findPersonageById(PersonageSpec.Id id) {
-        return personages.stream()
+        return personages.values().stream()
                 .filter(user -> user.id.equals(id))
                 .findFirst();
     }
 
     public Optional<ClueSpec> findClueById(ClueSpec.Id id) {
-        return clues.stream()
+        return clues.values().stream()
                 .filter(cl -> cl.id.equals(id))
                 .findFirst();
     }

@@ -1,11 +1,11 @@
 package colesico.zacepco.investigation.dto;
 
-import colesico.zacepco.script.model.scriptdoc.EntitySpec;
+import colesico.zacepco.script.model.scriptdoc.TypedId;
 
 import java.util.Set;
 
 public record DetectiveFocus(
-        Set<EntitySpec.UID> ids,
-        Set<EntitySpec.Type> types
+        Set<TypedId> ids,
+        Set<TypedId.Type> types
 ) {
 }

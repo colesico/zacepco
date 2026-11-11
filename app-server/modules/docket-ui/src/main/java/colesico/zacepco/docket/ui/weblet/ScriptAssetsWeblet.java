@@ -8,7 +8,7 @@ import colesico.framework.weblet.Weblet;
 import colesico.zacepco.docket.srv.model.ImageScale;
 import colesico.zacepco.docket.srv.service.ScriptService;
 import colesico.zacepco.docket.srv.service.ScriptAssetsService;
-import colesico.zacepco.script.model.scriptdoc.EntitySpec;
+import colesico.zacepco.script.model.scriptdoc.TypedId;
 import colesico.zacepco.script.pkg.ScriptPackage;
 import jakarta.inject.Provider;
 
@@ -26,17 +26,17 @@ public class ScriptAssetsWeblet {
         this.httpResponse = httpResponse;
     }
 
-    @Route("./images/:scaleCode/:scriptEntryId/:assetUid")
+    @Route("./images/:scaleCode/:scriptEntryId/:asset")
     @ParamOrigin(Origin.ROUTE)
-    public void image(String scaleCode, Long scriptEntryId, String assetUid) {
+    public void image(String scaleCode, Long scriptEntryId, String asset) {
 
         ScriptPackage sp = scriptService.scriptPackage(scriptEntryId);
 
-        var res = switch (assetUid) {
+        var res = switch (asset) {
             case "S" -> sp.scriptImage();
             default -> {
-                var uid = EntitySpec.UID.parse(assetUid);
-                yield sp.entityImage(uid);
+                var entityId = TypedId.parse(asset);
+                yield sp.entityImage(entityId);
             }
         };
 

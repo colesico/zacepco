@@ -13,7 +13,7 @@ import colesico.zacepco.docket.srv.model.ScriptEntry;
 import colesico.zacepco.docket.srv.model.ScriptEntryAccessType;
 import colesico.zacepco.docket.srv.model.ScriptSummary;
 import colesico.zacepco.script.model.scriptdoc.ScriptDocument;
-import colesico.zacepco.script.model.scriptdoc.ScriptMetainfoSpec;
+import colesico.zacepco.script.model.scriptdoc.ScriptSpec;
 import colesico.zacepco.script.pkg.*;
 import jakarta.inject.Provider;
 
@@ -84,12 +84,12 @@ public class ScriptService {
         var summary = new ScriptSummary();
         scriptEntry.setSummary(summary);
 
-        summary.setId(script.metainfo.id);
-        summary.setVersion(script.metainfo.version);
-        summary.setTitle(script.metainfo.title);
-        summary.setAnnotation(script.metainfo.annotation);
-        summary.setAuthors(Arrays.asList(script.metainfo.authors));
-        summary.setCreationDate(script.metainfo.creationDate);
+        summary.setId(script.script.id);
+        summary.setVersion(script.script.version);
+        summary.setTitle(script.script.title);
+        summary.setAnnotation(script.script.annotation);
+        summary.setAuthors(Arrays.asList(script.script.authors));
+        summary.setCreationDate(script.script.creationDate);
 
         scriptEntryDao.createScriptEntry(scriptEntry);
 
@@ -105,7 +105,7 @@ public class ScriptService {
     }
 
     /**
-     * Get script entry by {@link ScriptMetainfoSpec#id}
+     * Get script entry by {@link ScriptSpec#id}
      */
     public Optional<ScriptEntry> findScriptEntryByScriptId(String usn) {
         return scriptEntryDao.findScriptEntryByScriptId(usn);

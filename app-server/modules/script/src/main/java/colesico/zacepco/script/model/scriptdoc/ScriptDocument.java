@@ -7,37 +7,29 @@ import colesico.zacepco.script.yaml.YamlComment;
  */
 public final class ScriptDocument {
 
-    /**
-     * Meta information
-     */
     @YamlComment(text = {
             "",
             "Script meta information",
             ""
     })
-    public ScriptMetainfoSpec metainfo = new ScriptMetainfoSpec();
+    public ScriptSpec script = new ScriptSpec();
 
     @YamlComment(text = {
             "",
             "Crime specification",
-            "Describes entire crime environment",
+            "Describes entire crime environment (entities, state)",
             ""
     })
     public CrimeSpec crime = new CrimeSpec();
 
-    /**
-     * Investigation spec
-     */
     @YamlComment(text = {
             "",
             "Investigation spec",
+            "Describes relationships between crime entities for discovery",
             ""
     })
     public InvestigationSpec investigation = new InvestigationSpec();
 
-    /**
-     * General answers
-     */
     @YamlComment(text = {
             "",
             "General answers",
@@ -48,7 +40,7 @@ public final class ScriptDocument {
     @Override
     public String toString() {
         return "Script{" +
-                "meta=" + metainfo +
+                "script=" + script +
                 '}';
     }
 }

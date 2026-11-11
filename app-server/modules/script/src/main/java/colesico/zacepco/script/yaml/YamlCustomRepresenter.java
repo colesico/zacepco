@@ -37,18 +37,26 @@ public class YamlCustomRepresenter extends Representer {
         // Регистрация кастомных репрезентеров
         this.representers.put(LocalDate.class, new RepresentLocalDate());
         this.representers.put(LocalDateTime.class, new RepresentLocalDateTime());
-        this.representers.put(LocationSpec.Id.class, new RepresentEntityId());
-        this.representers.put(PersonageSpec.Id.class, new RepresentEntityId());
-        this.representers.put(ClueSpec.Id.class, new RepresentEntityId());
-        this.representers.put(TickSpec.Id.class, new RepresentEntityId());
-        this.representers.put(DetectiveSpec.Id.class, new RepresentEntityId());
-        this.representers.put(EntitySpec.UID.class, new RepresentEntityId());
+        this.representers.put(LocationSpec.Id.class, new RepresentTID());
+        this.representers.put(WaySpec.Id.class, new RepresentTID());
+        this.representers.put(PersonageSpec.Id.class, new RepresentTID());
+        this.representers.put(ClueSpec.Id.class, new RepresentTID());
+        this.representers.put(TickSpec.Id.class, new RepresentTID());
+        this.representers.put(DetectiveSpec.Id.class, new RepresentTID());
+        this.representers.put(TypedId.class, new RepresentTID());
+        this.representers.put(TickSpec.class, new RepresentTickSpec());
 
     }
 
-    @Override
     protected Set<Property> getProperties(Class<? extends Object> type) {
-        return getPropertyUtils().getProperties(type);
+        Set<Property> properties = getPropertyUtils().getProperties(type);
+        Set<Property> filtered = new LinkedHashSet<>();
+        for (Property prop : properties) {
+            if (prop.getAnnotation(YamlIgnore.class) == null) {
+                filtered.add(prop);
+            }
+        }
+        return filtered;
     }
 
     @Override
@@ -135,8 +143,21 @@ public class YamlCustomRepresenter extends Representer {
             YamlCompact compactAnnotation = property.getAnnotation(YamlCompact.class);
             if (compactAnnotation != null) {
                 Node valueNode = tuple.getValueNode();
-                if (valueNode instanceof SequenceNode) {
-                    ((SequenceNode) valueNode).setFlowStyle(DumperOptions.FlowStyle.FLOW);
+
+                // Случай 1: свойство само является коллекцией
+                if (valueNode instanceof SequenceNode seq) {
+                    seq.setFlowStyle(DumperOptions.FlowStyle.FLOW);
+                }
+
+                // Случай 2: свойство является Map, а её значения — списки
+                // (например, Map<ClueSpec.Id, List<TId>> revealChain)
+                if (valueNode instanceof MappingNode mappingNode) {
+                    for (NodeTuple entry : mappingNode.getValue()) {
+                        Node entryValue = entry.getValueNode();
+                        if (entryValue instanceof SequenceNode seq) {
+                            seq.setFlowStyle(DumperOptions.FlowStyle.FLOW);
+                        }
+                    }
                 }
             }
         }
@@ -170,12 +191,20 @@ public class YamlCustomRepresenter extends Representer {
         }
     }
 
-    private class RepresentEntityId implements Represent {
+    private class RepresentTID implements Represent {
         @Override
         public Node representData(Object data) {
-            EntitySpec.UID entityId = (EntitySpec.UID) data;
+            TypedId entityId = (TypedId) data;
             String id = entityId.toString();
             return representScalar(Tag.STR, id);
+        }
+    }
+
+    private class RepresentTickSpec implements Represent {
+        @Override
+        public Node representData(Object data) {
+            TickSpec tick = (TickSpec) data;
+            return new RepresentLocalDateTime().representData(tick.timestamp);
         }
     }
 }

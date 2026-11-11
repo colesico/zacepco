@@ -53,8 +53,8 @@ public class InvestigationStateBuilder {
     public InvestigationState build() {
         var invState = new InvestigationState();
 
-        invState.script.id = script.metainfo.id;
-        invState.script.version = script.metainfo.version;
+        invState.script.id = script.script.id;
+        invState.script.version = script.script.version;
         invState.budget = (int) Math.ceil(script.investigation.budget * budgetScale);
         invState.randFactor = randFactor;
 
@@ -71,7 +71,7 @@ public class InvestigationStateBuilder {
     }
 
     private Map<String, PersonageState> buildPersonageStates() {
-        return script.crime.personages.stream()
+        return script.crime.personages.values().stream()
                 .collect(Collectors.toMap(
                         per -> per.id.toString(),
                         per -> {
@@ -88,7 +88,7 @@ public class InvestigationStateBuilder {
     }
 
     private Map<String, LocationState> buildLocationStates() {
-        return script.crime.scene.locations.stream()
+        return script.crime.scene.locations.values().stream()
                 .collect(Collectors.toMap(
                         loc -> loc.id.toString(),
                         loc -> {
@@ -110,7 +110,7 @@ public class InvestigationStateBuilder {
             return new LinkedHashMap<>();
         }
 
-        List<DetectiveSpec> allDetectives = new ArrayList<>(script.investigation.detectives);
+        List<DetectiveSpec> allDetectives = new ArrayList<>(script.investigation.detectives.values());
         Collections.shuffle(allDetectives, new Random());
 
         // Ограничиваем стрим вместо опасного subList и собираем строго в LinkedHashMap

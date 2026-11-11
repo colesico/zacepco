@@ -42,23 +42,23 @@ public class ScriptAssetsService {
         iconize(scriptEntryId, posterResource, ImageScale.THUMB);
         var script = scriptPackage.script().read();
 
-        for (var personage : script.crime.personages) {
-            var personageResource = scriptPackage.entityImage(personage.asset());
+        for (var personage : script.crime.personages.values()) {
+            var personageResource = scriptPackage.entityImage(personage.id);
             iconize(scriptEntryId, personageResource, ImageScale.THUMB);
         }
 
-        for (var location : script.crime.scene.locations) {
-            var locationResource = scriptPackage.entityImage(location.asset());
+        for (var location : script.crime.scene.locations.values()) {
+            var locationResource = scriptPackage.entityImage(location.id);
             iconize(scriptEntryId, locationResource, ImageScale.THUMB);
         }
 
-        for (var clue : script.crime.clues) {
-            var clueResource = scriptPackage.entityImage(clue.asset());
+        for (var clue : script.crime.clues.values()) {
+            var clueResource = scriptPackage.entityImage(clue.id);
             iconize(scriptEntryId, clueResource, ImageScale.THUMB);
         }
 
-        for (var detective : script.investigation.detectives) {
-            var detResource = scriptPackage.entityImage(detective.asset());
+        for (var detective : script.investigation.detectives.values()) {
+            var detResource = scriptPackage.entityImage(detective.id);
             iconize(scriptEntryId, detResource, ImageScale.THUMB);
         }
 

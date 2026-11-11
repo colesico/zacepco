@@ -15,7 +15,7 @@
   let error = $state(null);
   let loading = $state(true);
 
-  let overview = $state(null);
+  let script = $state(null);
 
   // Состояние полей формы
   let detectivesNum = $state(1);
@@ -23,8 +23,8 @@
   let budgetScale = $state(1.0);
 
   const detectiveOptions = $derived.by(() => {
-    const min = overview?.metainfo?.playersNum?.min ?? 1;
-    const max = overview?.metainfo?.playersNum?.max ?? min;
+    const min = script?.metainfo?.playersNum?.min ?? 1;
+    const max = script?.metainfo?.playersNum?.max ?? min;
 
     return Array.from({ length: Math.max(0, max - min + 1) }, (_, i) => min + i);
   });
@@ -37,11 +37,11 @@
       error = null;
 
       try {
-        overview = await scriptApi.scriptOverview(id);
-        detectivesNum = overview.metainfo.playersNum.min;
+        script = await scriptApi.scriptDocument(id);
+        detectivesNum = script.metainfo.playersNum.min;
       } catch (ex) {
          error = ex.data;
-         overview = null;
+         script = null;
       } finally {
           loading = false;
       }
@@ -85,15 +85,15 @@
   <UiLoadingIndicator {loading} />
   <UiErrorMessage {error} />
 
-  {#if overview}
-    <h1>Начать расследование "{overview.metainfo.title}" #{overview.metainfo.id}</h1>
+  {#if script}
+    <h1>Начать расследование "{script.metainfo.title}" #{script.metainfo.id}</h1>
 
     <form onsubmit={onStart}>
       <!-- Кол-во детективов: варианты min..max, по умолчанию playersNum.min -->
       <div class="row mt-3">
         <div class="col-xl-3 col-lg-4 col-md-5">
           <UiLabel
-            caption={`Кол-во детективов (${overview.metainfo.playersNum.min}-${overview.metainfo.playersNum.max}):`}
+            caption={`Кол-во детективов (${script.metainfo.playersNum.min}-${script.metainfo.playersNum.max}):`}
             required={true}
             forId="detectivesNum"
           />
