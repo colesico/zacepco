@@ -27,7 +27,7 @@ public final class InvestigationSpec {
             "For example, C1 reveals a hidden way or a hidden personage"
     })
     @YamlCompact
-    public Map<ClueSpec.Id, List<TId>> revealChain = new LinkedHashMap<>();
+    public Map<ClueSpec.Id, List<TypedId>> revealChain = new LinkedHashMap<>();
 
     /**
      * Location search

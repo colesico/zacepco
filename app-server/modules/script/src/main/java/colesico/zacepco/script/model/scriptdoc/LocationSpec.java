@@ -41,7 +41,7 @@ public final class LocationSpec extends EntitySpec<LocationSpec.Id> {
     public List<ClueSpec.Id> exposedClues = new ArrayList<>();
 
 
-    public static final class Id extends TId {
+    public static final class Id extends TypedId {
 
         public Id(String key) {
             super(key);

@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 /**
  * Typed identifier
  */
-abstract public sealed class TId
+abstract public sealed class TypedId
         permits ClueSpec.Id,
         LocationSpec.Id,
         WaySpec.Id,
@@ -23,7 +23,7 @@ abstract public sealed class TId
      */
     public final String key;
 
-    protected TId(String key) {
+    protected TypedId(String key) {
         if (key == null || !KEY_PATTERN.matcher(key).matches()) {
             throw new IllegalArgumentException("Invalid TID key");
         }
@@ -32,7 +32,7 @@ abstract public sealed class TId
 
     abstract public Type type();
 
-    public static TId parse(String tid) {
+    public static TypedId parse(String tid) {
         if (StringUtils.isBlank(tid)) {
             throw new RuntimeException("Empty TID string");
         }
@@ -58,7 +58,7 @@ abstract public sealed class TId
 
     @Override
     public final boolean equals(Object o) {
-        if (!(o instanceof TId tid)) return false;
+        if (!(o instanceof TypedId tid)) return false;
         return Objects.equals(toString(), tid.toString());
     }
 

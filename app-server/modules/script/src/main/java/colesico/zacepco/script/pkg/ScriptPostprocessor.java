@@ -41,6 +41,17 @@ public class ScriptPostprocessor implements ReadPostprocessor<ScriptDocument> {
             }
         }
 
+        for (var focusedClue : document.investigation.expertise.clues.entrySet()) {
+            focusedClue.getValue().clue = focusedClue.getKey();
+        }
+
+        for (var personageLog : document.answers.personageLogs.entrySet()) {
+            personageLog.getValue().personage = personageLog.getKey();
+            for (var personageEvent : personageLog.getValue().events.entrySet()) {
+                personageEvent.getValue().tick = personageEvent.getKey();
+            }
+        }
+
         return document;
     }
 }

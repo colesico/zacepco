@@ -20,7 +20,7 @@ public final class FocusedClueSpec {
      */
     @YamlComment(text = "Entities on which investigation action is focused")
     @YamlCompact
-    public List<TId> focus = new ArrayList<>();
+    public List<TypedId> focus = new ArrayList<>();
 
     /**
      * Clue uncover threshold

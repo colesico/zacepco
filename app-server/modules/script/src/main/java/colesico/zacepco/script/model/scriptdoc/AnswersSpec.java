@@ -25,10 +25,9 @@ public final class AnswersSpec {
 
     @YamlComment(text = {
             "Personages event log for each time tick",
-            "Each element of the log array corresponds to a time tick",
             "Used to verify the investigation's findings (answers)"
     })
-    public Map<PersonageSpec.Id, List<PersonageEventSpec>> personageLogs = new LinkedHashMap<>();
+    public Map<PersonageSpec.Id, PersonageLogSpec> personageLogs = new LinkedHashMap<>();
 
     @YamlComment(text = {
             "Location event log for each time tick",
@@ -42,7 +41,7 @@ public final class AnswersSpec {
             "Used as answers to verify the investigation results"
     })
     @YamlCompact
-    public Map<ClueSpec.Id,List<TId>> clueLeads = new LinkedHashMap<>();
+    public Map<ClueSpec.Id,List<TypedId>> clueLeads = new LinkedHashMap<>();
 
     @YamlComment(text = {
             "Planned crime solving strategy. ",

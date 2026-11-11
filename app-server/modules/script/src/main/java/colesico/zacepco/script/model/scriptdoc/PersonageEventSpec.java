@@ -1,6 +1,7 @@
 package colesico.zacepco.script.model.scriptdoc;
 
 import colesico.zacepco.script.yaml.YamlComment;
+import colesico.zacepco.script.yaml.YamlIgnore;
 
 
 /**
@@ -10,7 +11,8 @@ import colesico.zacepco.script.yaml.YamlComment;
  */
 public final class PersonageEventSpec {
 
-    @YamlComment(text = "Time tick id")
+
+    @YamlIgnore
     public TickSpec.Id tick;
 
     /**

@@ -30,7 +30,7 @@ public final class TickSpec {
         this.timestamp = timestamp;
     }
 
-    public static final class Id extends TId {
+    public static final class Id extends TypedId {
 
         public Id(String key) {
             super(key);
@@ -38,7 +38,7 @@ public final class TickSpec {
 
         @Override
         public Type type() {
-            return TId.Type.TIME;
+            return TypedId.Type.TIME;
         }
 
     }

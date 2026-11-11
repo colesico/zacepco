@@ -43,7 +43,7 @@ public class YamlCustomRepresenter extends Representer {
         this.representers.put(ClueSpec.Id.class, new RepresentTID());
         this.representers.put(TickSpec.Id.class, new RepresentTID());
         this.representers.put(DetectiveSpec.Id.class, new RepresentTID());
-        this.representers.put(TId.class, new RepresentTID());
+        this.representers.put(TypedId.class, new RepresentTID());
         this.representers.put(TickSpec.class, new RepresentTickSpec());
 
     }
@@ -194,7 +194,7 @@ public class YamlCustomRepresenter extends Representer {
     private class RepresentTID implements Represent {
         @Override
         public Node representData(Object data) {
-            TId entityId = (TId) data;
+            TypedId entityId = (TypedId) data;
             String id = entityId.toString();
             return representScalar(Tag.STR, id);
         }

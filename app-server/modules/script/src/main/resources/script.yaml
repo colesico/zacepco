@@ -241,10 +241,10 @@ investigation:
     
     # Examined clues
     clues:
-    - focus: [C1, C2, P3, L2]
-      threshold: 3.0
-      clue: C6
-  
+      C6:
+        focus: [C1, C2, P3, L2]
+        threshold: 3.0
+
   # 
   # Detectives dictionary
   # A subset of which can participate in the investigation
@@ -276,9 +276,12 @@ answers:
   # Used to verify the investigation's findings (answers)
   personageLogs:
     P1:
-    - tick: T1
-      location: L2
-      clue: C1
+      events:
+        T1:
+          location: L2
+          clue: C1
+        T2:
+          location: L3
   
   # Location event log for each time tick
   # Each element of the array corresponds to a time tick

@@ -11,7 +11,7 @@ import java.util.Objects;
  * Abstract game entity model.
  * This class must be extended by specific entities.
  */
-public abstract class EntitySpec<ID extends TId> {
+public abstract class EntitySpec<ID extends TypedId> {
 
     /**
      * Entity id
