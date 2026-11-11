@@ -15,8 +15,8 @@ public class InvestigationStateEnricher {
     }
 
     public InvestigationState enrich() {
-        state.script.title = script.metainfo.title;
-        state.script.annotation = script.metainfo.annotation;
+        state.script.title = script.script.title;
+        state.script.annotation = script.script.annotation;
 
         enrichScene();
         enrichPersonages();

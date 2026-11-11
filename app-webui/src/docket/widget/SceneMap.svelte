@@ -1,12 +1,12 @@
 <script>
   let { scene } = $props();
 
-  const rows = $derived(scene?.size?.rows ?? 0);
-  const cols = $derived(scene?.size?.cols ?? 0);
+  const cols = $derived(scene.size.cols);
+  const rows = $derived(scene.size.rows);
 
   const locIndex = $derived(
     new Map(
-      Object.values(scene?.locations ?? {})
+      Object.values(scene.locations)
         .filter((l) => !l.hidden)
         .map((l) => [`${l.pos.row}:${l.pos.col}`, l])
     )
@@ -27,7 +27,7 @@
         <div class="location-cell">
           {#if loc}
             <img
-              src="/docket/script-assets/images/thumb/4/{loc.asset}"
+              src="/docket/script-assets/images/thumb/4/{loc.id}"
               alt={loc.name || 'Локация'}
               title={loc.name || 'Локация'}
               class="location-image"

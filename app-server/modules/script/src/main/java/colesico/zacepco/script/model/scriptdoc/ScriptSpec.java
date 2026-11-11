@@ -6,46 +6,37 @@ import colesico.zacepco.script.yaml.YamlComment;
 import java.time.LocalDate;
 
 /**
- * Script general meta information
+ * Script meta information
  */
-public final class ScriptMetainfoSpec {
+public final class ScriptSpec {
 
-    /**
-     * Script schema version (<a href="https://semver.org/">SemVer</a>)
-     */
     @YamlComment(text = {
             "Script schema version (data model version)",
             "SimVer (semver.org) notation (i.e. 1.2.3)"
     })
-    public String schema = "0.0.0";
+    public String schema = "1.0.0";
 
-    /**
-     * Unique Script Identifier
-     */
     @YamlComment(text = {
-            "Unique script id",
+            "Global unique script identifier",
             "Can only consist of ASCII uppercase letters, numbers, underscore '_'"
     })
     public String id;
 
-    @YamlComment(text = "Script version (1..N)")
     public Integer version = 1;
 
-    /**
-     * Script title
-     */
-    public String title = "Title";
+    @YamlComment(text = "Script title")
+    public String title = null;
 
     /**
      * Crime brief description
      */
     @YamlComment(text = "A brief crime summary without spoilers")
-    public String annotation;
+    public String annotation = null;
 
     /**
      * Script authors
      */
-    @YamlComment(text = {"Script authors"})
+    @YamlComment(text = {"Authors list"})
     public String[] authors = new String[]{};
 
     /**
@@ -61,25 +52,18 @@ public final class ScriptMetainfoSpec {
     public LocalDate creationDate;
 
     /**
-     * Estimated difficulty level.
+     * .
      */
     @YamlComment(text = {
-
-            "Game difficulty",
-            "Dimensionless coefficient [0..1].",
-            "0 - easy; 1 - highly difficult."
+            "Game estimated difficulty level",
+            "Dimensionless coefficient [0..1]",
+            "0 - easy; 1 - highly difficult"
     })
     public Double difficulty = 0.0;
 
-    /**
-     * Estimated  time to play in minutes  (min-max)
-     */
     @YamlComment(text = "Estimated playtime, minutes", inline = false)
     public IntInterval estimatedTime = new IntInterval(0, 0);
 
-    /**
-     * Recommended players number  (min-max)
-     */
     @YamlComment(text = "Recommended number of players (min-max)", inline = false)
     public IntInterval playersNum = new IntInterval(1, 10);
 

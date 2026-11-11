@@ -2,7 +2,7 @@
 # 
 # Script meta information
 # 
-metainfo:
+script:
   
   # Script schema version (data model version)
   # SimVer (semver.org) notation (i.e. 1.2.3)
@@ -12,8 +12,6 @@ metainfo:
   # Can only consist of ASCII uppercase letters, numbers, underscore '_'
   id: ZACEPCO
   
-  # Script version (1..N)
-  version: 1
   title: Script document
   
   # A brief crime summary without spoilers

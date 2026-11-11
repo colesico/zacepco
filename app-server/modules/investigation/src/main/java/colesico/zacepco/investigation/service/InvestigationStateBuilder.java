@@ -53,8 +53,8 @@ public class InvestigationStateBuilder {
     public InvestigationState build() {
         var invState = new InvestigationState();
 
-        invState.script.id = script.metainfo.id;
-        invState.script.version = script.metainfo.version;
+        invState.script.id = script.script.id;
+        invState.script.version = script.script.version;
         invState.budget = (int) Math.ceil(script.investigation.budget * budgetScale);
         invState.randFactor = randFactor;
 
