@@ -35,8 +35,10 @@ public final class SceneSpec {
             "Ways between two locations",
             "Always connects only two locations, direction does not matter",
             "There can be only one direct way between two locations",
+            "Way ID - unique within script",
+            "ID format: W[A-Z0-9]{1,3}",
     })
-    public List<WaySpec> ways = new ArrayList<>();
+    public Map<WaySpec.Id,WaySpec> ways = new LinkedHashMap<>();
 
     public Optional<LocationSpec> findLocationById(LocationSpec.Id id) {
         return locations.values().stream()
@@ -51,7 +53,7 @@ public final class SceneSpec {
     }
 
     public List<WaySpec> findConnectionsByLocationId(LocationSpec.Id id) {
-        return ways.stream()
+        return ways.values().stream()
                 .filter(tr -> tr.locations.contains(id))
                 .collect(Collectors.toList());
     }

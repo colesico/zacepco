@@ -1,9 +1,10 @@
 package colesico.zacepco.script.model.scriptdoc;
 
 import colesico.zacepco.script.yaml.YamlComment;
+import colesico.zacepco.script.yaml.YamlIgnore;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * Location search
@@ -13,12 +14,10 @@ public final class LocationSearchSpec {
     /**
      * Location to be search
      */
-    @YamlComment(text = "Location to be search")
+    @YamlIgnore
     public LocationSpec.Id location;
 
-    /**
-     * Clues definitions
-     */
-    public List<FocusedClueSpec> clues = new ArrayList<>();
+    @YamlComment(text = "Target location clues to be uncovered")
+    public Map<ClueSpec.Id, FocusedClueSpec> clues = new LinkedHashMap<>();
 
 }

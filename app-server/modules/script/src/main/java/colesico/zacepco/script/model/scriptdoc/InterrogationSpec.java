@@ -2,16 +2,16 @@ package colesico.zacepco.script.model.scriptdoc;
 
 import colesico.zacepco.script.yaml.YamlComment;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * Interrogation specification
  */
 public final class InterrogationSpec extends InvestigationActionSpec {
 
-    @YamlComment(text = "Personage to be interrogated")
-    public List<PersonageInterrogationSpec> personages = new ArrayList<>();
+    @YamlComment(text = "Personages to be interrogated")
+    public Map<PersonageSpec.Id, PersonageInterrogationSpec> personages = new LinkedHashMap<>();
 
     public InterrogationSpec() {
         this.cost = 2;
