@@ -34,7 +34,7 @@ public final class AnswersSpec {
             "Each element of the array corresponds to a time tick",
             "Used to verify the investigation's findings as answers"
     })
-    public Map<LocationSpec.Id, List<LocationEventSpec>> locationLogs = new LinkedHashMap<>();
+    public Map<LocationSpec.Id, LocationLogSpec> locationLogs = new LinkedHashMap<>();
 
     @YamlComment(text = {
             "Target entities that this clue leads to",

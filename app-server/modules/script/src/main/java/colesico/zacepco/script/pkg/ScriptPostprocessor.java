@@ -1,6 +1,5 @@
 package colesico.zacepco.script.pkg;
 
-import colesico.zacepco.script.model.scriptdoc.FocusedClueSpec;
 import colesico.zacepco.script.model.scriptdoc.ScriptDocument;
 
 public class ScriptPostprocessor implements ReadPostprocessor<ScriptDocument> {
@@ -49,6 +48,13 @@ public class ScriptPostprocessor implements ReadPostprocessor<ScriptDocument> {
             personageLog.getValue().personage = personageLog.getKey();
             for (var personageEvent : personageLog.getValue().events.entrySet()) {
                 personageEvent.getValue().tick = personageEvent.getKey();
+            }
+        }
+
+        for (var locationLog : document.answers.locationLogs.entrySet()) {
+            locationLog.getValue().location = locationLog.getKey();
+            for (var locationEvent : locationLog.getValue().events.entrySet()) {
+                locationEvent.getValue().tick = locationEvent.getKey();
             }
         }
 

@@ -63,32 +63,35 @@ crime:
     T2: 2025-01-02T11:15
   
   # 
-  # Personages dictionary.
+  # Personages dictionary
   # Defines all personages involved in the crime
+  # Personage ID - unique within script
+  # ID format: P[A-Z0-9]{1,3}
   # 
   personages:
     P1:
+      
       # Short name
       name: Butler
-
+      
       # Detailed description
       description: |
         Knows all the secrets and secret passages,  is cold-blooded, has the perfect motive for murder.
-
-      # Reference script ID
-      # If this entity is imported from another script, specify the ID of that reference script.
+      
+      # Referenced script ID
+      # If this entity is imported from another script, specify the ID of that script
       ref: ZACEPCO
-
+      
       # Placeholder values
       # Map of placeholder names to values substituted into the entity's description or name
       placeholders:
         color: red
         val: Some value
-
+      
       # Initially hidden personage or not
       # Default: false
       hidden: false
-
+      
       # Initially exposed clues for this personage
       exposedClues: [C1, C2]
   
@@ -107,6 +110,8 @@ crime:
     
     # 
     # Locations dictionary
+    # Location ID - unique within script
+    # ID format: L[A-Z0-9]{1,3}
     # 
     locations:
       L1:
@@ -117,39 +122,41 @@ crime:
         placeholders:
           color: dark
           val: Some value
-
+        
         # Location position on scene grid
         # (1,1) - left top scene corner
         pos:
           col: 1
           row: 1
-
+        
         # Initially hidden location or not
         # Default: false
         hidden: false
-
+        
         # Initially exposed clues for this location
         exposedClues: [C1, C2]
     
-    # Ways between two locations.
-    # Always connects only two locations, direction does not matter.
+    # Ways between two locations
+    # Always connects only two locations, direction does not matter
     # There can be only one direct way between two locations
+    # Way ID - unique within script
+    # ID format: W[A-Z0-9]{1,3}
     ways:
       W1:
-
+        description: length 10m
+        
         # IDs of the two connected locations
         locations: [L1, L2]
-
-        # Restrictions or characteristics of the way
-        # Used by detectives to estimate the travel time and whether a personage can move along it
-        description: length 10m
-
+        
         # Is initially hidden way or not
         # Default: false
         hidden: true
-
+  
   # 
   # Clues dictionary
+  # Defines all clues involved in the crime
+  # Clue ID - unique within script
+  # ID format: C[A-Z0-9]{1,3}
   # 
   clues:
     C1:
@@ -200,16 +207,18 @@ investigation:
     # Locations to be searched
     locations:
       L3:
+        
+        # Target location clues to be uncovered
         clues:
           C1:
+            
             # Entities on which investigation action is focused
             focus: [C3, P2, T2]
-
+            
             # Clue uncover threshold
             # Default: 0.0
             threshold: 8.1
-
-
+  
   # 
   # Personage interrogation specification
   # 
@@ -219,16 +228,15 @@ investigation:
     focusLimit: 2
     statCost: -1
     
-    # Personage to be interrogated
+    # Personages to be interrogated
     personages:
       P1:
-      
-      # Personage clues
+        
+        # Target personage clues to be uncovered
         clues:
           C2:
-              focus: [T2, P1, L3]
-              threshold: 7.0
-
+            focus: [T2, P1, L3]
+            threshold: 7.0
   
   # 
   # Criminal expertise specification
@@ -244,19 +252,13 @@ investigation:
       C6:
         focus: [C1, C2, P3, L2]
         threshold: 3.0
-
+  
   # 
   # Detectives dictionary
   # A subset of which can participate in the investigation
   # 
   detectives:
-  - 
-    # Unique detective ID
-    # Format: D[A-Z0-9]{1,3}
-    id: D1
-    
-    # Detective name
-    name: Sherlock Holmes
+  - name: Sherlock Holmes
 
 # 
 # General answers
@@ -272,13 +274,19 @@ answers:
   falsityClues: [C1, C2]
   
   # Personages event log for each time tick
-  # Each element of the log array corresponds to a time tick
   # Used to verify the investigation's findings (answers)
   personageLogs:
     P1:
+      
+      # Personage events for each tick
       events:
         T1:
+          
+          # Personage destination location for tick
+          # Initial character location not specified - it refers to the previous tick
           location: L2
+          
+          # Clue linked to this personage during the tick
           clue: C1
         T2:
           location: L3
@@ -288,13 +296,19 @@ answers:
   # Used to verify the investigation's findings as answers
   locationLogs:
     L1:
-    - tick: T3
-      personages:
-      - P1
-      - P2
-      clues:
-      - C1
-      - C2
+      
+      # Location events for each tick
+      events:
+        T3:
+          
+          # Time tick id
+          tick: T3
+          
+          # Personages whose destination is this location for the given tick
+          personages: [P1, P2]
+          
+          # Clues linked to this location during the tick
+          clues: [C1, C2]
   
   # Target entities that this clue leads to
   # Used as answers to verify the investigation results
