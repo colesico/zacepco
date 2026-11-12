@@ -1,4 +1,4 @@
-package colesico.zacepco.investigation.service;
+package colesico.zacepco.investigation.manager;
 
 import colesico.zacepco.investigation.model.state.InvestigationState;
 import colesico.zacepco.script.model.scriptdoc.ScriptDocument;
@@ -12,8 +12,9 @@ public class InvestigationManager {
     public LocationSearchManager locationSearchManager;
 
     public InvestigationManager(ScriptDocument script, InvestigationState state) {
-        if (!(script.metainfo.id.equals(state.script.id) && script.metainfo.version.equals(state.script.version))) {
-            throw new IllegalStateException("State script mismatch");
+        if (!(script.metainfo.uid.equals(state.script.uid)
+                && script.metainfo.version.equals(state.script.version))) {
+            throw new IllegalStateException("Script id/version mismatch for investigation state");
         }
         this.script = script;
         this.state = state;

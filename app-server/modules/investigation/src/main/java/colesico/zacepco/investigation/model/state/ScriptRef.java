@@ -1,15 +1,15 @@
 package colesico.zacepco.investigation.model.state;
 
 public class ScriptRef {
+
     /**
-     * Investigation script ref
+     * Script uid
+     * @see colesico.zacepco.script.model.scriptdoc.MetainfoSpec#uid
      */
-    public String id;
+    public String uid;
+
+    /**
+     * @see colesico.zacepco.script.model.scriptdoc.MetainfoSpec#version
+     */
     public Integer version;
-
-    @Stateless
-    public String title;
-
-    @Stateless
-    public String annotation;
 }

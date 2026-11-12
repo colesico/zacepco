@@ -1,5 +1,8 @@
 package colesico.zacepco.investigation.model.state;
 
+import colesico.zacepco.script.model.scriptdoc.ClueSpec;
+import colesico.zacepco.script.model.scriptdoc.LocationSpec;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,19 +11,7 @@ import java.util.List;
  */
 public class LocationState {
 
-    public String id;
-
-    @Stateless
-    public String name;
-
-    @Stateless
-    public String description;
-
-    @Stateless
-    public String ref;
-
-    @Stateless
-    public LocationPos pos;
+    public LocationSpec.Id id;
 
     /**
      * Location uncover state
@@ -30,13 +21,12 @@ public class LocationState {
     /**
      * Exposed clues for this location
      */
-    public List<String> exposedClues = new ArrayList<>();
+    public List<ClueSpec.Id> exposedClues = new ArrayList<>();
 
     public LocationState() {
     }
 
-    public LocationState(String id) {
+    public LocationState(LocationSpec.Id id) {
         this.id = id;
     }
-
 }

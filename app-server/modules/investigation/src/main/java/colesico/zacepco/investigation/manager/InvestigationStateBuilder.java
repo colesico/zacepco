@@ -1,4 +1,4 @@
-package colesico.zacepco.investigation.service;
+package colesico.zacepco.investigation.manager;
 
 import colesico.zacepco.investigation.model.state.DetectiveState;
 import colesico.zacepco.investigation.model.state.InvestigationState;
@@ -53,15 +53,14 @@ public class InvestigationStateBuilder {
     public InvestigationState build() {
         var invState = new InvestigationState();
 
-        invState.script.id = script.metainfo.id;
+        invState.script.uid = script.metainfo.uid;
         invState.script.version = script.metainfo.version;
+
         invState.budget = (int) Math.ceil(script.investigation.budget * budgetScale);
-        invState.randFactor = randFactor;
 
         invState.scene.locations.putAll(buildLocationStates());
         invState.personages.putAll(buildPersonageStates());
         invState.detectives.putAll(buildDetectiveStates());
-
 
         if (invState.detectives.isEmpty()) {
             throw new RuntimeException("Detectives not specified");
@@ -75,10 +74,8 @@ public class InvestigationStateBuilder {
                 .collect(Collectors.toMap(
                         per -> per.id.toString(),
                         per -> {
-                            var perState = new PersonageState(per.id.toString());
-                            perState.exposedClues.addAll(per.exposedClues.stream()
-                                    .map(Object::toString)
-                                    .toList());
+                            var perState = new PersonageState(per.id);
+                            perState.exposedClues.addAll(per.exposedClues);
                             perState.hidden = per.hidden;
                             return perState;
                         },
@@ -92,10 +89,8 @@ public class InvestigationStateBuilder {
                 .collect(Collectors.toMap(
                         loc -> loc.id.toString(),
                         loc -> {
-                            var locState = new LocationState(loc.id.toString());
-                            locState.exposedClues.addAll(loc.exposedClues.stream()
-                                    .map(Object::toString)
-                                    .toList());
+                            var locState = new LocationState(loc.id);
+                            locState.exposedClues.addAll(loc.exposedClues);
                             locState.hidden = loc.hidden;
                             return locState;
                         },
@@ -106,19 +101,15 @@ public class InvestigationStateBuilder {
 
 
     private Map<String, DetectiveState> buildDetectiveStates() {
-        if (script.investigation.detectives == null || script.investigation.detectives.isEmpty()) {
-            return new LinkedHashMap<>();
-        }
 
         List<DetectiveSpec> allDetectives = new ArrayList<>(script.investigation.detectives.values());
         Collections.shuffle(allDetectives, new Random());
 
-        // Ограничиваем стрим вместо опасного subList и собираем строго в LinkedHashMap
         return allDetectives.stream()
                 .limit(Math.max(0, detectivesNum))
                 .collect(Collectors.toMap(
                         det -> det.id.toString(),
-                        det -> new DetectiveState(det.id.toString()),
+                        det -> new DetectiveState(det.id),
                         (existing, replacement) -> existing,
                         LinkedHashMap::new
                 ));

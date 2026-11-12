@@ -8,8 +8,8 @@ import colesico.zacepco.docket.srv.dao.InvestigationEntryDao;
 import colesico.zacepco.docket.srv.dto.CreateInvestigationRequest;
 import colesico.zacepco.docket.srv.model.InvestigationEntry;
 import colesico.zacepco.docket.srv.model.InvestigationStatus;
-import colesico.zacepco.investigation.service.InvestigationStateBuilder;
-import colesico.zacepco.investigation.service.InvestigationStateEnricher;
+import colesico.zacepco.investigation.manager.InvestigationStateBuilder;
+import colesico.zacepco.investigation.manager.InvestigationStateEnricher;
 import jakarta.inject.Provider;
 
 import java.util.Date;

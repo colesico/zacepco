@@ -1,32 +1,29 @@
 package colesico.zacepco.investigation.model.state;
 
+import colesico.zacepco.script.model.scriptdoc.ClueSpec;
+import colesico.zacepco.script.model.scriptdoc.PersonageSpec;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class PersonageState {
 
-    public String id;
-
-    @Stateless
-    public String name;
-
-    @Stateless
-    public String description;
-
-    @Stateless
-    public String ref;
+    public PersonageSpec.Id id;
 
     /**
-     * Personage uncover  state.
+     * Current uncover or not.
      */
     public boolean hidden = false;
 
-    public List<String> exposedClues = new ArrayList<>();
+    /**
+     * Current exposed clues
+     */
+    public List<ClueSpec.Id> exposedClues = new ArrayList<>();
 
     public PersonageState() {
     }
 
-    public PersonageState(String id) {
+    public PersonageState(PersonageSpec.Id id) {
         this.id = id;
     }
 }

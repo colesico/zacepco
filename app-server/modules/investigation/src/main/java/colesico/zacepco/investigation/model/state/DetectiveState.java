@@ -1,8 +1,13 @@
 package colesico.zacepco.investigation.model.state;
 
+import colesico.zacepco.script.model.scriptdoc.DetectiveSpec;
+
 public class DetectiveState {
 
-    public String id;
+    /**
+     * Detective id
+     */
+    public DetectiveSpec.Id id;
 
     /**
      * Awarded points
@@ -12,7 +17,7 @@ public class DetectiveState {
     public DetectiveState() {
     }
 
-    public DetectiveState(String id) {
+    public DetectiveState(DetectiveSpec.Id id) {
         this.id = id;
     }
 

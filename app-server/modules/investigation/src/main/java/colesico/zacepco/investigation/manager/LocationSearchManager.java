@@ -1,4 +1,4 @@
-package colesico.zacepco.investigation.service;
+package colesico.zacepco.investigation.manager;
 
 import colesico.zacepco.investigation.dto.DetectiveFocus;
 import colesico.zacepco.script.model.scriptdoc.ClueSpec;
