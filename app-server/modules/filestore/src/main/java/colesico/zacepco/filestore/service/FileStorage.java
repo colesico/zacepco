@@ -61,9 +61,10 @@ public class FileStorage {
      * Hash from path
      */
     public String toHash(Path path) {
+        var localRoot = path.getName(0);
         MessageDigest digest = messageDigest();
         try {
-            byte[] hashBytes = digest.digest(path.toString().getBytes(StandardCharsets.UTF_8));
+            byte[] hashBytes = digest.digest(localRoot.toString().getBytes(StandardCharsets.UTF_8));
             return HexFormat.of().formatHex(hashBytes);
         } finally {
             digestPool.offer(digest);
@@ -76,9 +77,9 @@ public class FileStorage {
     public Path resolve(Path path) {
         Path relativePath = path.isAbsolute() ? path.getRoot().relativize(path) : path;
 
-        var fileHash = toHash(relativePath);
-        var bucket1 = fileHash.substring(0, 2);
-        var bucket2 = fileHash.substring(2, 4);
+        var pathHash = toHash(relativePath);
+        var bucket1 = pathHash.substring(0, 2);
+        var bucket2 = pathHash.substring(2, 4);
 
         Path storagePath = config.storagePath();
         var fullPath = storagePath.resolve(bucket1).resolve(bucket2).resolve(relativePath).normalize();

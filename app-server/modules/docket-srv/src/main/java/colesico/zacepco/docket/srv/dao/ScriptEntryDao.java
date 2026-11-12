@@ -42,6 +42,14 @@ public class ScriptEntryDao {
         return handle.get().createQuery(sql).bind("id", id).map(scriptEntryRk.mapper()).findOne();
     }
 
+    public Optional<ScriptEntry> findScriptEntryByScript(String scriptUid, Integer scriptVersion) {
+        String sql = scriptEntryRk.sql("select @columns from @table where script_uid = :uid and script_version = :version");
+        return handle.get().createQuery(sql)
+                .bind("uid",scriptUid)
+                .bind("version", scriptVersion)
+                .map(scriptEntryRk.mapper()).findOne();
+    }
+
     public List<ScriptEntry> listScriptEntries(int limit, long offset) {
         var query = """
                 select @record
