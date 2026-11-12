@@ -8,7 +8,7 @@ import java.time.LocalDate;
 /**
  * Script meta information
  */
-public final class ScriptSpec {
+public final class MetainfoSpec {
 
     @YamlComment(text = {
             "Script schema version (data model version)",
@@ -17,11 +17,12 @@ public final class ScriptSpec {
     public String schema = "1.0.0";
 
     @YamlComment(text = {
-            "Global unique script identifier",
+            "Unique script identifier",
             "Can only consist of ASCII uppercase letters, numbers, underscore '_'"
     })
-    public String id;
+    public String uid;
 
+    @YamlComment(text = "Script version (1..N)")
     public Integer version = 1;
 
     @YamlComment(text = "Script title")
@@ -30,7 +31,10 @@ public final class ScriptSpec {
     /**
      * Crime brief description
      */
-    @YamlComment(text = "A brief crime summary without spoilers")
+    @YamlComment(text = {
+            "A brief crime summary without spoilers",
+            "and version information"
+    })
     public String annotation = null;
 
     /**
@@ -77,7 +81,7 @@ public final class ScriptSpec {
     public String toString() {
         return "ScriptMetadata{" +
                 "schema='" + schema + '\'' +
-                ", id='" + id + '\'' +
+                ", uid='" + uid + '\'' +
                 ", title='" + title + '\'' +
                 '}';
     }

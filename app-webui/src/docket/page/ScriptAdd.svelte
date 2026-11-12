@@ -31,7 +31,8 @@
 
 		try {
 		    console.log('Call api');
-			const response = await scriptApi.createScriptEntry(file);
+			const scriptEntry = await scriptApi.createScriptEntry(file);
+			replace('/scripts/'+scriptEntry.id);
 		} catch (ex) {
 			error = ex.data;
 		} finally {

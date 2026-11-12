@@ -30,6 +30,13 @@ public class FileStoragePackageDriver extends PackageDriver {
         this.packageId = packageId;
     }
 
+    public FileStorage fileStorage() {
+        return fileStorage;
+    }
+
+    public void removePackage(){
+        fileStorage.delete(Path.of(packageId));
+    }
     /**
      * Convert ResourcePath to Path for FileStorage.
      * All resources are stored under packageId directory to avoid collisions between packages.
@@ -37,7 +44,7 @@ public class FileStoragePackageDriver extends PackageDriver {
      * @param resourcePath the resource path
      * @return Path for FileStorage
      */
-    protected Path resolve(ResourcePath resourcePath) {
+    public Path resolve(ResourcePath resourcePath) {
         return Path.of(packageId).resolve(resourcePath.asPath());
     }
 

@@ -8,7 +8,7 @@ import colesico.framework.jjwt.WebJwt;
 import colesico.framework.restlet.Restlet;
 import colesico.framework.security.authentication.Authentication;
 import colesico.framework.telehttp.ParamName;
-import colesico.zacepco.docket.srv.model.ScriptEntry;
+import colesico.zacepco.docket.srv.model.Script;
 import colesico.zacepco.docket.srv.service.ScriptService;
 import colesico.zacepco.script.model.scriptdoc.ScriptDocument;
 
@@ -26,19 +26,19 @@ public class ScriptRestlet {
     @RequestMethod(HttpMethod.POST)
     @Route("./")
     @Authentication(WebJwt.class)
-    public ScriptEntry createScriptEntry(@ParamName("script") HttpFile scriptFile) {
-        return scriptService.createScriptEntry(scriptFile.inputStream());
+    public Script createScript(@ParamName("script") HttpFile scriptFile) {
+        return scriptService.createScript(scriptFile.inputStream());
     }
 
     @Route("./")
-    public List<ScriptEntry> listScriptEntries(Integer limit, Long offset) {
-        return scriptService.listScriptEntries(limit, offset);
+    public List<Script> listScripts(Integer limit, Long offset) {
+        return scriptService.listScripts(limit, offset);
     }
 
-    @Route("./entry/:scriptEntryId/document")
-    public ScriptDocument scriptDocument(Long scriptEntryId) {
-        var scriptPackage = scriptService.scriptPackage(scriptEntryId);
-        var scriptDoc = scriptPackage.script().read();
+    @Route("./:scriptId/document")
+    public ScriptDocument scriptDocument(Long scriptId) {
+        var scriptPackage = scriptService.scriptPackage(scriptId);
+        var scriptDoc = scriptPackage.scriptDocument().read();
         return scriptDoc;
     }
 

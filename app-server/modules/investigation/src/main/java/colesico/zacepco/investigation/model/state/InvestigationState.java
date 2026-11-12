@@ -15,8 +15,6 @@ public class InvestigationState {
      */
     public int budget = 0;
 
-    public double randFactor = 1.0;
-
     /**
      * Current detective
      */
@@ -32,7 +30,6 @@ public class InvestigationState {
 
     /**
      * Set next active detective
-     *
      * @return active detective id
      */
     public String nextDetective() {

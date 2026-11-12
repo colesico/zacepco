@@ -2,23 +2,28 @@
 # 
 # Script meta information
 # 
-script:
+metainfo:
   
   # Script schema version (data model version)
   # SimVer (semver.org) notation (i.e. 1.2.3)
   schema: 1.0.0
   
-  # Unique script id
+  # Unique script identifier
   # Can only consist of ASCII uppercase letters, numbers, underscore '_'
-  id: ZACEPCO
+  uid: ZACEPCO
   
+  # Script version (1..N)
+  version: 1
+  
+  # Script title
   title: Script document
   
   # A brief crime summary without spoilers
+  # and version information
   annotation: |
     Defines the complete reference model of the script document
   
-  # Script authors
+  # Authors list
   authors:
   - Vladlen V. Ларионов
   
@@ -28,9 +33,9 @@ script:
   # Script creation date YYYY-MM-DD
   creationDate: '2026-01-01'
   
-  # Game difficulty
-  # Dimensionless coefficient [0..1].
-  # 0 - easy; 1 - highly difficult.
+  # Game estimated difficulty level
+  # Dimensionless coefficient [0..1]
+  # 0 - easy; 1 - highly difficult
   difficulty: 0.0
   
   # Estimated playtime, minutes
@@ -76,9 +81,10 @@ crime:
       description: |
         Knows all the secrets and secret passages,  is cold-blooded, has the perfect motive for murder.
       
-      # Referenced script ID
-      # If this entity is imported from another script, specify the ID of that script
-      ref: ZACEPCO
+      # Optional referenced script
+      # If this entity is imported from another script,
+      # specify that script UID
+      script: ZACEPCO
       
       # Placeholder values
       # Map of placeholder names to values substituted into the entity's description or name
@@ -116,7 +122,7 @@ crime:
         name: Cabinet
         description: |
           A gloomy study with $color shadows  shaped like Rorschach blots.
-        ref: ZACEPCO
+        script: ZACEPCO
         placeholders:
           color: dark
           val: Some value
@@ -161,7 +167,7 @@ crime:
       name: Butt
       description: |
         A Camel cigarette butt
-      ref: ZACEPCO
+      script: ZACEPCO
       placeholders:
         time: '10:30'
         val: Some value
@@ -259,6 +265,7 @@ investigation:
     D1:
       name: Sherlock Holmes
       description: Famous detective
+
 # 
 # General answers
 # 

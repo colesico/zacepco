@@ -15,7 +15,7 @@ public class StrategyItemSpec {
 
     @YamlComment(text = "Detective focus")
     @YamlCompact
-    public List<TypedId> focus;
+    public List<TId> focus;
 
     @YamlComment(text = "Clue obtained")
     public ClueSpec.Id result;

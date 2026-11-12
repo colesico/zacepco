@@ -8,34 +8,34 @@ import colesico.framework.weblet.Weblet;
 import colesico.zacepco.docket.srv.model.ImageScale;
 import colesico.zacepco.docket.srv.service.ScriptService;
 import colesico.zacepco.docket.srv.service.ScriptAssetsService;
-import colesico.zacepco.script.model.scriptdoc.TypedId;
+import colesico.zacepco.script.model.scriptdoc.TId;
 import colesico.zacepco.script.pkg.ScriptPackage;
 import jakarta.inject.Provider;
 
 @Weblet
-@Route("./script-assets")
-public class ScriptAssetsWeblet {
+@Route("./script")
+public class ScriptAssetWeblet {
 
     private final ScriptAssetsService scriptAssetsService;
     private final ScriptService scriptService;
     private final Provider<HttpResponse> httpResponse;
 
-    public ScriptAssetsWeblet(ScriptAssetsService scriptAssetsService, ScriptService scriptService, Provider<HttpResponse> httpResponse) {
+    public ScriptAssetWeblet(ScriptAssetsService scriptAssetsService, ScriptService scriptService, Provider<HttpResponse> httpResponse) {
         this.scriptAssetsService = scriptAssetsService;
         this.scriptService = scriptService;
         this.httpResponse = httpResponse;
     }
 
-    @Route("./images/:scaleCode/:scriptEntryId/:asset")
+    @Route("./images/:scaleCode/:scriptId/:asset")
     @ParamOrigin(Origin.ROUTE)
-    public void image(String scaleCode, Long scriptEntryId, String asset) {
+    public void image(String scaleCode, Long scriptId, String asset) {
 
-        ScriptPackage sp = scriptService.scriptPackage(scriptEntryId);
+        ScriptPackage sp = scriptService.scriptPackage(scriptId);
 
         var res = switch (asset) {
             case "S" -> sp.scriptImage();
             default -> {
-                var entityId = TypedId.parse(asset);
+                var entityId = TId.parse(asset);
                 yield sp.entityImage(entityId);
             }
         };
@@ -46,7 +46,7 @@ public class ScriptAssetsWeblet {
         }
 
         try (
-                var is = scriptAssetsService.imageInput(scriptEntryId, res, scale);
+                var is = scriptAssetsService.imageInput(scriptId, res, scale);
         ) {
             is.transferTo(httpResponse.get().outputStream());
         } catch (Exception ex) {

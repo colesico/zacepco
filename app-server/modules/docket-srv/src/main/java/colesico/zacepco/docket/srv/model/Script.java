@@ -4,48 +4,48 @@ import colesico.framework.jdbirec.Column;
 import colesico.framework.jdbirec.Composition;
 import colesico.framework.jdbirec.Record;
 import colesico.framework.jdbirec.mediators.DateTextMediator;
-import colesico.zacepco.docket.srv.jdbi.AccessTypeMediator;
+import colesico.zacepco.docket.srv.jdbi.ScriptStatusMediator;
 import colesico.zacepco.script.model.scriptdoc.ScriptDocument;
 
 import java.util.Date;
 
 /**
- * Script entry model
+ * Represents script in scripts catalog
  *
  * @see ScriptDocument
  */
 @Record(table = "scripts")
-public class ScriptEntry {
+public class Script {
 
     /**
-     * Script entry id
+     * Script Id
      */
     @Column
-    private Long id;
+    public Long id;
 
     /**
-     * User who created this entry
+     * User (owner) who added script to catalog and can manage it
      */
     @Column
-    private Long userId;
+    public Long userId;
 
     /**
-     * Entry access
+     * Script status
      */
-    @Column(mediator = AccessTypeMediator.class)
-    private ScriptEntryAccessType access;
+    @Column(mediator = ScriptStatusMediator.class)
+    public ScriptStatus status;
 
     /**
-     * Creation date
+     * Script registration date
      */
     @Column(mediator = DateTextMediator.class)
-    private Date createdAt;
+    public Date createdAt;
 
     /**
      * Script summary
      */
     @Composition(renaming = "script_@column")
-    private ScriptSummary summary;
+    public ScriptSummary summary;
 
     public Long getId() {
         return id;
@@ -63,12 +63,12 @@ public class ScriptEntry {
         this.userId = userId;
     }
 
-    public ScriptEntryAccessType getAccess() {
-        return access;
+    public ScriptStatus getStatus() {
+        return status;
     }
 
-    public void setAccess(ScriptEntryAccessType access) {
-        this.access = access;
+    public void setStatus(ScriptStatus status) {
+        this.status = status;
     }
 
     public Date getCreatedAt() {

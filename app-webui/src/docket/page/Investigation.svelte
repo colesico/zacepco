@@ -13,8 +13,7 @@
 
   let error = $state(null);
   let loading = $state(true);
-  let invEntry = $state(null);
-  let state = $state(null);
+  let context = $state(null);
 
   $effect(() => {
     let cancelled = false;
@@ -22,9 +21,9 @@
       loading = true;
       error = null;
       try {
-        invEntry = await investigationApi.findInvestigationEntry(id);
-        state = invEntry.state;
-        console.log(state);
+        const c  = await investigationApi.findInvestigationContext(id);
+		context = c;
+        console.log(context);
       } catch (ex) {
         error = ex.data;
         overview = null;
@@ -40,11 +39,8 @@
   <UiLoadingIndicator {loading} />
   <UiErrorMessage {error} />
 
-  {#if invEntry}
-    <h1>Дело "{state.script.title}" #{state.script.id}</h1>
-
-    {#if state?.scene}
-      <SceneMap scene={state.scene} />
-    {/if}
+  {#if context}
+    <h1>Дело "{context.script.metainfo.title}" #{context.script.metainfo.uid}</h1>
+    <SceneMap {context} />
   {/if}
 </div>

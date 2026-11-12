@@ -10,34 +10,42 @@ import colesico.framework.telehttp.ParamOrigin;
 import colesico.framework.telehttp.origin.Origin;
 import colesico.framework.telehttp.result.ValueResult;
 import colesico.zacepco.docket.srv.dto.CreateInvestigationRequest;
-import colesico.zacepco.docket.srv.model.InvestigationEntry;
+import colesico.zacepco.docket.srv.model.Investigation;
 import colesico.zacepco.docket.srv.service.InvestigationService;
+import colesico.zacepco.docket.srv.service.ScriptService;
+import colesico.zacepco.docket.ui.dto.InvestigationContext;
 
 @Restlet
 @Route("./investigation")
 public class InvestigationRestlet {
 
     private final InvestigationService investigationService;
+    private final ScriptService scriptService;
 
-    public InvestigationRestlet(InvestigationService investigationService) {
+    public InvestigationRestlet(InvestigationService investigationService, ScriptService scriptService) {
         this.investigationService = investigationService;
+        this.scriptService = scriptService;
     }
 
     @RequestMethod(HttpMethod.POST)
     @Route("./")
     @Authentication(WebJwt.class)
-    public InvestigationEntry createInvestigationEntry(@ParamOrigin(Origin.BODY) CreateInvestigationRequest request) {
-        return investigationService.createInvestigationEntry(request);
+    public Investigation createInvestigation(@ParamOrigin(Origin.BODY) CreateInvestigationRequest request) {
+        return investigationService.createInvestigation(request);
     }
 
     @Route("./:id")
-    public ValueResult<InvestigationEntry> findInvestigationEntry(@ParamOrigin(Origin.ROUTE) Long id) {
-        var optEntry = investigationService.findInvestigationEntryById(id);
+    public ValueResult<InvestigationContext> findInvestigationContext(@ParamOrigin(Origin.ROUTE) Long id) {
+        var invOpt = investigationService.findInvestigationById(id);
 
-        if (optEntry.isPresent()) {
-            return ValueResult.value(optEntry.get()).build();
+        if (invOpt.isPresent()) {
+            var inv = invOpt.get();
+            var ctx = new InvestigationContext();
+            ctx.investigation = inv;
+            ctx.script = scriptService.scriptPackage(inv.scriptId).scriptDocument().read();
+            return ValueResult.value(ctx).build();
         } else {
-            return ValueResult.empty(InvestigationEntry.class).status(204).build();
+            return ValueResult.empty(InvestigationContext.class).status(204).build();
         }
     }
 }

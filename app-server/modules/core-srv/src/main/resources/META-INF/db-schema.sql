@@ -28,47 +28,21 @@ CREATE TABLE IF NOT EXISTS invites (
     CHECK (expired_at > created_at)
 ) STRICT;
 
-CREATE INDEX IF NOT EXISTS idx_invites_code
-    ON invites(code_hash)
-    WHERE code_hash IS NOT NULL;
-
+CREATE INDEX IF NOT EXISTS idx_invites_code ON invites(code_hash);
 CREATE INDEX IF NOT EXISTS idx_invites_user_id ON invites(user_id);
 
 CREATE TABLE IF NOT EXISTS scripts (
     id INTEGER PRIMARY KEY NOT NULL,
     user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-    is_active INTEGER DEFAULT 1,
-    access TEXT NOT NULL CHECK (access IN ('PRIVATE', 'PROTECTED', 'PUBLIC')),
+    status TEXT NOT NULL CHECK (status IN ('PUBLIC', 'RESTRICTED', 'ARCHIVED')),
     created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    script_id TEXT NOT NULL,
+    script_uid TEXT NOT NULL,
     script_version INTEGER NOT NULL,
     script_title TEXT NOT NULL,
-    script_annotation TEXT NOT NULL,
     script_authors TEXT NOT NULL,
-    script_creation_date TEXT NOT NULL,
-    UNIQUE(script_id, script_version)
+    UNIQUE (script_uid, script_version)
 ) STRICT;
 
-CREATE TRIGGER IF NOT EXISTS update_script_active
-BEFORE INSERT ON scripts
-FOR EACH ROW
-BEGIN
-    UPDATE scripts
-    SET is_active = 0
-    WHERE script_id = NEW.script_id AND is_active = 1;
-END;
-
-CREATE INDEX IF NOT EXISTS idx_scripts_active
-    ON scripts (script_id)
-    WHERE is_active = 1;
-
-CREATE UNIQUE INDEX IF NOT EXISTS idx_scripts_author_unique
-    ON scripts (user_id, script_id)
-    WHERE access IN ('PRIVATE', 'PROTECTED');
-
-CREATE UNIQUE INDEX IF NOT EXISTS idx_scripts_public_unique
-    ON scripts (script_id)
-    WHERE access = 'PUBLIC';
 
 CREATE TABLE IF NOT EXISTS scripts_id_sequence (
     id INTEGER PRIMARY KEY CHECK (id = 1),
@@ -80,11 +54,11 @@ INSERT OR IGNORE INTO scripts_id_sequence (id, value) VALUES (1, 0);
 CREATE TABLE IF NOT EXISTS investigations (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    script_id INTEGER NOT NULL REFERENCES scripts(id) ON DELETE RESTRICT,
     status TEXT NOT NULL CHECK (status IN ('OPEN', 'CLOSED')),
-    script_entry_id INTEGER REFERENCES scripts(id) ON DELETE CASCADE,
     created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    state BLOB
+    state BLOB NOT NULL
 ) STRICT;
 
 CREATE INDEX IF NOT EXISTS idx_investigations_user_id ON investigations(user_id);
-CREATE INDEX IF NOT EXISTS idx_investigations_script_entry_id ON investigations(script_entry_id) WHERE script_entry_id IS NOT NULL;
+CREATE INDEX IF NOT EXISTS idx_investigations_script_id ON investigations(script_id);

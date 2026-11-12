@@ -8,6 +8,7 @@ import colesico.framework.jdbirec.mediators.DateTextMediator;
 import colesico.zacepco.docket.srv.jdbi.InvestigationStateMediator;
 import colesico.zacepco.docket.srv.jdbi.InvestigationStatusMediator;
 import colesico.zacepco.investigation.model.state.InvestigationState;
+import colesico.zacepco.script.model.scriptdoc.ScriptDocument;
 
 import java.util.Date;
 
@@ -15,7 +16,7 @@ import static colesico.framework.jdbirec.RecordView.*;
 import static colesico.framework.jdbirec.TagFilter.*;
 
 /**
- * Investigation record
+ * Represents investigation by script
  */
 @Record(table = "investigations",
         views = {
@@ -23,39 +24,39 @@ import static colesico.framework.jdbirec.TagFilter.*;
                 @RecordView(name = VIEW_BRIEF, tagFilter = @TagFilter(anyOf = {TAG_BRIEF, TF_NO_TAGS}))
         }
 )
-public class InvestigationEntry {
+public class Investigation {
 
     /**
-     * Investigation process id
+     * Investigation id
      */
     @Column
-    private Long id;
+    public Long id;
 
     /**
-     * Script ref
+     * Script id
      *
-     * @see ScriptEntry
+     * @see Script#id
      */
     @Column
-    private Long scriptEntryId;
+    public Long scriptId;
 
     /**
-     * User (owner) who created entry and can manage it
+     * User (owner) who created investigation and can manage it
      */
     @Column
-    private Long userId;
+    public Long userId;
 
     @Column(mediator = InvestigationStatusMediator.class)
-    private InvestigationStatus status;
+    public InvestigationStatus status;
 
     /**
-     * When case entity was created
+     * When case investigation was created
      */
     @Column(mediator = DateTextMediator.class)
-    private Date createdAt;
+    public Date createdAt;
 
     @Column(mediator = InvestigationStateMediator.class, tags = TAG_FULL)
-    private InvestigationState state;
+    public InvestigationState state;
 
     public Long getId() {
         return id;
@@ -81,12 +82,12 @@ public class InvestigationEntry {
         this.status = status;
     }
 
-    public Long getScriptEntryId() {
-        return scriptEntryId;
+    public Long getScriptId() {
+        return scriptId;
     }
 
-    public void setScriptEntryId(Long scriptEntryId) {
-        this.scriptEntryId = scriptEntryId;
+    public void setScriptId(Long scriptId) {
+        this.scriptId = scriptId;
     }
 
     public Date getCreatedAt() {

@@ -10,12 +10,12 @@ import java.io.UncheckedIOException;
 /**
  * Represents script document resource (script.yaml)
  */
-public class ScriptResource extends Resource {
+public class ScriptDocumnetResource extends Resource {
 
     private final YamlReader reader;
     private final YamlWriter writer;
 
-    public ScriptResource(ResourcePath path, PackageDriver packageDriver, YamlReader reader, YamlWriter writer) {
+    public ScriptDocumnetResource(ResourcePath path, PackageDriver packageDriver, YamlReader reader, YamlWriter writer) {
         super(path, packageDriver);
         this.reader = reader;
         this.writer = writer;

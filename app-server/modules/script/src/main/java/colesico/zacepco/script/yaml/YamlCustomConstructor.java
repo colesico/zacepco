@@ -1,6 +1,6 @@
 package colesico.zacepco.script.yaml;
 
-import colesico.zacepco.script.model.scriptdoc.TypedId;
+import colesico.zacepco.script.model.scriptdoc.TId;
 import colesico.zacepco.script.model.scriptdoc.TickSpec;
 import org.yaml.snakeyaml.LoaderOptions;
 import org.yaml.snakeyaml.constructor.AbstractConstruct;
@@ -37,7 +37,7 @@ public class YamlCustomConstructor extends Constructor {
             return new ConstructLocalDate();
         }
 
-        if (TypedId.class.isAssignableFrom(node.getType())) {
+        if (TId.class.isAssignableFrom(node.getType())) {
             return new ConstructTID();
         }
 
@@ -68,7 +68,7 @@ public class YamlCustomConstructor extends Constructor {
         @Override
         public Object construct(Node node) {
             String value = ((ScalarNode) node).getValue();
-            return TypedId.parse(value);
+            return TId.parse(value);
         }
     }
 

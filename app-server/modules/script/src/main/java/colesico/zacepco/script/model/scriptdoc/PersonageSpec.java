@@ -25,7 +25,7 @@ public final class PersonageSpec extends EntitySpec<PersonageSpec.Id> {
     public List<ClueSpec.Id> exposedClues = new ArrayList<>();
 
 
-    public static final class Id extends TypedId {
+    public static final class Id extends TId {
 
         @Override
         public Type type() {

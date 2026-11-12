@@ -11,7 +11,7 @@ import java.util.Objects;
  * Abstract game entity model.
  * This class must be extended by specific entities.
  */
-public abstract class EntitySpec<ID extends TypedId> {
+public abstract class EntitySpec<ID extends TId> {
 
     /**
      * Entity id
@@ -34,10 +34,11 @@ public abstract class EntitySpec<ID extends TypedId> {
     public String description = null;
 
     @YamlComment(text = {
-            "Referenced script ID",
-            "If this entity is imported from another script, specify the ID of that script"
+            "Optional referenced script",
+            "If this entity is imported from another script,",
+            "specify that script UID"
     })
-    public String ref = null;
+    public String script = null;
 
     @YamlComment(text = {
             "Placeholder values",
