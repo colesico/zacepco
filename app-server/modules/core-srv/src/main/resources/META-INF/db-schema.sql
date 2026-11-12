@@ -32,21 +32,24 @@ CREATE INDEX IF NOT EXISTS idx_invites_code ON invites(code_hash);
 CREATE INDEX IF NOT EXISTS idx_invites_user_id ON invites(user_id);
 
 CREATE TABLE IF NOT EXISTS scripts (
-    id TEXT PRIMARY KEY NOT NULL,
+    id INTEGER PRIMARY KEY NOT NULL,
     user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-    access TEXT NOT NULL CHECK (access IN ('PRIVATE', 'PROTECTED')),
+    status TEXT NOT NULL CHECK (status IN ('PUBLIC', 'RESTRICTED', 'ARCHIVED')),
     created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    script_uid TEXT NOT NULL,
+    script_version INTEGER NOT NULL,
     script_title TEXT NOT NULL,
-    script_authors TEXT NOT NULL
+    script_authors TEXT NOT NULL,
+    UNIQUE (script_uid, script_version)
 ) STRICT;
 
 CREATE TABLE IF NOT EXISTS investigations (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-    script_id TEXT REFERENCES scripts(id) ON DELETE CASCADE,
+    script_id INTEGER NOT NULL REFERENCES scripts(id) ON DELETE RESTRICT,
     status TEXT NOT NULL CHECK (status IN ('OPEN', 'CLOSED')),
     created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    state BLOB
+    state BLOB NOT NULL
 ) STRICT;
 
 CREATE INDEX IF NOT EXISTS idx_investigations_user_id ON investigations(user_id);

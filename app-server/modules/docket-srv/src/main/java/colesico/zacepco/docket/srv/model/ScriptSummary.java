@@ -7,17 +7,54 @@ import java.util.List;
 
 public class ScriptSummary {
 
+    /**
+     * Script id
+     * @see colesico.zacepco.script.model.scriptdoc.MetainfoSpec#id
+     */
+    @Column
+    public String id;
+
+    /**
+     * @see colesico.zacepco.script.model.scriptdoc.MetainfoSpec#version
+     */
+    @Column
+    public Integer version;
+
     @Column
     public String title;
 
     @Column(mediator = ListStringTextMediator.class)
     public List<String> authors;
 
-    public ScriptSummary() {
+    public String getId() {
+        return id;
     }
 
-    public ScriptSummary(String title, List<String> authors) {
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public Integer getVersion() {
+        return version;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
         this.title = title;
+    }
+
+    public List<String> getAuthors() {
+        return authors;
+    }
+
+    public void setAuthors(List<String> authors) {
         this.authors = authors;
     }
 }

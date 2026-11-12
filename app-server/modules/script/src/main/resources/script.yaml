@@ -10,8 +10,11 @@ metainfo:
   
   # Unique script id
   # Can only consist of ASCII uppercase letters, numbers, underscore '_'
-  id: ZACEPCO
-  
+  uid: ZACEPCO
+
+  # Script version (1..N)
+  version: 1
+
   title: Script document
   
   # A brief crime summary without spoilers

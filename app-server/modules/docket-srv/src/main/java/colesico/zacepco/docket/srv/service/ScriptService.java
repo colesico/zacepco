@@ -8,12 +8,11 @@ import colesico.framework.service.PlainMethod;
 import colesico.framework.service.Service;
 import colesico.framework.transaction.Transactional;
 import colesico.zacepco.docket.srv.dao.ScriptEntryDao;
-import colesico.zacepco.docket.srv.script.FileStoragePackageDriver;
 import colesico.zacepco.docket.srv.model.ScriptEntry;
-import colesico.zacepco.docket.srv.model.ScriptEntryAccessType;
+import colesico.zacepco.docket.srv.script.FileStoragePackageDriver;
+import colesico.zacepco.docket.srv.model.ScriptStatus;
 import colesico.zacepco.docket.srv.model.ScriptSummary;
 import colesico.zacepco.script.model.scriptdoc.ScriptDocument;
-import colesico.zacepco.script.model.scriptdoc.MetainfoSpec;
 import colesico.zacepco.script.pkg.*;
 import jakarta.inject.Provider;
 
@@ -76,7 +75,7 @@ public class ScriptService {
         ScriptEntry scriptEntry = new ScriptEntry();
         scriptEntry.setId(script.metainfo.id);
         scriptEntry.setUserId(userId);
-        scriptEntry.setAccess(ScriptEntryAccessType.PRIVATE);
+        scriptEntry.setStatus(ScriptStatus.PRIVATE);
         scriptEntry.setCreatedAt(new Date());
 
         var summary = new ScriptSummary();
