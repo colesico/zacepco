@@ -25,7 +25,7 @@ public class ScriptAssetsService {
     }
 
     protected Path scaledImagesRoot(Long scriptEntryId, ImageScale scale) {
-        return Path.of(scale.code() + "-" + scriptEntryId);
+        return Path.of(  "script-" + scriptEntryId+"/_"+scale.code());
     }
 
     public InputStream imageInput(Long scriptEntryId, Resource resource, ImageScale scale) {
@@ -36,7 +36,6 @@ public class ScriptAssetsService {
     }
 
     public void scaleImages(Long scriptEntryId, ScriptPackage scriptPackage) {
-
 
         var posterResource = scriptPackage.scriptImage();
         iconize(scriptEntryId, posterResource, ImageScale.THUMB);

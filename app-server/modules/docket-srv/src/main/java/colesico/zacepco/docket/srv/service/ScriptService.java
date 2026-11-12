@@ -69,11 +69,16 @@ public class ScriptService {
         var scriptEntryId = scriptEntryDao.getScriptEntryId();
 
         ScriptDocument script;
+        var scriptPackage = scriptPackage(scriptEntryId);
+        var prgDriver = (FileStoragePackageDriver) scriptPackage.driver();
 
-        try (var scriptPackage = scriptPackage(scriptEntryId)) {
+        try {
             scriptPackage.importFrom(scriptPackageData);
             assetsService.scaleImages(scriptEntryId, scriptPackage);
             script = scriptPackage.script().read();
+        } catch (Exception e) {
+            prgDriver.removePackage();
+            throw new RuntimeException("Script reading error", e);
         }
 
         ScriptEntry entry = new ScriptEntry();
@@ -93,10 +98,8 @@ public class ScriptService {
         try {
             scriptEntryDao.createScriptEntry(entry);
         } catch (Exception e) {
-            try (var scriptPackage = scriptPackage(scriptEntryId)) {
-                FileStoragePackageDriver prgDriver = (FileStoragePackageDriver) scriptPackage.driver();
-                prgDriver.removePackage();
-            }
+            prgDriver.removePackage();
+            throw new RuntimeException("Script registration error", e);
         }
         return entry;
     }

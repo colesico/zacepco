@@ -62,7 +62,7 @@
   {#if script}
   
 
-	<h1>Дело "{script.metainfo.title}" #{script.metainfo.id}</h1>
+	<h1>Дело "{script.metainfo.title}" #{script.metainfo.uid}</h1>
 	
     <!-- Контейнер для картинки и текста аннотации -->
     <div class="d-flex align-items-start">

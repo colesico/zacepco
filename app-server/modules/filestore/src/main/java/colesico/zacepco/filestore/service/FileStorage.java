@@ -9,10 +9,13 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.UncheckedIOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Comparator;
 import java.util.HexFormat;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.stream.Stream;
@@ -195,54 +198,59 @@ public class FileStorage {
     }
 
     /**
-     * Delete file or empty directory from file storage
+     * Delete file or directory from file storage
      * Also deletes empty hash-based index directories (buckets) if they become empty
      *
      * @param path relative local path
      */
     public void delete(Path path) {
+        Path fullPath = resolve(path);
+        Path storagePath = config.storagePath();
+
+        if (fullPath.equals(storagePath)) {
+            throw new RuntimeException("Cannot delete storage root directory");
+        }
+
         try {
-            Path fullPath = resolve(path);
-            Path storagePath = config.storagePath();
-
-            // Prevent deletion of the storage root directory
-            if (fullPath.equals(storagePath)) {
-                throw new RuntimeException("Cannot delete storage root directory");
-            }
-
-            // Try to delete the file or directory
-            // Returns true if file existed and was deleted, false if it didn't exist
-            boolean deleted = Files.deleteIfExists(fullPath);
-
-            if (deleted) {
-                // Only clean up empty parent directories if we actually deleted something
-                Path currentDir = fullPath.getParent();
-
-                while (currentDir != null && !currentDir.equals(storagePath)) {
-                    if (isDirectoryEmpty(currentDir)) {
-                        try {
-                            Files.deleteIfExists(currentDir);
-                            currentDir = currentDir.getParent();
-                        } catch (DirectoryNotEmptyException e) {
-                            // Directory became non-empty during deletion (concurrent modification)
-                            break;
-                        }
-                    } else {
-                        // Directory is not empty, stop cleaning
-                        break;
+            if (Files.isDirectory(fullPath, LinkOption.NOFOLLOW_LINKS)) {
+                Files.walkFileTree(fullPath, new SimpleFileVisitor<>() {
+                    @Override
+                    public FileVisitResult visitFile(Path f, BasicFileAttributes a) throws IOException {
+                        Files.delete(f);
+                        return FileVisitResult.CONTINUE;
                     }
-                }
-            }
-            // If file didn't exist, we do nothing (idempotent operation)
 
+                    @Override
+                    public FileVisitResult postVisitDirectory(Path d, IOException exc) throws IOException {
+                        if (exc != null) throw exc;
+                        Files.delete(d);
+                        return FileVisitResult.CONTINUE;
+                    }
+                });
+            } else if (!Files.deleteIfExists(fullPath)) {
+                return; // didn't exist — idempotent, nothing to clean up
+            }
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to delete: " + path, e);
+        }
+
+        // clean up empty parent directories (hash buckets)
+        try {
+            Path dir = fullPath.getParent();
+            while (dir != null && !dir.equals(storagePath) && isDirectoryEmpty(dir)) {
+                Files.delete(dir);
+                dir = dir.getParent();
+            }
+        } catch (DirectoryNotEmptyException e) {
+            // concurrent modification — stop
         } catch (IOException e) {
             throw new RuntimeException("Failed to delete: " + path, e);
         }
     }
 
     protected boolean isDirectoryEmpty(Path path) throws IOException {
-        try (Stream<Path> entries = Files.list(path)) {
-            return entries.findFirst().isEmpty();
+        try (var entries = Files.list(path)) {
+            return entries.findAny().isEmpty();
         }
     }
 
