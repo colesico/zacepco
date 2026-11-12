@@ -81,7 +81,7 @@ crime:
       
       # Referenced script ID
       # If this entity is imported from another script, specify the ID of that script
-      ref: ZACEPCO
+      script: ZACEPCO
       
       # Placeholder values
       # Map of placeholder names to values substituted into the entity's description or name
@@ -119,7 +119,7 @@ crime:
         name: Cabinet
         description: |
           A gloomy study with $color shadows  shaped like Rorschach blots.
-        ref: ZACEPCO
+        script: ZACEPCO
         placeholders:
           color: dark
           val: Some value
@@ -164,7 +164,7 @@ crime:
       name: Butt
       description: |
         A Camel cigarette butt
-      ref: ZACEPCO
+      script: ZACEPCO
       placeholders:
         time: '10:30'
         val: Some value

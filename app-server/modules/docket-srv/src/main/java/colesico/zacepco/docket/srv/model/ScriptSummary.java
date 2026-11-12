@@ -8,11 +8,11 @@ import java.util.List;
 public class ScriptSummary {
 
     /**
-     * Script id
-     * @see colesico.zacepco.script.model.scriptdoc.MetainfoSpec#id
+     * Script uid
+     * @see colesico.zacepco.script.model.scriptdoc.MetainfoSpec#uid
      */
     @Column
-    public String id;
+    public String uid;
 
     /**
      * @see colesico.zacepco.script.model.scriptdoc.MetainfoSpec#version
@@ -26,12 +26,12 @@ public class ScriptSummary {
     @Column(mediator = ListStringTextMediator.class)
     public List<String> authors;
 
-    public String getId() {
-        return id;
+    public String getUid() {
+        return uid;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 
     public Integer getVersion() {

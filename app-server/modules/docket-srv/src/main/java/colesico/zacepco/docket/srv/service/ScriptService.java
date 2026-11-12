@@ -81,7 +81,7 @@ public class ScriptService {
         var summary = new ScriptSummary();
         scriptEntry.setSummary(summary);
 
-        summary.setId(script.metainfo.id);
+        summary.setUid(script.metainfo.id);
         summary.setVersion(script.metainfo.version);
         summary.setTitle(script.metainfo.title);
         summary.setAnnotation(script.metainfo.annotation);
