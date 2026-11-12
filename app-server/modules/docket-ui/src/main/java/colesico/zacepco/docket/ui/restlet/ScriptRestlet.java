@@ -26,18 +26,18 @@ public class ScriptRestlet {
     @RequestMethod(HttpMethod.POST)
     @Route("./")
     @Authentication(WebJwt.class)
-    public Script createScriptEntry(@ParamName("script") HttpFile scriptFile) {
+    public Script createScript(@ParamName("script") HttpFile scriptFile) {
         return scriptService.createScript(scriptFile.inputStream());
     }
 
     @Route("./")
-    public List<Script> listScriptEntries(Integer limit, Long offset) {
+    public List<Script> listScripts(Integer limit, Long offset) {
         return scriptService.listScripts(limit, offset);
     }
 
-    @Route("./entry/:scriptEntryId/document")
-    public ScriptDocument scriptDocument(Long scriptEntryId) {
-        var scriptPackage = scriptService.scriptPackage(scriptEntryId);
+    @Route("./:scriptId/document")
+    public ScriptDocument scriptDocument(Long scriptId) {
+        var scriptPackage = scriptService.scriptPackage(scriptId);
         var scriptDoc = scriptPackage.scriptDocument().read();
         return scriptDoc;
     }

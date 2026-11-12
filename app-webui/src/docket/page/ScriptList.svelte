@@ -24,7 +24,7 @@
   $effect(() => {
     async function loadData() {
       try {
-        scripts = await scriptApi.listScriptEntries(100,0);
+        scripts = await scriptApi.listScripts(100,0);
       } catch (ex) {
         error = ex.data;
       } finally {

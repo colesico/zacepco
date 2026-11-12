@@ -8,6 +8,7 @@ import colesico.framework.jdbirec.mediators.DateTextMediator;
 import colesico.zacepco.docket.srv.jdbi.InvestigationStateMediator;
 import colesico.zacepco.docket.srv.jdbi.InvestigationStatusMediator;
 import colesico.zacepco.investigation.model.state.InvestigationState;
+import colesico.zacepco.script.model.scriptdoc.ScriptDocument;
 
 import java.util.Date;
 
@@ -29,7 +30,7 @@ public class Investigation {
      * Investigation id
      */
     @Column
-    private Long id;
+    public Long id;
 
     /**
      * Script id
@@ -37,25 +38,25 @@ public class Investigation {
      * @see Script#id
      */
     @Column
-    private Long scriptId;
+    public Long scriptId;
 
     /**
      * User (owner) who created investigation and can manage it
      */
     @Column
-    private Long userId;
+    public Long userId;
 
     @Column(mediator = InvestigationStatusMediator.class)
-    private InvestigationStatus status;
+    public InvestigationStatus status;
 
     /**
      * When case investigation was created
      */
     @Column(mediator = DateTextMediator.class)
-    private Date createdAt;
+    public Date createdAt;
 
     @Column(mediator = InvestigationStateMediator.class, tags = TAG_FULL)
-    private InvestigationState state;
+    public InvestigationState state;
 
     public Long getId() {
         return id;

@@ -23,8 +23,8 @@
   let budgetScale = $state(1.0);
 
   const detectiveOptions = $derived.by(() => {
-    const min = script?.metainfo?.playersNum?.min ?? 1;
-    const max = script?.metainfo?.playersNum?.max ?? min;
+    const min = script.metainfo.playersNum.min;
+    const max = script.metainfo.playersNum.max;
 
     return Array.from({ length: Math.max(0, max - min + 1) }, (_, i) => min + i);
   });
@@ -55,7 +55,7 @@
     e?.preventDefault();
 
     const formData = {
-	  scriptEntryId: Number(id),
+	  scriptId: Number(id),
       detectivesNum: Number(detectivesNum),
       randFactor: Number(randFactor),
       budgetScale: Number(budgetScale),
@@ -66,7 +66,7 @@
     error = null;
 
     try {
-      const invEntry = await investigationApi.createInvestigationEntry(formData);
+      const invEntry = await investigationApi.createInvestigation(formData);
       replace(`/investigation/${invEntry.id}`);
     } catch (ex) {
       error = ex.data;
@@ -76,7 +76,7 @@
   }
 
   function onCancel() {
-    replace(`/scripts/${id}`);
+    replace(`/script/${id}`);
   }
   
 </script>
@@ -86,7 +86,7 @@
   <UiErrorMessage {error} />
 
   {#if script}
-    <h1>Начать расследование "{script.metainfo.title}" #{script.metainfo.id}</h1>
+    <h1>Начать расследование "{script.metainfo.title}" #{script.metainfo.uid}</h1>
 
     <form onsubmit={onStart}>
       <!-- Кол-во детективов: варианты min..max, по умолчанию playersNum.min -->

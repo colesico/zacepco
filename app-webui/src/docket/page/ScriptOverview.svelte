@@ -22,8 +22,7 @@
   $effect(() => {
     async function loadData() {
       try {
-        let o = await scriptApi.scriptDocument(id);
-		script = o;
+        script = await scriptApi.scriptDocument(id);
       } catch (ex) {
         error = ex.data;
       } finally {
@@ -40,11 +39,6 @@
     );
   }
 
-  function startInvestigation() {
-    // TODO: реализовать переход к расследованию
-    console.log("Начать расследование: дело #" + id);
-    alert(`Расследование дела #${id} скоро начнётся!`);
-  }
 </script>
 
 <div class="container">
@@ -68,7 +62,7 @@
     <div class="d-flex align-items-start">
       <!-- Изображение (размер регулируется через width) -->
       <img
-        src="/docket/script-assets/images/thumb/{id}/S"
+        src="/docket/script/images/thumb/{id}/S"
         alt="{script.metainfo.title}"
         class="img-fluid rounded border text-muted"
         style="width: 120px; min-width: 120px; object-fit: cover;"
@@ -151,7 +145,7 @@
             <!-- Контейнер для квадратного или пропорционального фото -->
             <div class="ratio ratio-1x1 card-img-top overflow-hidden rounded-top">
               <img
-                src="/docket/script-assets/images/thumb/{id}/{personage.id}"
+                src="/docket/script/images/thumb/{id}/{personage.id}"
                 alt={personage.name}
                 class="object-fit-cover"
               />
@@ -180,7 +174,7 @@
           <div class="grid-item">
             {#if location}
               <img
-                src="/docket/script-assets/images/thumb/{id}/{location.id}"
+                src="/docket/script/images/thumb/{id}/{location.id}"
                 alt={location.name || "Локация"}
                 title={location.name || "Локация"}
                 loading="lazy"
@@ -207,7 +201,7 @@
             <!-- Контейнер для квадратного или пропорционального фото -->
             <div class="ratio ratio-1x1 card-img-top overflow-hidden rounded-top">
               <img
-                src="/docket/script-assets/images/thumb/{id}/{detective.id}"
+                src="/docket/script/images/thumb/{id}/{detective.id}"
                 alt={detective.name}
                 class="object-fit-cover"
               />
