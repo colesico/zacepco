@@ -31,8 +31,8 @@ public class ScriptTest {
         ScriptDocument script = reader.read(classLoader.getResourceAsStream(scriptFile), ScriptDocument.class);
 
         try (ScriptPackage scriptPackage = ioc.instance(ScriptPackage.class)) {
-            ScriptResource scriptResource = scriptPackage.script();
-            scriptResource.write(script);
+            ScriptDocumnetResource scriptDocumnetResource = scriptPackage.scriptDocument();
+            scriptDocumnetResource.write(script);
 
             Path targetPath = Paths.get(System.getProperty("user.dir"));
             // Target script file

@@ -2,7 +2,7 @@ package colesico.zacepco.script.pkg;
 
 import colesico.framework.ioc.message.IocMessage;
 import colesico.framework.ioc.scope.Unscoped;
-import colesico.zacepco.script.model.scriptdoc.TypedId;
+import colesico.zacepco.script.model.scriptdoc.TId;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -16,12 +16,7 @@ import java.util.regex.Pattern;
 public class ScriptPackage implements Closeable {
 
     /**
-     * Assets document
-     */
-    static final String ASSETS_DOCUMENT = "assets.yaml";
-
-    /**
-     * Script document
+     * Script document yaml file
      */
     static final String SCRIPT_DOCUMENT = "script.yaml";
 
@@ -71,8 +66,8 @@ public class ScriptPackage implements Closeable {
     /**
      * Returns script document resource
      */
-    public ScriptResource script() {
-        return new ScriptResource(
+    public ScriptDocumnetResource scriptDocument() {
+        return new ScriptDocumnetResource(
                 ResourcePath.of(SCRIPT_DOCUMENT),
                 packageDriver,
                 reader,
@@ -86,7 +81,7 @@ public class ScriptPackage implements Closeable {
         return new Resource(ResourcePath.of(SCRIPT_IMAGE), packageDriver);
     }
 
-    public Resource entityImage(TypedId entityId) {
+    public Resource entityImage(TId entityId) {
         return new Resource(ResourcePath.of(entityId.type().code + "/" + entityId + ENTITY_IMAGE_SUFFIX), packageDriver);
     }
 

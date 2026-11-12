@@ -10,42 +10,42 @@ import colesico.zacepco.script.model.scriptdoc.ScriptDocument;
 import java.util.Date;
 
 /**
- * Represents script entry in scripts catalog
+ * Represents script in scripts catalog
  *
  * @see ScriptDocument
  */
 @Record(table = "scripts")
-public class ScriptEntry {
+public class Script {
 
     /**
-     * Entry Id
+     * Script Id
      */
     @Column
-    private Long id;
+    public Long id;
 
     /**
-     * User who created this entry
+     * User (owner) who added script to catalog and can manage it
      */
     @Column
-    private Long userId;
+    public Long userId;
 
     /**
      * Script status
      */
     @Column(mediator = ScriptStatusMediator.class)
-    private ScriptStatus status;
+    public ScriptStatus status;
 
     /**
-     * Entry creation date
+     * Script registration date
      */
     @Column(mediator = DateTextMediator.class)
-    private Date createdAt;
+    public Date createdAt;
 
     /**
      * Script summary
      */
     @Composition(renaming = "script_@column")
-    private ScriptSummary summary;
+    public ScriptSummary summary;
 
     public Long getId() {
         return id;

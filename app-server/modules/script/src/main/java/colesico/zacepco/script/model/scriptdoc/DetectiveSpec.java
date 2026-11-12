@@ -8,7 +8,7 @@ import colesico.zacepco.script.yaml.YamlComment;
 }, field = "id")
 public final class DetectiveSpec extends EntitySpec<DetectiveSpec.Id> {
 
-    public static final class Id extends TypedId {
+    public static final class Id extends TId {
 
         public Id(String key) {
             super(key);

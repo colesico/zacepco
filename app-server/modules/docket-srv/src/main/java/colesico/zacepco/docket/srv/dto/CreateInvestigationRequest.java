@@ -1,17 +1,17 @@
 package colesico.zacepco.docket.srv.dto;
 
 public class CreateInvestigationRequest {
-    public Long scriptEntryId;
+    public Long scriptId;
     public Integer detectivesNum;
     public Double randFactor = 1.0;
     public Double budgetScale = 1.0;
 
-    public Long getScriptEntryId() {
-        return scriptEntryId;
+    public Long getScriptId() {
+        return scriptId;
     }
 
-    public void setScriptEntryId(Long scriptEntryId) {
-        this.scriptEntryId = scriptEntryId;
+    public void setScriptId(Long scriptId) {
+        this.scriptId = scriptId;
     }
 
     public Integer getDetectivesNum() {

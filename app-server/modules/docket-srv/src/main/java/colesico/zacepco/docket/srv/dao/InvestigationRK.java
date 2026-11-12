@@ -8,8 +8,8 @@ package colesico.zacepco.docket.srv.dao;
 
 import colesico.framework.jdbirec.RecordKit;
 import colesico.framework.jdbirec.RecordKitApi;
-import colesico.zacepco.docket.srv.model.InvestigationEntry;
+import colesico.zacepco.docket.srv.model.Investigation;
 
 @RecordKit
-public interface InvestigationEntryRK extends RecordKitApi<InvestigationEntry> {
+public interface InvestigationRK extends RecordKitApi<Investigation> {
 }

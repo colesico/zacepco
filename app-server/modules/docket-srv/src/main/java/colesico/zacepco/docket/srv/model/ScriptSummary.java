@@ -8,21 +8,28 @@ import java.util.List;
 public class ScriptSummary {
 
     /**
-     * Script uid
+     * Script document uid
      * @see colesico.zacepco.script.model.scriptdoc.MetainfoSpec#uid
      */
     @Column
     public String uid;
 
     /**
+     * Script document version
      * @see colesico.zacepco.script.model.scriptdoc.MetainfoSpec#version
      */
     @Column
     public Integer version;
 
+    /**
+     * Script title
+     */
     @Column
     public String title;
 
+    /**
+     * Script authors
+     */
     @Column(mediator = ListStringTextMediator.class)
     public List<String> authors;
 

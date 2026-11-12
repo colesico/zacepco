@@ -39,7 +39,7 @@ public class ScriptAssetsService {
 
         var posterResource = scriptPackage.scriptImage();
         iconize(scriptEntryId, posterResource, ImageScale.THUMB);
-        var script = scriptPackage.script().read();
+        var script = scriptPackage.scriptDocument().read();
 
         for (var personage : script.crime.personages.values()) {
             var personageResource = scriptPackage.entityImage(personage.id);

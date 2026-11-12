@@ -10,7 +10,7 @@ import colesico.framework.telehttp.ParamOrigin;
 import colesico.framework.telehttp.origin.Origin;
 import colesico.framework.telehttp.result.ValueResult;
 import colesico.zacepco.docket.srv.dto.CreateInvestigationRequest;
-import colesico.zacepco.docket.srv.model.InvestigationEntry;
+import colesico.zacepco.docket.srv.model.Investigation;
 import colesico.zacepco.docket.srv.service.InvestigationService;
 
 @Restlet
@@ -26,18 +26,18 @@ public class InvestigationRestlet {
     @RequestMethod(HttpMethod.POST)
     @Route("./")
     @Authentication(WebJwt.class)
-    public InvestigationEntry createInvestigationEntry(@ParamOrigin(Origin.BODY) CreateInvestigationRequest request) {
-        return investigationService.createInvestigationEntry(request);
+    public Investigation createInvestigationEntry(@ParamOrigin(Origin.BODY) CreateInvestigationRequest request) {
+        return investigationService.createInvestigation(request);
     }
 
     @Route("./:id")
-    public ValueResult<InvestigationEntry> findInvestigationEntry(@ParamOrigin(Origin.ROUTE) Long id) {
-        var optEntry = investigationService.findInvestigationEntryById(id);
+    public ValueResult<Investigation> findInvestigationEntry(@ParamOrigin(Origin.ROUTE) Long id) {
+        var optEntry = investigationService.findInvestigationById(id);
 
         if (optEntry.isPresent()) {
             return ValueResult.value(optEntry.get()).build();
         } else {
-            return ValueResult.empty(InvestigationEntry.class).status(204).build();
+            return ValueResult.empty(Investigation.class).status(204).build();
         }
     }
 }

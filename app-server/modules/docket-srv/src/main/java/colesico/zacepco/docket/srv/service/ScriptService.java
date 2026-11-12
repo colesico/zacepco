@@ -8,8 +8,8 @@ import colesico.framework.service.LocalMethod;
 import colesico.framework.service.PlainMethod;
 import colesico.framework.service.Service;
 import colesico.framework.transaction.Transactional;
-import colesico.zacepco.docket.srv.dao.ScriptEntryDao;
-import colesico.zacepco.docket.srv.model.ScriptEntry;
+import colesico.zacepco.docket.srv.dao.ScriptDao;
+import colesico.zacepco.docket.srv.model.Script;
 import colesico.zacepco.docket.srv.script.FileStoragePackageDriver;
 import colesico.zacepco.docket.srv.model.ScriptStatus;
 import colesico.zacepco.docket.srv.model.ScriptSummary;
@@ -26,7 +26,7 @@ public class ScriptService {
 
     private final ScriptAssetsService assetsService;
 
-    private final ScriptEntryDao scriptEntryDao;
+    private final ScriptDao scriptDao;
 
     /**
      * Resource package API
@@ -39,93 +39,93 @@ public class ScriptService {
     private final Provider<Identity> identity;
 
     public ScriptService(
-            ScriptEntryDao scriptEntryDao,
+            ScriptDao scriptDao,
             @Classed(FileStoragePackageDriver.class) Supplier<ScriptPackage> scriptPackage,
             Provider<Identity> identity,
             ScriptAssetsService assetsService) {
 
-        this.scriptEntryDao = scriptEntryDao;
+        this.scriptDao = scriptDao;
         this.scriptPackage = scriptPackage;
         this.identity = identity;
         this.assetsService = assetsService;
     }
 
     @LocalMethod
-    public String scriptPackageId(Long scriptEntryId) {
-        return "script-" + scriptEntryId;
+    public String scriptPackageId(Long scriptId) {
+        return "script-" + scriptId;
     }
 
     @RequireIdentity
-    public ScriptEntry createScriptEntry(InputStream scriptPackageData) {
+    public Script createScript(InputStream scriptPackageData) {
         Long userId = identity.get().longId();
-        return createScriptEntry(userId, scriptPackageData);
+        return createScript(userId, scriptPackageData);
     }
 
     /**
      * Add script package to registry
      */
-    public ScriptEntry createScriptEntry(Long userId, InputStream scriptPackageData) {
+    public Script createScript(Long userId, InputStream scriptPackageData) {
 
-        var scriptEntryId = scriptEntryDao.getScriptEntryId();
+        var scriptId = scriptDao.getScriptId();
 
-        ScriptDocument script;
-        var scriptPackage = scriptPackage(scriptEntryId);
+        ScriptDocument scriptDoc;
+        var scriptPackage = scriptPackage(scriptId);
         var prgDriver = (FileStoragePackageDriver) scriptPackage.driver();
 
         try {
             scriptPackage.importFrom(scriptPackageData);
-            assetsService.scaleImages(scriptEntryId, scriptPackage);
-            script = scriptPackage.script().read();
+            assetsService.scaleImages(scriptId, scriptPackage);
+            scriptDoc = scriptPackage.scriptDocument().read();
         } catch (Exception e) {
             prgDriver.removePackage();
             throw new RuntimeException("Script reading error", e);
         }
 
-        ScriptEntry entry = new ScriptEntry();
-        entry.setId(scriptEntryId);
-        entry.setUserId(userId);
-        entry.setStatus(ScriptStatus.PUBLIC);
-        entry.setCreatedAt(new Date());
+        Script script = new Script();
+        script.setId(scriptId);
+        script.setUserId(userId);
+        script.setStatus(ScriptStatus.PUBLIC);
+        script.setCreatedAt(new Date());
 
         var summary = new ScriptSummary();
-        entry.setSummary(summary);
+        script.setSummary(summary);
 
-        summary.setUid(script.metainfo.uid);
-        summary.setVersion(script.metainfo.version);
-        summary.setTitle(script.metainfo.title);
-        summary.setAuthors(Arrays.asList(script.metainfo.authors));
+        summary.setUid(scriptDoc.metainfo.uid);
+        summary.setVersion(scriptDoc.metainfo.version);
+        summary.setTitle(scriptDoc.metainfo.title);
+        summary.setAuthors(Arrays.asList(scriptDoc.metainfo.authors));
 
         try {
-            scriptEntryDao.createScriptEntry(entry);
+            scriptDao.createScript(script);
         } catch (Exception e) {
             prgDriver.removePackage();
             throw new RuntimeException("Script registration error", e);
         }
-        return entry;
+        return script;
     }
 
-    public void removeScriptEntry(Long id) {
+    public void removeScript(Long id) {
 
     }
 
-    public Optional<ScriptEntry> findScriptEntryById(Long id) {
-        return scriptEntryDao.findScriptEntryById(id);
+    public Optional<Script> findScriptById(Long id) {
+        return scriptDao.findScriptById(id);
     }
 
     /**
      * List script entries in reverse creation order
      */
-    public List<ScriptEntry> listScriptEntries(int limit, long offset) {
-        return scriptEntryDao.listScriptEntries(limit, offset);
+    public List<Script> listScripts(int limit, long offset) {
+        return scriptDao.listScripts(limit, offset);
     }
 
     /**
      * Get Script package API
      *
-     * @param scriptEntryId script entry id
+     * @param scriptId script id
      */
     @PlainMethod
-    public ScriptPackage scriptPackage(Long scriptEntryId) {
-        return scriptPackage.get(scriptPackageId(scriptEntryId));
+    public ScriptPackage scriptPackage(Long scriptId) {
+        return scriptPackage.get(scriptPackageId(scriptId));
     }
 }

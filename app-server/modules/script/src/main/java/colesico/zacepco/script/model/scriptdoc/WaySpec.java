@@ -41,7 +41,7 @@ public class WaySpec extends EntitySpec<WaySpec.Id> {
     }
 
 
-    public static final class Id extends TypedId {
+    public static final class Id extends TId {
 
         public Id(String key) {
             super(key);
