@@ -14,8 +14,6 @@
   let error = $state(null);
   let loading = $state(true);
   let context = $state(null);
-  let state = $state(null);
-  let script = $state(null);
 
   $effect(() => {
     let cancelled = false;
@@ -24,10 +22,8 @@
       error = null;
       try {
         const c  = await investigationApi.findInvestigationContext(id);
-        state = c.state;
-		script = c.script;
 		context = c;
-        console.log(c);
+        console.log(context);
       } catch (ex) {
         error = ex.data;
         overview = null;
@@ -44,7 +40,7 @@
   <UiErrorMessage {error} />
 
   {#if context}
-    <h1>Дело "{script.metainfo.title}" #{script.metainfo.uid}</h1>
+    <h1>Дело "{context.script.metainfo.title}" #{context.script.metainfo.uid}</h1>
     <SceneMap {context} />
   {/if}
 </div>

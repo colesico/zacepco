@@ -1,7 +1,7 @@
 <script>
-  let { script, state } = $props();
+  let { context } = $props();
 
-  const scene  = $derived(script.crime.scene);
+  const scene  = $derived(context.script.crime.scene);
   const cols = $derived(scene.size.cols);
   const rows = $derived(scene.size.rows);
 
@@ -28,7 +28,7 @@
         <div class="location-cell">
           {#if loc}
             <img
-              src="/docket/script/images/thumb/{context.scriptId}/{loc.id}"
+              src="/docket/script/images/thumb/{context.investigation.scriptId}/{loc.id}"
               alt={loc.name || 'Локация'}
               title={loc.name || 'Локация'}
               class="location-image"

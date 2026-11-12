@@ -41,8 +41,7 @@ public class InvestigationRestlet {
         if (invOpt.isPresent()) {
             var inv = invOpt.get();
             var ctx = new InvestigationContext();
-            ctx.investigationId = id;
-            ctx.state = inv.state;
+            ctx.investigation = inv;
             ctx.script = scriptService.scriptPackage(inv.scriptId).scriptDocument().read();
             return ValueResult.value(ctx).build();
         } else {
