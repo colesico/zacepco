@@ -1,5 +1,8 @@
 <script>
+
   import * as scriptApi from "../api/ScriptApi.js";
+
+  import { link } from 'svelte-spa-router';
   
   import UiErrorMessage from "@core/widget/UiErrorMessage.svelte"
   import UiLoadingIndicator from "@core/widget/UiLoadingIndicator.svelte"
@@ -41,12 +44,12 @@
    <UiLocalMenu>
     <UiLocalMenuItem
       icon="fas fa-folder-plus"
-      title="Регистрация нового дела на базе сценария преступления"
-      caption="Добавить дело"
+      title="Регистрация сценария в реестре"
+      caption="Добавить сценарий"
       href="/scripts/add"
     />
   </UiLocalMenu>
-  <h1>Реестр дел</h1>
+  <h1>Сценарии</h1>
   <ScriptScroll {scripts} />
 </div>
 

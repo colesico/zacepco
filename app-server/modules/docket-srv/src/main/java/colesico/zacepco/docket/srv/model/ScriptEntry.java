@@ -44,7 +44,7 @@ public class ScriptEntry {
     /**
      * Script summary
      */
-    @Composition(renaming = "@column")
+    @Composition(renaming = "script_@column")
     private ScriptSummary summary;
 
     public Long getId() {
