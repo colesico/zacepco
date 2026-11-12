@@ -43,6 +43,14 @@ CREATE TABLE IF NOT EXISTS scripts (
     UNIQUE (script_uid, script_version)
 ) STRICT;
 
+
+CREATE TABLE IF NOT EXISTS scripts_id_sequence (
+    id INTEGER PRIMARY KEY CHECK (id = 1),
+    value INTEGER NOT NULL
+);
+
+INSERT OR IGNORE INTO scripts_id_sequence (id, value) VALUES (1, 0);
+
 CREATE TABLE IF NOT EXISTS investigations (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,

@@ -4,6 +4,7 @@ import colesico.framework.ioc.production.Classed;
 import colesico.framework.ioc.production.Supplier;
 import colesico.framework.security.Identity;
 import colesico.framework.security.authorization.RequireIdentity;
+import colesico.framework.service.LocalMethod;
 import colesico.framework.service.PlainMethod;
 import colesico.framework.service.Service;
 import colesico.framework.transaction.Transactional;
@@ -49,8 +50,9 @@ public class ScriptService {
         this.assetsService = assetsService;
     }
 
-    protected String scriptPackageId(String scriptId) {
-        return "script-" + scriptId.toUpperCase();
+    @LocalMethod
+    public String scriptPackageId(Long scriptEntryId) {
+        return "script-" + scriptEntryId;
     }
 
     @RequireIdentity
@@ -64,6 +66,8 @@ public class ScriptService {
      */
     public ScriptEntry createScriptEntry(Long userId, InputStream scriptPackageData) {
 
+        var scriptEntryId = scriptEntryDao.getScriptEntryId();
+
         ScriptDocument script;
 
         try (var scriptPackage = scriptPackage(scriptEntryId)) {
@@ -72,32 +76,36 @@ public class ScriptService {
             script = scriptPackage.script().read();
         }
 
-        ScriptEntry scriptEntry = new ScriptEntry();
-        scriptEntry.setId(script.metainfo.id);
-        scriptEntry.setUserId(userId);
-        scriptEntry.setStatus(ScriptStatus.PRIVATE);
-        scriptEntry.setCreatedAt(new Date());
+        ScriptEntry entry = new ScriptEntry();
+        entry.setId(scriptEntryId);
+        entry.setUserId(userId);
+        entry.setStatus(ScriptStatus.PUBLIC);
+        entry.setCreatedAt(new Date());
 
         var summary = new ScriptSummary();
-        scriptEntry.setSummary(summary);
+        entry.setSummary(summary);
 
-        summary.setUid(script.metainfo.id);
+        summary.setUid(script.metainfo.uid);
         summary.setVersion(script.metainfo.version);
         summary.setTitle(script.metainfo.title);
-        summary.setAnnotation(script.metainfo.annotation);
         summary.setAuthors(Arrays.asList(script.metainfo.authors));
-        summary.setCreationDate(script.metainfo.creationDate);
 
-        scriptEntryDao.createScriptEntry(scriptEntry);
-
-        return scriptEntry;
+        try {
+            scriptEntryDao.createScriptEntry(entry);
+        } catch (Exception e) {
+            try (var scriptPackage = scriptPackage(scriptEntryId)) {
+                FileStoragePackageDriver prgDriver = (FileStoragePackageDriver) scriptPackage.driver();
+                prgDriver.removePackage();
+            }
+        }
+        return entry;
     }
 
     public void removeScriptEntry(Long id) {
 
     }
 
-    public Optional<ScriptEntry> findScriptEntryById(String id) {
+    public Optional<ScriptEntry> findScriptEntryById(Long id) {
         return scriptEntryDao.findScriptEntryById(id);
     }
 
@@ -111,10 +119,10 @@ public class ScriptService {
     /**
      * Get Script package API
      *
-     * @param scriptId script entry id
+     * @param scriptEntryId script entry id
      */
     @PlainMethod
-    public ScriptPackage scriptPackage(String scriptId) {
-        return scriptPackage.get(scriptPackageId(scriptId));
+    public ScriptPackage scriptPackage(Long scriptEntryId) {
+        return scriptPackage.get(scriptPackageId(scriptEntryId));
     }
 }

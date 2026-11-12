@@ -27,12 +27,17 @@ public class ScriptEntryDao {
         this.scriptEntryRk = scriptEntryRk;
     }
 
+    public Long getScriptEntryId() {
+        var sql = "UPDATE scripts_id_sequence SET value = value + 1 WHERE id = 1 RETURNING value";
+        return handle.get().createQuery(sql).mapTo(Long.class).one();
+    }
+
     public void createScriptEntry(ScriptEntry scriptEntry) {
         String sql = scriptEntryRk.sql("insert into @table (@columns) values (@values)");
         handle.get().createUpdate(sql).bindMap(scriptEntryRk.map(scriptEntry)).execute();
     }
 
-    public Optional<ScriptEntry> findScriptEntryById(String id) {
+    public Optional<ScriptEntry> findScriptEntryById(Long id) {
         String sql = scriptEntryRk.sql("select @columns from @table where id = :id");
         return handle.get().createQuery(sql).bind("id", id).map(scriptEntryRk.mapper()).findOne();
     }
@@ -41,6 +46,7 @@ public class ScriptEntryDao {
         var query = """
                 select @record
                 from @table
+                where status in ('PUBLIC','RESTRICTED')
                 order by id desc
                 limit :limit offset :offset
                 """;
