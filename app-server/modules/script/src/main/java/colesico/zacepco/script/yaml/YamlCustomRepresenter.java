@@ -24,6 +24,8 @@ public class YamlCustomRepresenter extends Representer {
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
     private static final DateTimeFormatter TIME_ONLY_FORMATTER = DateTimeFormatter.ofPattern("HH:mm");
 
+    private static final boolean DEBUG_COMPACT = false;
+
 
     public YamlCustomRepresenter(DumperOptions options) {
         super(options);
@@ -119,49 +121,56 @@ public class YamlCustomRepresenter extends Representer {
 
     @Override
     protected NodeTuple representJavaBeanProperty(
-            Object javaBean, Property property, Object propertyValue, Tag customTag) {
+            Object bean, Property property, Object value, Tag tag) {
 
-        if (propertyValue == null) {
-            return null;
-        }
+        if (value == null) return null;
+        if (value instanceof Collection<?> c && c.isEmpty()) return null;
+        if (value instanceof Map<?, ?> m && m.isEmpty()) return null;
+        if (value instanceof Set<?> s) value = new ArrayList<>(s);
 
-        if (propertyValue instanceof java.util.Collection && ((java.util.Collection<?>) propertyValue).isEmpty()) {
-            return null;
-        }
+        NodeTuple tuple = super.representJavaBeanProperty(bean, property, value, tag);
 
-        if (propertyValue instanceof java.util.Map && ((java.util.Map<?, ?>) propertyValue).isEmpty()) {
-            return null;
-        }
-
-        if (propertyValue instanceof Set) {
-            propertyValue = new ArrayList<>((Set<?>) propertyValue);
-        }
-
-        NodeTuple tuple = super.representJavaBeanProperty(javaBean, property, propertyValue, customTag);
-
-        if (tuple != null) {
-            YamlCompact compactAnnotation = property.getAnnotation(YamlCompact.class);
-            if (compactAnnotation != null) {
-                Node valueNode = tuple.getValueNode();
-
-                // Случай 1: свойство само является коллекцией
-                if (valueNode instanceof SequenceNode seq) {
-                    seq.setFlowStyle(DumperOptions.FlowStyle.FLOW);
-                }
-
-                // Случай 2: свойство является Map, а её значения — списки
-                // (например, Map<ClueSpec.Id, List<TId>> revealChain)
-                if (valueNode instanceof MappingNode mappingNode) {
-                    for (NodeTuple entry : mappingNode.getValue()) {
-                        Node entryValue = entry.getValueNode();
-                        if (entryValue instanceof SequenceNode seq) {
-                            seq.setFlowStyle(DumperOptions.FlowStyle.FLOW);
-                        }
-                    }
-                }
+        if (tuple != null && isCompact(property, value)) {
+            // Для Map корневой MappingNode оставляем блочным (только списки внутри — flow),
+            // для обычных бинов и списков — "схлопываем" корень в flow-стиль.
+            boolean flowRoot = !(value instanceof Map);
+            if (DEBUG_COMPACT) {
+                System.out.println("[YamlCompact] property=" + property.getName()
+                        + " valueType=" + value.getClass().getSimpleName()
+                        + " flowRoot=" + flowRoot);
             }
+            applyFlow(tuple.getValueNode(), flowRoot);
         }
         return tuple;
+    }
+
+    /** Аннотация либо на самом свойстве, либо на классе значения. */
+    private boolean isCompact(Property property, Object value) {
+        if (property.getAnnotation(YamlCompact.class) != null) return true;
+        return value != null && value.getClass().getAnnotation(YamlCompact.class) != null;
+    }
+
+    /**
+     * Рекурсивно приводит узлы к компактному виду.
+     *
+     * @param topLevel true  — поставить FLOW на этот узел (бин/список станет однострочным {..}/[..]);
+     *                 false — только обойти вложенные значения и сделать flow все SequenceNode.
+     */
+    private void applyFlow(Node node, boolean topLevel) {
+        if (node instanceof SequenceNode seq) {
+            seq.setFlowStyle(DumperOptions.FlowStyle.FLOW);
+            for (Node child : seq.getValue()) {
+                applyFlow(child, false);
+            }
+        } else if (node instanceof MappingNode map) {
+            if (topLevel) {
+                map.setFlowStyle(DumperOptions.FlowStyle.FLOW);
+            }
+            for (NodeTuple entry : map.getValue()) {
+                applyFlow(entry.getValueNode(), false);
+            }
+        }
+        // ScalarNode и прочие листья просто игнорируются
     }
 
     private class RepresentLocalDate implements Represent {
