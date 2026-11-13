@@ -413,7 +413,7 @@
           {@const clueMaxW = 1 - CLUE_SIDE_OFFSET * 2}
           {@const { shown: shownClues, more: hasMoreClues } = visibleClues(loc.exposedClues)}
 
-          <!-- location id (top-right, dark pill, bold) -->
+          <!-- location id (top-right, dark pill, same font as the location name) -->
           <g pointer-events="none">
             <rect
               x={idX}
@@ -430,7 +430,7 @@
               text-anchor="middle"
               dominant-baseline="hanging"
               font-family={FONT_FAMILY}
-              font-weight={FONT_WEIGHT_ID}
+              font-weight={FONT_WEIGHT_NAME}
               font-size={FONT_SIZE}
               fill="#ffffff"
             >{loc.id}</text>
