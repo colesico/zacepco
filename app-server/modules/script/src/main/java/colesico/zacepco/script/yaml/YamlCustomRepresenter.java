@@ -24,9 +24,6 @@ public class YamlCustomRepresenter extends Representer {
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
     private static final DateTimeFormatter TIME_ONLY_FORMATTER = DateTimeFormatter.ofPattern("HH:mm");
 
-    private static final boolean DEBUG_COMPACT = false;
-
-
     public YamlCustomRepresenter(DumperOptions options) {
         super(options);
 
@@ -124,6 +121,7 @@ public class YamlCustomRepresenter extends Representer {
             Object bean, Property property, Object value, Tag tag) {
 
         if (value == null) return null;
+        if (value instanceof Boolean b && !b) return null;
         if (value instanceof Collection<?> c && c.isEmpty()) return null;
         if (value instanceof Map<?, ?> m && m.isEmpty()) return null;
         if (value instanceof Set<?> s) value = new ArrayList<>(s);
@@ -134,17 +132,14 @@ public class YamlCustomRepresenter extends Representer {
             // Для Map корневой MappingNode оставляем блочным (только списки внутри — flow),
             // для обычных бинов и списков — "схлопываем" корень в flow-стиль.
             boolean flowRoot = !(value instanceof Map);
-            if (DEBUG_COMPACT) {
-                System.out.println("[YamlCompact] property=" + property.getName()
-                        + " valueType=" + value.getClass().getSimpleName()
-                        + " flowRoot=" + flowRoot);
-            }
             applyFlow(tuple.getValueNode(), flowRoot);
         }
         return tuple;
     }
 
-    /** Аннотация либо на самом свойстве, либо на классе значения. */
+    /**
+     * Аннотация либо на самом свойстве, либо на классе значения.
+     */
     private boolean isCompact(Property property, Object value) {
         if (property.getAnnotation(YamlCompact.class) != null) return true;
         return value != null && value.getClass().getAnnotation(YamlCompact.class) != null;

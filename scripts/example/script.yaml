@@ -95,24 +95,21 @@ crime:
         color: yellow
         shape: round
       
-      # Initially hidden personage or not
-      # Default: false
-      hidden: false
-      
       # Initially exposed clues for this personage
       exposedClues: [CFPR, CSGT]
     PJOY:
       name: Joyful man
       description: |
         Joyful personage
-      hidden: false
     PTRN:
       name: Transparent
       description: "Transparent personage \n"
-      hidden: false
     PSLD:
       name: Solid
       description: "Solid round personage \n"
+      
+      # Initially hidden personage or not
+      # Default: false
       hidden: true
   
   # 
@@ -146,10 +143,6 @@ crime:
         # (1,1) - left top scene corner
         pos: {col: 2, row: 1}
         
-        # Initially hidden location or not
-        # Default: false
-        hidden: false
-        
         # Initially exposed clues for this location
         exposedClues: [CHMR]
       LBCH:
@@ -157,34 +150,32 @@ crime:
         description: |
           Three sun loungers and a beach umbrella
         pos: {col: 2, row: 2}
-        hidden: false
       LCMP:
         name: Camping
         description: "Two camping tents and a campfire pit \nwith smoldering embers\n"
         pos: {col: 3, row: 3}
-        hidden: false
       LWOD:
         name: Pine woods
         description: |
           A small pinewood with a glade
         pos: {col: 4, row: 3}
-        hidden: false
       LHSE:
         name: Abandoned house
         description: |
           People say there are ghosts here
         pos: {col: 1, row: 2}
-        hidden: true
       LRIV:
         name: River
         description: |
           Fast current, deep bottom
         pos: {col: 3, row: 2}
-        hidden: false
       LMNT:
         name: Hill
         pos: {col: 2, row: 3}
-        hidden: false
+        
+        # Initially hidden location or not
+        # Default: false
+        hidden: true
     
     # Ways between two locations
     # Always connects only two locations, direction does not matter
@@ -197,25 +188,20 @@ crime:
         
         # IDs of the two connected locations
         locations: [LCST, LBCH]
+      WBR:
+        locations: [LBCH, LRIV]
+      WBH:
+        locations: [LBCH, LHSE]
+      WRC:
+        locations: [LRIV, LCMP]
+      WCW:
+        locations: [LCMP, LWOD]
+      WBM:
+        locations: [LBCH, LMNT]
         
         # Is initially hidden way or not
         # Default: false
-        hidden: false
-      WBR:
-        locations: [LBCH, LRIV]
-        hidden: false
-      WBH:
-        locations: [LBCH, LHSE]
         hidden: true
-      WRC:
-        locations: [LRIV, LCMP]
-        hidden: false
-      WCW:
-        locations: [LCMP, LWOD]
-        hidden: false
-      WBM:
-        locations: [LBCH, LMNT]
-        hidden: false
       WMC:
         locations: [LMNT, LCMP]
         hidden: true

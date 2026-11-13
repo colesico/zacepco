@@ -134,24 +134,37 @@
     <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-6 g-3 mb-5">
       {#each Object.values(script.crime.personages) as personage}
         <div class="col card-col">
-          <!-- Карточка персонажа -->
-          <div
-            class="card h-100 border-0 bg-light text-center shadow-sm" >
-            <!-- Контейнер для квадратного или пропорционального фото -->
-            <div class="ratio ratio-1x1 card-img-top overflow-hidden rounded-top">
-              <img
-                src="/docket/script/images/thumb/{id}/{personage.id}"
-                alt={personage.name}
-                class="object-fit-cover"
-              />
+          {#if personage.hidden}
+            <!-- Скрытый персонаж: серая клетка с жирным знаком вопроса по центру -->
+            <div class="card h-100 border-0 bg-light text-center shadow-sm">
+              <div class="ratio ratio-1x1 card-img-top overflow-hidden rounded-top">
+                <div class="hidden-cell">?</div>
+              </div>
+              <!-- Пустой card-body, чтобы высота карточки совпадала с открытыми -->
+              <div class="card-body p-2 d-flex align-items-center justify-content-center">
+                <h6 class="card-title mb-0 fw-semibold text-break">&nbsp;</h6>
+              </div>
             </div>
+          {:else}
+            <!-- Карточка персонажа -->
+            <div
+              class="card h-100 border-0 bg-light text-center shadow-sm" >
+              <!-- Контейнер для квадратного или пропорционального фото -->
+              <div class="ratio ratio-1x1 card-img-top overflow-hidden rounded-top">
+                <img
+                  src="/docket/script/images/thumb/{id}/{personage.id}"
+                  alt={personage.name}
+                  class="object-fit-cover"
+                />
+              </div>
 
-            <div class="card-body p-2 d-flex align-items-center justify-content-center">
-              <h6 class="card-title mb-0 fw-semibold text-break">
-                {personage.name}
-              </h6>
+              <div class="card-body p-2 d-flex align-items-center justify-content-center">
+                <h6 class="card-title mb-0 fw-semibold text-break">
+                  {personage.name}
+                </h6>
+              </div>
             </div>
-          </div>
+          {/if}
         </div>
       {/each}
     </div>
@@ -168,12 +181,17 @@
 
           <div class="scene-cell">
             {#if location}
-              <img
-                src="/docket/script/images/thumb/{id}/{location.id}"
-                alt={location.name || "Локация"}
-                title={location.name || "Локация"}
-                loading="lazy"
-              />
+              {#if location.hidden}
+                <!-- Скрытая локация: серая клетка с жирным знаком вопроса -->
+                <div class="hidden-cell">?</div>
+              {:else}
+                <img
+                  src="/docket/script/images/thumb/{id}/{location.id}"
+                  alt={location.name || "Локация"}
+                  title={location.name || "Локация"}
+                  loading="lazy"
+                />
+              {/if}
             {:else}
               <div class="scene-empty-cell"></div>
             {/if}
@@ -217,6 +235,26 @@
   /* Ограничение карточек: не шире 240px, по центру своей колонки */
   .card-col {
     max-width: 240px;
+  }
+
+  /* Серая клетка с жирным "?" по центру — используется и для скрытых
+     персонажей, и для скрытых локаций */
+  .hidden-cell {
+    width: 100%;
+    height: 100%;
+    background-color: #eaeaea;
+    border: 1px dashed #ccc;
+    box-sizing: border-box;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-weight: 700;
+    font-size: 4rem;
+    line-height: 1;
+    color: #6c757d;
+    user-select: none;
   }
 
   /* Сетка сцены — адаптивная, ячейки квадратные,
