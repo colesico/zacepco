@@ -24,7 +24,7 @@ import java.util.*;
 @Transactional
 public class ScriptService {
 
-    private final ScriptAssetsService assetsService;
+    private final ScriptAssetService assetsService;
 
     private final ScriptDao scriptDao;
 
@@ -42,7 +42,7 @@ public class ScriptService {
             ScriptDao scriptDao,
             @Classed(FileStoragePackageDriver.class) Supplier<ScriptPackage> scriptPackage,
             Provider<Identity> identity,
-            ScriptAssetsService assetsService) {
+            ScriptAssetService assetsService) {
 
         this.scriptDao = scriptDao;
         this.scriptPackage = scriptPackage;

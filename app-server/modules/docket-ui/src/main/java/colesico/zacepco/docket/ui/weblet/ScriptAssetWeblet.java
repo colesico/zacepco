@@ -6,8 +6,8 @@ import colesico.framework.telehttp.ParamOrigin;
 import colesico.framework.telehttp.origin.Origin;
 import colesico.framework.weblet.Weblet;
 import colesico.zacepco.docket.srv.model.ImageScale;
+import colesico.zacepco.docket.srv.service.ScriptAssetService;
 import colesico.zacepco.docket.srv.service.ScriptService;
-import colesico.zacepco.docket.srv.service.ScriptAssetsService;
 import colesico.zacepco.script.model.scriptdoc.TId;
 import colesico.zacepco.script.pkg.ScriptPackage;
 import jakarta.inject.Provider;
@@ -16,12 +16,12 @@ import jakarta.inject.Provider;
 @Route("./script")
 public class ScriptAssetWeblet {
 
-    private final ScriptAssetsService scriptAssetsService;
+    private final ScriptAssetService scriptAssetService;
     private final ScriptService scriptService;
     private final Provider<HttpResponse> httpResponse;
 
-    public ScriptAssetWeblet(ScriptAssetsService scriptAssetsService, ScriptService scriptService, Provider<HttpResponse> httpResponse) {
-        this.scriptAssetsService = scriptAssetsService;
+    public ScriptAssetWeblet(ScriptAssetService scriptAssetService, ScriptService scriptService, Provider<HttpResponse> httpResponse) {
+        this.scriptAssetService = scriptAssetService;
         this.scriptService = scriptService;
         this.httpResponse = httpResponse;
     }
@@ -46,7 +46,7 @@ public class ScriptAssetWeblet {
         }
 
         try (
-                var is = scriptAssetsService.imageInput(scriptId, res, scale);
+                var is = scriptAssetService.imageInput(scriptId, res, scale);
         ) {
             is.transferTo(httpResponse.get().outputStream());
         } catch (Exception ex) {

@@ -16,11 +16,11 @@ import java.nio.file.Path;
 
 @Service
 @Transactional
-public class ScriptAssetsService {
+public class ScriptAssetService {
 
     private final FileStorage fileStorage;
 
-    public ScriptAssetsService(FileStorage fileStorage) {
+    public ScriptAssetService(FileStorage fileStorage) {
         this.fileStorage = fileStorage;
     }
 

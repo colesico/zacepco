@@ -12,12 +12,10 @@
   let error = $state(null);
   let loading = $state(true);
   let script = $state(null);
-  
-  
-  let entityDescription = $state(null);
+
 
   $inspect(error);
-  $inspect(script);  
+  $inspect(script);
 
   $effect(() => {
     async function loadData() {
@@ -54,10 +52,10 @@
   </UiLocalMenu>
 
   {#if script}
-  
+
 
 	<h1>Дело "{script.metainfo.title}" #{script.metainfo.uid}</h1>
-	
+
     <!-- Контейнер для картинки и текста аннотации -->
     <div class="d-flex align-items-start">
       <!-- Изображение (размер регулируется через width) -->
@@ -73,7 +71,7 @@
         {script.metainfo.annotation}
       </p>
     </div>
-	
+
 	<br/>
 
     <!-- Внешняя строка-контейнер для двух колонок -->
@@ -128,7 +126,7 @@
         </dl>
       </div>
     </div>
-	
+
 
     <h2 class="mt-5 mb-4">Персонажи</h2>
 
@@ -138,10 +136,7 @@
         <div class="col card-col">
           <!-- Карточка персонажа -->
           <div
-            class="card h-100 border-0 bg-light text-center shadow-sm"
-            style="cursor: pointer;"
-            onclick={() => entityDescription = personage.name + ": " + personage.description}
-          >
+            class="card h-100 border-0 bg-light text-center shadow-sm" >
             <!-- Контейнер для квадратного или пропорционального фото -->
             <div class="ratio ratio-1x1 card-img-top overflow-hidden rounded-top">
               <img
@@ -164,14 +159,14 @@
     <h2 class="mt-5 mb-4">Сцена преступления</h2>
 
     <div
-      class="grid-container"
+      class="scene-container"
       style="--cols: {script.crime.scene.size.cols}; --rows: {script.crime.scene.size.rows};"
     >
       {#each Array(script.crime.scene.size.rows) as _, currentRow}
         {#each Array(script.crime.scene.size.cols) as _, currentCol}
           {@const location = getSceneLocation(currentRow + 1, currentCol + 1)}
 
-          <div class="grid-item">
+          <div class="scene-cell">
             {#if location}
               <img
                 src="/docket/script/images/thumb/{id}/{location.id}"
@@ -180,7 +175,7 @@
                 loading="lazy"
               />
             {:else}
-              <div class="empty-cell"></div>
+              <div class="scene-empty-cell"></div>
             {/if}
           </div>
         {/each}
@@ -194,10 +189,7 @@
       {#each Object.values(script.investigation.detectives) as detective}
         <div class="col card-col">
           <div
-            class="card h-100 border-0 bg-light text-center shadow-sm"
-            style="cursor: pointer;"
-            onclick={() => entityDescription = detective.name + ": " + detective.description}
-          >
+            class="card h-100 border-0 bg-light text-center shadow-sm" >
             <!-- Контейнер для квадратного или пропорционального фото -->
             <div class="ratio ratio-1x1 card-img-top overflow-hidden rounded-top">
               <img
@@ -216,32 +208,8 @@
         </div>
       {/each}
     </div>
-	
-		
-  {/if}
 
-  {#if entityDescription}
-    <div class="modal-backdrop fade show"></div>
 
-    <div class="modal fade show d-block" tabindex="-1">
-      <div class="modal-dialog modal-lg modal-dialog-centered">
-        <div class="modal-content shadow border-0 p-3 position-relative">
-          <button
-            type="button"
-            class="btn-close position-absolute top-0 end-0 m-1 p-1 shadow-none"
-            style="cursor: pointer; z-index: 1060; min-width: auto;"
-            aria-label="Закрыть"
-            onclick={() => entityDescription = null}
-          ></button>
-
-          <div class="modal-body p-2 pt-3">
-            <p class="text-muted mb-0 text-center" style="white-space: pre-line;">
-              {entityDescription || "Описание отсутствует."}
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
   {/if}
 </div>
 
@@ -251,16 +219,21 @@
     max-width: 240px;
   }
 
-  /* Сетка сцены — адаптивная, ячейки квадратные и ≤ 240×240 */
-  .grid-container {
-    display: grid;
+  /* Сетка сцены — адаптивная, ячейки квадратные,
+     не больше 240×240 и не выше 70% высоты экрана */
+  .scene-container {
+    --max-cell: 240px;
+    --max-height: 70svh;
 
-    /* Колонки: каждая ≤ 240px, при нехватке места сжимаются */
-    grid-template-columns: repeat(var(--cols), minmax(0, 240px));
+    display: grid;
+    grid-template-columns: repeat(
+      var(--cols),
+      minmax(0, min(var(--max-cell), calc(var(--max-height) / var(--rows))))
+    );
     justify-content: start;
     gap: 0;
 
-    /* Ключевое: контейнер по размеру клеток, но не шире родителя */
+    /* Контейнер по размеру клеток, но не шире родителя */
     width: fit-content;
     max-width: 100%;
 
@@ -272,8 +245,8 @@
     border: 1px solid #ddd;
   }
 
-  .grid-item {
-    /* Ячейка резиновая: ширина = колонка (≤ 240px), высота — по aspect-ratio */
+  .scene-cell {
+    /* Ячейка резиновая: ширина = колонка, высота — по aspect-ratio */
     width: 100%;
     aspect-ratio: 1 / 1;
     position: relative;
@@ -281,14 +254,14 @@
     box-sizing: border-box;
   }
 
-  .grid-item img {
+  .scene-cell img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
   }
 
-  .empty-cell {
+  .scene-empty-cell {
     width: 100%;
     height: 100%;
     background-color: #eaeaea;
