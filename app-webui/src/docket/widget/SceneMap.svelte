@@ -5,8 +5,6 @@
   const rows = $derived(scene.size.rows);
   const cols = $derived(scene.size.cols);
 
-  // Internal selection state — used when the parent does not control `selectedId`.
-  // Clicking always updates it so highlight works out of the box.
   let internalSelectedId = $state(null);
   const activeSelectedId = $derived(selectedId ?? internalSelectedId);
 
@@ -16,9 +14,11 @@
 
   const cluesIndex = $derived(context.script?.crime?.clues ?? {});
 
-  const locIndex = $derived(
+  // All scene locations (visible + hidden), keyed by "row:col", runtime state applied
+  const allLocIndex = $derived(
     new Map(
       Object.values(scene.locations)
+        .filter((l) => l.pos)
         .map((l) => {
           const inv = investigationLocations[l.id] || {};
           return {
@@ -29,8 +29,14 @@
               : (l.exposedClues ?? [])
           };
         })
-        .filter((l) => !l.hidden)
         .map((l) => [`${l.pos.row}:${l.pos.col}`, l])
+    )
+  );
+
+  // Only visible locations
+  const locIndex = $derived(
+    new Map(
+      Array.from(allLocIndex.entries()).filter(([, l]) => !l.hidden)
     )
   );
 
@@ -154,7 +160,6 @@
     return pillWidth(text, CLUE_FONT_SIZE, CLUE_PAD_X);
   }
 
-  // Emit the location id when a location is activated, and track selection
   function handleLocationClick(locId) {
     internalSelectedId = locId;
     onLocationClick?.(locId);
@@ -176,6 +181,7 @@
   const WAY_FILL = MAP_BG;
   const WAY_FILL_OPACITY = 0.70;
   const SELECTED_COLOR = '#f5b400';
+  const HIDDEN_QUESTION_COLOR = '#7a7a7a';
 
   // Way marker geometry
   const WAY_HALF_X = 0.055;
@@ -196,26 +202,41 @@
     <!-- background -->
     <rect x="0" y="0" width={cols} height={rows} fill={MAP_BG} />
 
-    <!-- location images — fill the whole cell, clickable -->
+    <!-- location cells: image for visible, "?" for hidden -->
     {#each Array(rows) as _, r}
       {#each Array(cols) as _, c}
-        {@const loc = locIndex.get(`${r + 1}:${c + 1}`)}
+        {@const loc = allLocIndex.get(`${r + 1}:${c + 1}`)}
         {#if loc}
-          <image
-            href="/docket/script/images/thumb/{context.investigation.scriptId}/{loc.id}"
-            x={c + CARD_INSET}
-            y={r + CARD_INSET}
-            width={1 - CARD_INSET * 2}
-            height={1 - CARD_INSET * 2}
-            preserveAspectRatio="xMidYMid slice"
-            class="location-image"
-            role="button"
-            tabindex="0"
-            onclick={() => handleLocationClick(loc.id)}
-            onkeydown={(e) => handleLocationKeydown(e, loc.id)}
-          >
-            <title>{loc.name || 'Локация'}</title>
-          </image>
+          {#if loc.hidden}
+            <!-- Hidden location: just a "?" centered in the cell -->
+            <text
+              x={c + 0.5}
+              y={r + 0.5}
+              text-anchor="middle"
+              dominant-baseline="middle"
+              font-family={FONT_FAMILY}
+              font-weight={700}
+              font-size="0.45"
+              fill={HIDDEN_QUESTION_COLOR}
+              pointer-events="none"
+            >?</text>
+          {:else}
+            <image
+              href="/docket/script/images/thumb/{context.investigation.scriptId}/{loc.id}"
+              x={c + CARD_INSET}
+              y={r + CARD_INSET}
+              width={1 - CARD_INSET * 2}
+              height={1 - CARD_INSET * 2}
+              preserveAspectRatio="xMidYMid slice"
+              class="location-image"
+              role="button"
+              tabindex="0"
+              onclick={() => handleLocationClick(loc.id)}
+              onkeydown={(e) => handleLocationKeydown(e, loc.id)}
+            >
+              <title>{loc.name || 'Локация'}</title>
+            </image>
+          {/if}
         {/if}
       {/each}
     {/each}
@@ -390,19 +411,16 @@
 {/if}
 
 <style>
-  /* Clickable location image: pointer cursor, no default focus ring */
   .location-image {
     cursor: pointer;
     outline: none;
   }
 
-  /* Visible focus ring only for keyboard navigation (Tab) */
   .location-image:focus-visible {
     outline: 2px solid #2563eb;
     outline-offset: 2px;
   }
 
-  /* Firefox inner focus reset for SVG elements */
   .location-image::-moz-focus-inner {
     border: 0;
   }
