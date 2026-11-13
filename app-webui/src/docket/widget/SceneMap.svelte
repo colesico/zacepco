@@ -1,9 +1,14 @@
 <script>
-  let { context } = $props();
+  let { context, onLocationClick, selectedId = null } = $props();
 
   const scene = $derived(context.script.crime.scene);
   const rows = $derived(scene.size.rows);
   const cols = $derived(scene.size.cols);
+
+  // Internal selection state — used when the parent does not control `selectedId`.
+  // Clicking always updates it so highlight works out of the box.
+  let internalSelectedId = $state(null);
+  const activeSelectedId = $derived(selectedId ?? internalSelectedId);
 
   const investigationLocations = $derived(
     context.investigation?.state?.scene?.locations ?? {}
@@ -83,6 +88,7 @@
 
   const cellsToFrame = $derived(
     Array.from(locIndex.values()).map((l) => ({
+      id: l.id,
       x: l.pos.col - 1,
       y: l.pos.row - 1
     }))
@@ -91,17 +97,23 @@
   // ——— layout constants ———
   const CARD_INSET = 0;
   const LABEL_OFFSET = CARD_INSET;
-  const CLUE_OFFSET = 0.03;
+  const CLUE_SIDE_OFFSET = 0.03;
   const NAME_SIDE_MARGIN = 0.03;
 
+  const FONT_FAMILY = 'system-ui, sans-serif';
   const FONT_SIZE = 0.062;
+  const FONT_WEIGHT_ID = 600;
+  const FONT_WEIGHT_NAME = 400;
+
   const PAD_X = 0.022;
   const PAD_Y = 0.010;
   const PILL_H = FONT_SIZE + PAD_Y * 2;
   const CHAR_W = 0.62;
 
-  const NAME_BOTTOM_MARGIN = 0.10;
   const LABEL_GAP = 0.01;
+  const CLUE_TOP = LABEL_OFFSET + PILL_H + LABEL_GAP;
+
+  const NAME_BOTTOM_MARGIN = 0.10;
   const NAME_WIDTH = 1 - NAME_SIDE_MARGIN * 2;
   const NAME_PAD_Y = 0.018;
   const NAME_PILL_H = FONT_SIZE + NAME_PAD_Y * 2;
@@ -112,17 +124,48 @@
   const CLUE_PILL_H = CLUE_FONT_SIZE + CLUE_PAD_Y * 2;
   const CLUE_STEP_Y = CLUE_PILL_H + LABEL_GAP;
 
+  const CLUE_SEP = ' · ';
+
   function pillWidth(text, fontSize, padX) {
     return text.length * fontSize * CHAR_W + padX * 2;
   }
   function labelWidth(text) { return pillWidth(text, FONT_SIZE, PAD_X); }
-  function clueWidth(text)  { return pillWidth(text, CLUE_FONT_SIZE, CLUE_PAD_X); }
 
   function fitName(text) {
     const charW = FONT_SIZE * CHAR_W;
     const maxChars = Math.floor((NAME_WIDTH - PAD_X * 2) / charW);
     if (text.length <= maxChars) return text;
     return text.slice(0, Math.max(1, maxChars - 1)) + '…';
+  }
+
+  function fitClueName(clueId, name, maxWidth) {
+    if (!name) return '';
+    const charW = CLUE_FONT_SIZE * CHAR_W;
+    const maxChars = Math.floor((maxWidth - CLUE_PAD_X * 2) / charW);
+    const prefixLen = clueId.length + CLUE_SEP.length;
+    const room = maxChars - prefixLen;
+    if (room <= 0) return '';
+    if (name.length <= room) return name;
+    return name.slice(0, Math.max(1, room - 1)) + '…';
+  }
+
+  function clueLabelWidth(clueId, namePart) {
+    const text = namePart ? clueId + CLUE_SEP + namePart : clueId;
+    return pillWidth(text, CLUE_FONT_SIZE, CLUE_PAD_X);
+  }
+
+  // Emit the location id when a location is activated, and track selection
+  function handleLocationClick(locId) {
+    internalSelectedId = locId;
+    onLocationClick?.(locId);
+  }
+
+  function handleLocationKeydown(e, locId) {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      internalSelectedId = locId;
+      onLocationClick?.(locId);
+    }
   }
 
   // ——— theme constants ———
@@ -132,6 +175,7 @@
   const WAY_ARROW_COLOR = '#555555';
   const WAY_FILL = MAP_BG;
   const WAY_FILL_OPACITY = 0.70;
+  const SELECTED_COLOR = '#f5b400';
 
   // Way marker geometry
   const WAY_HALF_X = 0.055;
@@ -152,7 +196,7 @@
     <!-- background -->
     <rect x="0" y="0" width={cols} height={rows} fill={MAP_BG} />
 
-    <!-- location images — fill the whole cell -->
+    <!-- location images — fill the whole cell, clickable -->
     {#each Array(rows) as _, r}
       {#each Array(cols) as _, c}
         {@const loc = locIndex.get(`${r + 1}:${c + 1}`)}
@@ -164,6 +208,11 @@
             width={1 - CARD_INSET * 2}
             height={1 - CARD_INSET * 2}
             preserveAspectRatio="xMidYMid slice"
+            class="location-image"
+            role="button"
+            tabindex="0"
+            onclick={() => handleLocationClick(loc.id)}
+            onkeydown={(e) => handleLocationKeydown(e, loc.id)}
           >
             <title>{loc.name || 'Локация'}</title>
           </image>
@@ -171,7 +220,7 @@
       {/each}
     {/each}
 
-    <!-- grid -->
+    <!-- grid (does not intercept clicks) -->
     <path
       d={gridPath}
       fill="none"
@@ -179,6 +228,7 @@
       stroke-width="1"
       stroke-dasharray="4 4"
       vector-effect="non-scaling-stroke"
+      pointer-events="none"
     />
 
     <!-- thin dark frame around each visible location cell (on the cell edge) -->
@@ -194,6 +244,23 @@
         vector-effect="non-scaling-stroke"
         pointer-events="none"
       />
+    {/each}
+
+    <!-- yellow highlight for the selected location, drawn on top of the frame -->
+    {#each cellsToFrame as cell}
+      {#if cell.id === activeSelectedId}
+        <rect
+          x={cell.x + CARD_INSET}
+          y={cell.y + CARD_INSET}
+          width={1 - CARD_INSET * 2}
+          height={1 - CARD_INSET * 2}
+          fill="none"
+          stroke={SELECTED_COLOR}
+          stroke-width="3"
+          vector-effect="non-scaling-stroke"
+          pointer-events="none"
+        />
+      {/if}
     {/each}
 
     <!-- passages (ways) — slightly translucent fill -->
@@ -222,14 +289,16 @@
       </g>
     {/each}
 
-    <!-- labels: clue ids top-left, location id top-right, name bar at bottom -->
+    <!-- labels: location id top-right, clue ids below it (left side), name bar at bottom -->
     {#each Array(rows) as _, r}
       {#each Array(cols) as _, c}
         {@const loc = locIndex.get(`${r + 1}:${c + 1}`)}
         {#if loc}
-          <!-- location id (top-right, dark pill, text centered inside the pill) -->
           {@const idW = labelWidth(loc.id)}
           {@const idX = c + 1 - LABEL_OFFSET - idW}
+          {@const clueMaxW = 1 - CLUE_SIDE_OFFSET * 2}
+
+          <!-- location id (top-right, dark pill, bold) -->
           <g pointer-events="none">
             <rect
               x={idX}
@@ -245,19 +314,21 @@
               y={r + LABEL_OFFSET + PAD_Y}
               text-anchor="middle"
               dominant-baseline="hanging"
-              font-family="system-ui, sans-serif"
-              font-weight="500"
+              font-family={FONT_FAMILY}
+              font-weight={FONT_WEIGHT_ID}
               font-size={FONT_SIZE}
               fill="#ffffff"
             >{loc.id}</text>
           </g>
 
-          <!-- clue ids (top-left, stacked vertically, hover shows clue name) -->
+          <!-- clue ids (below the location id, stacked, id bold + name regular) -->
           {#each loc.exposedClues as clueId, i}
-            {@const w = clueWidth(clueId)}
-            {@const x = c + CLUE_OFFSET}
-            {@const y = r + CLUE_OFFSET + i * CLUE_STEP_Y}
-            <g>
+            {@const clueName = cluesIndex[clueId]?.name ?? ''}
+            {@const namePart = fitClueName(clueId, clueName, clueMaxW)}
+            {@const w = clueLabelWidth(clueId, namePart)}
+            {@const x = c + CLUE_SIDE_OFFSET}
+            {@const y = r + CLUE_TOP + i * CLUE_STEP_Y}
+            <g pointer-events="none">
               <rect
                 x={x}
                 y={y}
@@ -268,20 +339,21 @@
                 fill-opacity="0.92"
                 stroke="#b8941f"
                 stroke-width="0.005"
-              >
-                <title>{cluesIndex[clueId]?.name || clueId}</title>
-              </rect>
+              />
               <text
                 x={x + CLUE_PAD_X}
                 y={y + CLUE_PAD_Y}
                 text-anchor="start"
                 dominant-baseline="hanging"
-                font-family="system-ui, sans-serif"
-                font-weight="500"
+                font-family={FONT_FAMILY}
                 font-size={CLUE_FONT_SIZE}
                 fill="#7a5f00"
-                pointer-events="none"
-              >{clueId}</text>
+              >
+                <tspan font-weight={FONT_WEIGHT_ID}>{clueId}</tspan>
+                {#if namePart}
+                  <tspan font-weight={FONT_WEIGHT_NAME} fill-opacity="0.85">{CLUE_SEP}{namePart}</tspan>
+                {/if}
+              </text>
             </g>
           {/each}
 
@@ -304,8 +376,8 @@
                 y={ny + NAME_PAD_Y}
                 text-anchor="middle"
                 dominant-baseline="hanging"
-                font-family="system-ui, sans-serif"
-                font-weight="500"
+                font-family={FONT_FAMILY}
+                font-weight={FONT_WEIGHT_NAME}
                 font-size={FONT_SIZE}
                 fill="#ffffff"
               >{fittedName}</text>
@@ -316,3 +388,22 @@
     {/each}
   </svg>
 {/if}
+
+<style>
+  /* Clickable location image: pointer cursor, no default focus ring */
+  .location-image {
+    cursor: pointer;
+    outline: none;
+  }
+
+  /* Visible focus ring only for keyboard navigation (Tab) */
+  .location-image:focus-visible {
+    outline: 2px solid #2563eb;
+    outline-offset: 2px;
+  }
+
+  /* Firefox inner focus reset for SVG elements */
+  .location-image::-moz-focus-inner {
+    border: 0;
+  }
+</style>
