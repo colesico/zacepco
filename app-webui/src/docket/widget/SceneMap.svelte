@@ -5,15 +5,12 @@
   const rows = $derived(scene.size.rows);
   const cols = $derived(scene.size.cols);
 
-  // Runtime state of locations from the investigation (hidden/exposedClues may differ from the script)
   const investigationLocations = $derived(
     context.investigation?.state?.scene?.locations ?? {}
   );
 
-  // Clue names from the script — used as tooltips on the clue badges
   const cluesIndex = $derived(context.script?.crime?.clues ?? {});
 
-  // Locations (non-hidden) keyed by "row:col", with runtime state applied
   const locIndex = $derived(
     new Map(
       Object.values(scene.locations)
@@ -32,7 +29,6 @@
     )
   );
 
-  // Locations keyed by id (including hidden ones) — needed to resolve way endpoints
   const locById = $derived(
     new Map(Object.values(scene.locations).map((l) => [l.id, l]))
   );
@@ -44,7 +40,6 @@
     return parts.join('');
   });
 
-  // Passages (ways) to draw as rounded squares with double-headed arrows
   const waysToDraw = $derived.by(() => {
     const ways = scene.ways ?? {};
     const result = [];
@@ -86,22 +81,29 @@
     return result;
   });
 
-  // ——— pill geometry ———
-  // Location ID (top-left) and location name (bottom) — identical style & size.
-  // Size is the medium between previous name (0.055) and previous ID (0.07).
+  const cellsToFrame = $derived(
+    Array.from(locIndex.values()).map((l) => ({
+      x: l.pos.col - 1,
+      y: l.pos.row - 1
+    }))
+  );
+
+  // ——— layout constants ———
+  // Small indent of the location card (image + frame) from the cell edges
+  const CARD_INSET = 0.02;
+  // Pills align with the card corners — same indent
+  const LABEL_OFFSET = CARD_INSET;
+
   const FONT_SIZE = 0.062;
   const PAD_X = 0.022;
   const PAD_Y = 0.010;
   const PILL_H = FONT_SIZE + PAD_Y * 2;
   const CHAR_W = 0.62;
 
-  // Placement
-  const LABEL_OFFSET = 0.02;        // inset from top-left of the cell for the ID pill
-  const NAME_BOTTOM_MARGIN = 0.10;  // raised above way markers (marker half = 0.08)
+  const NAME_BOTTOM_MARGIN = 0.10;
   const LABEL_GAP = 0.01;
-  const NAME_MAX_WIDTH = 0.96;
+  const NAME_MAX_WIDTH = 0.96 - CARD_INSET * 2;
 
-  // Clue badges — same pill language, matching height
   const CLUE_FONT_SIZE = FONT_SIZE;
   const CLUE_PAD_X = PAD_X;
   const CLUE_PAD_Y = PAD_Y;
@@ -111,14 +113,8 @@
   function pillWidth(text, fontSize, padX) {
     return text.length * fontSize * CHAR_W + padX * 2;
   }
-
-  function labelWidth(text) {
-    return pillWidth(text, FONT_SIZE, PAD_X);
-  }
-
-  function clueWidth(text) {
-    return pillWidth(text, CLUE_FONT_SIZE, CLUE_PAD_X);
-  }
+  function labelWidth(text) { return pillWidth(text, FONT_SIZE, PAD_X); }
+  function clueWidth(text)  { return pillWidth(text, CLUE_FONT_SIZE, CLUE_PAD_X); }
 
   function fitName(text) {
     const charW = FONT_SIZE * CHAR_W;
@@ -127,14 +123,20 @@
     return text.slice(0, Math.max(1, maxChars - 1)) + '…';
   }
 
-  // Way marker geometry — rounded square, thin border, thin sharp double arrow
-  const WAY_HALF = 0.08;
-  const WAY_SIDE = WAY_HALF * 2;
-  const WAY_RX = 0.026;
+  // ——— theme constants ———
+  const MAP_BG = '#f2f2f2';
+  const FRAME_COLOR = '#2a2a2a';
+  const WAY_BORDER_COLOR = '#2a2a2a';
+  const WAY_ARROW_COLOR = '#555555';
+  const WAY_FILL = MAP_BG;
+
+  // Way marker geometry
+  const WAY_HALF_X = 0.055;
+  const WAY_HALF_Y = 0.110;
+  const WAY_RX     = 0.020;
   const WAY_ARROW_PATH =
-    'M-0.06 0L0.06 0' +
-    'M-0.06 0L-0.034-0.011M-0.06 0L-0.034 0.011' +
-    'M0.06 0L0.034-0.011M0.06 0L0.034 0.011';
+    'M-0.045 0L-0.005 -0.026L-0.005 0.026Z' +
+    'M0.045 0L0.005 -0.026L0.005 0.026Z';
 </script>
 
 {#if rows > 0 && cols > 0}
@@ -145,19 +147,19 @@
     xmlns="http://www.w3.org/2000/svg"
   >
     <!-- background -->
-    <rect x="0" y="0" width={cols} height={rows} fill="#f2f2f2" />
+    <rect x="0" y="0" width={cols} height={rows} fill={MAP_BG} />
 
-    <!-- location images -->
+    <!-- location images — inset from cell edges to form a "card" -->
     {#each Array(rows) as _, r}
       {#each Array(cols) as _, c}
         {@const loc = locIndex.get(`${r + 1}:${c + 1}`)}
         {#if loc}
           <image
             href="/docket/script/images/thumb/{context.investigation.scriptId}/{loc.id}"
-            x={c}
-            y={r}
-            width="1"
-            height="1"
+            x={c + CARD_INSET}
+            y={r + CARD_INSET}
+            width={1 - CARD_INSET * 2}
+            height={1 - CARD_INSET * 2}
             preserveAspectRatio="xMidYMid slice"
           >
             <title>{loc.name || 'Локация'}</title>
@@ -176,29 +178,41 @@
       vector-effect="non-scaling-stroke"
     />
 
-    <!-- passages (ways) as rounded squares with thin, sharp double arrows -->
+    <!-- thin dark frame around each visible location card -->
+    {#each cellsToFrame as cell}
+      <rect
+        x={cell.x + CARD_INSET}
+        y={cell.y + CARD_INSET}
+        width={1 - CARD_INSET * 2}
+        height={1 - CARD_INSET * 2}
+        fill="none"
+        stroke={FRAME_COLOR}
+        stroke-width="1"
+        vector-effect="non-scaling-stroke"
+        pointer-events="none"
+      />
+    {/each}
+
+    <!-- passages (ways) -->
     {#each waysToDraw as w}
       <g transform={`translate(${w.mx} ${w.my}) rotate(${w.vertical ? 90 : 0})`}>
         <title>{w.key}{w.description ? ' — ' + w.description : ''}</title>
         <rect
-          x={-WAY_HALF}
-          y={-WAY_HALF}
-          width={WAY_SIDE}
-          height={WAY_SIDE}
+          x={-WAY_HALF_X}
+          y={-WAY_HALF_Y}
+          width={WAY_HALF_X * 2}
+          height={WAY_HALF_Y * 2}
           rx={WAY_RX}
           ry={WAY_RX}
-          fill="#ffffff"
-          fill-opacity="0.95"
-          stroke="#4a4a4a"
-          stroke-width="0.005"
+          fill={WAY_FILL}
+          stroke={WAY_BORDER_COLOR}
+          stroke-width="1"
+          vector-effect="non-scaling-stroke"
         />
         <path
           d={WAY_ARROW_PATH}
-          fill="none"
-          stroke="#2a2a2a"
-          stroke-width="0.005"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          fill={WAY_ARROW_COLOR}
+          stroke="none"
           pointer-events="none"
         />
       </g>
@@ -209,7 +223,6 @@
       {#each Array(cols) as _, c}
         {@const loc = locIndex.get(`${r + 1}:${c + 1}`)}
         {#if loc}
-          <!-- location id (top-left, dark pill — same style as the name) -->
           {@const idW = labelWidth(loc.id)}
           <g pointer-events="none">
             <rect
@@ -233,7 +246,6 @@
             >{loc.id}</text>
           </g>
 
-          <!-- clue ids (top-right, stacked vertically, hover shows clue name) -->
           {#each loc.exposedClues as clueId, i}
             {@const w = clueWidth(clueId)}
             {@const x = c + 1 - LABEL_OFFSET - w}
@@ -266,12 +278,11 @@
             </g>
           {/each}
 
-          <!-- location name (bottom center, raised to clear the way markers) -->
           {#if loc.name}
             {@const fittedName = fitName(loc.name)}
             {@const nw = pillWidth(fittedName, FONT_SIZE, PAD_X)}
             {@const nx = c + 0.5 - nw / 2}
-            {@const ny = r + 1 - NAME_BOTTOM_MARGIN - PILL_H}
+            {@const ny = r + 1 - LABEL_OFFSET - NAME_BOTTOM_MARGIN - PILL_H + LABEL_OFFSET}
             <g pointer-events="none">
               <rect
                 x={nx}
