@@ -92,7 +92,6 @@
   const CARD_INSET = 0;
   const LABEL_OFFSET = CARD_INSET;
   const CLUE_OFFSET = 0.03;
-  // Location name bar stretches across the cell with small side margins
   const NAME_SIDE_MARGIN = 0.03;
 
   const FONT_SIZE = 0.062;
@@ -104,7 +103,6 @@
   const NAME_BOTTOM_MARGIN = 0.10;
   const LABEL_GAP = 0.01;
   const NAME_WIDTH = 1 - NAME_SIDE_MARGIN * 2;
-  // Name bar is a bit taller than the other pills
   const NAME_PAD_Y = 0.018;
   const NAME_PILL_H = FONT_SIZE + NAME_PAD_Y * 2;
 
@@ -128,7 +126,7 @@
   }
 
   // ——— theme constants ———
-  const MAP_BG = '#f7f7ed';
+  const MAP_BG = '#f2f2f2';
   const FRAME_COLOR = '#2a2a2a';
   const WAY_BORDER_COLOR = '#2a2a2a';
   const WAY_ARROW_COLOR = '#555555';
@@ -224,15 +222,17 @@
       </g>
     {/each}
 
-    <!-- labels: location id top-left, clue ids top-right, name bar at bottom -->
+    <!-- labels: clue ids top-left, location id top-right, name bar at bottom -->
     {#each Array(rows) as _, r}
       {#each Array(cols) as _, c}
         {@const loc = locIndex.get(`${r + 1}:${c + 1}`)}
         {#if loc}
+          <!-- location id (top-right, dark pill, text centered inside the pill) -->
           {@const idW = labelWidth(loc.id)}
+          {@const idX = c + 1 - LABEL_OFFSET - idW}
           <g pointer-events="none">
             <rect
-              x={c + LABEL_OFFSET}
+              x={idX}
               y={r + LABEL_OFFSET}
               width={idW}
               height={PILL_H}
@@ -241,9 +241,9 @@
               fill-opacity="0.7"
             />
             <text
-              x={c + LABEL_OFFSET + PAD_X}
+              x={idX + idW / 2}
               y={r + LABEL_OFFSET + PAD_Y}
-              text-anchor="start"
+              text-anchor="middle"
               dominant-baseline="hanging"
               font-family="system-ui, sans-serif"
               font-weight="500"
@@ -252,9 +252,10 @@
             >{loc.id}</text>
           </g>
 
+          <!-- clue ids (top-left, stacked vertically, hover shows clue name) -->
           {#each loc.exposedClues as clueId, i}
             {@const w = clueWidth(clueId)}
-            {@const x = c + 1 - CLUE_OFFSET - w}
+            {@const x = c + CLUE_OFFSET}
             {@const y = r + CLUE_OFFSET + i * CLUE_STEP_Y}
             <g>
               <rect
@@ -271,9 +272,9 @@
                 <title>{cluesIndex[clueId]?.name || clueId}</title>
               </rect>
               <text
-                x={x + w - CLUE_PAD_X}
+                x={x + CLUE_PAD_X}
                 y={y + CLUE_PAD_Y}
-                text-anchor="end"
+                text-anchor="start"
                 dominant-baseline="hanging"
                 font-family="system-ui, sans-serif"
                 font-weight="500"
