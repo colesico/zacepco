@@ -92,6 +92,8 @@
   const CARD_INSET = 0;
   const LABEL_OFFSET = CARD_INSET;
   const CLUE_OFFSET = 0.03;
+  // Location name bar stretches across the cell with small side margins
+  const NAME_SIDE_MARGIN = 0.03;
 
   const FONT_SIZE = 0.062;
   const PAD_X = 0.022;
@@ -101,7 +103,10 @@
 
   const NAME_BOTTOM_MARGIN = 0.10;
   const LABEL_GAP = 0.01;
-  const NAME_MAX_WIDTH = 0.96 - CARD_INSET * 2;
+  const NAME_WIDTH = 1 - NAME_SIDE_MARGIN * 2;
+  // Name bar is a bit taller than the other pills
+  const NAME_PAD_Y = 0.018;
+  const NAME_PILL_H = FONT_SIZE + NAME_PAD_Y * 2;
 
   const CLUE_FONT_SIZE = FONT_SIZE;
   const CLUE_PAD_X = PAD_X;
@@ -117,7 +122,7 @@
 
   function fitName(text) {
     const charW = FONT_SIZE * CHAR_W;
-    const maxChars = Math.floor((NAME_MAX_WIDTH - PAD_X * 2) / charW);
+    const maxChars = Math.floor((NAME_WIDTH - PAD_X * 2) / charW);
     if (text.length <= maxChars) return text;
     return text.slice(0, Math.max(1, maxChars - 1)) + '…';
   }
@@ -128,7 +133,6 @@
   const WAY_BORDER_COLOR = '#2a2a2a';
   const WAY_ARROW_COLOR = '#555555';
   const WAY_FILL = MAP_BG;
-  // Semi-transparent fill — just a bit less transparent than before
   const WAY_FILL_OPACITY = 0.70;
 
   // Way marker geometry
@@ -220,7 +224,7 @@
       </g>
     {/each}
 
-    <!-- labels: location id top-left, clue ids top-right, name at bottom -->
+    <!-- labels: location id top-left, clue ids top-right, name bar at bottom -->
     {#each Array(rows) as _, r}
       {#each Array(cols) as _, c}
         {@const loc = locIndex.get(`${r + 1}:${c + 1}`)}
@@ -282,22 +286,21 @@
 
           {#if loc.name}
             {@const fittedName = fitName(loc.name)}
-            {@const nw = pillWidth(fittedName, FONT_SIZE, PAD_X)}
-            {@const nx = c + 0.5 - nw / 2}
-            {@const ny = r + 1 - LABEL_OFFSET - NAME_BOTTOM_MARGIN - PILL_H + LABEL_OFFSET}
+            {@const nx = c + NAME_SIDE_MARGIN}
+            {@const ny = r + 1 - NAME_BOTTOM_MARGIN - NAME_PILL_H}
             <g pointer-events="none">
               <rect
                 x={nx}
                 y={ny}
-                width={nw}
-                height={PILL_H}
+                width={NAME_WIDTH}
+                height={NAME_PILL_H}
                 rx="0.015"
                 fill="#1a1a1a"
                 fill-opacity="0.7"
               />
               <text
                 x={c + 0.5}
-                y={ny + PAD_Y}
+                y={ny + NAME_PAD_Y}
                 text-anchor="middle"
                 dominant-baseline="hanging"
                 font-family="system-ui, sans-serif"
