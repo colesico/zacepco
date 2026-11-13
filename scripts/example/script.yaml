@@ -112,10 +112,10 @@ crime:
       description: |
         Transparent personage 
     
-    PSIM:
-      name: Simple
+    PSLD:
+      name: Solid
       description: |
-        Simple round personage 
+        Solid round personage 
       hidden: true  
   
   # 
@@ -180,7 +180,7 @@ crime:
         description: |
           A small pinewood with a glade
         pos:
-          col: 3
+          col: 4
           row: 3
           
       LHSE:  
@@ -375,10 +375,18 @@ investigation:
   # A subset of which can participate in the investigation
   # 
   detectives:
-    D1:
+    DHLS:
       name: Sherlock Holmes
       description: Famous detective
-
+    DPRO:
+      name: Hercule Poirot
+      description: Little grey cells
+    DBRN:
+      name: Father Brown
+      description: Catholic priest who solves crimes
+    DCOS:
+      name: Cosmonaut
+        
 # 
 # General answers
 # 

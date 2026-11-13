@@ -46,7 +46,7 @@
       icon="fas fa-folder-plus"
       title="Регистрация сценария в реестре"
       caption="Добавить сценарий"
-      href="/scripts/add"
+      href="/script/add"
     />
   </UiLocalMenu>
   <h1>Сценарии</h1>
