@@ -89,11 +89,8 @@
   );
 
   // ——— layout constants ———
-  // No inset — location card fills the whole cell
   const CARD_INSET = 0;
-  // Pills sit right at the cell corners
   const LABEL_OFFSET = CARD_INSET;
-  // Clue badges are pushed further in from the cell edges
   const CLUE_OFFSET = 0.03;
 
   const FONT_SIZE = 0.062;
@@ -131,6 +128,8 @@
   const WAY_BORDER_COLOR = '#2a2a2a';
   const WAY_ARROW_COLOR = '#555555';
   const WAY_FILL = MAP_BG;
+  // Semi-transparent fill — just a bit less transparent than before
+  const WAY_FILL_OPACITY = 0.70;
 
   // Way marker geometry
   const WAY_HALF_X = 0.055;
@@ -195,7 +194,7 @@
       />
     {/each}
 
-    <!-- passages (ways) -->
+    <!-- passages (ways) — slightly translucent fill -->
     {#each waysToDraw as w}
       <g transform={`translate(${w.mx} ${w.my}) rotate(${w.vertical ? 90 : 0})`}>
         <title>{w.key}{w.description ? ' — ' + w.description : ''}</title>
@@ -207,6 +206,7 @@
           rx={WAY_RX}
           ry={WAY_RX}
           fill={WAY_FILL}
+          fill-opacity={WAY_FILL_OPACITY}
           stroke={WAY_BORDER_COLOR}
           stroke-width="1"
           vector-effect="non-scaling-stroke"
