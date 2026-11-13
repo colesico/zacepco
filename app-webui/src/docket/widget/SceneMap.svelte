@@ -89,10 +89,12 @@
   );
 
   // ——— layout constants ———
-  // Small indent of the location card (image + frame) from the cell edges
-  const CARD_INSET = 0.02;
-  // Pills align with the card corners — same indent
+  // No inset — location card fills the whole cell
+  const CARD_INSET = 0;
+  // Pills sit right at the cell corners
   const LABEL_OFFSET = CARD_INSET;
+  // Clue badges are pushed further in from the cell edges
+  const CLUE_OFFSET = 0.03;
 
   const FONT_SIZE = 0.062;
   const PAD_X = 0.022;
@@ -124,7 +126,7 @@
   }
 
   // ——— theme constants ———
-  const MAP_BG = '#f2f2f2';
+  const MAP_BG = '#f7f7ed';
   const FRAME_COLOR = '#2a2a2a';
   const WAY_BORDER_COLOR = '#2a2a2a';
   const WAY_ARROW_COLOR = '#555555';
@@ -149,7 +151,7 @@
     <!-- background -->
     <rect x="0" y="0" width={cols} height={rows} fill={MAP_BG} />
 
-    <!-- location images — inset from cell edges to form a "card" -->
+    <!-- location images — fill the whole cell -->
     {#each Array(rows) as _, r}
       {#each Array(cols) as _, c}
         {@const loc = locIndex.get(`${r + 1}:${c + 1}`)}
@@ -178,7 +180,7 @@
       vector-effect="non-scaling-stroke"
     />
 
-    <!-- thin dark frame around each visible location card -->
+    <!-- thin dark frame around each visible location cell (on the cell edge) -->
     {#each cellsToFrame as cell}
       <rect
         x={cell.x + CARD_INSET}
@@ -248,8 +250,8 @@
 
           {#each loc.exposedClues as clueId, i}
             {@const w = clueWidth(clueId)}
-            {@const x = c + 1 - LABEL_OFFSET - w}
-            {@const y = r + LABEL_OFFSET + i * CLUE_STEP_Y}
+            {@const x = c + 1 - CLUE_OFFSET - w}
+            {@const y = r + CLUE_OFFSET + i * CLUE_STEP_Y}
             <g>
               <rect
                 x={x}
