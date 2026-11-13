@@ -19,6 +19,13 @@
     for (let c = 0; c <= cols; c++) parts.push(`M${c} 0V${rows}`);
     return parts.join('');
   });
+
+  // Параметры метки id локации (координаты в единицах viewBox, где ячейка = 1×1)
+  const LABEL_FONT_SIZE = 0.07;    // обычный, не крупный шрифт
+  const LABEL_PAD_X = 0.025;       // горизонтальный отступ текста от края плашки
+  const LABEL_PAD_Y = 0.015;       // вертикальный отступ
+  const LABEL_OFFSET = 0.02;       // отступ плашки от края ячейки
+  const LABEL_CHAR_WIDTH = LABEL_FONT_SIZE * 0.65; // приблизительная ширина символа
 </script>
 
 {#if rows > 0 && cols > 0}
@@ -60,25 +67,41 @@
       vector-effect="non-scaling-stroke"
     />
 
-    <!-- подписи -->
+    <!-- подписи: id в верхнем левом углу, внутри закрашенной плашки -->
     {#each Array(rows) as _, r}
       {#each Array(cols) as _, c}
         {@const loc = locIndex.get(`${r + 1}:${c + 1}`)}
         {#if loc}
-          <text
-            x={c + 0.5}
-            y={r + 0.5}
-            text-anchor="middle"
-            dominant-baseline="central"
-            font-family="system-ui, sans-serif"
-            font-weight="bold"
-            font-size="0.15"
-            fill="#000000"
-            stroke="#ffffff"
-            stroke-width="0.02"
-            paint-order="stroke fill"
-            pointer-events="none"
-          >{loc.id}</text>
+          {@const label = loc.id}
+          {@const rectX = c + LABEL_OFFSET}
+          {@const rectY = r + LABEL_OFFSET}
+          {@const rectW = label.length * LABEL_CHAR_WIDTH + LABEL_PAD_X * 2}
+          {@const rectH = LABEL_FONT_SIZE + LABEL_PAD_Y * 2}
+          <g pointer-events="none">
+            <!-- плашка под текст -->
+            <rect
+              x={rectX}
+              y={rectY}
+              width={rectW}
+              height={rectH}
+              rx="0.015"
+              fill="#ffffff"
+              fill-opacity="0.85"
+              stroke="#8c8c8c"
+              stroke-width="0.005"
+            />
+            <!-- сам id -->
+            <text
+              x={rectX + LABEL_PAD_X}
+              y={rectY + LABEL_PAD_Y}
+              text-anchor="start"
+              dominant-baseline="hanging"
+              font-family="system-ui, sans-serif"
+              font-weight="400"
+              font-size={LABEL_FONT_SIZE}
+              fill="#333333"
+            >{label}</text>
+          </g>
         {/if}
       {/each}
     {/each}
