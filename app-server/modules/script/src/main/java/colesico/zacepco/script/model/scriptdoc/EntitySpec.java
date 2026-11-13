@@ -25,11 +25,8 @@ public abstract class EntitySpec<ID extends TId> {
     @YamlComment(text = "Short name")
     public String name = null;
 
-    /**
-     * Detailed description.
-     */
     @YamlComment(text = {
-            "Detailed description",
+            "Optional description",
     })
     public String description = null;
 
@@ -38,7 +35,7 @@ public abstract class EntitySpec<ID extends TId> {
             "If this entity is imported from another script,",
             "specify that script UID"
     })
-    public String script = null;
+    public String ref = null;
 
     @YamlComment(text = {
             "Placeholder values",

@@ -16,12 +16,12 @@ metainfo:
   version: 1
   
   # Script title
-  title: Script document
+  title: Script example
   
   # A brief crime summary without spoilers
   # and version information
   annotation: |
-    Defines the complete reference model of the script document
+    Demonstrates script document model
   
   # Authors list
   authors:
@@ -40,13 +40,13 @@ metainfo:
   
   # Estimated playtime, minutes
   estimatedTime:
-    min: 5
-    max: 60
+    min: 1
+    max: 5
   
   # Recommended number of players (min-max)
   playersNum:
     min: 1
-    max: 8
+    max: 4
   
   # Recommended age for players
   # Example: 18+ or 4-10
@@ -63,7 +63,10 @@ crime:
   # Specify either the time only or the date-time only, mixing formats is not allowed.
   timeline:
     T1: '10:00'
-    T2: 2025-01-02T11:15
+    T2: '10:30'
+    T3: 2025-01-02T11:15
+    T4: 2025-01-03T10:15
+    T5: 2025-01-04T04:44
   
   # 
   # Personages dictionary
@@ -72,32 +75,48 @@ crime:
   # ID format: P[A-Z0-9]{1,3}
   # 
   personages:
-    P1:
+    PFCE:
       
       # Short name
-      name: Butler
+      name: Happy face
       
       # Detailed description
       description: |
-        Knows all the secrets and secret passages,  is cold-blooded, has the perfect motive for murder.
+        Emoji $color color and $shape shape
       
       # Optional referenced script
       # If this entity is imported from another script,
       # specify that script UID
-      script: ZACEPCO
+      ref: ZACEPCO
       
       # Placeholder values
       # Map of placeholder names to values substituted into the entity's description or name
       placeholders:
-        color: red
-        val: Some value
+        color: yellow
+        shape: round
       
       # Initially hidden personage or not
       # Default: false
       hidden: false
       
       # Initially exposed clues for this personage
-      exposedClues: [C1, C2]
+      exposedClues: [CFPR,CSGT]
+      
+    PJOY:
+      name: Joyful man
+      description: |
+        Joyful personage
+        
+    PTRN:
+      name: Transparent
+      description: |
+        Transparent personage 
+    
+    PSIM:
+      name: Simple
+      description: |
+        Simple round personage 
+      hidden: true  
   
   # 
   # Crime scene definition
@@ -109,8 +128,8 @@ crime:
     
     # Grid size for locations placement
     size:
+      cols: 4 # Columns number
       rows: 3 # Rows number
-      cols: 2 # Columns number
     
     # 
     # Locations dictionary
@@ -118,19 +137,18 @@ crime:
     # ID format: L[A-Z0-9]{1,3}
     # 
     locations:
-      L1:
-        name: Cabinet
+      LCST:
+        name: Castle 
         description: |
-          A gloomy study with $color shadows  shaped like Rorschach blots.
-        script: ZACEPCO
+          Castle with $feature
+        ref: ZACEPCO
         placeholders:
-          color: dark
-          val: Some value
+          feature: flag
         
         # Location position on scene grid
         # (1,1) - left top scene corner
         pos:
-          col: 1
+          col: 2
           row: 1
         
         # Initially hidden location or not
@@ -138,24 +156,92 @@ crime:
         hidden: false
         
         # Initially exposed clues for this location
-        exposedClues: [C1, C2]
-    
+        exposedClues: [CHMR]
+      
+      LBCH:  
+        name: Sunny beach  
+        description: |
+          Three sun loungers and a beach umbrella
+        pos:
+          col: 2
+          row: 2
+          
+      LCMP:  
+        name: Camping   
+        description: |
+          Two camping tents and a campfire pit 
+          with smoldering embers
+        pos:
+          col: 3
+          row: 3
+          
+      LWOD:  
+        name: Pine woods   
+        description: |
+          A small pinewood with a glade
+        pos:
+          col: 3
+          row: 3
+          
+      LHSE:  
+        name: Abandoned house   
+        description: |
+          People say there are ghosts here
+        pos:
+          col: 1
+          row: 2  
+        hidden: true        
+        
+      LRIV:  
+        name: River   
+        description: |
+          Fast current, deep bottom
+        pos:
+          col: 3
+          row: 2 
+          
+      LMNT:  
+        name: Hill   
+        pos:
+          col: 2
+          row: 3  
+          
     # Ways between two locations
     # Always connects only two locations, direction does not matter
     # There can be only one direct way between two locations
     # Way ID - unique within script
     # ID format: W[A-Z0-9]{1,3}
     ways:
-      W1:
+      WCB:
         description: length 10m
         
         # IDs of the two connected locations
-        locations: [L1, L2]
+        locations: [LCST, LBCH]
         
         # Is initially hidden way or not
         # Default: false
-        hidden: true
+        hidden: false
   
+      WBR:
+        locations: [LBCH, LRIV]
+
+      WBH:
+        locations: [LBCH, LHSE]
+        hidden: true
+      
+      WRC:
+        locations: [LRIV, LCMP]
+     
+      WCW:
+        locations: [LCMP, LWOD]
+      
+      WBM:
+        locations: [LBCH, LMNT]  
+        
+      WMC:
+        locations: [LMNT, LCMP]
+        hidden: true
+        
   # 
   # Clues dictionary
   # Defines all clues involved in the crime
@@ -163,15 +249,42 @@ crime:
   # ID format: C[A-Z0-9]{1,3}
   # 
   clues:
-    C1:
-      name: Butt
+    CFPR:
+      name: Fingerprint
       description: |
-        A Camel cigarette butt
-      script: ZACEPCO
+        Left on a $object
+      ref: ZACEPCO
       placeholders:
-        time: '10:30'
-        val: Some value
+        object: spoon
+        
+    CSGT:
+      name: Cigarette butt
 
+    CHMR:
+      name: Hammer
+      description: A fingerprint on the handle
+
+    CCLK:
+      name: Clock
+      description: The clock hands stopped at 5:15
+      
+    CKEY:
+      name: Key
+      description: An old rusty key
+      
+    CGLS:
+      name: Glass 
+      description: A full martini glass
+      
+    CPEN:
+      name: Yellow pen
+      description: A metal body
+    
+    CGUN:
+      name: Gun
+      description: Calibre $calibre
+      placeholders: 
+        calibre: '7.62'
 # 
 # Investigation spec
 # Describes relationships between crime entities for discovery

@@ -9,15 +9,20 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class ScriptTest {
 
     private Ioc ioc;
+    private Path userDir;
+    private Path scriptDir;
 
     @BeforeClass
     public void init() {
+        userDir = Paths.get(System.getProperty("user.dir"));
+        scriptDir = userDir.resolve("../../../scripts/example");
         ioc = IocBuilder.create().build();
     }
 
@@ -27,24 +32,19 @@ public class ScriptTest {
 
         // Initial script document
         var scriptFile = "script.yaml";
-        var classLoader = Thread.currentThread().getContextClassLoader();
-        ScriptDocument script = reader.read(classLoader.getResourceAsStream(scriptFile), ScriptDocument.class);
+        ScriptDocument script = reader.read(Files.newInputStream(scriptDir.resolve(scriptFile)), ScriptDocument.class);
 
         try (ScriptPackage scriptPackage = ioc.instance(ScriptPackage.class)) {
             ScriptDocumnetResource scriptDocumnetResource = scriptPackage.scriptDocument();
             scriptDocumnetResource.write(script);
-
-            Path targetPath = Paths.get(System.getProperty("user.dir"));
             // Target script file
-            scriptPackage.exportTo(targetPath.resolve("target/script.zsp.zip").toFile());
+            scriptPackage.exportTo(userDir.resolve("target/script.zsp.zip").toFile());
         }
 
     }
 
     @Test
     public void testCreateScriptPackageFromDir() throws IOException {
-        Path userDir = Paths.get(System.getProperty("user.dir"));
-        var scriptDir = userDir.resolve("../../../scripts/default");
 
         var scriptPackage = ioc.instance(
                 new ClassedKey<>(ScriptPackage.class, DirectoryPackageDriver.class),
@@ -55,7 +55,7 @@ public class ScriptTest {
             IO.println("resource: " + rp.asString());
         }
 
-        scriptPackage.exportTo(userDir.resolve("target/default.zsp.zip").toFile());
+        scriptPackage.exportTo(userDir.resolve("target/example.zsp.zip").toFile());
 
 
     }

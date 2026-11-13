@@ -22,6 +22,7 @@ public final class LocationSpec extends EntitySpec<LocationSpec.Id> {
             "Location position on scene grid",
             "(1,1) - left top scene corner"
     })
+    @YamlCompact
     public LocationPosSpec pos = new LocationPosSpec();
 
     /**

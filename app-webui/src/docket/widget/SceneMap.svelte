@@ -4,67 +4,83 @@
   const scene = $derived(context.script.crime.scene);
   const rows = $derived(scene.size.rows);
   const cols = $derived(scene.size.cols);
+
+  const locIndex = $derived(
+    new Map(
+      Object.values(scene.locations)
+        .filter((l) => !l.hidden)
+        .map((l) => [`${l.pos.row}:${l.pos.col}`, l])
+    )
+  );
+
+  const gridPath = $derived.by(() => {
+    const parts = [];
+    for (let r = 0; r <= rows; r++) parts.push(`M0 ${r}H${cols}`);
+    for (let c = 0; c <= cols; c++) parts.push(`M${c} 0V${rows}`);
+    return parts.join('');
+  });
 </script>
 
 {#if rows > 0 && cols > 0}
-  <div class="map" style="--rows: {rows}; --cols: {cols}">
+  <svg
+    viewBox="0 0 {cols} {rows}"
+    width="100%"
+    preserveAspectRatio="xMidYMid meet"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <!-- фон: бледно-серый -->
+    <rect x="0" y="0" width={cols} height={rows} fill="#f2f2f2" />
+
+    <!-- картинки локаций -->
     {#each Array(rows) as _, r}
       {#each Array(cols) as _, c}
-        {@const loc = Object.values(scene.locations).find(
-          (l) => !l.hidden && l.pos.row === r + 1 && l.pos.col === c + 1
-        )}
-        <div class="cell">
-          {#if loc}
-            <img
-              class="img"
-              src="/docket/script/images/thumb/{context.investigation.scriptId}/{loc.id}"
-              alt={loc.name || 'Локация'}
-              title={loc.name || 'Локация'}
-            />
-            <span class="badge">{loc.id}</span>
-          {/if}
-        </div>
+        {@const loc = locIndex.get(`${r + 1}:${c + 1}`)}
+        {#if loc}
+          <image
+            href="/docket/script/images/thumb/{context.investigation.scriptId}/{loc.id}"
+            x={c}
+            y={r}
+            width="1"
+            height="1"
+            preserveAspectRatio="xMidYMid slice"
+          >
+            <title>{loc.name || 'Локация'}</title>
+          </image>
+        {/if}
       {/each}
     {/each}
-  </div>
+
+    <!-- сетка: темнее фона -->
+    <path
+      d={gridPath}
+      fill="none"
+      stroke="#8c8c8c"
+      stroke-width="1"
+      stroke-dasharray="4 4"
+      vector-effect="non-scaling-stroke"
+    />
+
+    <!-- подписи -->
+    {#each Array(rows) as _, r}
+      {#each Array(cols) as _, c}
+        {@const loc = locIndex.get(`${r + 1}:${c + 1}`)}
+        {#if loc}
+          <text
+            x={c + 0.5}
+            y={r + 0.5}
+            text-anchor="middle"
+            dominant-baseline="central"
+            font-family="system-ui, sans-serif"
+            font-weight="bold"
+            font-size="0.15"
+            fill="#000000"
+            stroke="#ffffff"
+            stroke-width="0.02"
+            paint-order="stroke fill"
+            pointer-events="none"
+          >{loc.id}</text>
+        {/if}
+      {/each}
+    {/each}
+  </svg>
 {/if}
-
-<style>
-  .map {
-    width: 100%;
-    max-width: calc((100svh - 200px) * var(--cols) / var(--rows));
-    aspect-ratio: var(--cols) / var(--rows);
-    display: grid;
-    grid-template-columns: repeat(var(--cols), 1fr);
-    grid-template-rows: repeat(var(--rows), 1fr);
-    gap: 1px;
-    background: #c0c0c0;
-    border: 1px solid #c0c0c0;
-    margin: 20px auto 0;
-  }
-
-  .cell {
-    position: relative;
-    overflow: hidden;
-    background: #fff;
-  }
-
-  .img {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .badge {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-weight: bold;
-    background: rgba(255, 255, 255, 0.7);
-    padding: 2px 6px;
-    border-radius: 4px;
-  }
-</style>
