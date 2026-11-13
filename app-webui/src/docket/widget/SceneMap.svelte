@@ -213,6 +213,10 @@
     }
   }
 
+  function handleBackgroundClick() {
+    internalSelection = { type: null, id: null };
+  }
+
   // ——— theme constants ———
   const MAP_BG = '#f2f2f2';
   const FRAME_COLOR = '#2a2a2a';
@@ -224,10 +228,7 @@
   const SELECTED_COLOR = '#f5b400';
   const HIDDEN_QUESTION_COLOR = '#7a7a7a';
 
-  // Way marker geometry.
-  // The long side runs along the cell boundary and takes 30% of its length:
-  // WAY_HALF_Y = 0.15 → full marker length = 0.30 = 30% of the cell edge.
-  // The narrow side runs along the passage: WAY_HALF_X = 0.055.
+  // Way marker geometry
   const WAY_HALF_X = 0.055;
   const WAY_HALF_Y = 0.150;
   const WAY_RX     = 0.020;
@@ -243,8 +244,35 @@
     preserveAspectRatio="xMidYMid meet"
     xmlns="http://www.w3.org/2000/svg"
   >
-    <!-- background -->
-    <rect x="0" y="0" width={cols} height={rows} fill={MAP_BG} />
+    <!-- shadow filter used by the clue pills -->
+    <defs>
+      <filter
+        id="clue-pill-shadow"
+        x="-30%"
+        y="-30%"
+        width="160%"
+        height="160%"
+      >
+        <feDropShadow
+          dx="0"
+          dy="0.008"
+          stdDeviation="0.008"
+          flood-color="#000000"
+          flood-opacity="0.35"
+        />
+      </filter>
+    </defs>
+
+    <!-- background — click clears the current selection -->
+    <rect
+      x="0"
+      y="0"
+      width={cols}
+      height={rows}
+      fill={MAP_BG}
+      style="cursor: default;"
+      onclick={handleBackgroundClick}
+    />
 
     <!-- location cells: image for visible, "?" for hidden -->
     {#each Array(rows) as _, r}
@@ -385,6 +413,7 @@
           {@const clueMaxW = 1 - CLUE_SIDE_OFFSET * 2}
           {@const { shown: shownClues, more: hasMoreClues } = visibleClues(loc.exposedClues)}
 
+          <!-- location id (top-right, dark pill, bold) -->
           <g pointer-events="none">
             <rect
               x={idX}
@@ -407,6 +436,7 @@
             >{loc.id}</text>
           </g>
 
+          <!-- clue ids (below the location id, stacked, id bold + name regular, with shadow) -->
           {#each shownClues as clueId, i}
             {@const clueName = cluesIndex[clueId]?.name ?? ''}
             {@const namePart = fitClueName(clueId, clueName, clueMaxW)}
@@ -424,6 +454,7 @@
                 fill-opacity="0.92"
                 stroke="#b8941f"
                 stroke-width="0.005"
+                filter="url(#clue-pill-shadow)"
               />
               <text
                 x={x + CLUE_PAD_X}
@@ -457,6 +488,7 @@
                 fill-opacity="0.92"
                 stroke="#b8941f"
                 stroke-width="0.005"
+                filter="url(#clue-pill-shadow)"
               />
               <text
                 x={dotsX + dotsW / 2}
