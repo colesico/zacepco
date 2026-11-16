@@ -46,11 +46,13 @@ public class LocationSearchManager {
 
         var weightedClues = FocusedClueUtil.calculateWeights(cluesToSearch, detectiveFocus);
 
+        // Order: EQ desc, EQT desc, NE asc, threshold desc
         weightedClues.sort(
                 Comparator.comparingLong(FocusedClueWeights::eq).reversed()
                         .thenComparing(Comparator.comparingLong(FocusedClueWeights::eqt).reversed())
                         .thenComparingLong(FocusedClueWeights::ne)
-                        .thenComparing(Comparator.comparingDouble((FocusedClueWeights fw) -> fw.focusedClue().threshold).reversed())
+                        .thenComparing(Comparator.comparingDouble(
+                                (FocusedClueWeights fw) -> fw.focusedClue().threshold).reversed())
         );
 
         double correctedD12 = d12DieValue / invManager.state.randFactor;
@@ -68,13 +70,13 @@ public class LocationSearchManager {
         if (selected == null) {
             var accidental = weightedClues.stream()
                     .min(Comparator.comparingDouble(fw -> fw.focusedClue().threshold))
-                    .orElseThrow(() -> new IllegalStateException("No unexposed clues to search"));
+                    .orElseThrow();
 
             var clue = invManager.script.crime.clues.get(accidental.focusedClue().clue);
             return new LocationSearchResult(clue, true, null, null, null);
         }
 
-        // Normal discovery: matched IDs and types computed by FocusedClueUtil
+        // Normal discovery
         var clue = invManager.script.crime.clues.get(selected.focusedClue().clue);
         return new LocationSearchResult(
                 clue,
