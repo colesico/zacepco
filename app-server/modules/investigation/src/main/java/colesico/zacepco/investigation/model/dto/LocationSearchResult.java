@@ -10,6 +10,7 @@ public record LocationSearchResult(
         boolean accidental,
         Set<TId> matchedIds,
         Set<TId.Type> matchedTypes,
-        Set<TId.Type> unmatchedTypes
+        Set<TId.Type> unmatchedTypes,
+        boolean lastClue
 ) {
 }

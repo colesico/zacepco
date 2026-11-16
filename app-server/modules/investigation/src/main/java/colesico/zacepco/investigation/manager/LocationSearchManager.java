@@ -37,7 +37,7 @@ public class LocationSearchManager {
     }
 
 
-    public LocationSearchResult search(DetectiveFocus detectiveFocus, Integer d12DieValue) {
+    private LocationSearchResult searchClue(DetectiveFocus detectiveFocus, Integer d12DieValue) {
         var cluesToSearch = findUnexposedFocusedClues();
 
         if (cluesToSearch.isEmpty()) {
@@ -73,7 +73,13 @@ public class LocationSearchManager {
                     .orElseThrow();
 
             var clue = invManager.script.crime.clues.get(accidental.focusedClue().clue);
-            return new LocationSearchResult(clue, true, null, null, null);
+            return new LocationSearchResult(clue,
+                    true,
+                    null,
+                    null,
+                    null,
+                    weightedClues.size() == 1
+            );
         }
 
         // Normal discovery
@@ -83,7 +89,22 @@ public class LocationSearchManager {
                 false,
                 selected.matchedIds(),
                 selected.matchedTypes(),
-                selected.unmatchedTypes()
+                selected.unmatchedTypes(),
+                weightedClues.size() == 1
         );
+    }
+
+    public LocationSearchResult search(DetectiveFocus detectiveFocus, Integer d12DieValue) {
+        var result = searchClue(detectiveFocus, d12DieValue);
+
+        if (result == null) {
+            return result;
+        }
+
+        var locationState = invManager.state.scene.locations.get(locationId);
+
+        locationState.exposedClues.add(result.clue().id);
+
+        return result;
     }
 }

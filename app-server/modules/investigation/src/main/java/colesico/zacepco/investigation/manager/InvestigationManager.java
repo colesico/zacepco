@@ -26,6 +26,14 @@ public class InvestigationManager {
     }
 
     public LocationSearchManager locationSearchManager(LocationSpec.Id locationId) {
-        return new LocationSearchManager(this,locationId);
+        return new LocationSearchManager(this, locationId);
+    }
+
+    public InvestigationState state() {
+        return state;
+    }
+
+    public ScriptDocument script() {
+        return script;
     }
 }
