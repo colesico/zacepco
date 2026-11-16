@@ -1,8 +1,8 @@
 package colesico.zacepco.investigation.manager;
 
-import colesico.zacepco.investigation.model.dto.DetectiveFocus;
-import colesico.zacepco.investigation.model.dto.FocusedClueWeights;
-import colesico.zacepco.investigation.model.dto.LocationSearchResult;
+import colesico.zacepco.investigation.dto.DetectiveFocus;
+import colesico.zacepco.investigation.dto.FocusedClueWeights;
+import colesico.zacepco.investigation.dto.LocationSearchResult;
 import colesico.zacepco.script.model.scriptdoc.FocusedClueSpec;
 import colesico.zacepco.script.model.scriptdoc.LocationSpec;
 

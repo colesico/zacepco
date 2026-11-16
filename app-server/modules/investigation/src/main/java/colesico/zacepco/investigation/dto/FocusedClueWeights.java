@@ -1,4 +1,4 @@
-package colesico.zacepco.investigation.model.dto;
+package colesico.zacepco.investigation.dto;
 
 import colesico.zacepco.script.model.scriptdoc.FocusedClueSpec;
 import colesico.zacepco.script.model.scriptdoc.TId;
