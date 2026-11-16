@@ -18,7 +18,7 @@ public class FoundClue {
     private InvestigationActionType action;
 
     /**
-     * Source where clue was found (e.g. location id, personage id, null for expertise)
+     * Source where focusedClue was found (e.g. location id, personage id, null for expertise)
      */
     private Long sourceId;
 
@@ -28,7 +28,7 @@ public class FoundClue {
     private ClueSpec.Id clueId;
 
     /**
-     * Who found the clue
+     * Who found the focusedClue
      */
     private Long detectiveId;
 
