@@ -21,9 +21,17 @@ public class LocationState {
     public boolean hidden = false;
 
     /**
+     * Whether the location can still be searched.
+     * True if either no search has been performed in the location yet,
+     * or a search has been performed and no unexposed clues remain in the location.
+     */
+    public boolean searchAllowed = true;
+
+    /**
      * Exposed clues for this location
      */
     public Set<ClueSpec.Id> exposedClues = new LinkedHashSet<>();
+
 
     public LocationState() {
     }

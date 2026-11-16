@@ -105,6 +105,10 @@ public class LocationSearchManager {
 
         locationState.exposedClues.add(result.clue().id);
 
+        if (result.lastClue()){
+            locationState.searchAllowed = false;
+        }
+
         return result;
     }
 }
