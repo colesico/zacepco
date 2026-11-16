@@ -1,5 +1,8 @@
 package colesico.zacepco.investigation.model.state;
 
+import colesico.zacepco.script.model.scriptdoc.DetectiveSpec;
+import colesico.zacepco.script.model.scriptdoc.PersonageSpec;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -15,14 +18,16 @@ public class InvestigationState {
      */
     public int budget = 0;
 
+    public double randFactor = 1.0;
+
     /**
      * Current detective
      */
-    public String activeDetectiveId;
+    public DetectiveSpec.Id activeDetectiveId;
 
     public SceneState scene = new SceneState();
-    public final Map<String, PersonageState> personages = new LinkedHashMap<>();
-    public final Map<String, DetectiveState> detectives = new LinkedHashMap<>();
+    public final Map<PersonageSpec.Id, PersonageState> personages = new LinkedHashMap<>();
+    public final Map<DetectiveSpec.Id, DetectiveState> detectives = new LinkedHashMap<>();
 
 
     public InvestigationState() {
@@ -30,9 +35,10 @@ public class InvestigationState {
 
     /**
      * Set next active detective
+     *
      * @return active detective id
      */
-    public String nextDetective() {
+    public DetectiveSpec.Id nextDetective() {
         if (detectives.isEmpty()) {
             throw new RuntimeException("Detectives not defined");
         }

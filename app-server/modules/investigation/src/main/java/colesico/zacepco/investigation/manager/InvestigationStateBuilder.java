@@ -1,10 +1,9 @@
 package colesico.zacepco.investigation.manager;
 
-import colesico.zacepco.investigation.model.state.DetectiveState;
-import colesico.zacepco.investigation.model.state.InvestigationState;
-import colesico.zacepco.investigation.model.state.LocationState;
-import colesico.zacepco.investigation.model.state.PersonageState;
+import colesico.zacepco.investigation.model.state.*;
 import colesico.zacepco.script.model.scriptdoc.DetectiveSpec;
+import colesico.zacepco.script.model.scriptdoc.LocationSpec;
+import colesico.zacepco.script.model.scriptdoc.PersonageSpec;
 import colesico.zacepco.script.model.scriptdoc.ScriptDocument;
 
 import java.util.*;
@@ -57,6 +56,7 @@ public class InvestigationStateBuilder {
         invState.script.version = script.metainfo.version;
 
         invState.budget = (int) Math.ceil(script.investigation.budget * budgetScale);
+        invState.randFactor = randFactor;
 
         invState.scene.locations.putAll(buildLocationStates());
         invState.personages.putAll(buildPersonageStates());
@@ -69,10 +69,10 @@ public class InvestigationStateBuilder {
         return invState;
     }
 
-    private Map<String, PersonageState> buildPersonageStates() {
+    private Map<PersonageSpec.Id, PersonageState> buildPersonageStates() {
         return script.crime.personages.values().stream()
                 .collect(Collectors.toMap(
-                        per -> per.id.toString(),
+                        per -> per.id,
                         per -> {
                             var perState = new PersonageState(per.id);
                             perState.exposedClues.addAll(per.exposedClues);
@@ -84,10 +84,10 @@ public class InvestigationStateBuilder {
                 ));
     }
 
-    private Map<String, LocationState> buildLocationStates() {
+    private Map<LocationSpec.Id, LocationState> buildLocationStates() {
         return script.crime.scene.locations.values().stream()
                 .collect(Collectors.toMap(
-                        loc -> loc.id.toString(),
+                        loc -> loc.id,
                         loc -> {
                             var locState = new LocationState(loc.id);
                             locState.exposedClues.addAll(loc.exposedClues);
@@ -99,8 +99,7 @@ public class InvestigationStateBuilder {
                 ));
     }
 
-
-    private Map<String, DetectiveState> buildDetectiveStates() {
+    private Map<DetectiveSpec.Id, DetectiveState> buildDetectiveStates() {
 
         List<DetectiveSpec> allDetectives = new ArrayList<>(script.investigation.detectives.values());
         Collections.shuffle(allDetectives, new Random());
@@ -108,7 +107,7 @@ public class InvestigationStateBuilder {
         return allDetectives.stream()
                 .limit(Math.max(0, detectivesNum))
                 .collect(Collectors.toMap(
-                        det -> det.id.toString(),
+                        det -> det.id,
                         det -> new DetectiveState(det.id),
                         (existing, replacement) -> existing,
                         LinkedHashMap::new

@@ -17,7 +17,7 @@ public final class LocationSearchSpec {
     @YamlIgnore
     public LocationSpec.Id location;
 
-    @YamlComment(text = "Target location clues to be uncovered")
+    @YamlComment(text = "Location clues to be uncovered")
     public Map<ClueSpec.Id, FocusedClueSpec> clues = new LinkedHashMap<>();
 
 }

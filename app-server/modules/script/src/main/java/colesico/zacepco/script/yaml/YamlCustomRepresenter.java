@@ -120,11 +120,23 @@ public class YamlCustomRepresenter extends Representer {
     protected NodeTuple representJavaBeanProperty(
             Object bean, Property property, Object value, Tag tag) {
 
-        if (value == null) return null;
-        if (value instanceof Boolean b && !b) return null;
-        if (value instanceof Collection<?> c && c.isEmpty()) return null;
-        if (value instanceof Map<?, ?> m && m.isEmpty()) return null;
-        if (value instanceof Set<?> s) value = new ArrayList<>(s);
+        switch (value) {
+            case null -> {
+                return null;
+            }
+            case Boolean b when !b -> {
+                return null;
+            }
+            case Collection<?> c when c.isEmpty() -> {
+                return null;
+            }
+            case Map<?, ?> m when m.isEmpty() -> {
+                return null;
+            }
+            case Set<?> s -> value = new ArrayList<>(s);
+            default -> {
+            }
+        }
 
         NodeTuple tuple = super.representJavaBeanProperty(bean, property, value, tag);
 
