@@ -5,7 +5,9 @@ import colesico.zacepco.script.yaml.YamlCompact;
 import colesico.zacepco.script.yaml.YamlIgnore;
 
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 public final class FocusedClueSpec {
 
@@ -20,7 +22,7 @@ public final class FocusedClueSpec {
      */
     @YamlComment(text = "Entities on which investigation action is focused")
     @YamlCompact
-    public List<TId> focus = new ArrayList<>();
+    public Set<TId> focus = new LinkedHashSet<>();
 
     /**
      * Clue uncover threshold

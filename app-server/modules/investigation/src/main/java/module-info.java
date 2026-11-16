@@ -7,6 +7,7 @@ module colesico.zacepco.investigation {
 
     exports colesico.zacepco.investigation.ioc;
     exports colesico.zacepco.investigation.model.state;
+    exports colesico.zacepco.investigation.model.data;
     exports colesico.zacepco.investigation.manager;
     exports colesico.zacepco.investigation.dto;
 
