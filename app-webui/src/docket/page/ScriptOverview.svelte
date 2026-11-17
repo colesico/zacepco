@@ -1,10 +1,9 @@
 <script>
   import * as scriptApi from "../api/ScriptApi.js";
+  import { link } from "svelte-spa-router";
 
   import UiErrorMessage from "@core/widget/UiErrorMessage.svelte";
   import UiLoadingIndicator from "@core/widget/UiLoadingIndicator.svelte";
-  import UiLocalMenu from "@core/widget/UiLocalMenu.svelte";
-  import UiLocalMenuItem from "@core/widget/UiLocalMenuItem.svelte";
 
   let { params = {} } = $props();
   const id = $derived(params.id);
@@ -12,7 +11,6 @@
   let error = $state(null);
   let loading = $state(true);
   let script = $state(null);
-
 
   $inspect(error);
   $inspect(script);
@@ -36,28 +34,17 @@
       (loc) => loc.pos.row === row && loc.pos.col === col
     );
   }
-
 </script>
 
 <div class="container">
   <UiLoadingIndicator {loading} />
   <UiErrorMessage {error} />
-  <UiLocalMenu>
-    <UiLocalMenuItem
-      icon="fas fa-circle-play"
-      title="Начать новое расследование"
-      caption="Начать расследование"
-      href="/investigation/start/{id}"
-    />
-  </UiLocalMenu>
 
   {#if script}
-
-
-	<h1>
-		Дело "{script.metainfo.title}"
-		<span class="badge text-bg-secondary" style="font-size: 0.5em;">{script.metainfo.uid}</span>
-	</h1>
+    <h1>
+      Дело "{script.metainfo.title}"
+      <span class="badge text-bg-secondary" style="font-size: 0.5em;">{script.metainfo.uid}</span>
+    </h1>
 
     <!-- Контейнер для картинки и текста аннотации -->
     <div class="d-flex align-items-start">
@@ -75,7 +62,7 @@
       </p>
     </div>
 
-	<br/>
+    <br/>
 
     <!-- Внешняя строка-контейнер для двух колонок -->
     <div class="row gx-2 gy-0">
@@ -130,7 +117,6 @@
       </div>
     </div>
 
-
     <h2 class="mt-5 mb-4">Персонажи</h2>
 
     <!-- Сетка для карточек: 2 в ряд на мобильных, 3 на планшетах, 4 или 6 на десктопах -->
@@ -150,8 +136,7 @@
             </div>
           {:else}
             <!-- Карточка персонажа -->
-            <div
-              class="card h-100 border-0 bg-light text-center shadow-sm" >
+            <div class="card h-100 border-0 bg-light text-center shadow-sm">
               <!-- Контейнер для квадратного или пропорционального фото -->
               <div class="ratio ratio-1x1 card-img-top overflow-hidden rounded-top">
                 <img
@@ -209,8 +194,7 @@
     <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-6 g-3 mb-5">
       {#each Object.values(script.investigation.detectives) as detective}
         <div class="col card-col">
-          <div
-            class="card h-100 border-0 bg-light text-center shadow-sm" >
+          <div class="card h-100 border-0 bg-light text-center shadow-sm">
             <!-- Контейнер для квадратного или пропорционального фото -->
             <div class="ratio ratio-1x1 card-img-top overflow-hidden rounded-top">
               <img
@@ -230,7 +214,16 @@
       {/each}
     </div>
 
-
+    <!-- Кнопка «Расследовать» внизу по центру -->
+    <div class="d-flex justify-content-start mt-5 mb-4">
+      <a
+        href="/investigation/start/{id}"
+        use:link
+        class="btn btn-primary btn-lg px-5"
+      >
+        <i class="fas fa-magnifying-glass me-2"></i>Расследовать
+      </a>
+    </div>
   {/if}
 </div>
 
