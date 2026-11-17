@@ -216,7 +216,7 @@
         {#each exposedClues as clueId}
           {@const clue = context.script.crime.clues[clueId]}
           <div class="col">
-            <div class="card h-100 border-0 bg-light shadow-sm">
+            <div class="card h-100 border-0 bg-light shadow-sm position-relative">
               <div class="ratio ratio-1x1 card-img-top overflow-hidden rounded-top">
                 <img
                   src="/docket/script/images/thumb/{context.investigation.scriptId}/{clueId}"
@@ -225,12 +225,15 @@
                   loading="lazy"
                 />
               </div>
+              <span
+                class="badge text-bg-secondary position-absolute top-0 start-0 m-1"
+                style="font-size: 0.7em; z-index: 2;"
+              >
+                {clueId}
+              </span>
               <div class="card-body p-2">
                 <div class="fw-semibold text-break mb-1">
                   {clue?.name ?? clueId}
-                  <span class="badge text-bg-secondary ms-1" style="font-size: 0.7em;">
-                    {clueId}
-                  </span>
                 </div>
                 {#if clue?.description}
                   <p class="small text-muted mb-0 text-break">
