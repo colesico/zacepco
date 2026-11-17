@@ -12,9 +12,12 @@
   let loading = $state(true);
   let context = $state(null);
 
-  // локация — derived из контекста
   const location = $derived(
-    context?.script?.crime?.scene?.locations?.[locId] ?? null
+    context.script.crime.scene.locations[locId]
+  );
+
+  const locationState = $derived(
+    context.investigation.state.scene.locations[locId]
   );
 
   function goBack() {
@@ -31,9 +34,10 @@
         const c = await investigationApi.findInvestigationContext(invId);
         if (cancelled) return;
         context = c;
+        console.log('[LocationSearch] context loaded:', c);
       } catch (ex) {
         if (cancelled) return;
-        error = ex?.data ?? ex;
+        error = ex.data;
         context = null;
       } finally {
         if (!cancelled) loading = false;
@@ -54,27 +58,30 @@
 
   {#if context}
     <h1>
-        Локация: {location.name}
-        <span class="badge text-bg-secondary" style="font-size: 0.5em;">
-          {locId}
-        </span>
+      {location.name}
+      <span class="badge text-bg-secondary" style="font-size: 0.5em;">
+        {locId}
+      </span>
     </h1>
 
-    {#if location}
+    <div class="d-flex align-items-start mb-3">
+      <img
+        src="/docket/script/images/thumb/{context.investigation.scriptId}/{locId}"
+        alt={location.name}
+        class="img-fluid rounded border text-muted"
+        style="width: 120px; min-width: 120px; object-fit: cover;"
+      />
+      <p class="ps-3 mb-0">
+        {location.description ?? 'Описание отсутствует.'}
+      </p>
+    </div>
 
-      <button class="btn btn-outline-secondary mb-3" onclick={goBack}>
-        ← Назад на карту
-      </button>
-
-      <!-- Тут дальше — ваш контент по локации:
-           соседние проходы, улики, действия и т.д. -->
-    {:else}
-      <div class="alert alert-warning">
-        Локация <code>{locId}</code> не найдена в этом расследовании.
-        <button class="btn btn-link p-0 align-baseline" onclick={goBack}>
-          Вернуться на карту
-        </button>
-      </div>
+    {#if locationState.searchAvailable}
+      <h2>Обыск локации</h2>
     {/if}
+
+    <button class="btn btn-outline-secondary mb-3" onclick={goBack}>
+      ← Назад на карту
+    </button>
   {/if}
 </div>

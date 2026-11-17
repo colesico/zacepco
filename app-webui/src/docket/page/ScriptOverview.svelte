@@ -70,7 +70,7 @@
       />
 
       <!-- Текст аннотации с серой чертой слева -->
-      <p class="ps-3 fs-5 mb-0">
+      <p class="ps-3 mb-0">
         {script.metainfo.annotation}
       </p>
     </div>
