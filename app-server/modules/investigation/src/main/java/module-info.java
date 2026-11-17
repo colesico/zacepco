@@ -9,10 +9,9 @@ module colesico.zacepco.investigation {
     exports colesico.zacepco.investigation.model.state;
     exports colesico.zacepco.investigation.dto;
     exports colesico.zacepco.investigation.manager;
-    exports colesico.zacepco.investigation.dto;
+
 
     opens colesico.zacepco.investigation.dto;
     opens colesico.zacepco.investigation.model.state;
-    opens colesico.zacepco.investigation.dto;
 
 }

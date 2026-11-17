@@ -38,10 +38,10 @@ public abstract class EntitySpec<ID extends TId> {
     public String ref = null;
 
     @YamlComment(text = {
-            "Placeholder values",
-            "Map of placeholder names to values substituted into the entity's description or name"
+            "To use an image from another entity, specify the ID of that entity.",
+            "Omit this field if the entity uses its own individual image."
     })
-    public Map<String, String> placeholders = new HashMap<>();
+    public TId asset = null;
 
     @Override
     public final boolean equals(Object o) {

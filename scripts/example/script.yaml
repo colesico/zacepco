@@ -82,18 +82,12 @@ crime:
       
       # Optional description
       description: |
-        Emoji $color color and $shape shape
+        Emoji happy face
       
       # Optional referenced script
       # If this entity is imported from another script,
       # specify that script UID
       ref: ZACEPCO
-      
-      # Placeholder values
-      # Map of placeholder names to values substituted into the entity's description or name
-      placeholders:
-        color: yellow
-        shape: round
       
       # Initially exposed clues for this personage
       exposedClues: [CFPR, CSGT]
@@ -134,10 +128,8 @@ crime:
       LCST:
         name: Castle
         description: |
-          Castle with $feature
+          Castle with red flag
         ref: ZACEPCO
-        placeholders:
-          feature: flag
         
         # Location position on scene grid
         # (1,1) - left top scene corner
@@ -216,10 +208,8 @@ crime:
     CFPR:
       name: Fingerprint
       description: |
-        Left on a $object
+        Left on a spoon
       ref: ZACEPCO
-      placeholders:
-        object: spoon
     CSGT:
       name: Cigarette butt
     CHMR:
@@ -239,9 +229,17 @@ crime:
       description: A metal body
     CGUN:
       name: Gun
-      description: Calibre $calibre
-      placeholders:
-        calibre: '7.62'
+      description: Calibre .25
+    CEXP:
+      name: Заключение экспертизы
+      description: Улики совпадают
+    CEXN:
+      name: Заключение экспертизы
+      description: Улики не совпадают
+      
+      # To use an image from another entity, specify the ID of that entity.
+      # Omit this field if the entity uses its own individual image.
+      asset: CEXP
 
 # 
 # Investigation spec
@@ -283,7 +281,7 @@ investigation:
     locations:
       L3:
         
-        # Target location clues to be uncovered
+        # Location clues to be uncovered
         clues:
           C1:
             
@@ -352,7 +350,7 @@ answers:
   
   # Full crime fabula
   fabula: |
-    The Gardener killed the Butler,  buried the body under a birch tree in the garden,  and burned the evidence in the fireplace in the library.
+    The Gardener killed the Butler, buried the body under a birch tree in the garden,  and burned the evidence in the fireplace in the library.
   
   # False clues
   # Used as answers to verify the investigation's findings and results
