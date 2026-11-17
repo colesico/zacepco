@@ -222,9 +222,11 @@
   const FRAME_COLOR = '#2a2a2a';
   const WAY_BORDER_COLOR = '#2a2a2a';
   const WAY_ARROW_COLOR = '#555555';
-  const WAY_CLICKABLE_ARROW_COLOR = '#2fa84f';
-  const WAY_FILL = MAP_BG;
+  const WAY_CLICKABLE_ARROW_COLOR = '#ffffff';
+  const WAY_FILL = '#c2c2c2';
+  const WAY_CLICKABLE_FILL = '#ffffff';
   const WAY_FILL_OPACITY = 0.70;
+  const WAY_CLICKABLE_FILL_OPACITY = 0.55;
   const SELECTED_COLOR = '#f5b400';
   const HIDDEN_QUESTION_COLOR = '#7a7a7a';
 
@@ -239,13 +241,13 @@
 
 {#if rows > 0 && cols > 0}
   <svg
-	  viewBox="0 0 {cols} {rows}"
-	  width="100%"
-	  height="100%"
-	  preserveAspectRatio="xMidYMid meet"
-	  xmlns="http://www.w3.org/2000/svg"
-	  style="display: block;"
-	>
+    viewBox="0 0 {cols} {rows}"
+    width="100%"
+    height="100%"
+    preserveAspectRatio="xMidYMid meet"
+    xmlns="http://www.w3.org/2000/svg"
+    style="display: block;"
+  >
     <!-- shadow filter used by the clue pills -->
     <defs>
       <filter
@@ -357,7 +359,7 @@
       {/if}
     {/each}
 
-    <!-- passages (ways) — clickable ones differ by green arrow color -->
+    <!-- passages (ways) — clickable ones use the highlight fill color -->
     {#each waysToDraw as w}
       <g
         class={w.clickable ? 'way-clickable' : 'way-static'}
@@ -375,8 +377,8 @@
           height={WAY_HALF_Y * 2}
           rx={WAY_RX}
           ry={WAY_RX}
-          fill={WAY_FILL}
-          fill-opacity={WAY_FILL_OPACITY}
+          fill={w.clickable ? WAY_CLICKABLE_FILL : WAY_FILL}
+          fill-opacity={w.clickable ? WAY_CLICKABLE_FILL_OPACITY : WAY_FILL_OPACITY}
           stroke={WAY_BORDER_COLOR}
           stroke-width="1"
           vector-effect="non-scaling-stroke"
