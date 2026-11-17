@@ -41,9 +41,14 @@
   <UiErrorMessage {error} />
 
   {#if script}
-    <h1>
-      Дело "{script.metainfo.title}"
-      <span class="badge text-bg-secondary" style="font-size: 0.5em;">{script.metainfo.uid}</span>
+    <h1 style="display: flex; justify-content: space-between; align-items: center; gap: 1rem;">
+      <span>Дело "{script.metainfo.title}"</span>
+      <span
+        class="badge text-bg-secondary"
+        style="font-size: 0.5em; margin-left: auto; flex-shrink: 0;"
+      >
+        {script.metainfo.uid}
+      </span>
     </h1>
 
     <!-- Контейнер для картинки и текста аннотации -->
