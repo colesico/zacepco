@@ -20,6 +20,15 @@ public class PersonageState {
      */
     public List<ClueSpec.Id> exposedClues = new ArrayList<>();
 
+
+    /**
+     * Whether the personage can still be interrogated.
+     * True if no interrogation has been performed for the personage yet,
+     * or if an interrogation has been performed and unexposed clues still remain.
+     * Set to {@code false} once all clues for the personage have been exposed.
+     */
+    public boolean interrogationAvailable = true;
+
     public PersonageState() {
     }
 

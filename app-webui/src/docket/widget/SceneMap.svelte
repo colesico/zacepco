@@ -239,11 +239,13 @@
 
 {#if rows > 0 && cols > 0}
   <svg
-    viewBox="0 0 {cols} {rows}"
-    width="100%"
-    preserveAspectRatio="xMidYMid meet"
-    xmlns="http://www.w3.org/2000/svg"
-  >
+	  viewBox="0 0 {cols} {rows}"
+	  width="100%"
+	  height="100%"
+	  preserveAspectRatio="xMidYMid meet"
+	  xmlns="http://www.w3.org/2000/svg"
+	  style="display: block;"
+	>
     <!-- shadow filter used by the clue pills -->
     <defs>
       <filter

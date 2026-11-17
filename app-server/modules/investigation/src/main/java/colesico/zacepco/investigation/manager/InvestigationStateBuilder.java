@@ -66,6 +66,8 @@ public class InvestigationStateBuilder {
             throw new RuntimeException("Detectives not specified");
         }
 
+        invState.activeDetectiveId = invState.detectives.values().iterator().next().id;
+
         return invState;
     }
 
