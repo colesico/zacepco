@@ -28,8 +28,12 @@
     context.script.investigation.detectives[activeDetectiveId]
   );
 
-  // C/L/P: '?' или 1–3 символа A–Z, 0–9
-  // T:     '?' или 1-3 цифры 0–9
+  const exposedClues = $derived(
+    Array.isArray(locationState.exposedClues)
+      ? locationState.exposedClues
+      : (location.exposedClues ?? [])
+  );
+
   const FOCUS_TOKEN = /^(?:[CcLlPp](?:\?|[a-zA-Z0-9]{1,3})|[Tt](?:\?|\d{1,3}))$/;
 
   let focus = $state('');
@@ -205,8 +209,43 @@
       </div>
     {/if}
 
+    {#if exposedClues.length}
+      <h2 class="mt-4">Улики</h2>
+
+      <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 g-3 mb-4">
+        {#each exposedClues as clueId}
+          {@const clue = context.script.crime.clues[clueId]}
+          <div class="col">
+            <div class="card h-100 border-0 bg-light shadow-sm">
+              <div class="ratio ratio-1x1 card-img-top overflow-hidden rounded-top">
+                <img
+                  src="/docket/script/images/thumb/{context.investigation.scriptId}/{clueId}"
+                  alt={clue?.name ?? clueId}
+                  class="object-fit-cover"
+                  loading="lazy"
+                />
+              </div>
+              <div class="card-body p-2">
+                <div class="fw-semibold text-break mb-1">
+                  {clue?.name ?? clueId}
+                  <span class="badge text-bg-secondary ms-1" style="font-size: 0.7em;">
+                    {clueId}
+                  </span>
+                </div>
+                {#if clue?.description}
+                  <p class="small text-muted mb-0 text-break">
+                    {clue.description}
+                  </p>
+                {/if}
+              </div>
+            </div>
+          </div>
+        {/each}
+      </div>
+    {/if}
+
     <button class="btn btn-outline-secondary mb-3" onclick={goBack}>
-      ← Назад на карту
+      ← Вернуться к карте
     </button>
   {/if}
 </div>
