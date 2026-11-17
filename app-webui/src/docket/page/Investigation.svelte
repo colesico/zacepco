@@ -1,5 +1,5 @@
 <script>
-  import { replace } from 'svelte-spa-router';
+  import { push } from 'svelte-spa-router';
   import UiErrorMessage from '@core/widget/UiErrorMessage.svelte';
   import UiLoadingIndicator from '@core/widget/UiLoadingIndicator.svelte';
   import UiLabel from '@core/widget/UiLabel.svelte';
@@ -15,18 +15,20 @@
   let loading = $state(true);
   let context = $state(null);
 
+  function handleLocationClick(locId) {
+    push(`/investigation/${id}/location/${locId}`);
+  }
+
   $effect(() => {
     let cancelled = false;
     async function loadData() {
       loading = true;
       error = null;
       try {
-        const c  = await investigationApi.findInvestigationContext(id);
-		context = c;
-        console.log(context);
+        const c = await investigationApi.findInvestigationContext(id);
+        context = c;
       } catch (ex) {
         error = ex.data;
-        overview = null;
       } finally {
         loading = false;
       }
@@ -40,7 +42,12 @@
   <UiErrorMessage {error} />
 
   {#if context}
-    <h1>Дело "{context.script.metainfo.title}" #{context.script.metainfo.uid}</h1>
-    <SceneMap {context} />
+    <h1>
+        {context.script.metainfo.title}
+        <span class="badge text-bg-secondary" style="font-size: 0.5em;">
+          {context.script.metainfo.uid}
+        </span>
+    </h1>
+    <SceneMap {context} onLocationClick={handleLocationClick} />
   {/if}
 </div>

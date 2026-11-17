@@ -54,7 +54,10 @@
   {#if script}
 
 
-	<h1>Дело "{script.metainfo.title}" #{script.metainfo.uid}</h1>
+	<h1>
+		Дело "{script.metainfo.title}"
+		<span class="badge text-bg-secondary" style="font-size: 0.5em;">{script.metainfo.uid}</span>
+	</h1>
 
     <!-- Контейнер для картинки и текста аннотации -->
     <div class="d-flex align-items-start">
@@ -75,54 +78,54 @@
 	<br/>
 
     <!-- Внешняя строка-контейнер для двух колонок -->
-    <div class="row">
+    <div class="row gx-2 gy-0">
       <!-- Левая колонка -->
-      <div class="col-md-6 mb-3">
+      <div class="col-sm-6 mb-3">
         <dl class="row mb-0">
-          <dt class="col-sm-4 text-muted fw-normal"><b>Сложность:</b></dt>
-          <dd class="col-sm-8 text-break mb-1">{script.metainfo.difficulty}</dd>
+          <dt class="col-4 text-muted fw-normal"><b>Сложность:</b></dt>
+          <dd class="col-8 text-break mb-1">{script.metainfo.difficulty}</dd>
         </dl>
 
         <dl class="row mb-0">
-          <dt class="col-sm-4 text-muted fw-normal"><b>Время игры:</b></dt>
-          <dd class="col-sm-8 text-break mb-1">
+          <dt class="col-4 text-muted fw-normal"><b>Время игры:</b></dt>
+          <dd class="col-8 text-break mb-1">
             {script.metainfo.estimatedTime.min}-{script.metainfo.estimatedTime.max} минут
           </dd>
         </dl>
 
         <dl class="row mb-0">
-          <dt class="col-sm-4 text-muted fw-normal"><b>Кол-во игроков:</b></dt>
-          <dd class="col-sm-8 text-break mb-1">
+          <dt class="col-4 text-muted fw-normal"><b>Кол-во игроков:</b></dt>
+          <dd class="col-8 text-break mb-1">
             {script.metainfo.playersNum.min}-{script.metainfo.playersNum.max} чел.
           </dd>
         </dl>
 
         <dl class="row mb-0">
-          <dt class="col-sm-4 text-muted fw-normal"><b>Возраст:</b></dt>
-          <dd class="col-sm-8 text-break mb-1">{script.metainfo.age}</dd>
+          <dt class="col-4 text-muted fw-normal"><b>Возраст:</b></dt>
+          <dd class="col-8 text-break mb-1">{script.metainfo.age}</dd>
         </dl>
       </div>
 
       <!-- Правая колонка -->
-      <div class="col-md-6 mb-3">
+      <div class="col-sm-6 mb-3">
         <dl class="row mb-0">
-          <dt class="col-sm-4 text-muted fw-normal"><b>Авторы:</b></dt>
-          <dd class="col-sm-8 text-break mb-1">{script.metainfo.authors}</dd>
+          <dt class="col-4 text-muted fw-normal"><b>Авторы:</b></dt>
+          <dd class="col-8 text-break mb-1">{script.metainfo.authors}</dd>
         </dl>
 
         <dl class="row mb-0">
-          <dt class="col-sm-4 text-muted fw-normal"><b>Лицензия:</b></dt>
-          <dd class="col-sm-8 text-break mb-1">{script.metainfo.licence}</dd>
+          <dt class="col-4 text-muted fw-normal"><b>Лицензия:</b></dt>
+          <dd class="col-8 text-break mb-1">{script.metainfo.licence}</dd>
         </dl>
 
         <dl class="row mb-0">
-          <dt class="col-sm-4 text-muted fw-normal"><b>Дата создания:</b></dt>
-          <dd class="col-sm-8 text-break mb-1">{script.metainfo.creationDate}</dd>
+          <dt class="col-4 text-muted fw-normal"><b>Дата создания:</b></dt>
+          <dd class="col-8 text-break mb-1">{script.metainfo.creationDate}</dd>
         </dl>
 
         <dl class="row mb-0">
-          <dt class="col-sm-4 text-muted fw-normal"><b>Версия:</b></dt>
-          <dd class="col-sm-8 text-break mb-1">v{script.metainfo.version}</dd>
+          <dt class="col-4 text-muted fw-normal"><b>Версия:</b></dt>
+          <dd class="col-8 text-break mb-1">v{script.metainfo.version}</dd>
         </dl>
       </div>
     </div>

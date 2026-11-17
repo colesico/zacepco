@@ -9,6 +9,7 @@ import com.esotericsoftware.kryo.Kryo;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 
 public class KryoFactory {
 
@@ -24,6 +25,7 @@ public class KryoFactory {
 
         kryo.register(ArrayList.class, 11);
         kryo.register(LinkedHashMap.class, 12);
+        kryo.register(LinkedHashSet.class, 13);
 
         kryo.register(PersonageSpec.Id.class, new TIdSerializer(), 101);
         kryo.register(LocationSpec.Id.class, new TIdSerializer(), 102);

@@ -22,10 +22,10 @@ public class LocationState {
 
     /**
      * Whether the location can still be searched.
-     * True if either no search has been performed in the location yet,
+     * Search available if either no search has been performed in the location yet,
      * or a search has been performed and no unexposed clues remain in the location.
      */
-    public boolean searchAllowed = true;
+    public boolean searchAvailable  = true;
 
     /**
      * Exposed clues for this location

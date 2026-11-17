@@ -74,11 +74,11 @@ public class LocationSearchManager {
 
             var clue = invManager.script.crime.clues.get(accidental.focusedClue().clue);
             return new LocationSearchResult(clue,
-                    true,
                     null,
                     null,
                     null,
-                    weightedClues.size() == 1
+                    weightedClues.size() == 1,
+                    true
             );
         }
 
@@ -86,11 +86,11 @@ public class LocationSearchManager {
         var clue = invManager.script.crime.clues.get(selected.focusedClue().clue);
         return new LocationSearchResult(
                 clue,
-                false,
                 selected.matchedIds(),
                 selected.matchedTypes(),
                 selected.unmatchedTypes(),
-                weightedClues.size() == 1
+                weightedClues.size() == 1,
+                false
         );
     }
 
@@ -103,10 +103,10 @@ public class LocationSearchManager {
 
         var locationState = invManager.state.scene.locations.get(locationId);
 
-        locationState.exposedClues.add(result.clue().id);
+        locationState.exposedClues.add(result.clue.id);
 
-        if (result.lastClue()){
-            locationState.searchAllowed = false;
+        if (result.lastClue) {
+            locationState.searchAvailable = false;
         }
 
         return result;
