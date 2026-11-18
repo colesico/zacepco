@@ -4,10 +4,7 @@ import colesico.zacepco.script.yaml.YamlComment;
 import colesico.zacepco.script.yaml.YamlCompact;
 import colesico.zacepco.script.yaml.YamlIgnore;
 
-import java.util.ArrayList;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public final class FocusedClueSpec {
 
@@ -33,4 +30,14 @@ public final class FocusedClueSpec {
     })
     public Double threshold = 0.0;
 
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof FocusedClueSpec that)) return false;
+        return Objects.equals(clue, that.clue);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(clue);
+    }
 }

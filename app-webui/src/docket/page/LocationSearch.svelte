@@ -58,7 +58,7 @@
     d12 = Math.floor(Math.random() * 12) + 1;
   }
 
-  function handleSearch(e) {
+  async function handleSearch(e) {
     e.preventDefault();
 
     focusError = !focusValid;
@@ -67,6 +67,17 @@
     if (focusError || d12Error) return;
 
     console.log('[Search]', { focus: focusTokens, d12 });
+	
+	loading = true;
+      error = null;
+      try {
+        const r = await investigationApi.locationSearch(invId,locId, focus, Number(d12) );
+		 console.log('[Search] result: ', r);
+      } catch (ex) {
+        error = ex.data;
+      } finally {
+        loading = false;
+      }
   }
 
   function goBack() {

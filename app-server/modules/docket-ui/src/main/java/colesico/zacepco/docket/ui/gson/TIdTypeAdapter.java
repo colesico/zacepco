@@ -7,18 +7,19 @@ import com.google.gson.stream.JsonWriter;
 
 import java.io.IOException;
 
-public class EntityUIDTypeAdapter extends TypeAdapter<TId> {
+public class TIdTypeAdapter extends TypeAdapter<TId.Type> {
+
     @Override
-    public void write(JsonWriter out, TId uid) throws IOException {
-        if (uid == null) {
+    public void write(JsonWriter out, TId.Type type) throws IOException {
+        if (type == null) {
             out.nullValue();
             return;
         }
-        out.value(uid.toString());
+        out.value(type.toString() + "?");
     }
 
     @Override
-    public TId read(JsonReader jsonReader) throws IOException {
+    public TId.Type read(JsonReader jsonReader) throws IOException {
         return null;
     }
 }

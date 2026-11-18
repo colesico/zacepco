@@ -11,6 +11,7 @@ import colesico.zacepco.script.model.scriptdoc.ScriptDocument;
 import colesico.zacepco.script.model.scriptdoc.TId;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class InvestigationUtil {
 
@@ -95,9 +96,9 @@ public class InvestigationUtil {
         return new FocusedClueMatch(clue, eq, eqt, ne, matchedIds, matchedTypes, unmatchedTypes);
     }
 
-    public static List<FocusedClueMatch> matchClues(List<FocusedClueSpec> clues, DetectiveFocus detectiveFocus) {
+    public static List<FocusedClueMatch> matchClues(Set<FocusedClueSpec> clues, DetectiveFocus detectiveFocus) {
         return clues.stream()
                 .map(focusedClue -> matchClue(focusedClue, detectiveFocus))
-                .toList();
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 }

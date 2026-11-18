@@ -17,19 +17,16 @@
   }
 
   $effect(() => {
-    let cancelled = false;
     async function loadData() {
       loading = true;
       error = null;
       try {
         const c = await investigationApi.findInvestigationContext(id);
-        if (cancelled) return;
         context = c;
       } catch (ex) {
-        if (cancelled) return;
         error = ex.data;
       } finally {
-        if (!cancelled) loading = false;
+        loading = false;
       }
     }
     loadData();

@@ -8,3 +8,12 @@ export async function findInvestigationContext(id){
 	return await restletUtils.restletGet("/docket/api/investigation/"+id);
 }
 
+export async function locationSearch(investigationId, locationId, detectiveFocus, d12) {
+    const request = { focus: detectiveFocus, d12 };
+    const url = `/docket/api/investigation/${investigationId}/location/${locationId}`;
+    
+    return restletUtils.restletPut(url, request);
+}
+
+
+

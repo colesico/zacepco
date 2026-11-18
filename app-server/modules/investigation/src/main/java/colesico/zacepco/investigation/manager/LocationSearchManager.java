@@ -5,9 +5,7 @@ import colesico.zacepco.investigation.dto.action.*;
 import colesico.zacepco.script.model.scriptdoc.FocusedClueSpec;
 import colesico.zacepco.script.model.scriptdoc.LocationSpec;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 
 public class LocationSearchManager {
@@ -21,10 +19,14 @@ public class LocationSearchManager {
         this.locationId = locationId;
     }
 
-    private List<FocusedClueSpec> findUnexposedFocusedClues() {
-        List<FocusedClueSpec> result = new ArrayList<>();
+    private Set<FocusedClueSpec> findUnexposedFocusedClues() {
+        Set<FocusedClueSpec> result = new HashSet<>();
         var locationState = invManager.state.scene.locations.get(locationId);
         var searchSpec = invManager.script.investigation.search.locations.get(locationId);
+
+        if (searchSpec == null) {
+            return result;
+        }
 
         for (var focusedClueKV : searchSpec.clues.entrySet()) {
             var focusedClueId = focusedClueKV.getKey();
@@ -44,10 +46,10 @@ public class LocationSearchManager {
             return new CluesExhausted();
         }
 
-        var weightedClues = InvestigationUtil.matchClues(cluesToSearch, detectiveFocus);
+        var matchedClues = InvestigationUtil.matchClues(cluesToSearch, detectiveFocus);
 
         // Order: EQ desc, EQT desc, NE asc, threshold desc
-        weightedClues.sort(
+        matchedClues.sort(
                 Comparator.comparingLong(FocusedClueMatch::eq).reversed()
                         .thenComparing(Comparator.comparingLong(FocusedClueMatch::eqt).reversed())
                         .thenComparingLong(FocusedClueMatch::ne)
@@ -59,7 +61,7 @@ public class LocationSearchManager {
 
         // Find first accepted focusedClue
         FocusedClueMatch selected = null;
-        for (var fw : weightedClues) {
+        for (var fw : matchedClues) {
             if (d12DieValue >= fw.focusedClue().threshold * rf) {
                 selected = fw;
                 break;
@@ -68,12 +70,12 @@ public class LocationSearchManager {
 
         // Accidental discovery: lowest threshold among unexposed clues.
         if (selected == null) {
-            var accidental = weightedClues.stream()
+            var accidental = matchedClues.stream()
                     .min(Comparator.comparingDouble(fw -> fw.focusedClue().threshold))
                     .orElseThrow();
 
             var clue = invManager.script.crime.clues.get(accidental.focusedClue().clue);
-            return new ClueUncover(clue, weightedClues.size() - 1, 0);
+            return new ClueUncover(clue, matchedClues.size() - 1, 0);
         }
 
         // Focus matched discovery
@@ -83,7 +85,7 @@ public class LocationSearchManager {
                 selected.matchedIds(),
                 selected.matchedTypes(),
                 selected.unmatchedTypes(),
-                weightedClues.size() - 1,
+                matchedClues.size() - 1,
                 0
         );
     }
