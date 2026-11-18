@@ -3,8 +3,8 @@ package colesico.zacepco.investigation.manager;
 import colesico.zacepco.investigation.dto.DetectiveFocus;
 import colesico.zacepco.investigation.dto.FocusedClueMatch;
 import colesico.zacepco.investigation.model.state.InvestigationState;
-import colesico.zacepco.script.model.scriptdoc.ClueSpec;
 import colesico.zacepco.script.model.scriptdoc.FocusedClueSpec;
+import colesico.zacepco.script.model.scriptdoc.ScriptDocument;
 import colesico.zacepco.script.model.scriptdoc.TId;
 
 import java.util.*;
@@ -15,20 +15,32 @@ public class InvestigationUtil {
         return d12Value > 0 && d12Value <= 12;
     }
 
-    public Set<TId.Type> extractIdTypes(Collection<TId> tids) {
+    public static Set<TId.Type> extractIdTypes(Collection<TId> tids) {
         var types = EnumSet.noneOf(TId.Type.class);
         tids.stream().filter(Objects::nonNull).forEach(id -> types.add(id.type()));
         return types;
     }
 
-    public void checkClueExposed(DetectiveFocus focus, InvestigationState state) {
+    /**
+     * Returns the part of the focus not yet covered by exposed entities
+     * The focus is expected to consist only of already exposed entities,
+     * so the returned uncovered part should be empty; a non-empty result
+     * signals an invalid focus.
+     */
+    public static DetectiveFocus uncoveredFocus(DetectiveFocus focus, InvestigationState state, ScriptDocument script) {
+        Set<TId> exposedIds = new HashSet<>(state.findExposedEntities());
+        exposedIds.addAll(script.crime.timeline.keySet());
 
-        Set<TId> exposedIds = state.findExposedEntities();
         Set<TId.Type> exposedTypes = extractIdTypes(exposedIds);
 
-        boolean covered = exposedIds.containsAll(focus.ids())
-                && exposedTypes.containsAll(focus.types());
+        var uncoveredIds = new HashSet<>(focus.ids());
+        uncoveredIds.removeAll(exposedIds);
 
+        var uncoveredTypes = EnumSet.noneOf(TId.Type.class);
+        uncoveredTypes.addAll(focus.types());
+        uncoveredTypes.removeAll(exposedTypes);
+
+        return new DetectiveFocus(uncoveredIds, uncoveredTypes);
     }
 
     public static FocusedClueMatch matchClue(FocusedClueSpec clue, DetectiveFocus detectiveFocus) {
