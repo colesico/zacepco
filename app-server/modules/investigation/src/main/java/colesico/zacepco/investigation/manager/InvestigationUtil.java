@@ -1,20 +1,40 @@
 package colesico.zacepco.investigation.manager;
 
 import colesico.zacepco.investigation.dto.DetectiveFocus;
-import colesico.zacepco.investigation.dto.FocusedClueWeights;
+import colesico.zacepco.investigation.dto.FocusedClueMatch;
+import colesico.zacepco.investigation.model.state.InvestigationState;
+import colesico.zacepco.script.model.scriptdoc.ClueSpec;
 import colesico.zacepco.script.model.scriptdoc.FocusedClueSpec;
 import colesico.zacepco.script.model.scriptdoc.TId;
 
-import java.util.EnumSet;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
-public class FocusedClueUtil {
+public class InvestigationUtil {
 
-    public static FocusedClueWeights calculateWeights(FocusedClueSpec spec, DetectiveFocus detectiveFocus) {
+    public static boolean checkD12(int d12Value) {
+        return d12Value > 0 && d12Value <= 12;
+    }
+
+    public Set<TId.Type> extractIdTypes(Collection<TId> tids) {
+        var types = EnumSet.noneOf(TId.Type.class);
+        tids.stream().filter(Objects::nonNull).forEach(id -> types.add(id.type()));
+        return types;
+    }
+
+    public void checkClueExposed(DetectiveFocus focus, InvestigationState state) {
+
+        Set<TId> exposedIds = state.findExposedEntities();
+        Set<TId.Type> exposedTypes = extractIdTypes(exposedIds);
+
+        boolean covered = exposedIds.containsAll(focus.ids())
+                && exposedTypes.containsAll(focus.types());
+
+    }
+
+    public static FocusedClueMatch matchClue(FocusedClueSpec clue, DetectiveFocus detectiveFocus) {
         var detectiveIds = detectiveFocus.ids();
         var detectiveTypes = detectiveFocus.types();
-        var focus = spec.focus;
+        var focus = clue.focus;
 
         // EQ: exact ID matches between detective focus and table focus
         var matchedIds = new HashSet<TId>(detectiveIds);
@@ -44,12 +64,12 @@ public class FocusedClueUtil {
                 + (detectiveTypes.size() - eqt)
                 + (tableIds.size() - eqt);
 
-        return new FocusedClueWeights(spec, eq, eqt, ne, matchedIds, matchedTypes, unmatchedTypes);
+        return new FocusedClueMatch(clue, eq, eqt, ne, matchedIds, matchedTypes, unmatchedTypes);
     }
 
-    public static List<FocusedClueWeights> calculateWeights(List<FocusedClueSpec> focusedClues, DetectiveFocus detectiveFocus) {
-        return focusedClues.stream()
-                .map(focusedClue -> calculateWeights(focusedClue, detectiveFocus))
+    public static List<FocusedClueMatch> matchClues(List<FocusedClueSpec> clues, DetectiveFocus detectiveFocus) {
+        return clues.stream()
+                .map(focusedClue -> matchClue(focusedClue, detectiveFocus))
                 .toList();
     }
 }

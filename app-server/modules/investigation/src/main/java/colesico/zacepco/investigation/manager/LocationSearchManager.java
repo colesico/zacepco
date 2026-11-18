@@ -1,7 +1,7 @@
 package colesico.zacepco.investigation.manager;
 
 import colesico.zacepco.investigation.dto.DetectiveFocus;
-import colesico.zacepco.investigation.dto.FocusedClueWeights;
+import colesico.zacepco.investigation.dto.FocusedClueMatch;
 import colesico.zacepco.investigation.dto.LocationSearchResult;
 import colesico.zacepco.script.model.scriptdoc.FocusedClueSpec;
 import colesico.zacepco.script.model.scriptdoc.LocationSpec;
@@ -46,21 +46,21 @@ public class LocationSearchManager {
             return LocationSearchResult.error(CLUES_EXHAUSTED);
         }
 
-        var weightedClues = FocusedClueUtil.calculateWeights(cluesToSearch, detectiveFocus);
+        var weightedClues = InvestigationUtil.matchClues(cluesToSearch, detectiveFocus);
 
         // Order: EQ desc, EQT desc, NE asc, threshold desc
         weightedClues.sort(
-                Comparator.comparingLong(FocusedClueWeights::eq).reversed()
-                        .thenComparing(Comparator.comparingLong(FocusedClueWeights::eqt).reversed())
-                        .thenComparingLong(FocusedClueWeights::ne)
+                Comparator.comparingLong(FocusedClueMatch::eq).reversed()
+                        .thenComparing(Comparator.comparingLong(FocusedClueMatch::eqt).reversed())
+                        .thenComparingLong(FocusedClueMatch::ne)
                         .thenComparing(Comparator.comparingDouble(
-                                (FocusedClueWeights fw) -> fw.focusedClue().threshold).reversed())
+                                (FocusedClueMatch fw) -> fw.focusedClue().threshold).reversed())
         );
 
         double rf = invManager.state.randFactor;
 
         // Find first accepted focusedClue
-        FocusedClueWeights selected = null;
+        FocusedClueMatch selected = null;
         for (var fw : weightedClues) {
             if (d12DieValue >= fw.focusedClue().threshold * rf) {
                 selected = fw;
@@ -93,7 +93,7 @@ public class LocationSearchManager {
 
         // Check params
 
-        if (!D12Utils.check(d12DieValue)) {
+        if (!InvestigationUtil.checkD12(d12DieValue)) {
             return LocationSearchResult.error(INVALID_D12_VALUE);
         }
 

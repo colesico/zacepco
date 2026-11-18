@@ -5,7 +5,7 @@ import colesico.zacepco.script.model.scriptdoc.TId;
 
 import java.util.Set;
 
-public record FocusedClueWeights(
+public record FocusedClueMatch(
         FocusedClueSpec focusedClue,
         long eq,
         long eqt,

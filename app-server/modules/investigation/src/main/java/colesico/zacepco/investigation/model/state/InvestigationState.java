@@ -1,10 +1,11 @@
 package colesico.zacepco.investigation.model.state;
 
+import colesico.zacepco.script.model.scriptdoc.ClueSpec;
 import colesico.zacepco.script.model.scriptdoc.DetectiveSpec;
 import colesico.zacepco.script.model.scriptdoc.PersonageSpec;
+import colesico.zacepco.script.model.scriptdoc.TId;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 
 public class InvestigationState {
 
@@ -79,5 +80,27 @@ public class InvestigationState {
         budget = budget - value;
         return true;
     }
-    
+
+    /**
+     * All exposed entities
+     */
+    public Set<TId> findExposedEntities() {
+        Set<TId> exposed = new LinkedHashSet<>();
+
+        for (var personage : personages.values()) {
+            if (!personage.hidden){
+                exposed.add(personage.id);
+            }
+            exposed.addAll(personage.exposedClues);
+        }
+
+        for (var location : scene.locations.values()) {
+            if (!location.hidden){
+                exposed.add(location.id);
+            }
+            exposed.addAll(location.exposedClues);
+        }
+
+        return exposed;
+    }
 }
