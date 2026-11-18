@@ -12,6 +12,18 @@
   let loading = $state(true);
   let context = $state(null);
 
+  const activeDetectiveId = $derived(
+    context.investigation.state.activeDetectiveId
+  );
+
+  const activeDetective = $derived(
+    context.script.investigation.detectives[activeDetectiveId]
+  );
+
+  const budget = $derived(
+    context.investigation.state.budget
+  );
+
   function handleLocationClick(locId) {
     push(`/investigation/${id}/location/${locId}`);
   }
@@ -38,6 +50,7 @@
   <UiErrorMessage {error} />
 
   {#if context}
+
     <h1
       class="investigation-title"
       style="display: flex; justify-content: space-between; align-items: center; gap: 1rem;"
@@ -50,6 +63,28 @@
         {context.script.metainfo.uid}
       </span>
     </h1>
+
+    <div
+      class="d-flex flex-wrap align-items-center gap-3 mb-2 small"
+      style="flex-shrink: 0;"
+    >
+      <div class="d-inline-flex align-items-center gap-2">
+        <img
+          src="/docket/script/images/thumb/{context.investigation.scriptId}/{activeDetectiveId}"
+          alt={activeDetective.name}
+          class="rounded border text-muted"
+          style="width: 32px; height: 32px; object-fit: cover;"
+        />
+        <span class="text-muted">Текущий ход:</span>
+        <span>{activeDetective.name}</span>
+      </div>
+
+      <div class="d-inline-flex align-items-center gap-2">
+        <i class="fas fa-coins text-muted"></i>
+        <span class="text-muted">Бюджет:</span>
+        <span class="fw-semibold">{budget ?? '—'}</span>
+      </div>
+    </div>
 
     <div class="scene-map-wrapper">
       <SceneMap {context} onLocationClick={handleLocationClick} />
