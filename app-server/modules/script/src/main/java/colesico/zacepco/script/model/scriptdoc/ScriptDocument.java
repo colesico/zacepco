@@ -25,7 +25,7 @@ public final class ScriptDocument {
     @YamlComment(text = {
             "",
             "Investigation spec",
-            "Describes relationships between crime entities for discovery",
+            "Describes relationships between crime entities for uncover",
             ""
     })
     public InvestigationSpec investigation = new InvestigationSpec();

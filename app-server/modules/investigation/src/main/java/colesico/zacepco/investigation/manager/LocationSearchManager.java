@@ -1,8 +1,7 @@
 package colesico.zacepco.investigation.manager;
 
-import colesico.zacepco.investigation.dto.DetectiveFocus;
-import colesico.zacepco.investigation.dto.FocusedClueMatch;
-import colesico.zacepco.investigation.dto.LocationSearchResult;
+import colesico.zacepco.investigation.dto.*;
+import colesico.zacepco.investigation.dto.action.*;
 import colesico.zacepco.script.model.scriptdoc.FocusedClueSpec;
 import colesico.zacepco.script.model.scriptdoc.LocationSpec;
 
@@ -10,7 +9,6 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-import static colesico.zacepco.investigation.dto.InvestigationActionResult.Status.*;
 
 public class LocationSearchManager {
 
@@ -43,7 +41,7 @@ public class LocationSearchManager {
         var cluesToSearch = findUnexposedFocusedClues();
 
         if (cluesToSearch.isEmpty()) {
-            return LocationSearchResult.error(CLUES_EXHAUSTED);
+            return new CluesExhausted();
         }
 
         var weightedClues = InvestigationUtil.matchClues(cluesToSearch, detectiveFocus);
@@ -75,65 +73,61 @@ public class LocationSearchManager {
                     .orElseThrow();
 
             var clue = invManager.script.crime.clues.get(accidental.focusedClue().clue);
-            return LocationSearchResult.accidentalClue(clue, weightedClues.size() - 1);
+            return new ClueUncover(clue, weightedClues.size() - 1, 0);
         }
 
         // Focus matched discovery
         var clue = invManager.script.crime.clues.get(selected.focusedClue().clue);
-        return LocationSearchResult.matchedClue(
+        return new ClueFocusedUncover(
                 clue,
                 selected.matchedIds(),
                 selected.matchedTypes(),
                 selected.unmatchedTypes(),
-                weightedClues.size() - 1
+                weightedClues.size() - 1,
+                0
         );
     }
 
     public LocationSearchResult search(DetectiveFocus detectiveFocus, Integer d12DieValue) {
 
         // Check params
-
-        if (!InvestigationUtil.checkD12(d12DieValue)) {
-            return LocationSearchResult.error(INVALID_D12_VALUE);
-        }
+        var res = InvestigationUtil.checkActionRequest(detectiveFocus, d12DieValue, invManager.script, invManager.state);
+        if (res != null) return res;
 
         // Check budget and spend
-
         var cost = invManager.script.investigation.search.cost;
         if (!invManager.state.spendBudget(cost)) {
-            return LocationSearchResult.error(INSUFFICIENT_BUDGET);
+            return new InsufficientBudget();
         }
 
         // Perform clue search
-
         var result = searchClue(detectiveFocus, d12DieValue);
 
-        if (!result.isOK()) {
-            return result;
+        // On clue uncover result
+        if (result instanceof ClueUncover cuResult) {
+
+            var locationState = invManager.state.scene.locations.get(locationId);
+            locationState.exposedClues.add(cuResult.clue.id);
+
+            if (cuResult.cluesRemaining == 0) {
+                locationState.searchAvailable = false;
+            }
+
+            // Detective awarded points
+            if (result instanceof ClueFocusedUncover cfuResult) {
+                var detective = invManager.state.activeDetective();
+                var awardedPoints = invManager.script.investigation.search.points;
+                awardedPoints = awardedPoints + cfuResult.matchedIds.size();
+                detective.addPoints(awardedPoints);
+                cfuResult.awardedPoints = awardedPoints;
+            }
+
+            // Shift to next detective
+            invManager.state.nextDetective();
         }
-
-        // Update location state
-
-        var locationState = invManager.state.scene.locations.get(locationId);
-
-        locationState.exposedClues.add(result.clue.id);
-
-        if (result.cluesRemaining == 0) {
-            locationState.searchAvailable = false;
-        }
-
-        // Detective awarded points
-        if (!result.accidental) {
-            var detective = invManager.state.activeDetective();
-            var awardedPoints = invManager.script.investigation.search.points;
-            awardedPoints = awardedPoints + result.matchedIds.size();
-            detective.addPoints(awardedPoints);
-            result.awardedPoints = awardedPoints;
-        }
-
-        // Shift to next detective
-        invManager.state.nextDetective();
 
         return result;
     }
+
+
 }

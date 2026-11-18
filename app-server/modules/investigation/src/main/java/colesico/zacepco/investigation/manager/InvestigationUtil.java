@@ -1,7 +1,10 @@
 package colesico.zacepco.investigation.manager;
 
+import colesico.zacepco.investigation.dto.action.LocationSearchResult;
 import colesico.zacepco.investigation.dto.DetectiveFocus;
 import colesico.zacepco.investigation.dto.FocusedClueMatch;
+import colesico.zacepco.investigation.dto.action.InvalidD12;
+import colesico.zacepco.investigation.dto.action.UnrevealedFocus;
 import colesico.zacepco.investigation.model.state.InvestigationState;
 import colesico.zacepco.script.model.scriptdoc.FocusedClueSpec;
 import colesico.zacepco.script.model.scriptdoc.ScriptDocument;
@@ -41,6 +44,19 @@ public class InvestigationUtil {
         uncoveredTypes.removeAll(exposedTypes);
 
         return new DetectiveFocus(uncoveredIds, uncoveredTypes);
+    }
+
+    public static LocationSearchResult checkActionRequest(DetectiveFocus detectiveFocus, Integer d12DieValue, ScriptDocument script, InvestigationState state) {
+        if (!checkD12(d12DieValue)) {
+            return new InvalidD12();
+        }
+
+        var uncoveredFocus = uncoveredFocus(detectiveFocus, state, script);
+        if (!uncoveredFocus.isEmpty()) {
+            return new UnrevealedFocus(uncoveredFocus);
+        }
+
+        return null;
     }
 
     public static FocusedClueMatch matchClue(FocusedClueSpec clue, DetectiveFocus detectiveFocus) {
