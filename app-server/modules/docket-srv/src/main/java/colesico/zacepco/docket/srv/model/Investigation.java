@@ -8,23 +8,26 @@ import colesico.framework.jdbirec.mediators.DateTextMediator;
 import colesico.zacepco.docket.srv.jdbi.InvestigationStateMediator;
 import colesico.zacepco.docket.srv.jdbi.InvestigationStatusMediator;
 import colesico.zacepco.investigation.model.state.InvestigationState;
-import colesico.zacepco.script.model.scriptdoc.ScriptDocument;
 
 import java.util.Date;
 
 import static colesico.framework.jdbirec.RecordView.*;
 import static colesico.framework.jdbirec.TagFilter.*;
+import static colesico.zacepco.docket.srv.dao.InvestigationRK.TAG_SATE;
+import static colesico.zacepco.docket.srv.dao.InvestigationRK.VIEW_STATE;
 
 /**
  * Represents investigation by script
  */
 @Record(table = "investigations",
         views = {
+                @RecordView(name = VIEW_STATE, tagFilter = @TagFilter(anyOf = {TAG_SATE})),
                 @RecordView(name = VIEW_FULL, tagFilter = @TagFilter(anyOf = {TAG_FULL, TF_NO_TAGS})),
                 @RecordView(name = VIEW_BRIEF, tagFilter = @TagFilter(anyOf = {TAG_BRIEF, TF_NO_TAGS}))
         }
 )
 public class Investigation {
+
 
     /**
      * Investigation id
@@ -55,7 +58,7 @@ public class Investigation {
     @Column(mediator = DateTextMediator.class)
     public Date createdAt;
 
-    @Column(mediator = InvestigationStateMediator.class, tags = TAG_FULL)
+    @Column(mediator = InvestigationStateMediator.class, tags = {TAG_FULL, TAG_SATE})
     public InvestigationState state;
 
     public Long getId() {

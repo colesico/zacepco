@@ -3,12 +3,16 @@ package colesico.zacepco.docket.srv.dao;
 import colesico.framework.jdbirec.RecordView;
 import colesico.framework.service.Service;
 import colesico.framework.transaction.Transactional;
+import colesico.zacepco.docket.srv.jdbi.InvestigationStateMediator;
 import colesico.zacepco.docket.srv.model.Investigation;
+import colesico.zacepco.investigation.model.state.InvestigationState;
 import jakarta.inject.Named;
 import jakarta.inject.Provider;
 import org.jdbi.v3.core.Handle;
 
 import java.util.Optional;
+
+import static colesico.zacepco.docket.srv.dao.InvestigationRK.VIEW_STATE;
 
 @Service
 @Transactional
@@ -21,14 +25,17 @@ public class InvestigationDao {
 
     private final InvestigationRK investigationFullRk;
     private final InvestigationRK investigationBriefRk;
+    private final InvestigationRK investigationStateRk;
 
     public InvestigationDao(Provider<Handle> handle,
                             @Named(RecordView.VIEW_FULL) InvestigationRK investigationFullRk,
-                            @Named(RecordView.VIEW_BRIEF) InvestigationRK investigationBriefRk) {
+                            @Named(RecordView.VIEW_BRIEF) InvestigationRK investigationBriefRk,
+                            @Named(VIEW_STATE) InvestigationRK investigationStateRk) {
 
         this.handle = handle;
         this.investigationFullRk = investigationFullRk;
         this.investigationBriefRk = investigationBriefRk;
+        this.investigationStateRk = investigationStateRk;
     }
 
     public Investigation createInvestigation(Investigation inv) {
@@ -59,5 +66,17 @@ public class InvestigationDao {
                 .bind("scriptId", scriptId)
                 .map(investigationFullRk.mapper())
                 .findOne();
+    }
+
+    public boolean updateInvestigationState(Long id, InvestigationState state) {
+        Investigation investigation = new Investigation();
+        investigation.state = state;
+        String sql = investigationStateRk.sql("update @table set @updates where id = :id");
+        int cnt = handle.get()
+                .createUpdate(sql)
+                .bind("id", id)
+                .bindMap(investigationStateRk.map(investigation))
+                .execute();
+        return cnt > 0;
     }
 }

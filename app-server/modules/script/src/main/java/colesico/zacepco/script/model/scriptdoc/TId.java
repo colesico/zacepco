@@ -32,7 +32,7 @@ abstract public sealed class TId
 
     abstract public Type type();
 
-    public static TId parse(String tid) {
+    public static <T extends TId> T parse(String tid) {
         if (StringUtils.isBlank(tid)) {
             throw new RuntimeException("Empty TID string");
         }
@@ -41,7 +41,7 @@ abstract public sealed class TId
             throw new RuntimeException("Unknown type for TID: " + tid);
         }
         String key = tid.substring(1);
-        return switch (type) {
+        return (T) switch (type) {
             case PERSONAGE -> new PersonageSpec.Id(key);
             case LOCATION -> new LocationSpec.Id(key);
             case WAY -> new WaySpec.Id(key);

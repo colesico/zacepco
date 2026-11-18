@@ -22,10 +22,12 @@ public class InvestigationManager {
     public InvestigationManager(InvestigationStateBuilder stateBuilder) {
         this.script = stateBuilder.script();
         this.state = stateBuilder.build();
-
     }
 
     public LocationSearchManager locationSearchManager(LocationSpec.Id locationId) {
+        if (!state.scene.locations.containsKey(locationId)) {
+            throw new IllegalArgumentException("Location for investigation not found. Id: " + locationId);
+        }
         return new LocationSearchManager(this, locationId);
     }
 

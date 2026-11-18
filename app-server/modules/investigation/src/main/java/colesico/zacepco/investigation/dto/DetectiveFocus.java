@@ -37,7 +37,7 @@ public record DetectiveFocus(
         return cleaned.split("[,\\s]+");
     }
 
-    public DetectiveFocus parse(String focus) {
+    public static DetectiveFocus parse(String focus) {
         var tokens = splitTokens(focus);
         if (tokens.length == 0) {
             return new DetectiveFocus(Set.of(), Set.of());

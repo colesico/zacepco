@@ -12,4 +12,6 @@ import colesico.zacepco.docket.srv.model.Investigation;
 
 @RecordKit
 public interface InvestigationRK extends RecordKitApi<Investigation> {
+    String VIEW_STATE = "state";
+    String TAG_SATE = "#state";
 }

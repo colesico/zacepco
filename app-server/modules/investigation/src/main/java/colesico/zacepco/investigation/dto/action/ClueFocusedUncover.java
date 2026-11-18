@@ -20,4 +20,9 @@ public final class ClueFocusedUncover extends ClueUncover {
         this.matchedTypes = matchedTypes;
         this.unmatchedTypes = unmatchedTypes;
     }
+
+    @Override
+    public String code() {
+        return "CLUE_FOCUSED_UNCOVER";
+    }
 }

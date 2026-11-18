@@ -21,4 +21,9 @@ public sealed class ClueUncover implements LocationSearchResult permits ClueFocu
         this.cluesRemaining = cluesRemaining;
         this.awardedPoints = awardedPoints;
     }
+
+    @Override
+    public String code() {
+        return "CLUE_UNCOVER";
+    }
 }

@@ -9,8 +9,14 @@ import colesico.zacepco.docket.srv.dto.CreateInvestigationRequest;
 import colesico.zacepco.docket.srv.model.Investigation;
 import colesico.zacepco.docket.srv.model.InvestigationStatus;
 import colesico.zacepco.docket.srv.model.ScriptStatus;
+import colesico.zacepco.investigation.dto.DetectiveFocus;
+import colesico.zacepco.investigation.dto.action.ClueUncover;
+import colesico.zacepco.investigation.dto.action.LocationSearchResult;
+import colesico.zacepco.investigation.manager.InvestigationManager;
 import colesico.zacepco.investigation.manager.InvestigationStateBuilder;
 import colesico.zacepco.investigation.manager.InvestigationStateEnricher;
+import colesico.zacepco.script.model.scriptdoc.LocationSpec;
+import colesico.zacepco.script.model.scriptdoc.TId;
 import jakarta.inject.Provider;
 
 import java.util.Date;
@@ -88,18 +94,40 @@ public class InvestigationService {
     }
 
     public Optional<Investigation> findInvestigationById(Long id) {
-        var invEntryOpt = investigationDao.findInvestigationById(id);
-        if (invEntryOpt.isEmpty()) {
+        var inv = investigationDao.findInvestigationById(id);
+        if (inv.isEmpty()) {
             return Optional.empty();
         }
 
-        var invEntry = invEntryOpt.get();
+        var investigation = inv.get();
 
-        var scriptDoc = scriptService.scriptPackage(invEntry.getScriptId()).scriptDocument().read();
+        var scriptDoc = scriptService.scriptPackage(investigation.getScriptId()).scriptDocument().read();
 
-        InvestigationStateEnricher enricher = new InvestigationStateEnricher(invEntry.getState(), scriptDoc);
-        invEntry.setState(enricher.enrich());
+        InvestigationStateEnricher enricher = new InvestigationStateEnricher(investigation.getState(), scriptDoc);
+        investigation.setState(enricher.enrich());
 
-        return invEntryOpt;
+        return inv;
+    }
+
+    public LocationSearchResult locationSearch(Long investigationId, LocationSpec.Id locationId, DetectiveFocus detectiveFocus, Integer d12Value) {
+        var inv = investigationDao.findInvestigationById(investigationId);
+        if (inv.isEmpty()) {
+            throw new IllegalArgumentException("Investigation not found. Id: " + investigationId);
+        }
+
+        var investigation = inv.get();
+        var script = scriptService.scriptPackage(investigation.getScriptId()).scriptDocument().read();
+
+        var invManager = new InvestigationManager(script, investigation.state);
+
+
+        var result = invManager.locationSearchManager(locationId)
+                .search(detectiveFocus, d12Value);
+
+        if (result instanceof ClueUncover) {
+            investigationDao.updateInvestigationState(investigationId, invManager.state);
+        }
+
+        return result;
     }
 }
