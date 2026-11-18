@@ -92,11 +92,21 @@ public class LocationSearchManager {
 
     public LocationSearchResult search(DetectiveFocus detectiveFocus, Integer d12) {
 
+        if (invManager.state.budget <= 0) {
+            throw new IllegalArgumentException("Out of investigation budget" + locationId);
+        }
+
+        var locationState = invManager.state.scene.locations.get(locationId);
+
+        if (!locationState.searchAvailable) {
+            throw new IllegalArgumentException("Search not available");
+        }
+
         // Check params
         var res = InvestigationUtil.checkActionRequest(detectiveFocus, d12, invManager.script, invManager.state);
         if (res != null) return res;
 
-        // Check budget and spend
+        // Try to spend budget
         var cost = invManager.script.investigation.search.cost;
         if (!invManager.state.spendBudget(cost)) {
             return new InsufficientBudget();
@@ -105,10 +115,14 @@ public class LocationSearchManager {
         // Perform clue search
         var result = searchClue(detectiveFocus, d12);
 
-        // On clue uncover result
-        if (result instanceof ClueUncover cuResult) {
 
-            var locationState = invManager.state.scene.locations.get(locationId);
+        if (result instanceof CluesExhausted) {
+
+            locationState.searchAvailable = false;
+            invManager.state.nextDetective();
+
+        } else if (result instanceof ClueUncover cuResult) {
+
             locationState.exposedClues.add(cuResult.clue.id);
 
             if (cuResult.cluesRemaining == 0) {

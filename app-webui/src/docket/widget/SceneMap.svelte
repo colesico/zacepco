@@ -25,6 +25,7 @@
           return {
             ...l,
             hidden: inv.hidden ?? l.hidden,
+            searchAvailable: inv.searchAvailable ?? l.searchAvailable,
             exposedClues: Array.isArray(inv.exposedClues)
               ? inv.exposedClues
               : (l.exposedClues ?? [])
@@ -144,6 +145,10 @@
     Math.floor((CLUES_AVAILABLE_HEIGHT - CLUE_PILL_H) / CLUE_STEP_Y) + 1
   );
 
+  // ——— search-availability dot ———
+  const BADGE_RADIUS = 0.030;
+  const BADGE_GAP = 0.020;
+
   function pillWidth(text, fontSize, padX) {
     return text.length * fontSize * CHAR_W + padX * 2;
   }
@@ -229,6 +234,8 @@
   const WAY_CLICKABLE_FILL_OPACITY = 0.55;
   const SELECTED_COLOR = '#f5b400';
   const HIDDEN_QUESTION_COLOR = '#7a7a7a';
+  const SEARCH_AVAILABLE_COLOR = '#28a745';
+  const NOT_SEARCHABLE_COLOR = '#dc3545';
 
   // Way marker geometry
   const WAY_HALF_X = 0.055;
@@ -443,6 +450,22 @@
                 fill="#ffffff"
               >{loc.id}</text>
             </g>
+
+            <!-- status dot under the id pill — green = searchable, red = not -->
+            {#if loc.searchAvailable !== undefined}
+              {@const dotCx = idX + idW / 2}
+              {@const dotCy = r + LABEL_OFFSET + PILL_H + BADGE_GAP + BADGE_RADIUS}
+              <g pointer-events="none">
+                <circle
+                  cx={dotCx}
+                  cy={dotCy}
+                  r={BADGE_RADIUS}
+                  fill={loc.searchAvailable ? SEARCH_AVAILABLE_COLOR : NOT_SEARCHABLE_COLOR}
+                  stroke="#ffffff"
+                  stroke-width="0.006"
+                />
+              </g>
+            {/if}
 
             <!-- clue ids (below the location id, stacked, id bold + name regular, with shadow) -->
             {#each shownClues as clueId, i}
