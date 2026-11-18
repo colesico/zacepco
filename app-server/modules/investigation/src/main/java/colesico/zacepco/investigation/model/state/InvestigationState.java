@@ -72,4 +72,12 @@ public class InvestigationState {
         return detectives.get(activeDetectiveId);
     }
 
+    public boolean spendBudget(int value) {
+        if (budget <= 0) {
+            return false;
+        }
+        budget = budget - value;
+        return true;
+    }
+    
 }

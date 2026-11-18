@@ -5,21 +5,37 @@ import colesico.zacepco.script.model.scriptdoc.TId;
 
 import java.util.Set;
 
+import static colesico.zacepco.investigation.dto.InvestigationActionResult.Status.OK;
+
 abstract public class InvestigationActionResult {
+
+    public final Status status;
+
     public ClueSpec clue;
     public Set<TId> matchedIds;
     public Set<TId.Type> matchedTypes;
     public Set<TId.Type> unmatchedTypes;
-    public boolean lastClue;
 
-    public InvestigationActionResult() {
+    public int cluesRemaining;
+
+    /**
+     * Points awarded to the detective
+     */
+    public int awardedPoints = 0;
+
+    public InvestigationActionResult(Status status) {
+        this.status = status;
     }
 
-    public InvestigationActionResult(ClueSpec clue, Set<TId> matchedIds, Set<TId.Type> matchedTypes, Set<TId.Type> unmatchedTypes, boolean lastClue) {
-        this.clue = clue;
-        this.matchedIds = matchedIds;
-        this.matchedTypes = matchedTypes;
-        this.unmatchedTypes = unmatchedTypes;
-        this.lastClue = lastClue;
+    public boolean isOK() {
+        return OK.equals(status);
+    }
+
+    public enum Status {
+        OK,
+        INSUFFICIENT_BUDGET,
+        INVALID_FOCUS,
+        CLUES_EXHAUSTED,
+        INVALID_D12_VALUE
     }
 }
