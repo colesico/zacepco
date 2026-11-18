@@ -30,7 +30,6 @@
       }
     }
     loadData();
-    return () => { cancelled = true; };
   });
 </script>
 
