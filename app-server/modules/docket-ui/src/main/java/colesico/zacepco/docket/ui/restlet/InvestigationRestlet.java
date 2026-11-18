@@ -64,7 +64,9 @@ public class InvestigationRestlet {
 
         var detectiveFocus = DetectiveFocus.parse(focus);
         LocationSpec.Id lid = TId.parse(locationId);
-        return new LocationSearchResponse(investigationService
-                .locationSearch(investigationId, lid, detectiveFocus, d12));
+        var result = investigationService
+                .locationSearch(investigationId, lid, detectiveFocus, d12);
+
+        return new LocationSearchResponse(result,detectiveFocus,d12);
     }
 }
