@@ -50,13 +50,9 @@ public class InvestigationService {
     }
 
     public Investigation createInvestigation(Long userId, CreateInvestigationRequest request) {
-        var script = scriptService.findScriptById(request.scriptId);
+        var script = scriptService.findScriptById(request.scriptId).orElseThrow(() -> new RuntimeException("Script not found. Id: " + request.scriptId));
 
-        if (script.isEmpty()) {
-            throw new RuntimeException("Script not found. Id: " + request.scriptId);
-        }
-
-        if (script.get().status.equals(ScriptStatus.ARCHIVED)) {
+        if (script.status.equals(ScriptStatus.ARCHIVED)) {
             throw new RuntimeException("Script is archived");
         }
 
@@ -64,7 +60,6 @@ public class InvestigationService {
         if (prevInvEntry.isPresent()) {
             throw new RuntimeException("Investigation on script already started by user. Id: " + request.scriptId);
         }
-
 
         var scriptDoc = scriptService.scriptPackage(request.scriptId).scriptDocument().read();
 
@@ -110,12 +105,8 @@ public class InvestigationService {
     }
 
     public LocationSearchResult locationSearch(Long investigationId, LocationSpec.Id locationId, DetectiveFocus detectiveFocus, Integer d12Value) {
-        var inv = investigationDao.findInvestigationById(investigationId);
-        if (inv.isEmpty()) {
-            throw new IllegalArgumentException("Investigation not found. Id: " + investigationId);
-        }
 
-        var investigation = inv.get();
+        var investigation = investigationDao.findInvestigationById(investigationId).orElseThrow(() -> new IllegalArgumentException("Investigation not found. Id: " + investigationId));
         var script = scriptService.scriptPackage(investigation.getScriptId()).scriptDocument().read();
 
         var invManager = new InvestigationManager(script, investigation.state);
