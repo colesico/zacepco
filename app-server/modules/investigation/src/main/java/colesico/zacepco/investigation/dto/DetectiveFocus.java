@@ -46,10 +46,14 @@ public record DetectiveFocus(
         var types = new LinkedHashSet<TId.Type>();
         for (var token : tokens) {
             try {
-                if (token.charAt(1) == '?') {
-                    types.add(TId.Type.of(token.charAt(0)));
+                var t = token.toUpperCase();
+                if (t.length() == 1) {
+                    t = t + '?';
+                }
+                if (t.charAt(1) == '?') {
+                    types.add(TId.Type.of(t.charAt(0)));
                 } else {
-                    ids.add(TId.parse(token));
+                    ids.add(TId.parse(t));
                 }
             } catch (Exception e) {
                 throw new DetectiveFocusParseException(token);

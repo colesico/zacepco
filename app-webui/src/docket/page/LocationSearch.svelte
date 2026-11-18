@@ -28,19 +28,25 @@
     context.script.investigation.detectives[activeDetectiveId]
   );
 
+  const focusLimit = $derived(
+    context.script.investigation.search.focusLimit
+  );
+
   const exposedClues = $derived(
     Array.isArray(locationState.exposedClues)
       ? locationState.exposedClues
       : (location.exposedClues ?? [])
   );
 
-  const FOCUS_TOKEN = /^(?:[CcLlPp](?:\?|[a-zA-Z0-9]{1,3})|[Tt](?:\?|\d{1,3}))$/;
+  const FOCUS_TOKEN = /^(?:[CcLlPp](?:\?|[a-zA-Z0-9]{1,3})?|[Tt](?:\?|\d{1,3})?)$/;
 
   let focus = $state('');
   let d12 = $state(null);
 
   let focusError = $state(false);
   let d12Error = $state(false);
+
+  let showFocusHelp = $state(false);
 
   const focusTokens = $derived(
     focus.split(/[ ,]+/).filter(Boolean)
@@ -58,6 +64,11 @@
     d12 = Math.floor(Math.random() * 12) + 1;
   }
 
+  function toggleFocusHelp(e) {
+    e.preventDefault();
+    showFocusHelp = !showFocusHelp;
+  }
+
   async function handleSearch(e) {
     e.preventDefault();
 
@@ -66,18 +77,16 @@
 
     if (focusError || d12Error) return;
 
-    console.log('[Search]', { focus: focusTokens, d12 });
-	
-	loading = true;
-      error = null;
-      try {
-        const r = await investigationApi.locationSearch(invId,locId, focus, Number(d12) );
-		 console.log('[Search] result: ', r);
-      } catch (ex) {
-        error = ex.data;
-      } finally {
-        loading = false;
-      }
+    loading = true;
+    error = null;
+    try {
+      const r = await investigationApi.locationSearch(invId, locId, focus, Number(d12));
+      console.log('[Search] result: ', r);
+    } catch (ex) {
+      error = ex.data;
+    } finally {
+      loading = false;
+    }
   }
 
   function goBack() {
@@ -167,13 +176,25 @@
               onsubmit={handleSearch}
             >
               <div class="mb-3 row align-items-start">
-                <label for="search-focus" class="col-4 col-form-label">Фокус:</label>
-                <div class="col-8">
+                <label for="search-focus" class="col-4 col-form-label">
+                  <span class="d-inline-flex align-items-center gap-1">
+                    Фокус:
+                    <button
+                      type="button"
+                      class="btn btn-sm btn-outline-secondary rounded-circle p-0"
+                      style="width: 1.1rem; height: 1.1rem; font-size: 0.7rem; line-height: 1;"
+                      aria-label="Подсказка по формату фокуса"
+                      title="Подсказка по формату"
+                      onclick={toggleFocusHelp}
+                    >?</button>
+                  </span>
+                </label>
+                <div class="col-8 position-relative">
                   <input
                     id="search-focus"
                     type="text"
                     class="form-control {focusError ? 'is-invalid' : ''}"
-                    placeholder="?"
+                    placeholder="max {focusLimit} id или тип"
                     autocapitalize="characters"
                     autocomplete="off"
                     spellcheck="false"
@@ -181,7 +202,44 @@
                   />
                   {#if focusError}
                     <div class="invalid-feedback">
-                      Ошибка формата. Укажите через пробел или запятую ID/Типы сущностей. Например: T1, PGRD, L?
+                      Неверный формат
+                    </div>
+                  {/if}
+
+                  {#if showFocusHelp}
+                    <div
+                      class="position-absolute bg-white border rounded shadow-sm p-2 small"
+                      style="top: calc(100% + 0.35rem); left: 0; z-index: 10; width: 320px; max-width: 90vw;"
+                    >
+                      <div class="d-flex justify-content-between align-items-start mb-2">
+                        <strong>Формат поля «Фокус»</strong>
+                        <button
+                          type="button"
+                          class="btn-close"
+                          aria-label="Закрыть подсказку"
+                          onclick={() => (showFocusHelp = false)}
+                        ></button>
+                      </div>
+                      <p class="mb-2">
+                        Укажите через запятую или пробел id/типы сущностей в любом регистре:
+                      </p>
+                      <ul>
+                        <li>
+                          <span class="badge text-bg-light border">[C|L|P]</span>
+                          + (пусто | знак «<span class="badge text-bg-light border">?</span>» | 1–3 буквы/цифры)
+                        </li>
+                        <li>
+                          <span class="badge text-bg-light border">T</span>
+                          + (пусто | знак «<span class="badge text-bg-light border">?</span>» | 1–3 цифры)
+                        </li>
+                      </ul>
+
+                      <p class="mb-1 fw-semibold">Примеры:</p>
+                      <ul>
+                        <li>t1 ckey p</li>
+                        <li>pgrd, c</li>
+                        <li>L2  t?</li>
+                      </ul>
                     </div>
                   {/if}
                 </div>

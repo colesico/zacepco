@@ -88,12 +88,12 @@ abstract public sealed class TId
 
         public static Type of(char code) {
             return switch (code) {
-                case 'P', 'p' -> Type.PERSONAGE;
-                case 'L', 'l' -> Type.LOCATION;
-                case 'W', 'w' -> Type.WAY;
-                case 'C', 'c' -> Type.CLUE;
-                case 'T', 't' -> Type.TIME;
-                case 'D', 'd' -> Type.DETECTIVE;
+                case 'P' -> Type.PERSONAGE;
+                case 'L' -> Type.LOCATION;
+                case 'W' -> Type.WAY;
+                case 'C' -> Type.CLUE;
+                case 'T' -> Type.TIME;
+                case 'D' -> Type.DETECTIVE;
                 default -> throw new IllegalArgumentException("Undefined ID type code: " + code);
             };
         }
