@@ -104,7 +104,7 @@ public class InvestigationService {
         return inv;
     }
 
-    public LocationSearchResult locationSearch(Long investigationId, LocationSpec.Id locationId, DetectiveFocus detectiveFocus, Integer d12Value) {
+    public LocationSearchResult locationSearch(Long investigationId, LocationSpec.Id locationId, DetectiveFocus detectiveFocus, Integer d12) {
 
         var investigation = investigationDao.findInvestigationById(investigationId).orElseThrow(() -> new IllegalArgumentException("Investigation not found. Id: " + investigationId));
         var script = scriptService.scriptPackage(investigation.getScriptId()).scriptDocument().read();
@@ -113,7 +113,7 @@ public class InvestigationService {
 
 
         var result = invManager.locationSearchManager(locationId)
-                .search(detectiveFocus, d12Value);
+                .search(detectiveFocus, d12);
 
         if (result instanceof ClueUncover) {
             investigationDao.updateInvestigationState(investigationId, invManager.state);

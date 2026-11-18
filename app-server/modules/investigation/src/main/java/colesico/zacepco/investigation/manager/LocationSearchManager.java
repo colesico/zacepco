@@ -39,7 +39,7 @@ public class LocationSearchManager {
     }
 
 
-    private LocationSearchResult searchClue(DetectiveFocus detectiveFocus, Integer d12DieValue) {
+    private LocationSearchResult searchClue(DetectiveFocus detectiveFocus, Integer d12) {
         var cluesToSearch = findUnexposedFocusedClues();
 
         if (cluesToSearch.isEmpty()) {
@@ -59,11 +59,11 @@ public class LocationSearchManager {
 
         double rf = invManager.state.randFactor;
 
-        // Find first accepted focusedClue
+        // Find first accepted
         FocusedClueMatch selected = null;
-        for (var fw : matchedClues) {
-            if (d12DieValue >= fw.focusedClue().threshold * rf) {
-                selected = fw;
+        for (var mc : matchedClues) {
+            if ((mc.eq() > 0 || mc.eqt() > 0) && (d12 >= mc.focusedClue().threshold * rf)) {
+                selected = mc;
                 break;
             }
         }
@@ -90,10 +90,10 @@ public class LocationSearchManager {
         );
     }
 
-    public LocationSearchResult search(DetectiveFocus detectiveFocus, Integer d12DieValue) {
+    public LocationSearchResult search(DetectiveFocus detectiveFocus, Integer d12) {
 
         // Check params
-        var res = InvestigationUtil.checkActionRequest(detectiveFocus, d12DieValue, invManager.script, invManager.state);
+        var res = InvestigationUtil.checkActionRequest(detectiveFocus, d12, invManager.script, invManager.state);
         if (res != null) return res;
 
         // Check budget and spend
@@ -103,7 +103,7 @@ public class LocationSearchManager {
         }
 
         // Perform clue search
-        var result = searchClue(detectiveFocus, d12DieValue);
+        var result = searchClue(detectiveFocus, d12);
 
         // On clue uncover result
         if (result instanceof ClueUncover cuResult) {

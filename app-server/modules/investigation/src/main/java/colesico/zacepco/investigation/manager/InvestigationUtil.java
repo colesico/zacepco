@@ -15,8 +15,8 @@ import java.util.stream.Collectors;
 
 public class InvestigationUtil {
 
-    public static boolean checkD12(int d12Value) {
-        return d12Value > 0 && d12Value <= 12;
+    public static boolean checkD12(int d12) {
+        return d12 > 0 && d12 <= 12;
     }
 
     public static Set<TId.Type> extractIdTypes(Collection<TId> tids) {
@@ -47,8 +47,8 @@ public class InvestigationUtil {
         return new DetectiveFocus(uncoveredIds, uncoveredTypes);
     }
 
-    public static LocationSearchResult checkActionRequest(DetectiveFocus detectiveFocus, Integer d12DieValue, ScriptDocument script, InvestigationState state) {
-        if (!checkD12(d12DieValue)) {
+    public static LocationSearchResult checkActionRequest(DetectiveFocus detectiveFocus, Integer d12, ScriptDocument script, InvestigationState state) {
+        if (!checkD12(d12)) {
             return new InvalidD12();
         }
 
