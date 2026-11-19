@@ -4,7 +4,9 @@ import colesico.zacepco.script.yaml.YamlComment;
 import colesico.zacepco.script.yaml.YamlCompact;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Location event.
@@ -18,13 +20,13 @@ public final class LocationEventSpec {
 
     @YamlComment(text = "Personages whose destination is this location for the given tick")
     @YamlCompact
-    public List<PersonageSpec.Id> personages = new ArrayList<>();
+    public Set<PersonageSpec.Id> personages = new HashSet<>();
 
     /**
      * The clues the location interacted with
      */
     @YamlComment(text = "Clues linked to this location during the tick")
     @YamlCompact
-    public List<ClueSpec.Id> clues = new ArrayList<>();
+    public Set<ClueSpec.Id> clues = new HashSet<>();
 
 }

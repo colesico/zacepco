@@ -1,10 +1,6 @@
 package colesico.zacepco.investigation.model.state;
 
-import colesico.zacepco.script.model.scriptdoc.ClueSpec;
 import colesico.zacepco.script.model.scriptdoc.PersonageSpec;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class PersonageState {
 
@@ -14,12 +10,6 @@ public class PersonageState {
      * Current uncover or not.
      */
     public boolean hidden = false;
-
-    /**
-     * Current exposed clues
-     */
-    public List<ClueSpec.Id> exposedClues = new ArrayList<>();
-
 
     /**
      * Whether the personage can still be interrogated.

@@ -30,7 +30,7 @@ public class LocationSearchManager {
 
         for (var focusedClueKV : searchSpec.clues.entrySet()) {
             var focusedClueId = focusedClueKV.getKey();
-            if (locationState.exposedClues.contains(focusedClueId)) {
+            if (locationState.discoveredClues.contains(focusedClueId)) {
                 continue;
             }
             result.add(focusedClueKV.getValue());
@@ -123,7 +123,7 @@ public class LocationSearchManager {
 
         } else if (result instanceof ClueUncover cuResult) {
 
-            locationState.exposedClues.add(cuResult.clue.id);
+            locationState.discoveredClues.add(cuResult.clue.id);
 
             if (cuResult.cluesRemaining == 0) {
                 locationState.searchAvailable = false;

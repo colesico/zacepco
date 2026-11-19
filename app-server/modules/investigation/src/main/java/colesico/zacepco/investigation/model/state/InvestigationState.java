@@ -1,5 +1,6 @@
 package colesico.zacepco.investigation.model.state;
 
+import colesico.zacepco.script.model.scriptdoc.ClueSpec;
 import colesico.zacepco.script.model.scriptdoc.DetectiveSpec;
 import colesico.zacepco.script.model.scriptdoc.PersonageSpec;
 import colesico.zacepco.script.model.scriptdoc.TId;
@@ -25,8 +26,9 @@ public class InvestigationState {
      */
     public DetectiveSpec.Id activeDetectiveId;
 
-    public SceneState scene = new SceneState();
     public final Map<PersonageSpec.Id, PersonageState> personages = new LinkedHashMap<>();
+    public SceneState scene = new SceneState();
+    public final Map<ClueSpec.Id, ClueState> clues = new LinkedHashMap<>();
     public final Map<DetectiveSpec.Id, DetectiveState> detectives = new LinkedHashMap<>();
 
 
@@ -87,16 +89,20 @@ public class InvestigationState {
         Set<TId> exposed = new LinkedHashSet<>();
 
         for (var personage : personages.values()) {
-            if (!personage.hidden){
+            if (!personage.hidden) {
                 exposed.add(personage.id);
-                exposed.addAll(personage.exposedClues);
             }
         }
 
         for (var location : scene.locations.values()) {
-            if (!location.hidden){
+            if (!location.hidden) {
                 exposed.add(location.id);
-                exposed.addAll(location.exposedClues);
+            }
+        }
+
+        for (var clue : clues.values()) {
+            if (clue.discovered) {
+                exposed.add(clue.id);
             }
         }
 

@@ -4,6 +4,7 @@ import colesico.zacepco.script.yaml.YamlComment;
 import colesico.zacepco.script.yaml.YamlCompact;
 
 import java.util.List;
+import java.util.Set;
 
 public class StrategyItemSpec {
 
@@ -15,7 +16,7 @@ public class StrategyItemSpec {
 
     @YamlComment(text = "Detective focus")
     @YamlCompact
-    public List<TId> focus;
+    public Set<TId> focus;
 
     @YamlComment(text = "Clue obtained")
     public ClueSpec.Id result;

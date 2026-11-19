@@ -36,13 +36,6 @@ public final class InvestigationSpec {
     })
     public List<StrategyItemSpec> strategy = new ArrayList<>();
 
-    @YamlComment(text = {
-            "Entities to be reveal (open) along with given clue",
-            "For example, C1 reveals a hidden way or a hidden personage"
-    })
-    @YamlCompact
-    public Map<ClueSpec.Id, List<TId>> revealChain = new LinkedHashMap<>();
-
     /**
      * Location search
      */

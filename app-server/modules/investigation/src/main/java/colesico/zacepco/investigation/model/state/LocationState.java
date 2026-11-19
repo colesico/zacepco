@@ -1,12 +1,6 @@
 package colesico.zacepco.investigation.model.state;
 
-import colesico.zacepco.script.model.scriptdoc.ClueSpec;
 import colesico.zacepco.script.model.scriptdoc.LocationSpec;
-
-import java.util.ArrayList;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Set;
 
 /**
  * Location state
@@ -27,12 +21,6 @@ public class LocationState {
      * Set to {@code false} once all clues in the location have been exposed.
      */
     public boolean searchAvailable = true;
-
-    /**
-     * Exposed clues for this location
-     */
-    public Set<ClueSpec.Id> exposedClues = new LinkedHashSet<>();
-
 
     public LocationState() {
     }

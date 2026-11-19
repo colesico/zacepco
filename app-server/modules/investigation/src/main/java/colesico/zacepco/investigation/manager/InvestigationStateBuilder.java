@@ -1,10 +1,7 @@
 package colesico.zacepco.investigation.manager;
 
 import colesico.zacepco.investigation.model.state.*;
-import colesico.zacepco.script.model.scriptdoc.DetectiveSpec;
-import colesico.zacepco.script.model.scriptdoc.LocationSpec;
-import colesico.zacepco.script.model.scriptdoc.PersonageSpec;
-import colesico.zacepco.script.model.scriptdoc.ScriptDocument;
+import colesico.zacepco.script.model.scriptdoc.*;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -58,8 +55,9 @@ public class InvestigationStateBuilder {
         invState.budget = (int) Math.ceil(script.investigation.budget * budgetScale);
         invState.randFactor = randFactor;
 
-        invState.scene.locations.putAll(buildLocationStates());
         invState.personages.putAll(buildPersonageStates());
+        invState.scene.locations.putAll(buildLocationStates());
+        invState.clues.putAll(buildClueStates());
         invState.detectives.putAll(buildDetectiveStates());
 
         if (invState.detectives.isEmpty()) {
@@ -77,7 +75,6 @@ public class InvestigationStateBuilder {
                         per -> per.id,
                         per -> {
                             var perState = new PersonageState(per.id);
-                            perState.exposedClues.addAll(per.exposedClues);
                             perState.hidden = per.hidden;
                             return perState;
                         },
@@ -92,9 +89,22 @@ public class InvestigationStateBuilder {
                         loc -> loc.id,
                         loc -> {
                             var locState = new LocationState(loc.id);
-                            locState.exposedClues.addAll(loc.exposedClues);
                             locState.hidden = loc.hidden;
                             return locState;
+                        },
+                        (u, v) -> u,
+                        LinkedHashMap::new
+                ));
+    }
+
+    private Map<ClueSpec.Id, ClueState> buildClueStates() {
+        return script.crime.clues.values().stream()
+                .collect(Collectors.toMap(
+                        clu -> clu.id,
+                        clu -> {
+                            var cluState = new ClueState(clu.id);
+                            cluState.discovered = clu.discovered;
+                            return cluState;
                         },
                         (u, v) -> u,
                         LinkedHashMap::new
