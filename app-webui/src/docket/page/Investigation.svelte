@@ -83,7 +83,22 @@
       class="investigation-title"
       style="display: flex; justify-content: space-between; align-items: center; gap: 1rem;"
     >
-      <span>{context.script.metainfo.title}</span>
+      <span class="d-inline-flex align-items-center gap-2">
+        <span>{context.script.metainfo.title}</span>
+        {#if context.script.metainfo.annotation}
+          <button
+            type="button"
+            class="btn btn-sm btn-outline-secondary rounded-circle d-inline-flex align-items-center justify-content-center p-0"
+            style="width: 1.2rem; height: 1.2rem; font-size: 0.75rem;"
+            data-bs-toggle="modal"
+            data-bs-target="#scriptAnnotationModal"
+            aria-label="Аннотация сценария"
+            title="Аннотация сценария"
+          >
+            <i class="fas fa-info"></i>
+          </button>
+        {/if}
+      </span>
       <span
         class="badge text-bg-secondary"
         style="font-size: 0.5em; margin-left: auto; flex-shrink: 0;"
@@ -91,6 +106,36 @@
         {context.script.metainfo.uid}
       </span>
     </h1>
+
+    <!-- Bootstrap Modal с аннотацией -->
+    {#if context.script.metainfo.annotation}
+      <div
+        class="modal fade"
+        id="scriptAnnotationModal"
+        tabindex="-1"
+        aria-labelledby="scriptAnnotationModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="scriptAnnotationModalLabel">
+                {context.script.metainfo.title}
+              </h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Закрыть"
+              ></button>
+            </div>
+            <div class="modal-body" style="white-space: pre-line;">
+              {context.script.metainfo.annotation}
+            </div>
+          </div>
+        </div>
+      </div>
+    {/if}
 
     <div class="mb-2" style="flex-shrink: 0;">
       <!-- Ряд всех участвующих детективов -->
