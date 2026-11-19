@@ -159,7 +159,7 @@ crime:
         pos: {col: 2, row: 1}
         
         # Location related clues
-        clues: [CHMR]
+        clues: [CHMR, CSGT]
         
         # Location log
         # Each element corresponds to a time tick
@@ -349,7 +349,7 @@ investigation:
     
     # Location clues to be uncovered
     clues:
-      C1:
+      CHMR:
         
         # Entities on which investigation action is focused
         focus: [C3, P2, T2]

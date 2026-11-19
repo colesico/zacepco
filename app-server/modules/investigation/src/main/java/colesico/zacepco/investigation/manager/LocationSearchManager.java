@@ -115,7 +115,7 @@ public class LocationSearchManager {
 
         // Perform clue search
         var result = searchClue(detectiveFocus, d12);
-        
+
         if (result instanceof CluesExhausted) {
 
             locationState.searchAvailable = false;
