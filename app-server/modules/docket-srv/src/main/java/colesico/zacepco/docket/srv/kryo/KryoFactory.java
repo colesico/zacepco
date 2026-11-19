@@ -34,8 +34,9 @@ public class KryoFactory {
 
         registerBeanClasses(kryo,
                 InvestigationState.class,
-                LocationState.class,
                 PersonageState.class,
+                LocationState.class,
+                ClueState.class,
                 DetectiveState.class,
                 SceneState.class,
                 ScriptRef.class

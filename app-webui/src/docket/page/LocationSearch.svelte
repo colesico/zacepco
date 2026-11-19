@@ -32,10 +32,21 @@
     context.script.investigation.search.focusLimit
   );
 
+  const searchCost = $derived(
+    context.script.investigation.search.cost
+  );
+
+  const searchPoints = $derived(
+    context.script.investigation.search.points
+  );
+
+  const budget = $derived(context.investigation.state.budget);
+
+  // Улики локации по сценарию, отфильтрованные по факту открытия
   const exposedClues = $derived(
-    Array.isArray(locationState.exposedClues)
-      ? locationState.exposedClues
-      : (location.exposedClues ?? [])
+    (Array.isArray(location.clues) ? location.clues : []).filter(
+      (cid) => context.investigation.state.clues[cid]?.discovered === true
+    )
   );
 
   const FOCUS_TOKEN = /^(?:[CcLlPp](?:\?|[a-zA-Z0-9]{1,3})?|[Tt](?:\?|\d{1,3})?)$/;
@@ -152,6 +163,12 @@
     {#if locationState.searchAvailable}
       <h2>Обыск локации</h2>
 
+      <div class="small text-muted mb-2">
+        Стоимость: <strong>{searchCost}</strong>
+        · Очки: <strong>{searchPoints}</strong>
+        · Бюджет: <strong>{budget}</strong>
+      </div>
+
       <div
         class="search-form-panel mb-3 p-3"
         style="background-color: #eaeaea; border: 1px solid #bdbdbd; border-radius: 0.25rem;"
@@ -178,7 +195,7 @@
               <div class="mb-3 row align-items-start">
                 <label for="search-focus" class="col-4 col-form-label">
                   <span class="d-inline-flex align-items-center gap-1">
-                    Фокус:
+                    Фокус ({focusLimit}):
                     <button
                       type="button"
                       class="btn btn-sm btn-outline-secondary rounded-circle p-0"
@@ -288,16 +305,17 @@
     {/if}
 
     {#if exposedClues.length}
-      <h2 class="mt-4">Улики</h2>
+      <h2 class="mt-4">Обнаруженные улики</h2>
 
       <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 g-3 mb-4">
         {#each exposedClues as clueId}
           {@const clue = context.script.crime.clues[clueId]}
+          {@const assetId = clue?.asset ?? clueId}
           <div class="col">
             <div class="card h-100 border-0 bg-light shadow-sm position-relative">
               <div class="ratio ratio-1x1 card-img-top overflow-hidden rounded-top">
                 <img
-                  src="/docket/script/images/thumb/{context.investigation.scriptId}/{clueId}"
+                  src="/docket/script/images/thumb/{context.investigation.scriptId}/{assetId}"
                   alt={clue?.name ?? clueId}
                   class="object-fit-cover"
                   loading="lazy"
@@ -309,7 +327,7 @@
               >
                 {clueId}
               </span>
-              <div class="card-body p-2">
+              <div class="card-body p-2 text-center">
                 <div class="fw-semibold text-break mb-1">
                   {clue?.name ?? clueId}
                 </div>

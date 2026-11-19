@@ -34,6 +34,7 @@
       error = null;
       try {
         const c = await investigationApi.findInvestigationContext(id);
+		console.log(c);
         context = c;
       } catch (ex) {
         error = ex.data;

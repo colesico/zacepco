@@ -14,6 +14,10 @@
     context.investigation?.state?.scene?.locations ?? {}
   );
 
+  const investigationClues = $derived(
+    context.investigation?.state?.clues ?? {}
+  );
+
   const cluesIndex = $derived(context.script?.crime?.clues ?? {});
 
   const allLocIndex = $derived(
@@ -22,13 +26,15 @@
         .filter((l) => l.pos)
         .map((l) => {
           const inv = investigationLocations[l.id] || {};
+          const staticClues = Array.isArray(l.clues) ? l.clues : [];
+          const exposedClues = staticClues.filter(
+            (cid) => investigationClues[cid]?.discovered === true
+          );
           return {
             ...l,
             hidden: inv.hidden ?? l.hidden,
-            searchAvailable: inv.searchAvailable ?? l.searchAvailable,
-            exposedClues: Array.isArray(inv.exposedClues)
-              ? inv.exposedClues
-              : (l.exposedClues ?? [])
+            searchAvailable: inv.searchAvailable,
+            exposedClues
           };
         })
         .map((l) => [`${l.pos.row}:${l.pos.col}`, l])
@@ -119,7 +125,6 @@
   const PAD_X = 0.022;
   const PAD_Y = 0.010;
   const PILL_H = FONT_SIZE + PAD_Y * 2;
-  const CHAR_W = 0.62;
 
   const LABEL_GAP = 0.01;
   const CLUE_TOP = LABEL_OFFSET + PILL_H + LABEL_GAP;
@@ -149,27 +154,59 @@
   const BADGE_RADIUS = 0.030;
   const BADGE_GAP = 0.020;
 
-  function pillWidth(text, fontSize, padX) {
-    return text.length * fontSize * CHAR_W + padX * 2;
+  // ——— точный расчёт ширины текста ———
+  function charWeight(ch) {
+    if (ch >= 'A' && ch <= 'Z') return 0.68;
+    if (ch >= 'a' && ch <= 'z') return 0.50;
+    if (ch >= '0' && ch <= '9') return 0.60;
+    if (ch === ' ') return 0.28;
+    if ('.,;:!?·—–-'.includes(ch)) return 0.30;
+    return 0.60;
   }
+
+  function textWidth(text, fontSize) {
+    let w = 0;
+    for (const ch of text) w += charWeight(ch);
+    return w * fontSize;
+  }
+
+  function pillWidth(text, fontSize, padX) {
+    return textWidth(text, fontSize) + padX * 2;
+  }
+
   function labelWidth(text) { return pillWidth(text, FONT_SIZE, PAD_X); }
 
   function fitName(text) {
-    const charW = FONT_SIZE * CHAR_W;
-    const maxChars = Math.floor((NAME_WIDTH - PAD_X * 2) / charW);
-    if (text.length <= maxChars) return text;
-    return text.slice(0, Math.max(1, maxChars - 1)) + '…';
+    const available = NAME_WIDTH - PAD_X * 2;
+    if (textWidth(text, FONT_SIZE) <= available) return text;
+    const ellipsisW = textWidth('…', FONT_SIZE);
+    let result = '';
+    let w = 0;
+    for (const ch of text) {
+      const cw = charWeight(ch) * FONT_SIZE;
+      if (w + cw + ellipsisW > available) break;
+      result += ch;
+      w += cw;
+    }
+    return result + '…';
   }
 
   function fitClueName(clueId, name, maxWidth) {
     if (!name) return '';
-    const charW = CLUE_FONT_SIZE * CHAR_W;
-    const maxChars = Math.floor((maxWidth - CLUE_PAD_X * 2) / charW);
-    const prefixLen = clueId.length + CLUE_SEP.length;
-    const room = maxChars - prefixLen;
-    if (room <= 0) return '';
-    if (name.length <= room) return name;
-    return name.slice(0, Math.max(1, room - 1)) + '…';
+    const prefixW = textWidth(clueId + CLUE_SEP, CLUE_FONT_SIZE);
+    const available = maxWidth - CLUE_PAD_X * 2 - prefixW;
+    if (available <= 0) return '';
+    if (textWidth(name, CLUE_FONT_SIZE) <= available) return name;
+    const ellipsisW = textWidth('…', CLUE_FONT_SIZE);
+    let result = '';
+    let w = 0;
+    for (const ch of name) {
+      const cw = charWeight(ch) * CLUE_FONT_SIZE;
+      if (w + cw + ellipsisW > available) break;
+      result += ch;
+      w += cw;
+    }
+    return result + '…';
   }
 
   function clueLabelWidth(clueId, namePart) {
@@ -237,7 +274,6 @@
   const SEARCH_AVAILABLE_COLOR = '#28a745';
   const NOT_SEARCHABLE_COLOR = '#dc3545';
 
-  // Way marker geometry
   const WAY_HALF_X = 0.055;
   const WAY_HALF_Y = 0.150;
   const WAY_RX     = 0.020;
@@ -245,7 +281,6 @@
     'M-0.045 0L-0.005 -0.026L-0.005 0.026Z' +
     'M0.045 0L0.005 -0.026L0.005 0.026Z';
 
-  // ——— size cap ———
   const MAX_CELL_PX = 240;
 </script>
 
@@ -259,7 +294,6 @@
       preserveAspectRatio="xMidYMid meet"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <!-- shadow filter used by the clue pills -->
       <defs>
         <filter
           id="clue-pill-shadow"
@@ -278,7 +312,6 @@
         </filter>
       </defs>
 
-      <!-- background — click clears the current selection -->
       <rect
         x="0"
         y="0"
@@ -289,7 +322,6 @@
         onclick={handleBackgroundClick}
       />
 
-      <!-- location cells: image for visible, "?" for hidden -->
       {#each Array(rows) as _, r}
         {#each Array(cols) as _, c}
           {@const loc = allLocIndex.get(`${r + 1}:${c + 1}`)}
@@ -327,7 +359,6 @@
         {/each}
       {/each}
 
-      <!-- grid (does not intercept clicks) -->
       <path
         d={gridPath}
         fill="none"
@@ -338,7 +369,6 @@
         pointer-events="none"
       />
 
-      <!-- thin dark frame around each visible location cell (on the cell edge) -->
       {#each cellsToFrame as cell}
         <rect
           x={cell.x + CARD_INSET}
@@ -353,7 +383,6 @@
         />
       {/each}
 
-      <!-- yellow highlight for the selected location -->
       {#each cellsToFrame as cell}
         {#if isLocationSelected(cell.id)}
           <rect
@@ -370,7 +399,6 @@
         {/if}
       {/each}
 
-      <!-- passages (ways) — clickable ones use the highlight fill color -->
       {#each waysToDraw as w}
         <g
           class={w.clickable ? 'way-clickable' : 'way-static'}
@@ -418,7 +446,6 @@
         </g>
       {/each}
 
-      <!-- labels: location id top-right, clue ids below it (left side), name bar at bottom -->
       {#each Array(rows) as _, r}
         {#each Array(cols) as _, c}
           {@const loc = locIndex.get(`${r + 1}:${c + 1}`)}
@@ -428,7 +455,7 @@
             {@const clueMaxW = 1 - CLUE_SIDE_OFFSET * 2}
             {@const { shown: shownClues, more: hasMoreClues } = visibleClues(loc.exposedClues)}
 
-            <!-- location id (top-right, dark pill, same font as the location name) -->
+            <!-- location id (top-right, dark pill) -->
             <g pointer-events="none">
               <rect
                 x={idX}
@@ -451,7 +478,7 @@
               >{loc.id}</text>
             </g>
 
-            <!-- status dot under the id pill — green = searchable, red = not -->
+            <!-- search-availability dot -->
             {#if loc.searchAvailable !== undefined}
               {@const dotCx = idX + idW / 2}
               {@const dotCy = r + LABEL_OFFSET + PILL_H + BADGE_GAP + BADGE_RADIUS}
@@ -467,7 +494,7 @@
               </g>
             {/if}
 
-            <!-- clue ids (below the location id, stacked, id bold + name regular, with shadow) -->
+            <!-- clue pills -->
             {#each shownClues as clueId, i}
               {@const clueName = cluesIndex[clueId]?.name ?? ''}
               {@const namePart = fitClueName(clueId, clueName, clueMaxW)}
@@ -488,9 +515,9 @@
                   filter="url(#clue-pill-shadow)"
                 />
                 <text
-                  x={x + CLUE_PAD_X}
+                  x={x + w / 2}
                   y={y + CLUE_PAD_Y}
-                  text-anchor="start"
+                  text-anchor="middle"
                   dominant-baseline="hanging"
                   font-family={FONT_FAMILY}
                   font-size={CLUE_FONT_SIZE}
