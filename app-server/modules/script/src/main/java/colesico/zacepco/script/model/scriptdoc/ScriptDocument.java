@@ -17,8 +17,9 @@ public final class ScriptDocument {
     @YamlComment(text = {
             "",
             "Crime phase specification",
-            "Describes objective crime world",
-            "and initial state for investigation",
+            "Describes objective crime world,",
+            "initial state for investigation",
+            "and answer verification data",
             ""
     })
     public CrimeSpec crime = new CrimeSpec();
