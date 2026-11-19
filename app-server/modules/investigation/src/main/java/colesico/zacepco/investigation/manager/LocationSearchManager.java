@@ -30,6 +30,9 @@ public class LocationSearchManager {
                 continue;
             }
             var focusedClue = focusedClues.get(clueId);
+            if (focusedClue == null){
+                throw new IllegalStateException("Search focused clue not found: "+clueId);
+            }
             result.add(focusedClue);
         }
 

@@ -154,64 +154,98 @@
   const BADGE_RADIUS = 0.030;
   const BADGE_GAP = 0.020;
 
-  // ——— точный расчёт ширины текста ———
-  function charWeight(ch) {
-    if (ch >= 'A' && ch <= 'Z') return 0.68;
-    if (ch >= 'a' && ch <= 'z') return 0.50;
-    if (ch >= '0' && ch <= '9') return 0.60;
-    if (ch === ' ') return 0.28;
-    if ('.,;:!?·—–-'.includes(ch)) return 0.30;
-    return 0.60;
+  // ——— точный расчёт ширины текста через Canvas ———
+  let _measureCtx = null;
+  const _measureCache = new Map();
+
+  function measureTextWidth(text, fontSize, weight) {
+    if (!text) return 0;
+
+    if (typeof document === 'undefined') {
+      // SSR fallback: приблизительно
+      let w = 0;
+      for (const ch of text) {
+        if (ch >= 'A' && ch <= 'Z') w += 0.68;
+        else if (ch >= 'a' && ch <= 'z') w += 0.50;
+        else if (ch >= '0' && ch <= '9') w += 0.60;
+        else if (ch === ' ') w += 0.28;
+        else w += 0.55;
+      }
+      return w * fontSize;
+    }
+
+    const key = `${weight}|${fontSize}|${text}`;
+    const cached = _measureCache.get(key);
+    if (cached !== undefined) return cached;
+
+    if (!_measureCtx) {
+      _measureCtx = document.createElement('canvas').getContext('2d');
+    }
+
+    const BASE = 100;
+    _measureCtx.font = `${weight} ${BASE}px ${FONT_FAMILY}`;
+    const w = _measureCtx.measureText(text).width * (fontSize / BASE);
+
+    _measureCache.set(key, w);
+    return w;
   }
 
-  function textWidth(text, fontSize) {
-    let w = 0;
-    for (const ch of text) w += charWeight(ch);
-    return w * fontSize;
+  function labelWidth(text) {
+    return measureTextWidth(text, FONT_SIZE, FONT_WEIGHT_NAME) + PAD_X * 2;
   }
-
-  function pillWidth(text, fontSize, padX) {
-    return textWidth(text, fontSize) + padX * 2;
-  }
-
-  function labelWidth(text) { return pillWidth(text, FONT_SIZE, PAD_X); }
 
   function fitName(text) {
     const available = NAME_WIDTH - PAD_X * 2;
-    if (textWidth(text, FONT_SIZE) <= available) return text;
-    const ellipsisW = textWidth('…', FONT_SIZE);
-    let result = '';
-    let w = 0;
-    for (const ch of text) {
-      const cw = charWeight(ch) * FONT_SIZE;
-      if (w + cw + ellipsisW > available) break;
-      result += ch;
-      w += cw;
+    if (measureTextWidth(text, FONT_SIZE, FONT_WEIGHT_NAME) <= available) {
+      return text;
     }
-    return result + '…';
+    const ellipsisW = measureTextWidth('…', FONT_SIZE, FONT_WEIGHT_NAME);
+    let lo = 0, hi = text.length;
+    while (lo < hi) {
+      const mid = Math.ceil((lo + hi) / 2);
+      const w = measureTextWidth(
+        text.slice(0, mid) + '…',
+        FONT_SIZE,
+        FONT_WEIGHT_NAME
+      );
+      if (w <= available) lo = mid;
+      else hi = mid - 1;
+    }
+    return text.slice(0, lo) + '…';
   }
 
   function fitClueName(clueId, name, maxWidth) {
     if (!name) return '';
-    const prefixW = textWidth(clueId + CLUE_SEP, CLUE_FONT_SIZE);
+    const prefixW =
+      measureTextWidth(clueId, CLUE_FONT_SIZE, FONT_WEIGHT_ID) +
+      measureTextWidth(CLUE_SEP, CLUE_FONT_SIZE, FONT_WEIGHT_NAME);
     const available = maxWidth - CLUE_PAD_X * 2 - prefixW;
     if (available <= 0) return '';
-    if (textWidth(name, CLUE_FONT_SIZE) <= available) return name;
-    const ellipsisW = textWidth('…', CLUE_FONT_SIZE);
-    let result = '';
-    let w = 0;
-    for (const ch of name) {
-      const cw = charWeight(ch) * CLUE_FONT_SIZE;
-      if (w + cw + ellipsisW > available) break;
-      result += ch;
-      w += cw;
+
+    if (measureTextWidth(name, CLUE_FONT_SIZE, FONT_WEIGHT_NAME) <= available) {
+      return name;
     }
-    return result + '…';
+    const ellipsisW = measureTextWidth('…', CLUE_FONT_SIZE, FONT_WEIGHT_NAME);
+    let lo = 0, hi = name.length;
+    while (lo < hi) {
+      const mid = Math.ceil((lo + hi) / 2);
+      const w = measureTextWidth(
+        name.slice(0, mid) + '…',
+        CLUE_FONT_SIZE,
+        FONT_WEIGHT_NAME
+      );
+      if (w <= available) lo = mid;
+      else hi = mid - 1;
+    }
+    return name.slice(0, lo) + '…';
   }
 
   function clueLabelWidth(clueId, namePart) {
-    const text = namePart ? clueId + CLUE_SEP + namePart : clueId;
-    return pillWidth(text, CLUE_FONT_SIZE, CLUE_PAD_X);
+    const idW = measureTextWidth(clueId, CLUE_FONT_SIZE, FONT_WEIGHT_ID);
+    const nameW = namePart
+      ? measureTextWidth(CLUE_SEP + namePart, CLUE_FONT_SIZE, FONT_WEIGHT_NAME)
+      : 0;
+    return idW + nameW + CLUE_PAD_X * 2;
   }
 
   function visibleClues(clues) {
@@ -532,7 +566,10 @@
             {/each}
 
             {#if hasMoreClues}
-              {@const dotsW = Math.max(CLUE_MORE_MIN_WIDTH, pillWidth(CLUE_MORE_TEXT, CLUE_FONT_SIZE, CLUE_PAD_X))}
+              {@const dotsW = Math.max(
+                CLUE_MORE_MIN_WIDTH,
+                measureTextWidth(CLUE_MORE_TEXT, CLUE_FONT_SIZE, FONT_WEIGHT_ID) + CLUE_PAD_X * 2
+              )}
               {@const dotsX = c + CLUE_SIDE_OFFSET}
               {@const dotsY = r + CLUE_TOP + shownClues.length * CLUE_STEP_Y}
               <g pointer-events="none">
