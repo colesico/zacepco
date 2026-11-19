@@ -160,7 +160,7 @@
       </p>
     </div>
 
-    {#if locationState.searchAvailable}
+    {#if locationState.searchAvailable && budget > 0}
       <h2>Обыск локации</h2>
 
       <div class="small text-muted mb-2">
