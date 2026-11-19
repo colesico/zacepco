@@ -341,6 +341,8 @@
           </div>
         {/each}
       </div>
+    {:else if !locationState.searchAvailable}
+      <p class="text-muted fst-italic mb-3">Улик не обнаружено</p>
     {/if}
 
     <button class="btn btn-outline-secondary mb-3" onclick={goBack}>
