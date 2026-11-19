@@ -1,9 +1,17 @@
+<script module>
+  let investigationScrollY = 0;
+</script>
+
 <script>
   import { push } from 'svelte-spa-router';
+  import { tick } from 'svelte';
+  
   import UiErrorMessage from '@core/widget/UiErrorMessage.svelte';
   import UiLoadingIndicator from '@core/widget/UiLoadingIndicator.svelte';
   import * as investigationApi from '../api/InvestigationApi.js';
   import SceneMap from '../widget/SceneMap.svelte';
+  import PersonagesBar from '../widget/PersonagesBar.svelte';
+  
 
   let { params = {} } = $props();
   const id = $derived(params.id);
@@ -23,12 +31,18 @@
   const budget = $derived(
     context.investigation.state.budget
   );
-
+  
   function handleLocationClick(locId) {
+    investigationScrollY = window.scrollY;
     push(`/investigation/${id}/location/${locId}`);
+  }
+  
+  function handlePersonageClick(personageId) {
+	console.log('Выбран персонаж:', personageId);
   }
 
   $effect(() => {
+  
     async function loadData() {
       loading = true;
       error = null;
@@ -36,6 +50,12 @@
         const c = await investigationApi.findInvestigationContext(id);
 		console.log(c);
         context = c;
+		
+		// Restore scroll
+		await tick();
+		window.scrollTo({ top: investigationScrollY, behavior: 'instant' });
+        investigationScrollY = 0;
+	  
       } catch (ex) {
         error = ex.data;
       } finally {
@@ -87,9 +107,14 @@
       </div>
     </div>
 
+
+	<h2>{context.script.crime.scene.name}</h2>
     <div class="scene-map-wrapper">
       <SceneMap {context} onLocationClick={handleLocationClick} />
     </div>
+	
+	<h2>Персонажи </h2>
+	<PersonagesBar cols={context.script.crime.personages.length} rows={1} {context}  onPersonageClick={handlePersonageClick} />
   {/if}
 </div>
 

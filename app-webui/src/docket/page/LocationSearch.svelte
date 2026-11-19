@@ -1,5 +1,7 @@
 <script>
   import { push } from 'svelte-spa-router';
+  import { pop } from 'svelte-spa-router';
+  
   import UiErrorMessage from '@core/widget/UiErrorMessage.svelte';
   import UiLoadingIndicator from '@core/widget/UiLoadingIndicator.svelte';
   import * as investigationApi from '../api/InvestigationApi.js';
@@ -101,7 +103,8 @@
   }
 
   function goBack() {
-    push(`/investigation/${invId}`);
+    pop();
+	//push(`/investigation/${invId}`);
   }
 
   $effect(() => {

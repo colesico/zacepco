@@ -24,6 +24,12 @@ public final class PersonageSpec extends EntitySpec<PersonageSpec.Id> {
     public Set<ClueSpec.Id> clues = new LinkedHashSet<>();
 
     @YamlComment(text = {
+            "Personage location at the end of timeline",
+            "If specified, detectives see this information"
+    })
+    public LocationSpec.Id location;
+
+    @YamlComment(text = {
             "Personage log for each tick",
             "Used to verify the investigation's findings (answers)"
     })
