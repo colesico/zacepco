@@ -108,13 +108,15 @@
     </div>
 
 
-	<h2>{context.script.crime.scene.name}</h2>
+	<h2 class="mb-1">{context.script.crime.scene.name}</h2>
     <div class="scene-map-wrapper">
       <SceneMap {context} onLocationClick={handleLocationClick} />
     </div>
 	
-	<h2>Персонажи </h2>
+	<h2 class="mb-1">Персонажи </h2>
 	<PersonagesBar cols={context.script.crime.personages.length} rows={1} {context}  onPersonageClick={handlePersonageClick} />
+	
+	<h2 class="mb-1">Экспертиза </h2>
   {/if}
 </div>
 

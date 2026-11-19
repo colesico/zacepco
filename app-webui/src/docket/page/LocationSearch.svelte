@@ -143,25 +143,29 @@
       {location.name}
     </h1>
 
-    <div class="d-flex align-items-start mb-3">
-      <div class="position-relative" style="width: 120px; min-width: 120px;">
-        <img
-          src="/docket/script/images/thumb/{context.investigation.scriptId}/{locId}"
-          alt={location.name}
-          class="img-fluid rounded border text-muted"
-          style="width: 120px; object-fit: cover; display: block;"
-        />
-        <span
-          class="badge text-bg-secondary position-absolute top-0 start-0 m-1"
-          style="font-size: 0.7em; z-index: 2;"
-        >
-          {locId}
-        </span>
-      </div>
-      <p class="ps-3 mb-0">
-        {location.description}
-      </p>
-    </div>
+	<div class="d-flex align-items-start mb-3">
+	  <div
+		class="position-relative flex-shrink-0"
+		style="width: 35%; max-width: 120px; min-width: 0;"
+	  >
+		<img
+		  src="/docket/script/images/thumb/{context.investigation.scriptId}/{locId}"
+		  alt={location.name}
+		  class="img-fluid rounded border text-muted w-100"
+		  style="object-fit: cover; display: block;"
+		/>
+		<span
+		  class="badge text-bg-secondary position-absolute top-0 start-0 m-1"
+		  style="font-size: 0.7em; z-index: 2;"
+		>
+		  {locId}
+		</span>
+	  </div>
+	  <p class="ps-3 mb-0" style="min-width: 0; overflow-wrap: break-word;">
+		{location.description}
+	  </p>
+	</div>
+
 
     {#if locationState.searchAvailable && budget > 0}
       <h2>Обыск локации</h2>
