@@ -5,13 +5,12 @@
 <script>
   import { push } from 'svelte-spa-router';
   import { tick } from 'svelte';
-  
+
   import UiErrorMessage from '@core/widget/UiErrorMessage.svelte';
   import UiLoadingIndicator from '@core/widget/UiLoadingIndicator.svelte';
   import * as investigationApi from '../api/InvestigationApi.js';
   import SceneMap from '../widget/SceneMap.svelte';
   import PersonagesBar from '../widget/PersonagesBar.svelte';
-  
 
   let { params = {} } = $props();
   const id = $derived(params.id);
@@ -28,34 +27,43 @@
     context.script.investigation.detectives[activeDetectiveId]
   );
 
+  const participatingDetectives = $derived(
+    Object.entries(context.investigation.state.detectives ?? {}).map(
+      ([detId, stateInfo]) => ({
+        id: detId,
+        points: stateInfo?.points ?? 0,
+        ...(context.script.investigation.detectives[detId] ?? { name: detId })
+      })
+    )
+  );
+
   const budget = $derived(
     context.investigation.state.budget
   );
-  
+
   function handleLocationClick(locId) {
     investigationScrollY = window.scrollY;
     push(`/investigation/${id}/location/${locId}`);
   }
-  
+
   function handlePersonageClick(personageId) {
-	console.log('Выбран персонаж:', personageId);
+    investigationScrollY = window.scrollY;
+    console.log('Выбран персонаж:', personageId);
   }
 
   $effect(() => {
-  
     async function loadData() {
       loading = true;
       error = null;
       try {
         const c = await investigationApi.findInvestigationContext(id);
-		console.log(c);
+        console.log(c);
         context = c;
-		
-		// Restore scroll
-		await tick();
-		window.scrollTo({ top: investigationScrollY, behavior: 'instant' });
+
+        // Restore scroll
+        await tick();
+        window.scrollTo({ top: investigationScrollY, behavior: 'instant' });
         investigationScrollY = 0;
-	  
       } catch (ex) {
         error = ex.data;
       } finally {
@@ -71,7 +79,6 @@
   <UiErrorMessage {error} />
 
   {#if context}
-
     <h1
       class="investigation-title"
       style="display: flex; justify-content: space-between; align-items: center; gap: 1rem;"
@@ -85,38 +92,56 @@
       </span>
     </h1>
 
-    <div
-      class="d-flex flex-wrap align-items-center gap-3 mb-2 small"
-      style="flex-shrink: 0;"
-    >
-      <div class="d-inline-flex align-items-center gap-2">
-        <img
-          src="/docket/script/images/thumb/{context.investigation.scriptId}/{activeDetectiveId}"
-          alt={activeDetective.name}
-          class="rounded border text-muted"
-          style="width: 32px; height: 32px; object-fit: cover;"
-        />
-        <span class="text-muted">Текущий ход:</span>
-        <span>{activeDetective.name}</span>
+    <div class="mb-2" style="flex-shrink: 0;">
+      <!-- Ряд всех участвующих детективов -->
+      <div class="d-flex flex-wrap align-items-center gap-2 mb-2">
+        {#each participatingDetectives as det (det.id)}
+          {@const isActive = det.id === activeDetectiveId}
+          <div
+            class="d-inline-flex flex-column align-items-center"
+            title={`${det.name} (Очки: ${det.points})`}
+          >
+            <img
+              src="/docket/script/images/thumb/{context.investigation.scriptId}/{det.id}"
+              alt={det.name}
+              class="rounded object-fit-cover {isActive
+                ? 'border border-3 border-warning shadow-sm'
+                : 'border opacity-75'}"
+              style="width: 48px; height: 48px;"
+            />
+          </div>
+        {/each}
       </div>
 
-      <div class="d-inline-flex align-items-center gap-2">
-        <i class="fas fa-coins text-muted"></i>
-        <span class="text-muted">Бюджет:</span>
-        <span class="fw-semibold">{budget ?? '—'}</span>
+      <!-- Строка под рядом детективов: Текущий ход и Бюджет -->
+      <div class="d-flex flex-wrap align-items-center gap-3 small">
+        <div class="d-inline-flex align-items-center gap-1">
+          <span class="text-muted">Текущий ход:</span>
+          <span class="fw-semibold">{activeDetective.name}</span>
+        </div>
+
+        <div class="d-inline-flex align-items-center gap-1">
+          <i class="fas fa-coins text-muted"></i>
+          <span class="text-muted">Бюджет:</span>
+          <span class="fw-semibold">{budget ?? '—'}</span>
+        </div>
       </div>
     </div>
 
-
-	<h2 class="mb-1">{context.script.crime.scene.name}</h2>
+    <h2 class="mb-1">{context.script.crime.scene.name}</h2>
     <div class="scene-map-wrapper">
       <SceneMap {context} onLocationClick={handleLocationClick} />
     </div>
-	
-	<h2 class="mb-1">Персонажи </h2>
-	<PersonagesBar cols={context.script.crime.personages.length} rows={1} {context}  onPersonageClick={handlePersonageClick} />
-	
-	<h2 class="mb-1">Экспертиза </h2>
+
+    <h2 class="mb-1">Персонажи</h2>
+    <PersonagesBar
+      cols={Object.keys(context.script.crime.personages ?? {}).length}
+      rows={1}
+      {context}
+      onPersonageClick={handlePersonageClick}
+    />
+
+    <h2 class="mb-1">Экспертиза</h2>
   {/if}
 </div>
 
