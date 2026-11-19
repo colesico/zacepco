@@ -21,20 +21,18 @@ public class LocationSearchManager {
 
     private Set<FocusedClueSpec> findUnexposedFocusedClues() {
         Set<FocusedClueSpec> result = new HashSet<>();
-        var locationState = invManager.state.scene.locations.get(locationId);
-        var searchSpec = invManager.script.investigation.search.locations.get(locationId);
+        var locationSpec = invManager.script.crime.scene.locations.get(locationId);
+        var focusedClues = invManager.script.investigation.search.clues;
 
-        if (searchSpec == null) {
-            return result;
-        }
-
-        for (var focusedClueKV : searchSpec.clues.entrySet()) {
-            var focusedClueId = focusedClueKV.getKey();
-            if (locationState.discoveredClues.contains(focusedClueId)) {
+        for (var clueId : locationSpec.clues) {
+            var clueState = invManager.state.clues.get(clueId);
+            if (clueState.discovered) {
                 continue;
             }
-            result.add(focusedClueKV.getValue());
+            var focusedClue = focusedClues.get(clueId);
+            result.add(focusedClue);
         }
+
         return result;
     }
 
@@ -123,7 +121,7 @@ public class LocationSearchManager {
 
         } else if (result instanceof ClueUncover cuResult) {
 
-            locationState.discoveredClues.add(cuResult.clue.id);
+            invManager.state.clues.get(cuResult.clue.id).discovered = true;
 
             if (cuResult.cluesRemaining == 0) {
                 locationState.searchAvailable = false;
