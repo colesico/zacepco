@@ -53,16 +53,16 @@ metainfo:
   age: 18+
 
 # 
-# Crime specification
-# Describes objective crime world 
-# and its initial state for investigation
+# Crime phase specification
+# Describes objective crime world
+# and initial state for investigation
 # 
 crime:
-
- # Full crime fabula
+  
+  # Full crime fabula
+  # Used to verify the investigation's findings (answers)
   fabula: |
     The Gardener killed the Butler, buried the body under a birch tree in the garden,  and burned the evidence in the fireplace in the library.
- 
   
   # Crime timeline. Defines all possible ticks
   # Example: T1: 10:00 or with date  T2: 2025-01-02T20:00
@@ -75,9 +75,10 @@ crime:
     T5: 2025-01-04T04:44
   
   # 
-  # Personages dictionary
-  # Defines all personages involved in the crime
-  # Personage ID - unique within script
+  # Character definitions
+  # Defines all characters involved in the crime,
+  # their initial investigation state, and answer data
+  # Character ID - unique within the script
   # ID format: P[A-Z0-9]{1,3}
   # 
   personages:
@@ -97,6 +98,9 @@ crime:
       
       # Personage related clues
       clues: [CFPR, CSGT]
+      
+      # Personage log for each tick
+      # Used to verify the investigation's findings (answers)
       log:
         T1:
           
@@ -117,7 +121,10 @@ crime:
       description: "Transparent personage \n"
     PSLD:
       name: Solid
-      description: "Solid round personage"
+      description: Solid round personage
+      
+      # Initially hidden personage or not
+      # Default: false
       hidden: true
   
   # 
@@ -135,6 +142,8 @@ crime:
     
     # 
     # Locations dictionary
+    # Defines all crime locations,
+    # their initial investigation state, and answer data
     # Location ID - unique within script
     # ID format: L[A-Z0-9]{1,3}
     # 
@@ -151,15 +160,21 @@ crime:
         
         # Location related clues
         clues: [CHMR]
-        exposedClues: [CHMR]
+        
+        # Location log
+        # Each element corresponds to a time tick
+        # Used to verify the investigation's findings (answers)
         log:
-            T3:
-              
-              # Personages whose destination is this location for the given tick
-              personages: [PFCE, PJOY]
-              
-              # Clues linked to this location during the tick
-              clues: [CFPR, CSGT]
+          T3:
+            
+            # Time tick id
+            tick: T3
+            
+            # Personages whose destination is this location for the given tick
+            personages: [PFCE, PJOY]
+            
+            # Clues linked to this location during the tick
+            clues: [CFPR, CSGT]
       LBCH:
         name: Sunny beach
         description: |
@@ -187,8 +202,10 @@ crime:
       LMNT:
         name: Hill
         pos: {col: 2, row: 3}
+        
+        # Initially hidden location or not
+        # Default: false
         hidden: true
-
     
     # Ways between two locations
     # Always connects only two locations, direction does not matter
@@ -222,6 +239,7 @@ crime:
   # 
   # Clues dictionary
   # Defines all clues involved in the crime
+  # their initial investigation state, and answer data
   # Clue ID - unique within script
   # ID format: C[A-Z0-9]{1,3}
   # 
@@ -231,12 +249,24 @@ crime:
       description: |
         Left on a spoon
       ref: ZACEPCO
+      
+      # False clue or not
+      # Default: false
+      # Used as answers to verify the investigation's findings
       falsity: true
     CSGT:
       name: Cigarette butt
-      leadsTo: [PJOY]
+      
+      # Initially revealed clue or not
+      # Default: false
       discovered: true
+      
+      # Entities that this clue reveals (characters, locations, other clues)
       reveals: [LMNT]
+      
+      # Target entities that this clue leads to
+      # Used as answers to verify the investigation results
+      leadsTo: [PJOY]
     CHMR:
       name: Hammer
       description: A fingerprint on the handle
@@ -265,12 +295,10 @@ crime:
       # To use an image from another entity, specify the ID of that entity.
       # Omit this field if the entity uses its own individual image.
       asset: CEXP
-      
-  
 
 # 
-# Investigation spec
-# Describes investigation model
+# Investigation phase specification
+# Describes investigation model and its params
 # 
 investigation:
   
@@ -278,7 +306,6 @@ investigation:
   # Default: 2147483647
   budget: 9
   
-    
   # Planned crime solving strategy.
   # Specify field:
   # 'location' for search;
@@ -300,7 +327,6 @@ investigation:
     # Clue obtained
     result: C8
   
-   
   # 
   # Location search specification
   # 
@@ -320,7 +346,7 @@ investigation:
     # (0) - free statistics
     # Default:  0
     statCost: -1
-        
+    
     # Location clues to be uncovered
     clues:
       C1:
@@ -331,7 +357,7 @@ investigation:
         # Clue uncover threshold
         # Default: 0.0
         threshold: 8.1
-
+  
   # 
   # Personage interrogation specification
   # 
@@ -341,7 +367,7 @@ investigation:
     focusLimit: 2
     statCost: -1
     
-    # Target personage clues to be uncovered
+    # Personage clues to be uncovered
     clues:
       C2:
         focus: [T2, P1, L3]
@@ -362,7 +388,6 @@ investigation:
         focus: [C1, C2, P3, L2]
         threshold: 3.0
   
-
   # 
   # Detectives dictionary
   # A subset of which can participate in the investigation
@@ -378,4 +403,4 @@ investigation:
       name: Father Brown
       description: Catholic priest who solves crimes
     DCOS:
-      name: Cosmonaut  
+      name: Cosmonaut

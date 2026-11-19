@@ -10,8 +10,8 @@ import java.util.Map;
  */
 public final class InterrogationSpec extends InvestigationActionSpec {
 
-    @YamlComment(text = "Personages to be interrogated")
-    public Map<PersonageSpec.Id, PersonageInterrogationSpec> personages = new LinkedHashMap<>();
+    @YamlComment(text = "Personage clues to be uncovered")
+    public Map<ClueSpec.Id,FocusedClueSpec> clues = new LinkedHashMap<>();
 
     public InterrogationSpec() {
         this.cost = 2;

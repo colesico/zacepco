@@ -26,13 +26,13 @@ public final class CrimeSpec {
 
     @YamlComment(text = {
             "",
-            "Personages dictionary",
-            "Defines all personages involved in the crime",
-            "Personage ID - unique within script",
+            "Character definitions",
+            "Defines all characters involved in the crime,",
+            "their initial investigation state, and answer data",
+            "Character ID - unique within the script",
             "ID format: P[A-Z0-9]{1,3}",
             ""
     })
-
     public Map<PersonageSpec.Id, PersonageSpec> personages = new LinkedHashMap<>();
 
     /**
@@ -52,6 +52,7 @@ public final class CrimeSpec {
             "",
             "Clues dictionary",
             "Defines all clues involved in the crime",
+            "their initial investigation state, and answer data",
             "Clue ID - unique within script",
             "ID format: C[A-Z0-9]{1,3}",
             ""

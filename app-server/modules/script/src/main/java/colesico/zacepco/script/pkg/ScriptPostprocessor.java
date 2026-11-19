@@ -32,18 +32,12 @@ public class ScriptPostprocessor implements ReadPostprocessor<ScriptDocument> {
             way.getValue().id = way.getKey();
         }
 
-        for (var locationSearch : document.investigation.search.locations.entrySet()) {
-            locationSearch.getValue().location = locationSearch.getKey();
-            for (var focusedClue : locationSearch.getValue().clues.entrySet()) {
-                focusedClue.getValue().clue = focusedClue.getKey();
-            }
+        for (var focusedClue : document.investigation.search.clues.entrySet()) {
+            focusedClue.getValue().clue = focusedClue.getKey();
         }
 
-        for (var personageInterog : document.investigation.interrogation.personages.entrySet()) {
-            personageInterog.getValue().personage = personageInterog.getKey();
-            for (var focusedClue : personageInterog.getValue().clues.entrySet()) {
-                focusedClue.getValue().clue = focusedClue.getKey();
-            }
+        for (var focusedClue : document.investigation.interrogation.clues.entrySet()) {
+            focusedClue.getValue().clue = focusedClue.getKey();
         }
 
         for (var focusedClue : document.investigation.expertise.clues.entrySet()) {

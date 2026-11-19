@@ -10,8 +10,8 @@ import java.util.Map;
  */
 public final class SearchSpec extends InvestigationActionSpec {
 
-    @YamlComment(text = "Locations to be searched")
-    public Map<LocationSpec.Id, LocationSearchSpec> locations = new LinkedHashMap<>();
+    @YamlComment(text = "Location clues to be uncovered")
+    public Map<ClueSpec.Id, FocusedClueSpec> clues = new LinkedHashMap<>();
 
     public SearchSpec() {
         this.cost = 3;
