@@ -3,8 +3,7 @@ package colesico.zacepco.script.model.scriptdoc;
 import colesico.zacepco.script.yaml.YamlComment;
 import colesico.zacepco.script.yaml.YamlCompact;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Scene location
@@ -34,13 +33,16 @@ public final class LocationSpec extends EntitySpec<LocationSpec.Id> {
     })
     public Boolean hidden = false;
 
-    /**
-     * Initially revealed clues for this location
-     */
-    @YamlComment(text = "Initially exposed clues for this location")
+    @YamlComment(text = "Location related clues")
     @YamlCompact
-    public List<ClueSpec.Id> exposedClues = new ArrayList<>();
+    public Set<ClueSpec.Id> clues = new LinkedHashSet<>();
 
+    @YamlComment(text = {
+            "Location log",
+            "Each element corresponds to a time tick",
+            "Used to verify the investigation's findings (answers)"
+    })
+    public Map<TickSpec.Id, LocationEventSpec> log = new LinkedHashMap<>();
 
     public static final class Id extends TId {
 

@@ -1,6 +1,9 @@
 package colesico.zacepco.script.model.scriptdoc;
 
 import colesico.zacepco.script.yaml.YamlComment;
+import colesico.zacepco.script.yaml.YamlCompact;
+
+import java.util.*;
 
 /**
  * Clue model
@@ -10,6 +13,33 @@ import colesico.zacepco.script.yaml.YamlComment;
         "Format: C[A-Z0-9]{1,3}"
 }, field = "id")
 public final class ClueSpec extends EntitySpec<ClueSpec.Id> {
+
+    @YamlComment(text = {
+            "Initially revealed clue or not",
+            "Default: false"
+    })
+    public Boolean discovered = false;
+
+    @YamlComment(text = {
+            "False clue or not",
+            "Default: false",
+            "Used as answers to verify the investigation's findings"
+    })
+    @YamlCompact
+    public Boolean falsity = false;
+
+    @YamlComment(text = {
+            "Entities that this clue reveals (characters, locations, other clues)"
+    })
+    @YamlCompact
+    public Set<TId> reveals = new LinkedHashSet<>();
+
+    @YamlComment(text = {
+            "Target entities that this clue leads to",
+            "Used as answers to verify the investigation results"
+    })
+    @YamlCompact
+    public Set<TId> leadsTo = new LinkedHashSet<>();
 
     public static final class Id extends TId {
 

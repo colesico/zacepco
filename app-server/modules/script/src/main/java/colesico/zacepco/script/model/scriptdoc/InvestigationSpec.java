@@ -3,6 +3,7 @@ package colesico.zacepco.script.model.scriptdoc;
 import colesico.zacepco.script.yaml.YamlComment;
 import colesico.zacepco.script.yaml.YamlCompact;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,6 +21,20 @@ public final class InvestigationSpec {
             "Default: 2147483647"
     })
     public Integer budget = Integer.MAX_VALUE;
+
+    @YamlComment(text = {
+            "Planned crime solving strategy. ",
+            " Specify field: ",
+            " 'location' for search; ",
+            " 'personage' for interrogation; ",
+            " nothing for expertise",
+            "",
+            "Example for location search: ",
+            "   - location: L2",
+            "   focus: [T4,C2]",
+            "   result: C5"
+    })
+    public List<StrategyItemSpec> strategy = new ArrayList<>();
 
     @YamlComment(text = {
             "Entities to be reveal (open) along with given clue",

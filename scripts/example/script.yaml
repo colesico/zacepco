@@ -54,9 +54,15 @@ metainfo:
 
 # 
 # Crime specification
-# Describes entire crime environment (entities, state)
+# Describes objective crime world 
+# and its initial state for investigation
 # 
 crime:
+
+ # Full crime fabula
+  fabula: |
+    The Gardener killed the Butler, buried the body under a birch tree in the garden,  and burned the evidence in the fireplace in the library.
+ 
   
   # Crime timeline. Defines all possible ticks
   # Example: T1: 10:00 or with date  T2: 2025-01-02T20:00
@@ -89,8 +95,19 @@ crime:
       # specify that script UID
       ref: ZACEPCO
       
-      # Initially exposed clues for this personage
-      exposedClues: [CFPR, CSGT]
+      # Personage related clues
+      clues: [CFPR, CSGT]
+      log:
+        T1:
+          
+          # Personage destination location for tick
+          # Initial character location not specified - it refers to the previous tick
+          location: LCST
+          
+          # Clue linked to this personage during the tick
+          clue: CFPR
+        T2:
+          location: L3
     PJOY:
       name: Joyful man
       description: |
@@ -100,10 +117,7 @@ crime:
       description: "Transparent personage \n"
     PSLD:
       name: Solid
-      description: "Solid round personage \n"
-      
-      # Initially hidden personage or not
-      # Default: false
+      description: "Solid round personage"
       hidden: true
   
   # 
@@ -135,8 +149,17 @@ crime:
         # (1,1) - left top scene corner
         pos: {col: 2, row: 1}
         
-        # Initially exposed clues for this location
+        # Location related clues
+        clues: [CHMR]
         exposedClues: [CHMR]
+        log:
+            T3:
+              
+              # Personages whose destination is this location for the given tick
+              personages: [PFCE, PJOY]
+              
+              # Clues linked to this location during the tick
+              clues: [CFPR, CSGT]
       LBCH:
         name: Sunny beach
         description: |
@@ -164,10 +187,8 @@ crime:
       LMNT:
         name: Hill
         pos: {col: 2, row: 3}
-        
-        # Initially hidden location or not
-        # Default: false
         hidden: true
+
     
     # Ways between two locations
     # Always connects only two locations, direction does not matter
@@ -210,8 +231,12 @@ crime:
       description: |
         Left on a spoon
       ref: ZACEPCO
+      falsity: true
     CSGT:
       name: Cigarette butt
+      leadsTo: [PJOY]
+      discovered: true
+      reveals: [LMNT]
     CHMR:
       name: Hammer
       description: A fingerprint on the handle
@@ -240,10 +265,12 @@ crime:
       # To use an image from another entity, specify the ID of that entity.
       # Omit this field if the entity uses its own individual image.
       asset: CEXP
+      
+  
 
 # 
 # Investigation spec
-# Describes relationships between crime entities for discovery
+# Describes investigation model
 # 
 investigation:
   
@@ -251,153 +278,7 @@ investigation:
   # Default: 2147483647
   budget: 9
   
-  # Entities to be reveal (open) along with given clue
-  # For example, C1 reveals a hidden way or a hidden personage
-  revealChain:
-    C1: [W1, L2]
-    C3: [P4]
-  
-  # 
-  # Location search specification
-  # 
-  search:
     
-    # Cost in resource units of investigation action on subject (int)
-    cost: 3
-    
-    # Base points for investigation action (int)
-    points: 1
-    
-    # Maximum number of elements in detective focus
-    focusLimit: 1
-    
-    # Cost of obtaining investigation subject statistics
-    # (-1) - statistics is prohibited
-    # (0) - free statistics
-    # Default:  0
-    statCost: -1
-    
-    # Locations to be searched
-    locations:
-      L3:
-        
-        # Location clues to be uncovered
-        clues:
-          C1:
-            
-            # Entities on which investigation action is focused
-            focus: [C3, P2, T2]
-            
-            # Clue uncover threshold
-            # Default: 0.0
-            threshold: 8.1
-  
-  # 
-  # Personage interrogation specification
-  # 
-  interrogation:
-    cost: 2
-    points: 2
-    focusLimit: 2
-    statCost: -1
-    
-    # Personages to be interrogated
-    personages:
-      P1:
-        
-        # Target personage clues to be uncovered
-        clues:
-          C2:
-            focus: [T2, P1, L3]
-            threshold: 7.0
-  
-  # 
-  # Criminal expertise specification
-  # 
-  expertise:
-    cost: 1
-    points: 3
-    focusLimit: 3
-    statCost: -1
-    
-    # Examined clues
-    clues:
-      C6:
-        focus: [C1, C2, P3, L2]
-        threshold: 3.0
-  
-  # 
-  # Detectives dictionary
-  # A subset of which can participate in the investigation
-  # 
-  detectives:
-    DHLS:
-      name: Sherlock Holmes
-      description: Famous detective
-    DPRO:
-      name: Hercule Poirot
-      description: Little grey cells
-    DBRN:
-      name: Father Brown
-      description: Catholic priest who solves crimes
-    DCOS:
-      name: Cosmonaut
-
-# 
-# General answers
-# 
-answers:
-  
-  # Full crime fabula
-  fabula: |
-    The Gardener killed the Butler, buried the body under a birch tree in the garden,  and burned the evidence in the fireplace in the library.
-  
-  # False clues
-  # Used as answers to verify the investigation's findings and results
-  falsityClues: [C1, C2]
-  
-  # Personages event log for each time tick
-  # Used to verify the investigation's findings (answers)
-  personageLogs:
-    P1:
-      
-      # Personage events for each tick
-      events:
-        T1:
-          
-          # Personage destination location for tick
-          # Initial character location not specified - it refers to the previous tick
-          location: L2
-          
-          # Clue linked to this personage during the tick
-          clue: C1
-        T2:
-          location: L3
-  
-  # Location event log for each time tick
-  # Each element of the array corresponds to a time tick
-  # Used to verify the investigation's findings as answers
-  locationLogs:
-    L1:
-      
-      # Location events for each tick
-      events:
-        T3:
-          
-          # Time tick id
-          tick: T3
-          
-          # Personages whose destination is this location for the given tick
-          personages: [P1, P2]
-          
-          # Clues linked to this location during the tick
-          clues: [C1, C2]
-  
-  # Target entities that this clue leads to
-  # Used as answers to verify the investigation results
-  clueLeads:
-    C1: [L1, L2]
-  
   # Planned crime solving strategy.
   # Specify field:
   # 'location' for search;
@@ -418,3 +299,83 @@ answers:
     
     # Clue obtained
     result: C8
+  
+   
+  # 
+  # Location search specification
+  # 
+  search:
+    
+    # Cost in resource units of investigation action on subject (int)
+    cost: 3
+    
+    # Base points for investigation action (int)
+    points: 1
+    
+    # Maximum number of elements in detective focus
+    focusLimit: 1
+    
+    # Cost of obtaining investigation subject statistics
+    # (-1) - statistics is prohibited
+    # (0) - free statistics
+    # Default:  0
+    statCost: -1
+        
+    # Location clues to be uncovered
+    clues:
+      C1:
+        
+        # Entities on which investigation action is focused
+        focus: [C3, P2, T2]
+        
+        # Clue uncover threshold
+        # Default: 0.0
+        threshold: 8.1
+
+  # 
+  # Personage interrogation specification
+  # 
+  interrogation:
+    cost: 2
+    points: 2
+    focusLimit: 2
+    statCost: -1
+    
+    # Target personage clues to be uncovered
+    clues:
+      C2:
+        focus: [T2, P1, L3]
+        threshold: 7.0
+  
+  # 
+  # Criminal expertise specification
+  # 
+  expertise:
+    cost: 1
+    points: 3
+    focusLimit: 3
+    statCost: -1
+    
+    # Examined clues
+    clues:
+      C6:
+        focus: [C1, C2, P3, L2]
+        threshold: 3.0
+  
+
+  # 
+  # Detectives dictionary
+  # A subset of which can participate in the investigation
+  # 
+  detectives:
+    DHLS:
+      name: Sherlock Holmes
+      description: Famous detective
+    DPRO:
+      name: Hercule Poirot
+      description: Little grey cells
+    DBRN:
+      name: Father Brown
+      description: Catholic priest who solves crimes
+    DCOS:
+      name: Cosmonaut  

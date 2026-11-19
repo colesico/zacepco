@@ -6,11 +6,15 @@ import colesico.zacepco.script.yaml.YamlCompact;
 import java.util.*;
 
 /**
- * Crime specification
- * Is a top-level element that encapsulates a specific crime scene environment,
- * its timeline, and all associated elements (the crime scene, characters, and clues)
+ * Crime phase specification
  */
 public final class CrimeSpec {
+
+    @YamlComment(text = {
+            "Full crime fabula",
+            "Used to verify the investigation's findings (answers)"
+    })
+    public String fabula;
 
     @YamlComment(text = {
             "Crime timeline. Defines all possible ticks",

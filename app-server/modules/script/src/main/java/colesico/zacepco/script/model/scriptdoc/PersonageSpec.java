@@ -3,8 +3,7 @@ package colesico.zacepco.script.model.scriptdoc;
 import colesico.zacepco.script.yaml.YamlComment;
 import colesico.zacepco.script.yaml.YamlCompact;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Game character
@@ -20,10 +19,15 @@ public final class PersonageSpec extends EntitySpec<PersonageSpec.Id> {
     })
     public Boolean hidden = false;
 
-    @YamlComment(text = "Initially exposed clues for this personage")
+    @YamlComment(text = "Personage related clues")
     @YamlCompact
-    public List<ClueSpec.Id> exposedClues = new ArrayList<>();
+    public Set<ClueSpec.Id> clues = new LinkedHashSet<>();
 
+    @YamlComment(text = {
+            "Personage log for each tick",
+            "Used to verify the investigation's findings (answers)"
+    })
+    public Map<TickSpec.Id, PersonageEventSpec> log = new LinkedHashMap<>();
 
     public static final class Id extends TId {
 

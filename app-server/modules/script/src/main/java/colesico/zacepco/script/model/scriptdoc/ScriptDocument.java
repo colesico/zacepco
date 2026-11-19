@@ -16,26 +16,20 @@ public final class ScriptDocument {
 
     @YamlComment(text = {
             "",
-            "Crime specification",
-            "Describes entire crime environment (entities, state)",
+            "Crime phase specification",
+            "Describes objective crime world",
+            "and initial state for investigation",
             ""
     })
     public CrimeSpec crime = new CrimeSpec();
 
     @YamlComment(text = {
             "",
-            "Investigation spec",
-            "Describes relationships between crime entities for uncover",
+            "Investigation phase specification",
+            "Describes investigation model and its params",
             ""
     })
     public InvestigationSpec investigation = new InvestigationSpec();
-
-    @YamlComment(text = {
-            "",
-            "General answers",
-            ""
-    })
-    public AnswersSpec answers = new AnswersSpec();
 
     @Override
     public String toString() {
