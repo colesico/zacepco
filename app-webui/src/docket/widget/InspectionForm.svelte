@@ -79,7 +79,7 @@
   }
 </script>
 
-<h2>{currentMeta.title}</h2>
+<!-- <h2>{currentMeta.title}</h2> -->
 
 <div class="d-flex flex-wrap align-items-center gap-2 small text-muted mb-2">
   <span class="d-inline-flex align-items-center gap-2 text-body">

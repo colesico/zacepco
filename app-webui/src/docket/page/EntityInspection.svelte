@@ -116,12 +116,57 @@
       </p>
     </div>
 
-    {#if entityState.searchAvailable && budget > 0}
-       <InspectionForm {context} mode="search" onInspect={handleSearch} />
-    {/if}
-	
-	{#if entityId?.startsWith('P') && entityState?.interrogationAvailable && budget > 0}
-      <InspectionForm {context} mode="interrogation" onInspect={handleInterrogation} />
+    {#if budget > 0 && (entityState.searchAvailable || (entityId?.startsWith('P') && entityState?.interrogationAvailable))}
+      <ul class="nav nav-tabs mb-3" role="tablist">
+        {#if entityState.searchAvailable}
+          <li class="nav-item" role="presentation">
+            <button
+              class="nav-link active"
+              data-bs-toggle="tab"
+              data-bs-target="#tab-search"
+              type="button"
+              role="tab"
+            >
+              Обыск
+            </button>
+          </li>
+        {/if}
+
+        {#if entityId?.startsWith('P') && entityState?.interrogationAvailable}
+          <li class="nav-item" role="presentation">
+            <button
+              class="nav-link"
+              class:active={!entityState.searchAvailable}
+              data-bs-toggle="tab"
+              data-bs-target="#tab-interrogation"
+              type="button"
+              role="tab"
+            >
+              Допрос
+            </button>
+          </li>
+        {/if}
+      </ul>
+
+      <div class="tab-content mb-4">
+        {#if entityState.searchAvailable}
+          <div class="tab-pane fade show active" id="tab-search" role="tabpanel">
+            <InspectionForm {context} mode="search" onInspect={handleSearch} />
+          </div>
+        {/if}
+
+        {#if entityId?.startsWith('P') && entityState?.interrogationAvailable}
+          <div
+            class="tab-pane fade"
+            class:show={!entityState.searchAvailable}
+            class:active={!entityState.searchAvailable}
+            id="tab-interrogation"
+            role="tabpanel"
+          >
+            <InspectionForm {context} mode="interrogation" onInspect={handleInterrogation} />
+          </div>
+        {/if}
+      </div>
     {/if}
 
     {#if exposedClues.length}
