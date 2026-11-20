@@ -16,8 +16,8 @@
   let context = $state(null);
 
   const SEARCH_CODE_TITLES = {
-    CLUES_EXHAUSTED: 'Улик не обнаружено',
-    CLUE_FOCUSED_UNCOVER: 'Обнаружена фокусная улика',
+    CLUES_EXHAUSTED: 'Улик больше нет',
+    CLUE_FOCUSED_UNCOVER: 'Обнаружена улика в фокусе',
     CLUE_UNCOVER: 'Случайно обнаружена улика',
     UNREVEALED_FOCUS: 'Фокус с неизвестными элементами'
   };
