@@ -15,6 +15,9 @@
   let loading = $state(true);
   let context = $state(null);
 
+  let searchResult = $state(null);
+  let searchModalEl = $state(null);
+
   const entity = $derived(
     entityId?.startsWith('P')
       ? context?.script?.crime?.personages?.[entityId]
@@ -42,6 +45,11 @@
     try {
       const r = await investigationApi.search(investigationId, entityId, focus, d12);
       console.log('[Search] result: ', r);
+      searchResult = r;
+
+      if (searchModalEl && window.bootstrap) {
+        window.bootstrap.Modal.getOrCreateInstance(searchModalEl).show();
+      }
     } catch (ex) {
       error = ex.data;
     } finally {
@@ -214,15 +222,41 @@
       ← Вернуться к карте
     </button>
   {/if}
+
+  <div
+    bind:this={searchModalEl}
+    class="modal fade"
+    tabindex="-1"
+    aria-labelledby="searchResultModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="searchResultModalLabel">Результат обыска</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Закрыть"
+          ></button>
+        </div>
+        <div class="modal-body text-center py-4">
+          <div class="fs-2 fw-bold">{searchResult?.code ?? ''}</div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
+            ОК
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <style>
-  :global(.nav-tabs .nav-link.active) {
-    font-weight: 700;
-  }
-  
   :global(.nav-tabs .nav-link) {
-    color: var(--bs-secondary-color); /* или #adb5bd для более светлого оттенка */
+    color: var(--bs-secondary-color);
   }
 
   :global(.nav-tabs .nav-link:hover) {
