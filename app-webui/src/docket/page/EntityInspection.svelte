@@ -5,6 +5,7 @@
   import UiErrorMessage from '@core/widget/UiErrorMessage.svelte';
   import UiLoadingIndicator from '@core/widget/UiLoadingIndicator.svelte';
   import * as investigationApi from '../api/InvestigationApi.js';
+  import InspectionForm from '../widget/InspectionForm.svelte';
 
   let { params = {} } = $props();
   const investigationId = $derived(params.investigationId);
@@ -16,81 +17,30 @@
 
   const entity = $derived(
     entityId?.startsWith('P')
-	  ? context.script?.crime?.personages?.[entityId]
-	  : context.script?.crime?.scene?.locations?.[entityId]
+      ? context?.script?.crime?.personages?.[entityId]
+      : context?.script?.crime?.scene?.locations?.[entityId]
   );
 
   const entityState = $derived(
     entityId?.startsWith('P')
-     ? context.investigation?.state?.personages?.[entityId]
-     : context.investigation?.state?.scene?.locations?.[entityId]
+      ? context?.investigation?.state?.personages?.[entityId]
+      : context?.investigation?.state?.scene?.locations?.[entityId]
   );
 
-  const activeDetectiveId = $derived(
-    context.investigation.state.activeDetectiveId
-  );
+  const budget = $derived(context?.investigation?.state?.budget ?? 0);
 
-  const activeDetective = $derived(
-    context.script.investigation.detectives[activeDetectiveId]
-  );
-
-  const focusLimit = $derived(
-    context.script.investigation.search.focusLimit
-  );
-
-  const searchCost = $derived(
-    context.script.investigation.search.cost
-  );
-
-  const searchPoints = $derived(
-    context.script.investigation.search.points
-  );
-
-  const budget = $derived(context.investigation.state.budget);
-
-  // Улики локации по сценарию, отфильтрованные по факту открытия
+  // Улики сущности по сценарию, отфильтрованные по факту открытия
   const exposedClues = $derived(
-    (Array.isArray(entity.clues) ? entity.clues : []).filter(
-      (cid) => context.investigation.state.clues[cid]?.discovered === true
+    (Array.isArray(entity?.clues) ? entity.clues : []).filter(
+      (cid) => context?.investigation?.state?.clues?.[cid]?.discovered === true
     )
   );
 
-  const FOCUS_TOKEN = /^(?:[CcLlPp](?:\?|[a-zA-Z0-9]{1,3})?|[Tt](?:\?|\d{1,3})?)$/;
-
-  let focus = $state('');
-  let d12 = $state(null);
-
-  let focusError = $state(false);
-  let d12Error = $state(false);
-
-  const focusTokens = $derived(
-    focus.split(/[ ,]+/).filter(Boolean)
-  );
-
-  const focusValid = $derived(
-    focusTokens.length > 0 && focusTokens.every((t) => FOCUS_TOKEN.test(t))
-  );
-
-  const d12Valid = $derived(
-    Number.isInteger(d12) && d12 >= 1 && d12 <= 12
-  );
-
-  function rollD12() {
-    d12 = Math.floor(Math.random() * 12) + 1;
-  }
-
-  async function handleSearch(e) {
-    e.preventDefault();
-
-    focusError = !focusValid;
-    d12Error = !d12Valid;
-
-    if (focusError || d12Error) return;
-
+  async function handleSearch(focus, d12) {
     loading = true;
     error = null;
     try {
-      const r = await investigationApi.search(investigationId, entityId, focus, Number(d12));
+      const r = await investigationApi.search(investigationId, entityId, focus, d12);
       console.log('[Search] result: ', r);
     } catch (ex) {
       error = ex.data;
@@ -99,6 +49,10 @@
     }
   }
 
+  async function handleInterrogation(focus, d12) {
+    console.log('[Interrogation]', focus, d12);
+  }
+  
   function goBack() {
     pop();
   }
@@ -134,7 +88,7 @@
   <UiLoadingIndicator {loading} />
   <UiErrorMessage {error} />
 
-  {#if context}
+  {#if context && entity && entityState}
     <h1>
       {entity.name}
     </h1>
@@ -163,159 +117,11 @@
     </div>
 
     {#if entityState.searchAvailable && budget > 0}
-      <h2>Обыск</h2>
-
-      <div class="d-flex flex-wrap align-items-center gap-2 small text-muted mb-2">
-        <span class="d-inline-flex align-items-center gap-2 text-body">
-          <img
-            src="/docket/script/images/thumb/{context.investigation.scriptId}/{activeDetectiveId}"
-            alt={activeDetective.name}
-            class="rounded border text-muted flex-shrink-0"
-            style="width: 32px; height: 32px; object-fit: cover;"
-          />
-          <span>{activeDetective.name}</span>
-        </span>
-        <span>·</span>
-        <span>Стоимость: <strong>{searchCost}</strong></span>
-        <span>·</span>
-        <span>Очки: <strong>{searchPoints}</strong></span>
-        <span>·</span>
-        <span>Бюджет: <strong>{budget}</strong></span>
-      </div>
-
-      <div
-        class="search-form-panel mb-3 p-3"
-        style="background-color: #eaeaea; border: 1px solid #bdbdbd; border-radius: 0.25rem;"
-      >
-        <form
-          style="max-width: 360px;"
-          novalidate
-          onsubmit={handleSearch}
-        >
-          <div class="mb-3 row align-items-start">
-            <label for="search-focus" class="col-4 col-form-label">
-              <span class="d-inline-flex align-items-center gap-1">
-                Фокус:
-                <button
-                  type="button"
-                  class="btn btn-sm btn-outline-secondary rounded-circle d-inline-flex align-items-center justify-content-center p-0"
-                  style="width: 1.2rem; height: 1.2rem; font-size: 0.7rem;"
-                  data-bs-toggle="modal"
-                  data-bs-target="#focusHelpModal"
-                  aria-label="Подсказка по формату фокуса"
-                  title="Подсказка по формату"
-                >
-                  <i class="fas fa-info"></i>
-                </button>
-              </span>
-            </label>
-            <div class="col-8">
-              <input
-                id="search-focus"
-                type="text"
-                class="form-control {focusError ? 'is-invalid' : ''}"
-                placeholder="Лимит:{focusLimit}"
-                autocapitalize="characters"
-                autocomplete="off"
-                spellcheck="false"
-                bind:value={focus}
-              />
-              {#if focusError}
-                <div class="invalid-feedback">
-                  Неверный формат
-                </div>
-              {/if}
-            </div>
-          </div>
-
-          <div class="mb-3 row align-items-start">
-            <label for="search-d12" class="col-4 col-form-label">D12:</label>
-            <div class="col-8">
-              <div class="d-flex gap-2">
-                <button
-                  type="button"
-                  class="btn btn-outline-secondary"
-                  title="Бросить D12"
-                  aria-label="Бросить D12"
-                  onclick={rollD12}
-                >
-                  <i class="fas fa-dice"></i>
-                </button>
-                <input
-                  id="search-d12"
-                  type="number"
-                  class="form-control {d12Error ? 'is-invalid' : ''}"
-                  placeholder="?"
-                  min="1"
-                  max="12"
-                  bind:value={d12}
-                />
-              </div>
-              {#if d12Error}
-                <div class="invalid-feedback d-block">
-                  Введите число от 1 до 12.
-                </div>
-              {/if}
-            </div>
-          </div>
-
-          <div class="text-end">
-            <button type="submit" class="btn btn-primary">
-              <i class="fas fa-magnifying-glass me-2"></i>Обыскать
-            </button>
-          </div>
-        </form>
-      </div>
-
-      <!-- Bootstrap Modal с подсказкой по формату поля «Фокус» -->
-      <div
-        class="modal fade"
-        id="focusHelpModal"
-        tabindex="-1"
-        aria-labelledby="focusHelpModalLabel"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="focusHelpModalLabel">
-                Формат поля «Фокус»
-              </h5>
-              <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Закрыть"
-              ></button>
-            </div>
-            <div class="modal-body">
-              <p class="mb-2">
-                Укажите через запятую или пробел id/типы сущностей в любом регистре:
-              </p>
-              <ul>
-                <li>
-                  <span class="badge text-bg-light border">[C|L|P]</span>
-                  + (пусто | знак «<span class="badge text-bg-light border">?</span>» | 1–3 буквы/цифры)
-                </li>
-                <li>
-                  <span class="badge text-bg-light border">T</span>
-                  + (пусто | знак «<span class="badge text-bg-light border">?</span>» | 1–3 цифры)
-                </li>
-              </ul>
-
-              <p class="mb-1 fw-semibold">Примеры:</p>
-              <ul class="mb-0">
-                <li>t1 ckey p</li>
-                <li>pgrd, c</li>
-                <li>L2  t?</li>
-              </ul>
-			  <p class="mb-1 fw-semibold mt-1">Лимит фокуса:</p>
-			  Максимальное число элементов в фокусе (id или типов)
-			  
-            </div>
-          </div>
-        </div>
-      </div>
+       <InspectionForm {context} mode="search" onInspect={handleSearch} />
+    {/if}
+	
+	{#if entityId?.startsWith('P') && entityState?.interrogationAvailable && budget > 0}
+      <InspectionForm {context} mode="interrogation" onInspect={handleInterrogation} />
     {/if}
 
     {#if exposedClues.length}
