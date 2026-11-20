@@ -215,3 +215,22 @@
     </button>
   {/if}
 </div>
+
+<style>
+  :global(.nav-tabs .nav-link.active) {
+    font-weight: 700;
+  }
+  
+  :global(.nav-tabs .nav-link) {
+    color: var(--bs-secondary-color); /* или #adb5bd для более светлого оттенка */
+  }
+
+  :global(.nav-tabs .nav-link:hover) {
+    color: var(--bs-body-color);
+  }
+
+  :global(.nav-tabs .nav-link.active) {
+    font-weight: 700;
+    color: var(--bs-emphasis-color);
+  }
+</style>
