@@ -15,8 +15,19 @@
   let loading = $state(true);
   let context = $state(null);
 
+  const SEARCH_CODE_TITLES = {
+    CLUES_EXHAUSTED: 'Улик не обнаружено',
+    CLUE_FOCUSED_UNCOVER: 'Обнаружена фокусная улика',
+    CLUE_UNCOVER: 'Случайно обнаружена улика',
+    UNREVEALED_FOCUS: 'Фокус с неизвестными элементами'
+  };
+
   let searchResult = $state(null);
   let searchModalEl = $state(null);
+
+  const searchModalTitle = $derived(
+    SEARCH_CODE_TITLES[searchResult?.code] ?? searchResult?.code ?? 'Результат обыска'
+  );
 
   const entity = $derived(
     entityId?.startsWith('P')
@@ -233,16 +244,13 @@
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="searchResultModalLabel">Результат обыска</h5>
+          <h5 class="modal-title" id="searchResultModalLabel">{searchModalTitle}</h5>
           <button
             type="button"
             class="btn-close"
             data-bs-dismiss="modal"
             aria-label="Закрыть"
           ></button>
-        </div>
-        <div class="modal-body text-center py-4">
-          <div class="fs-2 fw-bold">{searchResult?.code ?? ''}</div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
