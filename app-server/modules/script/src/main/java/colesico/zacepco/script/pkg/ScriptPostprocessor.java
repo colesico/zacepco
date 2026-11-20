@@ -40,7 +40,7 @@ public class ScriptPostprocessor implements ReadPostprocessor<ScriptDocument> {
             focusedClue.getValue().clue = focusedClue.getKey();
         }
 
-        for (var focusedClue : document.investigation.expertise.clues.entrySet()) {
+        for (var focusedClue : document.investigation.examination.clues.entrySet()) {
             focusedClue.getValue().clue = focusedClue.getKey();
         }
 

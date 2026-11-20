@@ -17,7 +17,6 @@ import colesico.zacepco.investigation.manager.InvestigationManager;
 import colesico.zacepco.investigation.manager.InvestigationStateBuilder;
 import colesico.zacepco.investigation.manager.InvestigationStateEnricher;
 import colesico.zacepco.script.model.scriptdoc.LocationSpec;
-import colesico.zacepco.script.model.scriptdoc.TId;
 import jakarta.inject.Provider;
 
 import java.util.Date;
@@ -113,7 +112,7 @@ public class InvestigationService {
         var invManager = new InvestigationManager(script, investigation.state);
 
 
-        var result = invManager.locationSearchManager(locationId)
+        var result = invManager.searchManager(locationId)
                 .search(detectiveFocus, d12);
 
         if (result instanceof ClueUncover

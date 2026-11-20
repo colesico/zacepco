@@ -1,7 +1,6 @@
 package colesico.zacepco.script.model.scriptdoc;
 
 import colesico.zacepco.script.yaml.YamlComment;
-import colesico.zacepco.script.yaml.YamlCompact;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -59,10 +58,10 @@ public final class InvestigationSpec {
 
     @YamlComment(text = {
             "",
-            "Criminal expertise specification",
+            "Criminal examination specification",
             ""
     })
-    public ExpertiseSpec expertise = new ExpertiseSpec();
+    public ExaminationSpec examination = new ExaminationSpec();
 
     @YamlComment(text = {
             "",

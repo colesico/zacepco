@@ -6,14 +6,14 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
- * Clue expertise specification
+ * Examination specification
  */
-public final class ExpertiseSpec extends InvestigationActionSpec {
+public final class ExaminationSpec extends InvestigationActionSpec {
 
-    @YamlComment(text = "Examined clues")
+    @YamlComment(text = "Examination clues spec")
     public Map<ClueSpec.Id, FocusedClueSpec> clues = new LinkedHashMap<>();
 
-    public ExpertiseSpec() {
+    public ExaminationSpec() {
         this.cost = 1;
         this.points = 3;
         this.focusLimit = 3;

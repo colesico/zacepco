@@ -1,222 +1,266 @@
-
-# 
+#
 # Script meta information
-# 
+#
 metainfo:
-  
-  # Script schema version (data model version)
-  # SimVer (semver.org) notation (i.e. 1.2.3)
   schema: 1.0.0
-  
-  # Unique script identifier
-  # Can only consist of ASCII uppercase letters, numbers, underscore '_'
   uid: ZACEPCO
-  
-  # Script version (1..N)
   version: 1
-  
-  # Script title
   title: Script example
-  
-  # A brief crime summary without spoilers
-  # and version information
   annotation: |
     Demonstrates script document model
-  
-  # Authors list
+
+    Morning at Maryino came too quietly. Someone did not come down
+    to breakfast. On the grounds fresh earth showed dark, and on
+    the table a glass still stood untouched. The estate remembers
+    more than its residents will say.
   authors:
-  - Vladlen V. Ларионов
-  
-  # License under which the script is distributed
+  - Vladlen V. Larionov
   licence: CC BY 4.0
-  
-  # Script creation date YYYY-MM-DD
   creationDate: '2026-01-01'
-  
-  # Game estimated difficulty level
-  # Dimensionless coefficient [0..1]
-  # 0 - easy; 1 - highly difficult
   difficulty: 0.0
-  
-  # Estimated playtime, minutes
   estimatedTime:
     min: 1
     max: 5
-  
-  # Recommended number of players (min-max)
   playersNum:
     min: 1
     max: 4
-  
-  # Recommended age for players
-  # Example: 18+ or 4-10
   age: 18+
 
-# 
+#
 # Crime phase specification
-# Describes objective crime world
-# and initial state for investigation
-# 
+# Describes objective crime world, initial investigation state,
+# and answer verification data.
+#
 crime:
-  
+
   # Full crime fabula
   # Used to verify the investigation's findings (answers)
   fabula: |
-    The Gardener killed the Butler, buried the body under a birch tree in the garden,  and burned the evidence in the fireplace in the library.
-  
+    Solid (PSLD) met Transparent (PTRN) in the castle (LCST),
+    killed him, carried the body across the sunny beach (LBCH)
+    to the hill (LMNT) and buried it there, then disposed of
+    the remaining evidence at the camping (LCMP).
+
   # Crime timeline. Defines all possible ticks
-  # Example: T1: 10:00 or with date  T2: 2025-01-02T20:00
-  # Specify either the time only or the date-time only, mixing formats is not allowed.
   timeline:
     T1: '10:00'
     T2: '10:30'
-    T3: 2025-01-02T11:15
-    T4: 2025-01-03T10:15
-    T5: 2025-01-04T04:44
-  
-  # 
-  # Character definitions
-  # Defines all characters involved in the crime,
-  # their initial investigation state, and answer data
-  # Character ID - unique within the script
-  # ID format: P[A-Z0-9]{1,3}
-  # 
+    T3: '11:15'
+    T4: '12:45'
+    T5: '14:00'
+    T6: '15:30'
+    T7: '17:00'
+
+  #
+  # Personages
+  # clues  — all clues ever associated with the personage (summary)
+  # log    — per-tick location; 'clue' is a clue appearing at that tick
+  #
   personages:
+
     PFCE:
-      
-      # Short name
       name: Happy face
-      
-      # Optional description
       description: |
         Emoji happy face
-      
-      # Optional referenced script
-      # If this entity is imported from another script,
-      # specify that script UID
       ref: ZACEPCO
-      
-      # Personage related clues
-      clues: [CFPR, CSGT]
-      
-      # Personage log for each tick
-      # Used to verify the investigation's findings (answers)
+      clues: [CFPR, CPEN]
       log:
         T1:
-          
-          # Personage destination location for tick
-          # Initial character location not specified - it refers to the previous tick
           location: LCST
-          
-          # Clue linked to this personage during the tick
           clue: CFPR
         T2:
-          location: L3
+          location: LCST
+          clue: CPEN
+        T3:
+          location: LBCH
+        T4:
+          location: LHSE
+        T5:
+          location: LHSE
+        T6:
+          location: LHSE
+        T7:
+          location: LHSE
+
     PJOY:
       name: Joyful man
-      description: |
-        Joyful personage
+      description: Joyful personage
+      clues: [CKEY]
+      log:
+        T1:
+          location: LBCH
+        T2:
+          location: LBCH
+        T3:
+          location: LBCH
+        T4:
+          location: LBCH
+        T5:
+          location: LHSE
+          clue: CKEY
+        T6:
+          location: LHSE
+        T7:
+          location: LHSE
+
     PTRN:
       name: Transparent
-      description: "Transparent personage \n"
+      description: Transparent personage
+      clues: [CGUN]
+      log:
+        T1:
+          location: LCMP
+          clue: CGUN
+        T2:
+          location: LRIV
+        T3:
+          location: LBCH
+        T4:
+          location: LCST
+        T5:
+          location: LBCH
+        T6:
+          location: LMNT
+        T7:
+          location: LMNT
+
     PSLD:
       name: Solid
       description: Solid round personage
-      
-      # Initially hidden personage or not
-      # Default: false
       hidden: true
-  
-  # 
-  # Crime scene definition
-  # 
+      log:
+        T1:
+          location: LCST
+        T2:
+          location: LCST
+        T3:
+          location: LCST
+        T4:
+          location: LCST
+        T5:
+          location: LBCH
+        T6:
+          location: LMNT
+        T7:
+          location: LCMP
+
+  #
+  # Crime scene
+  #
   scene:
-    
-    # Scene short name
+
     name: Maryino Estate
-    
-    # Grid size for locations placement
+
     size:
-      cols: 4 # Columns number
-      rows: 3 # Rows number
-    
-    # 
-    # Locations dictionary
-    # Defines all crime locations,
-    # their initial investigation state, and answer data
-    # Location ID - unique within script
-    # ID format: L[A-Z0-9]{1,3}
-    # 
+      cols: 4
+      rows: 3
+
+    #
+    # Locations
+    # clues — all clues ever associated with the location (summary)
+    # log   — per-tick personages and clues appearing at the location
+    #
     locations:
+
       LCST:
         name: Castle
         description: |
           Castle with red flag
         ref: ZACEPCO
-        
-        # Location position on scene grid
-        # (1,1) - left top scene corner
         pos: {col: 2, row: 1}
-        
-        # Location related clues
-        clues: [CHMR, CSGT]
-        
-        # Location log
-        # Each element corresponds to a time tick
-        # Used to verify the investigation's findings (answers)
+        clues: [CSGT, CHMR, CGLS]
         log:
+          T1:
+            personages: [PFCE, PSLD]
+            clues: [CSGT]
+          T2:
+            personages: [PFCE, PSLD]
           T3:
-            
-            # Time tick id
-            tick: T3
-            
-            # Personages whose destination is this location for the given tick
-            personages: [PFCE, PJOY]
-            
-            # Clues linked to this location during the tick
-            clues: [CFPR, CSGT]
+            personages: [PJOY, PSLD]
+          T4:
+            personages: [PSLD, PTRN]
+            clues: [CHMR, CGLS]
+
       LBCH:
         name: Sunny beach
         description: |
           Three sun loungers and a beach umbrella
         pos: {col: 2, row: 2}
+        log:
+          T1:
+            personages: [PJOY]
+          T2:
+            personages: [PJOY]
+          T3:
+            personages: [PFCE, PTRN]
+          T4:
+            personages: [PJOY]
+          T5:
+            personages: [PSLD, PTRN]
+
       LCMP:
         name: Camping
-        description: "Two camping tents and a campfire pit \nwith smoldering embers\n"
+        description: |
+          Two camping tents and a campfire pit
+          with smoldering embers
         pos: {col: 3, row: 3}
+        log:
+          T1:
+            personages: [PTRN]
+          T7:
+            personages: [PSLD]
+
       LWOD:
         name: Pine woods
         description: |
           A small pinewood with a glade
         pos: {col: 4, row: 3}
+
       LHSE:
         name: Abandoned house
         description: |
           People say there are ghosts here
         pos: {col: 1, row: 2}
+        clues: [CCLK]
+        log:
+          T1:
+            clues: [CCLK]
+          T4:
+            personages: [PFCE]
+          T5:
+            personages: [PFCE, PJOY]
+          T6:
+            personages: [PFCE, PJOY]
+          T7:
+            personages: [PFCE, PJOY]
+
       LRIV:
         name: River
         description: |
           Fast current, deep bottom
         pos: {col: 3, row: 2}
+        log:
+          T2:
+            personages: [PTRN]
+
       LMNT:
         name: Hill
         pos: {col: 2, row: 3}
-        
-        # Initially hidden location or not
-        # Default: false
         hidden: true
-    
+        clues: [CBRY]
+        log:
+          T6:
+            personages: [PSLD, PTRN]
+            clues: [CBRY]
+          T7:
+            personages: [PTRN]
+
+    #
     # Ways between two locations
-    # Always connects only two locations, direction does not matter
-    # There can be only one direct way between two locations
-    # Way ID - unique within script
-    # ID format: W[A-Z0-9]{1,3}
+    #
     ways:
       WCB:
         description: length 10m
-        
-        # IDs of the two connected locations
         locations: [LCST, LBCH]
       WBR:
         locations: [LBCH, LRIV]
@@ -228,170 +272,146 @@ crime:
         locations: [LCMP, LWOD]
       WBM:
         locations: [LBCH, LMNT]
-        
-        # Is initially hidden way or not
-        # Default: false
         hidden: true
       WMC:
         locations: [LMNT, LCMP]
         hidden: true
-  
-  # 
-  # Clues dictionary
-  # Defines all clues involved in the crime
-  # their initial investigation state, and answer data
-  # Clue ID - unique within script
-  # ID format: C[A-Z0-9]{1,3}
-  # 
+
+  #
+  # Clues
+  # discovered — visible to detectives at start (default: false)
+  # falsity    — false clue (answer verification data)
+  # reveals    — entities opened when this clue becomes discovered
+  # leadsTo    — target entities this clue logically points to (answers)
+  #
   clues:
+
     CFPR:
       name: Fingerprint
       description: |
         Left on a spoon
       ref: ZACEPCO
-      
-      # False clue or not
-      # Default: false
-      # Used as answers to verify the investigation's findings
       falsity: true
+      discovered: true
+
     CSGT:
       name: Cigarette butt
-      
-      # Initially revealed clue or not
-      # Default: false
       discovered: true
-      
-      # Entities that this clue reveals (characters, locations, other clues)
-      reveals: [LMNT]
-      
-      # Target entities that this clue leads to
-      # Used as answers to verify the investigation results
-      leadsTo: [PJOY]
+
     CHMR:
       name: Hammer
       description: A fingerprint on the handle
+      reveals: [LMNT, WBM, WMC]
+      leadsTo: [LMNT, PSLD]
+
     CCLK:
       name: Clock
       description: The clock hands stopped at 5:15
+      leadsTo: [LHSE]
+
     CKEY:
       name: Key
       description: An old rusty key
+      leadsTo: [PJOY, LHSE]
+
     CGLS:
       name: Glass
       description: A full martini glass
+      leadsTo: [PTRN, LCST]
+
     CPEN:
       name: Yellow pen
       description: A metal body
+      reveals: [PSLD]
+      leadsTo: [PSLD]
+
     CGUN:
       name: Gun
       description: Calibre .25
-    CEXP:
-      name: Заключение экспертизы
-      description: Улики совпадают
-    CEXN:
-      name: Заключение экспертизы
-      description: Улики не совпадают
-      
-      # To use an image from another entity, specify the ID of that entity.
-      # Omit this field if the entity uses its own individual image.
-      asset: CEXP
+      falsity: true
+      leadsTo: [PTRN]
 
-# 
+    CBRY:
+      name: Buried body
+      description: A hand protrudes from the fresh earth
+      reveals: [CGUN]
+      leadsTo: [PTRN, LMNT, PSLD]
+
+    CEXP:
+      name: Expert report
+      description: The evidence matches
+      leadsTo: [CFPR, CGLS]
+
+    CEXN:
+      name: Expert report
+      description: The evidence does not match
+      asset: CEXP
+      leadsTo: [CGUN, CKEY]
+
+#
 # Investigation phase specification
-# Describes investigation model and its params
-# 
+#
 investigation:
-  
-  # Investigation budget in resource units
-  # Default: 2147483647
+
   budget: 9
-  
-  # Planned crime solving strategy.
-  # Specify field:
-  # 'location' for search;
-  # 'personage' for interrogation;
-  # nothing for expertise
-  # 
-  # Example for location search:
-  # - location: L2
-  # focus: [T4,C2]
-  # result: C5
+
+  # Planned crime solving strategy
   strategy:
-  - 
-    # Location ID to search
-    location: L2
-    
-    # Detective focus
-    focus: [T4, C1]
-    
-    # Clue obtained
-    result: C8
-  
-  # 
-  # Location search specification
-  # 
+    - location: LCST
+      focus: [T4, PTRN]
+      result: CHMR
+    - location: LMNT
+      focus: [T6, PTRN]
+      result: CBRY
+    - personage: PFCE
+      focus: [T2, LCST]
+      result: CPEN
+
   search:
-    
-    # Cost in resource units of investigation action on subject (int)
     cost: 3
-    
-    # Base points for investigation action (int)
     points: 1
-    
-    # Maximum number of elements in detective focus
     focusLimit: 1
-    
-    # Cost of obtaining investigation subject statistics
-    # (-1) - statistics is prohibited
-    # (0) - free statistics
-    # Default:  0
     statCost: -1
-    
-    # Location clues to be uncovered
     clues:
       CHMR:
-        
-        # Entities on which investigation action is focused
-        focus: [C3, P2, T2]
-        
-        # Clue uncover threshold
-        # Default: 0.0
-        threshold: 8.1
-  
-  # 
-  # Personage interrogation specification
-  # 
+        focus: [T4, PSLD, PTRN]
+        threshold: 5.5
+      CGLS:
+        focus: [T4, PTRN]
+        threshold: 4.5
+      CCLK:
+        focus: [T1, LHSE]
+        threshold: 6.0
+      CBRY:
+        focus: [T6, PSLD, PTRN]
+        threshold: 7.0
+
   interrogation:
     cost: 2
     points: 2
     focusLimit: 2
     statCost: -1
-    
-    # Personage clues to be uncovered
     clues:
-      C2:
-        focus: [T2, P1, L3]
-        threshold: 7.0
-  
-  # 
-  # Criminal expertise specification
-  # 
-  expertise:
+      CPEN:
+        focus: [T2, LCST]
+        threshold: 5.5
+      CKEY:
+        focus: [T5, PJOY, LHSE]
+        threshold: 6.0
+
+  examination:
     cost: 1
     points: 3
     focusLimit: 3
     statCost: -1
-    
-    # Examined clues
     clues:
-      C6:
-        focus: [C1, C2, P3, L2]
+      CEXP:
+        focus: [CFPR, CGLS]
         threshold: 3.0
-  
-  # 
-  # Detectives dictionary
-  # A subset of which can participate in the investigation
-  # 
+      CEXN:
+        focus: [CGUN, CKEY]
+        threshold: 4.0
+
   detectives:
     DHLS:
       name: Sherlock Holmes

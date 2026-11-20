@@ -2,36 +2,39 @@ package colesico.zacepco.investigation.manager;
 
 import colesico.zacepco.investigation.dto.*;
 import colesico.zacepco.investigation.dto.action.*;
-import colesico.zacepco.script.model.scriptdoc.FocusedClueSpec;
-import colesico.zacepco.script.model.scriptdoc.LocationSpec;
+import colesico.zacepco.script.model.scriptdoc.*;
 
 import java.util.*;
 
 
-public class LocationSearchManager {
+public class SearchManager {
 
     private final InvestigationManager invManager;
 
-    private final LocationSpec.Id locationId;
+    private final TId entityId;
 
-    public LocationSearchManager(InvestigationManager invManager, LocationSpec.Id locationId) {
+    public SearchManager(InvestigationManager invManager, LocationSpec.Id entityId) {
         this.invManager = invManager;
-        this.locationId = locationId;
+        this.entityId = entityId;
     }
 
-    private Set<FocusedClueSpec> findUnexposedFocusedClues() {
-        Set<FocusedClueSpec> result = new HashSet<>();
-        var locationSpec = invManager.script.crime.scene.locations.get(locationId);
+    public SearchManager(InvestigationManager invManager, PersonageSpec.Id entityId) {
+        this.invManager = invManager;
+        this.entityId = entityId;
+    }
+
+    private Set<FocusedClueSpec> findUnexposedFocusedClues(Set<ClueSpec.Id> entityClues) {
         var focusedClues = invManager.script.investigation.search.clues;
 
-        for (var clueId : locationSpec.clues) {
+        Set<FocusedClueSpec> result = new HashSet<>();
+        for (var clueId : entityClues) {
             var clueState = invManager.state.clues.get(clueId);
             if (clueState.discovered) {
                 continue;
             }
             var focusedClue = focusedClues.get(clueId);
-            if (focusedClue == null){
-                throw new IllegalStateException("Search focused clue not found: "+clueId);
+            if (focusedClue == null) {
+                continue;
             }
             result.add(focusedClue);
         }
@@ -41,7 +44,15 @@ public class LocationSearchManager {
 
 
     private LocationSearchResult searchClue(DetectiveFocus detectiveFocus, Integer d12) {
-        var cluesToSearch = findUnexposedFocusedClues();
+        Set<FocusedClueSpec> cluesToSearch = null;
+
+        if (entityId instanceof LocationSpec.Id locationId) {
+            cluesToSearch = findUnexposedFocusedClues(invManager.script.crime.scene.locations.get(locationId).clues);
+        } else if (entityId instanceof PersonageSpec.Id personageId) {
+            cluesToSearch = findUnexposedFocusedClues(invManager.script.crime.personages.get(personageId).clues);
+        } else {
+            throw new IllegalStateException("Unsupported entityId: " + entityId);
+        }
 
         if (cluesToSearch.isEmpty()) {
             return new CluesExhausted();
@@ -94,10 +105,10 @@ public class LocationSearchManager {
     public LocationSearchResult search(DetectiveFocus detectiveFocus, Integer d12) {
 
         if (invManager.state.budget <= 0) {
-            throw new IllegalArgumentException("Out of investigation budget" + locationId);
+            throw new IllegalArgumentException("Out of investigation budget" + entityId);
         }
 
-        var locationState = invManager.state.scene.locations.get(locationId);
+        var locationState = invManager.state.scene.locations.get(entityId);
 
         if (!locationState.searchAvailable) {
             throw new IllegalArgumentException("Search not available");
