@@ -4,6 +4,7 @@ import colesico.zacepco.investigation.model.state.InvestigationState;
 import colesico.zacepco.script.model.scriptdoc.LocationSpec;
 import colesico.zacepco.script.model.scriptdoc.PersonageSpec;
 import colesico.zacepco.script.model.scriptdoc.ScriptDocument;
+import colesico.zacepco.script.model.scriptdoc.TId;
 
 public class InvestigationManager {
 
@@ -25,18 +26,8 @@ public class InvestigationManager {
         this.state = stateBuilder.build();
     }
 
-    public SearchManager searchManager(LocationSpec.Id locationId) {
-        if (!state.scene.locations.containsKey(locationId)) {
-            throw new IllegalArgumentException("Location for investigation not found. Id: " + locationId);
-        }
-        return new SearchManager(this, locationId);
-    }
-
-    public SearchManager searchManager(PersonageSpec.Id personageId) {
-        if (!state.personages.containsKey(personageId)) {
-            throw new IllegalArgumentException("Personage for investigation not found. Id: " + personageId);
-        }
-        return new SearchManager(this, personageId);
+    public SearchManager searchManager(TId entityId) {
+        return new SearchManager(this, entityId);
     }
 
     public InvestigationState state() {

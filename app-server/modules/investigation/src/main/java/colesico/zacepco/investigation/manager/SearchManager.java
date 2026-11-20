@@ -8,7 +8,6 @@ import colesico.zacepco.script.model.scriptdoc.*;
 
 import java.util.*;
 
-
 public class SearchManager {
 
     private final ScriptDocument script;
@@ -16,13 +15,7 @@ public class SearchManager {
 
     private final TId entityId;
 
-    public SearchManager(InvestigationManager invManager, LocationSpec.Id entityId) {
-        this.script = invManager.script;
-        this.state = invManager.state;
-        this.entityId = entityId;
-    }
-
-    public SearchManager(InvestigationManager invManager, PersonageSpec.Id entityId) {
+    public SearchManager(InvestigationManager invManager, TId entityId) {
         this.script = invManager.script;
         this.state = invManager.state;
         this.entityId = entityId;
@@ -46,7 +39,6 @@ public class SearchManager {
 
         return result;
     }
-
 
     private LocationSearchResult searchClue(Set<ClueSpec.Id> entityClues, DetectiveFocus detectiveFocus, Integer d12) {
         Set<FocusedClueSpec> cluesToSearch = findUnexposedFocusedClues(entityClues);
@@ -167,6 +159,5 @@ public class SearchManager {
 
         return result;
     }
-
 
 }

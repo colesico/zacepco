@@ -17,6 +17,8 @@ import colesico.zacepco.investigation.manager.InvestigationManager;
 import colesico.zacepco.investigation.manager.InvestigationStateBuilder;
 import colesico.zacepco.investigation.manager.InvestigationStateEnricher;
 import colesico.zacepco.script.model.scriptdoc.LocationSpec;
+import colesico.zacepco.script.model.scriptdoc.PersonageSpec;
+import colesico.zacepco.script.model.scriptdoc.TId;
 import jakarta.inject.Provider;
 
 import java.util.Date;
@@ -104,16 +106,14 @@ public class InvestigationService {
         return inv;
     }
 
-    public LocationSearchResult locationSearch(Long investigationId, LocationSpec.Id locationId, DetectiveFocus detectiveFocus, Integer d12) {
+    public LocationSearchResult search(Long investigationId, TId entityId, DetectiveFocus detectiveFocus, Integer d12) {
 
         var investigation = investigationDao.findInvestigationById(investigationId).orElseThrow(() -> new IllegalArgumentException("Investigation not found. Id: " + investigationId));
         var script = scriptService.scriptPackage(investigation.getScriptId()).scriptDocument().read();
 
         var invManager = new InvestigationManager(script, investigation.state);
 
-
-        var result = invManager.searchManager(locationId)
-                .search(detectiveFocus, d12);
+        var result = invManager.searchManager(entityId).search(detectiveFocus, d12);
 
         if (result instanceof ClueUncover
                 || result instanceof CluesExhausted) {
