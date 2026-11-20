@@ -64,6 +64,25 @@
   function rollD12() {
     d12 = Math.floor(Math.random() * 12) + 1;
   }
+  
+  function handleFocusInput(e) {
+    const target = e.currentTarget;
+    const raw = target.value;
+    const cursor = target.selectionStart ?? raw.length;
+    const isAtEnd = cursor === raw.length;
+
+    let formatted = raw.toUpperCase();
+
+    if (isAtEnd) {
+      formatted = formatted.replace(/([^\s,]{4})([^\s,])$/, '$1 $2');
+    }
+
+    const newCursor = isAtEnd ? formatted.length : cursor;
+
+    focus = formatted;
+    target.value = formatted;
+    target.setSelectionRange(newCursor, newCursor);
+  }
 
   function handleSubmit(e) {
     console.log("Handle submit");
@@ -134,7 +153,8 @@
           autocapitalize="characters"
           autocomplete="off"
           spellcheck="false"
-          bind:value={focus}
+          value={focus}
+          oninput={handleFocusInput}
         />
         {#if focusError}
           <div class="invalid-feedback">
@@ -206,24 +226,23 @@
       </div>
       <div class="modal-body">
         <p class="mb-2">
-          Укажите через запятую или пробел id/типы сущностей в любом регистре:
+          Укажите через запятую или пробел id сущностей или их типы (L,P,C,T):
         </p>
         <ul>
           <li>
-            <span class="badge text-bg-light border">[C|L|P]</span>
-            + (пусто | знак «<span class="badge text-bg-light border">?</span>» | 1–3 буквы/цифры)
+            [L|P|C]
+            + [пусто | знак '?' | 1–3 буквы/цифры]
           </li>
           <li>
-            <span class="badge text-bg-light border">T</span>
-            + (пусто | знак «<span class="badge text-bg-light border">?</span>» | 1–3 цифры)
+            T + [пусто | знак "?" | 1–3 цифры)]
           </li>
         </ul>
 
         <p class="mb-1 fw-semibold">Примеры:</p>
         <ul class="mb-0">
-          <li>t1 ckey p</li>
-          <li>pgrd, c</li>
-          <li>L2  t?</li>
+          <li>T1 CKEY P</li>
+          <li>PUSR, C</li>
+          <li>L2  T? C?</li>
         </ul>
         <p class="mb-1 fw-semibold mt-1">Лимит фокуса:</p>
         Максимальное число элементов в фокусе (id или типов)
