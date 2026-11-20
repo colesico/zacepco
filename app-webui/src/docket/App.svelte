@@ -5,7 +5,7 @@
   import ScriptOverview from './page/ScriptOverview';
   import InvestigationStart from './page/InvestigationStart';
   import Investigation from './page/Investigation';
-  import InvestigationSearch from './page/InvestigationSearch';
+  import EntityInspection from './page/EntityInspection';
 
   
   const routes = {
@@ -14,7 +14,7 @@
 	'/script/:id': ScriptOverview,
 	'/investigation/start/:id': InvestigationStart,
 	'/investigation/:id': Investigation,
-	'/investigation/:investigationId/search/:entityId': InvestigationSearch,
+	'/investigation/:investigationId/inspection/:entityId': EntityInspection,
 	'/': ScriptList
   };
   

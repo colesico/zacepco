@@ -41,14 +41,14 @@
     context.investigation.state.budget
   );
 
-  function handleLocationClick(locId) {
+  function handleLocationClick(locationId) {
     investigationScrollY = window.scrollY;
-    push(`/investigation/${id}/search/${locId}`);
+    push(`/investigation/${id}/inspection/${locationId}`);
   }
 
   function handlePersonageClick(personageId) {
     investigationScrollY = window.scrollY;
-    console.log('Выбран персонаж:', personageId);
+    push(`/investigation/${id}/inspection/${personageId}`);
   }
 
   $effect(() => {
