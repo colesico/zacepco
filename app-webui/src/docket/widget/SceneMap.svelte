@@ -14,6 +14,10 @@
     context.investigation?.state?.scene?.locations ?? {}
   );
 
+  const investigationWays = $derived(
+    context.investigation?.state?.scene?.ways ?? {}
+  );
+
   const investigationClues = $derived(
     context.investigation?.state?.clues ?? {}
   );
@@ -62,7 +66,9 @@
     const ways = scene.ways ?? {};
     const result = [];
     for (const [wayKey, way] of Object.entries(ways)) {
-      if (way.hidden) continue;
+      const isHidden = (investigationWays[wayKey]?.hidden ?? way.hidden) === true;
+      if (isHidden) continue;
+
       const [aId, bId] = way.locations ?? [];
       if (!aId || !bId) continue;
 
@@ -92,7 +98,7 @@
 
       const description = way.description ?? '';
       result.push({
-        way,
+        way: { ...way, hidden: isHidden },
         wayKey,
         key: way.id?.key ?? '',
         description,

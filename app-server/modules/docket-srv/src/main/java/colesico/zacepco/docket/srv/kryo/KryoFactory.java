@@ -1,10 +1,7 @@
 package colesico.zacepco.docket.srv.kryo;
 
 import colesico.zacepco.investigation.model.state.*;
-import colesico.zacepco.script.model.scriptdoc.ClueSpec;
-import colesico.zacepco.script.model.scriptdoc.DetectiveSpec;
-import colesico.zacepco.script.model.scriptdoc.LocationSpec;
-import colesico.zacepco.script.model.scriptdoc.PersonageSpec;
+import colesico.zacepco.script.model.scriptdoc.*;
 import com.esotericsoftware.kryo.Kryo;
 
 import java.util.ArrayList;
@@ -29,8 +26,9 @@ public class KryoFactory {
 
         kryo.register(PersonageSpec.Id.class, new TIdSerializer(), 101);
         kryo.register(LocationSpec.Id.class, new TIdSerializer(), 102);
-        kryo.register(ClueSpec.Id.class, new TIdSerializer(), 103);
-        kryo.register(DetectiveSpec.Id.class, new TIdSerializer(), 104);
+        kryo.register(WaySpec.Id.class, new TIdSerializer(), 103);
+        kryo.register(ClueSpec.Id.class, new TIdSerializer(), 104);
+        kryo.register(DetectiveSpec.Id.class, new TIdSerializer(), 105);
 
         registerBeanClasses(kryo,
                 InvestigationState.class,

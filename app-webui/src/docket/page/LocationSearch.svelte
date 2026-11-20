@@ -86,7 +86,7 @@
     loading = true;
     error = null;
     try {
-      const r = await investigationApi.locationSearch(invId, locId, focus, Number(d12));
+      const r = await investigationApi.search(invId, locId, focus, Number(d12));
       console.log('[Search] result: ', r);
     } catch (ex) {
       error = ex.data;

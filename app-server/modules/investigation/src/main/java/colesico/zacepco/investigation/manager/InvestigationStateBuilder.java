@@ -57,6 +57,7 @@ public class InvestigationStateBuilder {
 
         invState.personages.putAll(buildPersonageStates());
         invState.scene.locations.putAll(buildLocationStates());
+        invState.scene.ways.putAll(buildWayStates());
         invState.clues.putAll(buildClueStates());
         invState.detectives.putAll(buildDetectiveStates());
 
@@ -90,6 +91,20 @@ public class InvestigationStateBuilder {
                         loc -> {
                             var locState = new LocationState(loc.id);
                             locState.hidden = loc.hidden;
+                            return locState;
+                        },
+                        (u, v) -> u,
+                        LinkedHashMap::new
+                ));
+    }
+
+    private Map<WaySpec.Id, WayState> buildWayStates() {
+        return script.crime.scene.ways.values().stream()
+                .collect(Collectors.toMap(
+                        way -> way.id,
+                        way -> {
+                            var locState = new WayState(way.id);
+                            locState.hidden = way.hidden;
                             return locState;
                         },
                         (u, v) -> u,

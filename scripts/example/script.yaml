@@ -7,7 +7,7 @@ metainfo:
   version: 1
   title: Script example
   annotation: |
-    Demonstrates script document model
+    Demonstrates script document model.
 
     Morning at Maryino came too quietly. Someone did not come down
     to breakfast. On the grounds fresh earth showed dark, and on
@@ -385,6 +385,9 @@ investigation:
       CBRY:
         focus: [T6, PSLD, PTRN]
         threshold: 7.0
+      CGUN:
+        focus: [T1, LCMP, PTRN]
+        threshold: 2.0  
 
   interrogation:
     cost: 2
