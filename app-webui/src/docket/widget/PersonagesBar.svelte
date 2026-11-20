@@ -29,6 +29,7 @@
       return {
         ...p,
         hidden: inv.hidden ?? p.hidden,
+        searchAvailable: inv.searchAvailable,
         interrogationAvailable: inv.interrogationAvailable,
         exposedClues
       };
@@ -84,9 +85,15 @@
     Math.floor((CLUES_AVAILABLE_HEIGHT - CLUE_PILL_H) / CLUE_STEP_Y) + 1
   );
 
-  // ——— interrogation-availability dot ———
-  const BADGE_RADIUS = 0.030;
-  const BADGE_GAP = 0.020;
+  // ——— availability icons (magnifying glass & speech bubble) ———
+  const BADGE_SIZE = 0.088;
+  const BADGE_PAD = 0.014;
+  const BADGE_GAP = 0.014;
+  const BADGE_STEP_Y = BADGE_SIZE + BADGE_PAD * 2 + BADGE_GAP;
+  const MAGNIFYING_GLASS_PATH =
+    'M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z';
+  const SPEECH_BUBBLE_PATH =
+    'M512 240c0 114.9-114.6 208-256 208c-37.1 0-72.3-6.4-104.1-17.9c-11.9 8.7-31.3 20.6-54.3 30.6C73.6 471.1 44.7 480 16 480c-6.5 0-12.3-3.9-14.8-9.9c-2.5-6-1.1-12.8 3.4-17.4c0 0 0 0 0 0s0 0 0 0s0 0 0 0c0 0 0 0 0 0l.3-.3c.3-.3 .7-.7 1.3-1.4c1.1-1.2 2.8-3.1 4.9-5.7c4.1-5 9.6-12.4 15.2-21.6c10-16.6 19.5-38.4 21.4-62.9C17.7 326.8 0 285.1 0 240C0 125.1 114.6 32 256 32s256 93.1 256 208z';
 
   // ——— точный расчёт ширины текста через Canvas ———
   let _measureCtx = null;
@@ -208,8 +215,8 @@
   const FRAME_COLOR = '#2a2a2a';
   const SELECTED_COLOR = '#f5b400';
   const HIDDEN_QUESTION_COLOR = '#7a7a7a';
-  const INTERROGATION_AVAILABLE_COLOR = '#28a745';
-  const NOT_INTERROGABLE_COLOR = '#dc3545';
+  const ACTION_AVAILABLE_COLOR = '#28a745';
+  const ACTION_UNAVAILABLE_COLOR = '#dc3545';
 
   const MAX_CELL_PX = 240;
 </script>
@@ -337,7 +344,7 @@
         {/if}
       {/each}
 
-      <!-- Плашки ID, индикаторы допроса, открытые улики и имена -->
+      <!-- Плашки ID, индикаторы обыска/допроса, открытые улики и имена -->
       {#each visiblePersonages as personage, idx (personage.id)}
         {@const r = Math.floor(idx / cols)}
         {@const c = idx % cols}
@@ -346,6 +353,12 @@
           {@const idX = c + 1 - LABEL_OFFSET - idW}
           {@const clueMaxW = 1 - CLUE_SIDE_OFFSET * 2}
           {@const { shown: shownClues, more: hasMoreClues } = visibleClues(personage.exposedClues)}
+          {@const badgeScale = BADGE_SIZE / 512}
+          {@const badgeBoxSize = BADGE_SIZE + BADGE_PAD * 2}
+          {@const badgeBoxX = idX + (idW - badgeBoxSize) / 2}
+          {@const badgesBaseY = r + LABEL_OFFSET + PILL_H + BADGE_GAP}
+          {@const hasSearch = personage.searchAvailable !== undefined}
+          {@const hasInterrogation = personage.interrogationAvailable !== undefined}
 
           <!-- ID персонажа (правый верхний угол) -->
           <g pointer-events="none">
@@ -370,21 +383,55 @@
             >{personage.id}</text>
           </g>
 
-          <!-- Индикатор доступности допроса -->
-          {#if personage.interrogationAvailable !== undefined}
-            {@const dotCx = idX + idW / 2}
-            {@const dotCy = r + LABEL_OFFSET + PILL_H + BADGE_GAP + BADGE_RADIUS}
+          <!-- Индикатор доступности обыска (лупа) -->
+          {#if hasSearch}
+            {@const searchBoxY = badgesBaseY}
+            {@const searchIconX = badgeBoxX + BADGE_PAD}
+            {@const searchIconY = searchBoxY + BADGE_PAD}
             <g pointer-events="none">
-              <circle
-                cx={dotCx}
-                cy={dotCy}
-                r={BADGE_RADIUS}
-                fill={personage.interrogationAvailable
-                  ? INTERROGATION_AVAILABLE_COLOR
-                  : NOT_INTERROGABLE_COLOR}
-                stroke="#ffffff"
-                stroke-width="0.006"
+              <rect
+                x={badgeBoxX}
+                y={searchBoxY}
+                width={badgeBoxSize}
+                height={badgeBoxSize}
+                rx="0.015"
+                fill="#1a1a1a"
+                fill-opacity="0.7"
               />
+              <g transform={`translate(${searchIconX} ${searchIconY}) scale(${badgeScale})`}>
+                <path
+                  d={MAGNIFYING_GLASS_PATH}
+                  fill={personage.searchAvailable
+                    ? ACTION_AVAILABLE_COLOR
+                    : ACTION_UNAVAILABLE_COLOR}
+                />
+              </g>
+            </g>
+          {/if}
+
+          <!-- Индикатор доступности допроса (облачко) -->
+          {#if hasInterrogation}
+            {@const interrBoxY = badgesBaseY + (hasSearch ? BADGE_STEP_Y : 0)}
+            {@const interrIconX = badgeBoxX + BADGE_PAD}
+            {@const interrIconY = interrBoxY + BADGE_PAD}
+            <g pointer-events="none">
+              <rect
+                x={badgeBoxX}
+                y={interrBoxY}
+                width={badgeBoxSize}
+                height={badgeBoxSize}
+                rx="0.015"
+                fill="#1a1a1a"
+                fill-opacity="0.7"
+              />
+              <g transform={`translate(${interrIconX} ${interrIconY}) scale(${badgeScale})`}>
+                <path
+                  d={SPEECH_BUBBLE_PATH}
+                  fill={personage.interrogationAvailable
+                    ? ACTION_AVAILABLE_COLOR
+                    : ACTION_UNAVAILABLE_COLOR}
+                />
+              </g>
             </g>
           {/if}
 

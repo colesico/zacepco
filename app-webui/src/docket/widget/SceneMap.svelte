@@ -156,9 +156,13 @@
     Math.floor((CLUES_AVAILABLE_HEIGHT - CLUE_PILL_H) / CLUE_STEP_Y) + 1
   );
 
-  // ——— search-availability dot ———
-  const BADGE_RADIUS = 0.030;
-  const BADGE_GAP = 0.020;
+  // ——— search-availability magnifier icon (Font Awesome fa-magnifying-glass) ———
+  const BADGE_SIZE = 0.082;
+  const BADGE_PAD = 0.014;
+  const BADGE_BOX_SIZE = BADGE_SIZE + BADGE_PAD * 2;
+  const BADGE_GAP = 0.012;
+  const MAGNIFYING_GLASS_PATH =
+    'M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z';
 
   // ——— точный расчёт ширины текста через Canvas ———
   let _measureCtx = null;
@@ -518,19 +522,29 @@
               >{loc.id}</text>
             </g>
 
-            <!-- search-availability dot -->
+            <!-- search-availability magnifier badge -->
             {#if loc.searchAvailable !== undefined}
-              {@const dotCx = idX + idW / 2}
-              {@const dotCy = r + LABEL_OFFSET + PILL_H + BADGE_GAP + BADGE_RADIUS}
+              {@const boxX = idX + (idW - BADGE_BOX_SIZE) / 2}
+              {@const boxY = r + LABEL_OFFSET + PILL_H + BADGE_GAP}
+              {@const iconX = boxX + BADGE_PAD}
+              {@const iconY = boxY + BADGE_PAD}
+              {@const scale = BADGE_SIZE / 512}
               <g pointer-events="none">
-                <circle
-                  cx={dotCx}
-                  cy={dotCy}
-                  r={BADGE_RADIUS}
-                  fill={loc.searchAvailable ? SEARCH_AVAILABLE_COLOR : NOT_SEARCHABLE_COLOR}
-                  stroke="#ffffff"
-                  stroke-width="0.006"
+                <rect
+                  x={boxX}
+                  y={boxY}
+                  width={BADGE_BOX_SIZE}
+                  height={BADGE_BOX_SIZE}
+                  rx="0.015"
+                  fill="#1a1a1a"
+                  fill-opacity="0.7"
                 />
+                <g transform={`translate(${iconX} ${iconY}) scale(${scale})`}>
+                  <path
+                    d={MAGNIFYING_GLASS_PATH}
+                    fill={loc.searchAvailable ? SEARCH_AVAILABLE_COLOR : NOT_SEARCHABLE_COLOR}
+                  />
+                </g>
               </g>
             {/if}
 
