@@ -6,9 +6,7 @@ import colesico.zacepco.investigation.dto.FocusedClueMatch;
 import colesico.zacepco.investigation.dto.action.InvalidD12;
 import colesico.zacepco.investigation.dto.action.UnrevealedFocus;
 import colesico.zacepco.investigation.model.state.InvestigationState;
-import colesico.zacepco.script.model.scriptdoc.FocusedClueSpec;
-import colesico.zacepco.script.model.scriptdoc.ScriptDocument;
-import colesico.zacepco.script.model.scriptdoc.TId;
+import colesico.zacepco.script.model.scriptdoc.*;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -100,5 +98,17 @@ public class InvestigationUtil {
         return clues.stream()
                 .map(focusedClue -> matchClue(focusedClue, detectiveFocus))
                 .collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    public static void revealEntitiesByClue(ClueSpec clue, InvestigationState state) {
+        for (var tId : clue.reveals) {
+            switch (tId) {
+                case ClueSpec.Id cId -> state.clues.get(cId).discovered = true;
+                case LocationSpec.Id lId -> state.scene.locations.get(lId).hidden = false;
+                case WaySpec.Id wId -> state.scene.ways.get(wId).hidden = false;
+                case PersonageSpec.Id pId -> state.personages.get(pId).hidden = false;
+                default -> throw new IllegalArgumentException("Unsupported revealed entity: " + tId);
+            }
+        }
     }
 }

@@ -5,7 +5,7 @@ import colesico.zacepco.script.model.scriptdoc.LocationSpec;
 /**
  * Location state
  */
-public class LocationState {
+public class LocationState implements Searchable {
 
     public LocationSpec.Id id;
 
@@ -16,9 +16,9 @@ public class LocationState {
 
     /**
      * Whether the location can still be searched.
-     * True if no search has been performed in the location yet,
+     * True if no search has been performed yet,
      * or if a search has been performed and unexposed clues still remain.
-     * Set to {@code false} once all clues in the location have been exposed.
+     * Set to {@code false} once all clues have been exposed.
      */
     public boolean searchAvailable = true;
 
@@ -27,5 +27,15 @@ public class LocationState {
 
     public LocationState(LocationSpec.Id id) {
         this.id = id;
+    }
+
+    @Override
+    public boolean searchAvailable() {
+        return searchAvailable;
+    }
+
+    @Override
+    public void makeUnsearchable() {
+        searchAvailable = false;
     }
 }

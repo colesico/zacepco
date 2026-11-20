@@ -36,6 +36,7 @@ public class KryoFactory {
                 InvestigationState.class,
                 PersonageState.class,
                 LocationState.class,
+                WayState.class,
                 ClueState.class,
                 DetectiveState.class,
                 SceneState.class,
