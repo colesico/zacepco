@@ -43,7 +43,7 @@
 
   function handleLocationClick(locId) {
     investigationScrollY = window.scrollY;
-    push(`/investigation/${id}/location/${locId}`);
+    push(`/investigation/${id}/search/${locId}`);
   }
 
   function handlePersonageClick(personageId) {

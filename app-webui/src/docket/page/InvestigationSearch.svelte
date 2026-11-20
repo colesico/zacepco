@@ -7,19 +7,23 @@
   import * as investigationApi from '../api/InvestigationApi.js';
 
   let { params = {} } = $props();
-  const invId = $derived(params.invId);
-  const locId = $derived(params.locId);
+  const investigationId = $derived(params.investigationId);
+  const entityId = $derived(params.entityId);
 
   let error = $state(null);
   let loading = $state(true);
   let context = $state(null);
 
-  const location = $derived(
-    context.script.crime.scene.locations[locId]
+  const entity = $derived(
+    entityId?.startsWith('P')
+	  ? context.script?.crime?.personages?.[entityId]
+	  : context.script?.crime?.scene?.locations?.[entityId]
   );
 
-  const locationState = $derived(
-    context.investigation.state.scene.locations[locId]
+  const entityState = $derived(
+    entityId?.startsWith('P')
+     ? context.investigation?.state?.personages?.[entityId]
+     : context.investigation?.state?.scene?.locations?.[entityId]
   );
 
   const activeDetectiveId = $derived(
@@ -46,7 +50,7 @@
 
   // Улики локации по сценарию, отфильтрованные по факту открытия
   const exposedClues = $derived(
-    (Array.isArray(location.clues) ? location.clues : []).filter(
+    (Array.isArray(entity.clues) ? entity.clues : []).filter(
       (cid) => context.investigation.state.clues[cid]?.discovered === true
     )
   );
@@ -86,7 +90,7 @@
     loading = true;
     error = null;
     try {
-      const r = await investigationApi.search(invId, locId, focus, Number(d12));
+      const r = await investigationApi.search(investigationId, entityId, focus, Number(d12));
       console.log('[Search] result: ', r);
     } catch (ex) {
       error = ex.data;
@@ -106,7 +110,7 @@
       loading = true;
       error = null;
       try {
-        const c = await investigationApi.findInvestigationContext(invId);
+        const c = await investigationApi.findInvestigationContext(investigationId);
         if (cancelled) return;
         context = c;
       } catch (ex) {
@@ -132,7 +136,7 @@
 
   {#if context}
     <h1>
-      {location.name}
+      {entity.name}
     </h1>
 
     <div class="d-flex align-items-start mb-3">
@@ -141,8 +145,8 @@
         style="width: 35%; max-width: 120px; min-width: 0;"
       >
         <img
-          src="/docket/script/images/thumb/{context.investigation.scriptId}/{locId}"
-          alt={location.name}
+          src="/docket/script/images/thumb/{context.investigation.scriptId}/{entityId}"
+          alt={entity.name}
           class="img-fluid rounded border text-muted w-100"
           style="object-fit: cover; display: block;"
         />
@@ -150,16 +154,16 @@
           class="badge text-bg-secondary position-absolute top-0 start-0 m-1"
           style="font-size: 0.7em; z-index: 2;"
         >
-          {locId}
+          {entityId}
         </span>
       </div>
       <p class="ps-3 mb-0" style="min-width: 0; overflow-wrap: break-word;">
-        {location.description}
+        {entity.description}
       </p>
     </div>
 
-    {#if locationState.searchAvailable && budget > 0}
-      <h2>Обыск локации</h2>
+    {#if entityState.searchAvailable && budget > 0}
+      <h2>Обыск</h2>
 
       <div class="d-flex flex-wrap align-items-center gap-2 small text-muted mb-2">
         <span class="d-inline-flex align-items-center gap-2 text-body">
@@ -351,7 +355,7 @@
           </div>
         {/each}
       </div>
-    {:else if !locationState.searchAvailable}
+    {:else if !entityState.searchAvailable}
       <p class="text-muted fst-italic mb-3">Улик не обнаружено</p>
     {/if}
 
