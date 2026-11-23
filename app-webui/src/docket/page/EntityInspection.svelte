@@ -6,6 +6,7 @@
   import UiLoadingIndicator from '@core/widget/UiLoadingIndicator.svelte';
   import * as investigationApi from '../api/InvestigationApi.js';
   import InspectionForm from '../widget/InspectionForm.svelte';
+  import InspectionResult from '../widget/InspectionResult.svelte';
 
   let { params = {} } = $props();
   const investigationId = $derived(params.investigationId);
@@ -15,19 +16,10 @@
   let loading = $state(true);
   let context = $state(null);
 
-  const SEARCH_CODE_TITLES = {
-    CLUES_EXHAUSTED: 'Улик не обнаружено',
-    CLUE_FOCUSED_UNCOVER: 'Обнаружена искомая улика',
-    CLUE_UNCOVER: 'Случайно обнаружена улика',
-    UNREVEALED_FOCUS: 'Неизвестные элементы фокуса'
-  };
-
-  let searchResult = $state(null);
-  let searchModalEl = $state(null);
-
-  const searchModalTitle = $derived(
-    SEARCH_CODE_TITLES[searchResult?.code] ?? searchResult?.code ?? 'Результат обыска'
-  );
+  let inspectionResult = $state(null);
+  let inspectionMode = $state(null);
+  
+  let inspectionResultModal = $state(null);
 
   const entity = $derived(
     entityId?.startsWith('P')
@@ -56,11 +48,9 @@
     try {
       const r = await investigationApi.search(investigationId, entityId, focus, d12);
       console.log('[Search] result: ', r);
-      searchResult = r;
-
-      if (searchModalEl && window.bootstrap) {
-        window.bootstrap.Modal.getOrCreateInstance(searchModalEl).show();
-      }
+      inspectionResult = r;
+	  inspectionMode = "search";
+      inspectionResultModal?.show();
     } catch (ex) {
       error = ex.data;
     } finally {
@@ -71,7 +61,7 @@
   async function handleInterrogation(focus, d12) {
     console.log('[Interrogation]', focus, d12);
   }
-  
+
   function goBack() {
     pop();
   }
@@ -170,7 +160,7 @@
       <div class="tab-content mb-4">
         {#if entityState.searchAvailable}
           <div class="tab-pane fade show active" id="tab-search" role="tabpanel">
-            <InspectionForm {context} mode="search" onInspect={handleSearch} />
+            <InspectionForm {context} inspectionMode="search" onInspect={handleSearch} />
           </div>
         {/if}
 
@@ -182,7 +172,7 @@
             id="tab-interrogation"
             role="tabpanel"
           >
-            <InspectionForm {context} mode="interrogation" onInspect={handleInterrogation} />
+            <InspectionForm {context} inspectionMode="interrogation" onInspect={handleInterrogation} />
           </div>
         {/if}
       </div>
@@ -234,32 +224,9 @@
     </button>
   {/if}
 
-  <div
-    bind:this={searchModalEl}
-    class="modal fade"
-    tabindex="-1"
-    aria-labelledby="searchResultModalLabel"
-    aria-hidden="true"
-  >
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="searchResultModalLabel">{searchModalTitle}</h5>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Закрыть"
-          ></button>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
-            ОК
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
+  {#if inspectionResult }
+    <InspectionResult bind:this={inspectionResultModal} {inspectionResult} {inspectionMode} />
+  {/if}
 </div>
 
 <style>

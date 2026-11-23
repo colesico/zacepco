@@ -3,7 +3,7 @@ package colesico.zacepco.investigation.dto.results;
 import colesico.zacepco.script.model.scriptdoc.ClueSpec;
 
 public sealed class ClueDiscovered
-        extends InvestigationActionResult
+        extends InspectionResult
         implements SearchResult
         permits ClueFocusDiscovered {
 

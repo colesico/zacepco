@@ -1,5 +1,5 @@
 <script>
-  let { context, mode = 'search', onInspect } = $props();
+  let { context, inspectionMode = 'search', onInspect } = $props();
 
   const MODE_META = {
     search: {
@@ -19,10 +19,10 @@
     }
   };
 
-  const currentMeta = $derived(MODE_META[mode] ?? MODE_META.search);
+  const currentMeta = $derived(MODE_META[inspectionMode] ?? MODE_META.search);
 
   const modeConfig = $derived(
-    context.script?.investigation?.[mode] ?? {}
+    context.script?.investigation?.[inspectionMode] ?? {}
   );
 
   const activeDetectiveId = $derived(
@@ -128,7 +128,7 @@
     onsubmit={handleSubmit}
   >
     <div class="mb-3 row align-items-start">
-      <label for="inspect-focus-{mode}" class="col-4 col-form-label">
+      <label for="inspect-focus-{inspectionMode}" class="col-4 col-form-label">
         <span class="d-inline-flex align-items-center gap-1">
           Фокус:
           <button
@@ -136,7 +136,7 @@
             class="btn btn-sm btn-outline-secondary rounded-circle d-inline-flex align-items-center justify-content-center p-0"
             style="width: 1.2rem; height: 1.2rem; font-size: 0.7rem;"
             data-bs-toggle="modal"
-            data-bs-target="#focusHelpModal-{mode}"
+            data-bs-target="#focusHelpModal-{inspectionMode}"
             aria-label="Подсказка по формату фокуса"
             title="Подсказка по формату"
           >
@@ -146,7 +146,7 @@
       </label>
       <div class="col-8">
         <input
-          id="inspect-focus-{mode}"
+          id="inspect-focus-{inspectionMode}"
           type="text"
           class="form-control {focusError ? 'is-invalid' : ''}"
           placeholder="Лимит:{focusLimit}"
@@ -165,7 +165,7 @@
     </div>
 
     <div class="mb-3 row align-items-start">
-      <label for="inspect-d12-{mode}" class="col-4 col-form-label">D12:</label>
+      <label for="inspect-d12-{inspectionMode}" class="col-4 col-form-label">D12:</label>
       <div class="col-8">
         <div class="d-flex gap-2">
           <button
@@ -178,7 +178,7 @@
             <i class="fas fa-dice"></i>
           </button>
           <input
-            id="inspect-d12-{mode}"
+            id="inspect-d12-{inspectionMode}"
             type="number"
             class="form-control {d12Error ? 'is-invalid' : ''}"
             placeholder="?"
@@ -206,15 +206,15 @@
 <!-- Bootstrap Modal с подсказкой по формату поля «Фокус» -->
 <div
   class="modal fade"
-  id="focusHelpModal-{mode}"
+  id="focusHelpModal-{inspectionMode}"
   tabindex="-1"
-  aria-labelledby="focusHelpModalLabel-{mode}"
+  aria-labelledby="focusHelpModalLabel-{inspectionMode}"
   aria-hidden="true"
 >
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="focusHelpModalLabel-{mode}">
+        <h5 class="modal-title" id="focusHelpModalLabel-{inspectionMode}">
           Формат поля «Фокус»
         </h5>
         <button

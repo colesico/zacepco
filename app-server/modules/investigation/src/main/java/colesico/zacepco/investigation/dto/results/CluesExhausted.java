@@ -1,7 +1,7 @@
 package colesico.zacepco.investigation.dto.results;
 
 public final class CluesExhausted
-        extends InvestigationActionResult
+        extends InspectionResult
         implements SearchResult {
 
     public CluesExhausted() {

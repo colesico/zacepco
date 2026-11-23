@@ -1,7 +1,7 @@
 package colesico.zacepco.investigation.dto.results;
 
 public final class InvalidD12
-        extends InvestigationActionResult
+        extends InspectionResult
         implements SearchResult {
 
     public InvalidD12() {

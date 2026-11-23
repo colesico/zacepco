@@ -1,7 +1,7 @@
 package colesico.zacepco.investigation.dto.results;
 
 public final class FocusLimitExceeded
-        extends InvestigationActionResult
+        extends InspectionResult
         implements SearchResult {
 
     public int focusLimit;
