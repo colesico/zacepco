@@ -1,5 +1,5 @@
 <script>
-  let { inspectionResult = null, inspectionMode = null } = $props();
+  let { inspectionResult = null, inspectionMode = null, inspectionTarget=null } = $props();
 
   const MODE_LABELS = {
     search: 'Обыск',
@@ -38,7 +38,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="inspectionResultModalLabel">
-          {modeLabel}
+          {modeLabel} {inspectionTarget}
         </h5>
         <button
           type="button"
@@ -62,13 +62,13 @@
             В фокусе детектива слишком много элементов, максимум : {result.focusLimit}
           </p>
         {:else if code === 'UNDISCOVERED_FOCUS'}
-          <p class="mb-0 text-muted">Фокус детектива содержит ранее не открытые сущности:</p>
+          <p class="mb-0 text-muted">В фокусе детектива ранее не открытые сущности:</p>
         {:else if code === 'INSUFFICIENT_BUDGET'}
           <p class="mb-0 text-muted">Недостаточно бюджета расследования</p>
         {:else if code === 'CLUES_EXHAUSTED'}
-          <p class="mb-0 text-muted">Улик не обнаружено. Этот источник улик исчерпан.</p>
+          <p class="mb-0 text-muted">Этот источник улик исчерпан.</p>
         {:else if code === 'CLUE_DISCOVERED'}
-          <p class="mb-0 text-muted">Случайно обнаружена улика</p>
+          <p class="mb-0 text-muted">Случайно обнаружена улика: </p>
         {:else if code === 'CLUE_FOCUS_DISCOVERED'}
           <p class="mb-0 text-muted">Обнаружена улика подходящая под фокус детектива.</p>
         {:else if code}
