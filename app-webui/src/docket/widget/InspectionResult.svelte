@@ -1,5 +1,10 @@
 <script>
-  let { inspectionResult = null, inspectionMode = null, inspectionTarget=null } = $props();
+  let {
+    inspectionResult = null,
+    inspectionMode = null,
+    inspectionTarget = null,
+	context = null,
+  } = $props();
 
   const MODE_LABELS = {
     search: 'Обыск',
@@ -10,13 +15,18 @@
   let modalEl = $state(null);
 
   const result = $derived(inspectionResult?.result ?? null);
+  const scriptId = $derived(context.investigation.scriptId);
+  
   const code = $derived(result?.code ?? '');
+  const clue = $derived(result?.clue ?? null);
+  const assetId = $derived(clue?.id ?? '');
+  
   const modeLabel = $derived(MODE_LABELS[inspectionMode] ?? inspectionMode ?? '');
 
   const formattedFocus = $derived.by(() => {
     const f = inspectionResult?.focus;
-    const ids = Array.isArray(f.ids) ? f.ids : [];
-    const types = Array.isArray(f.types) ? f.types : [];
+    const ids = Array.isArray(f?.ids) ? f.ids : [];
+    const types = Array.isArray(f?.types) ? f.types : [];
     return [...ids, ...types].join(', ');
   });
 
@@ -50,8 +60,7 @@
 
       <div class="modal-body">
         <div class="mb-3">
-          Для фокуса: <strong>{formattedFocus || '—'}</strong>
-          <br />
+          Для фокуса: <strong>{formattedFocus || '—'}</strong> 
           D12: <strong>{inspectionResult?.d12 ?? ''}</strong>
         </div>
 
@@ -67,10 +76,48 @@
           <p class="mb-0 text-muted">Недостаточно бюджета расследования</p>
         {:else if code === 'CLUES_EXHAUSTED'}
           <p class="mb-0 text-muted">Этот источник улик исчерпан.</p>
-        {:else if code === 'CLUE_DISCOVERED'}
-          <p class="mb-0 text-muted">Случайно обнаружена улика: </p>
-        {:else if code === 'CLUE_FOCUS_DISCOVERED'}
-          <p class="mb-0 text-muted">Обнаружена улика подходящая под фокус детектива.</p>
+        {:else if code === 'CLUE_DISCOVERED' || code === 'CLUE_FOCUS_DISCOVERED'}
+          <p class="mb-2 text-muted">
+            {code === 'CLUE_DISCOVERED'
+              ? 'Случайно обнаружена улика:'
+              : 'Обнаружена фокусная улика:'}
+          </p>
+
+          {#if clue}
+            <div class="d-flex align-items-center gap-3 p-2 rounded border bg-light">
+              <div
+                class="position-relative flex-shrink-0"
+                style="width: 64px; height: 64px;"
+              >
+                {#if scriptId && assetId}
+                  <img
+                    src="/docket/script/images/thumb/{scriptId}/{assetId}"
+                    alt={clue.name ?? clue.id}
+                    class="w-100 h-100 rounded border object-fit-cover d-block"
+                  />
+                {:else}
+                  <div
+                    class="w-100 h-100 rounded border bg-secondary-subtle d-flex align-items-center justify-content-center text-muted small"
+                  >
+                    ?
+                  </div>
+                {/if}
+                <span
+                  class="badge text-bg-secondary position-absolute top-0 start-0 m-1"
+                  style="font-size: 0.65em; z-index: 2;"
+                >
+                  {clue.id}
+                </span>
+              </div>
+
+              <div class="min-w-0">
+                <div class="fw-semibold text-break">{clue.name ?? clue.id}</div>
+                {#if clue.description}
+                  <div class="small text-muted text-break">{clue.description}</div>
+                {/if}
+              </div>
+            </div>
+          {/if}
         {:else if code}
           <p class="mb-0 text-muted">Неизвестный код результата: {code}</p>
         {/if}

@@ -227,7 +227,7 @@
   {/if}
 
   {#if inspectionResult }
-    <InspectionResult bind:this={inspectionResultModal} {inspectionResult} {inspectionMode} />
+    <InspectionResult bind:this={inspectionResultModal} {inspectionResult} {inspectionMode} {context} />
   {/if}
 </div>
 
