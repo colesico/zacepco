@@ -1,6 +1,7 @@
 <script>
   import { push } from 'svelte-spa-router';
   import { pop } from 'svelte-spa-router';
+  import { tick } from 'svelte';
 
   import UiErrorMessage from '@core/widget/UiErrorMessage.svelte';
   import UiLoadingIndicator from '@core/widget/UiLoadingIndicator.svelte';
@@ -48,8 +49,9 @@
     try {
       const r = await investigationApi.search(investigationId, entityId, focus, d12);
       console.log('[Search] result: ', r);
-      inspectionResult = r;
 	  inspectionMode = "search";
+      inspectionResult = r;
+	  await tick();
       inspectionResultModal?.show();
     } catch (ex) {
       error = ex.data;
