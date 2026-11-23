@@ -17,8 +17,8 @@ public class LocationState implements Searchable {
     /**
      * Whether the location can still be searched.
      * True if no search has been performed yet,
-     * or if a search has been performed and unexposed clues still remain.
-     * Set to {@code false} once all clues have been exposed.
+     * or if a search has been performed and undiscovered clues still remain.
+     * Set to {@code false} once all clues have been discovered.
      */
     public boolean searchAvailable = true;
 

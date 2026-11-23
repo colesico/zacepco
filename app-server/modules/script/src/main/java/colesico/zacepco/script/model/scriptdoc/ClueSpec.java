@@ -15,7 +15,7 @@ import java.util.*;
 public final class ClueSpec extends EntitySpec<ClueSpec.Id> {
 
     @YamlComment(text = {
-            "Initially revealed clue or not",
+            "Initially discovered clue or not",
             "Default: false"
     })
     public Boolean discovered = false;
@@ -29,10 +29,10 @@ public final class ClueSpec extends EntitySpec<ClueSpec.Id> {
     public Boolean falsity = false;
 
     @YamlComment(text = {
-            "Entities that this clue reveals (characters, locations, other clues)"
+            "Entities that this clue uncovers (characters, locations, other clues)"
     })
     @YamlCompact
-    public Set<TId> reveals = new LinkedHashSet<>();
+    public Set<TId> uncovers = new LinkedHashSet<>();
 
     @YamlComment(text = {
             "Target entities that this clue leads to",

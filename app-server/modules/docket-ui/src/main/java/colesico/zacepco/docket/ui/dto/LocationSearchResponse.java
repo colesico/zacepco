@@ -1,22 +1,17 @@
 package colesico.zacepco.docket.ui.dto;
 
 import colesico.zacepco.investigation.dto.DetectiveFocus;
-import colesico.zacepco.investigation.dto.action.LocationSearchResult;
+import colesico.zacepco.investigation.dto.results.SearchResult;
 
 public class LocationSearchResponse {
     public DetectiveFocus focus;
     public int d12;
 
-    public final String code;
-    public final LocationSearchResult details;
+    public final SearchResult result;
 
-    public int budget;
-
-    public LocationSearchResponse(DetectiveFocus focus, int d12, LocationSearchResult details, int budget) {
+    public LocationSearchResponse(DetectiveFocus focus, int d12, SearchResult result) {
         this.focus = focus;
         this.d12 = d12;
-        this.code = details.code();
-        this.details = details;
-        this.budget = budget;
+        this.result = result;
     }
 }

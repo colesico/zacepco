@@ -83,29 +83,29 @@ public class InvestigationState {
     }
 
     /**
-     * All exposed entities
+     * All discovered entities
      */
-    public Set<TId> findExposedEntities() {
-        Set<TId> exposed = new LinkedHashSet<>();
+    public Set<TId> findDiscoveredEntities() {
+        Set<TId> discovered = new LinkedHashSet<>();
 
         for (var personage : personages.values()) {
             if (!personage.hidden) {
-                exposed.add(personage.id);
+                discovered.add(personage.id);
             }
         }
 
         for (var location : scene.locations.values()) {
             if (!location.hidden) {
-                exposed.add(location.id);
+                discovered.add(location.id);
             }
         }
 
         for (var clue : clues.values()) {
             if (clue.discovered) {
-                exposed.add(clue.id);
+                discovered.add(clue.id);
             }
         }
 
-        return exposed;
+        return discovered;
     }
 }

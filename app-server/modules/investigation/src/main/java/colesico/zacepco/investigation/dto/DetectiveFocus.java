@@ -17,6 +17,10 @@ public record DetectiveFocus(
         return ids.isEmpty() && types.isEmpty();
     }
 
+    public int size() {
+        return ids.size() + types.size();
+    }
+
     @Override
     public String toString() {
         var idStream = (ids == null) ? Stream.<String>empty() : ids.stream().map(Object::toString);

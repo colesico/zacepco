@@ -1,10 +1,11 @@
 package colesico.zacepco.investigation.manager;
 
-import colesico.zacepco.investigation.dto.action.LocationSearchResult;
+import colesico.zacepco.investigation.dto.results.FocusLimitExceeded;
+import colesico.zacepco.investigation.dto.results.SearchResult;
 import colesico.zacepco.investigation.dto.DetectiveFocus;
 import colesico.zacepco.investigation.dto.FocusedClueMatch;
-import colesico.zacepco.investigation.dto.action.InvalidD12;
-import colesico.zacepco.investigation.dto.action.UnrevealedFocus;
+import colesico.zacepco.investigation.dto.results.InvalidD12;
+import colesico.zacepco.investigation.dto.results.UndiscoveredFocus;
 import colesico.zacepco.investigation.model.state.InvestigationState;
 import colesico.zacepco.script.model.scriptdoc.*;
 
@@ -23,39 +24,49 @@ public class InvestigationUtil {
         return types;
     }
 
-    /**
-     * Returns the part of the focus not yet covered by exposed entities
-     * The focus is expected to consist only of already exposed entities,
-     * so the returned uncovered part should be empty; a non-empty result
-     * signals an invalid focus.
-     */
-    public static DetectiveFocus uncoveredFocus(DetectiveFocus focus, InvestigationState state, ScriptDocument script) {
-        Set<TId> exposedIds = new HashSet<>(state.findExposedEntities());
-        exposedIds.addAll(script.crime.timeline.keySet());
-
-        Set<TId.Type> exposedTypes = extractIdTypes(exposedIds);
-
-        var uncoveredIds = new HashSet<>(focus.ids());
-        uncoveredIds.removeAll(exposedIds);
-
-        var uncoveredTypes = EnumSet.noneOf(TId.Type.class);
-        uncoveredTypes.addAll(focus.types());
-        uncoveredTypes.removeAll(exposedTypes);
-
-        return new DetectiveFocus(uncoveredIds, uncoveredTypes);
-    }
-
-    public static LocationSearchResult checkActionRequest(DetectiveFocus detectiveFocus, Integer d12, ScriptDocument script, InvestigationState state) {
+    public static SearchResult checkActionRequest(DetectiveFocus detectiveFocus,
+                                                  Integer d12,
+                                                  ScriptDocument script,
+                                                  InvestigationState state,
+                                                  int focusLimit) {
         if (!checkD12(d12)) {
             return new InvalidD12();
         }
 
-        var uncoveredFocus = uncoveredFocus(detectiveFocus, state, script);
-        if (!uncoveredFocus.isEmpty()) {
-            return new UnrevealedFocus(uncoveredFocus);
+        // Check undiscovered id/types
+        var undiscoveredFocus = undiscoveredFocus(detectiveFocus, state, script);
+        if (!undiscoveredFocus.isEmpty()) {
+            return new UndiscoveredFocus(undiscoveredFocus);
+        }
+
+        // Check focus limit
+        if (detectiveFocus.size() > focusLimit) {
+            return new FocusLimitExceeded(focusLimit);
         }
 
         return null;
+    }
+
+    /**
+     * Returns the part of the focus with  undiscovered entities.
+     * The focus is expected to consist only of already discovered id/types,
+     * so the returned part should be empty; a non-empty result
+     * signals an invalid focus.
+     */
+    public static DetectiveFocus undiscoveredFocus(DetectiveFocus focus, InvestigationState state, ScriptDocument script) {
+        Set<TId> discoveredIds = new HashSet<>(state.findDiscoveredEntities());
+        discoveredIds.addAll(script.crime.timeline.keySet());
+
+        Set<TId.Type> discoveredTypes = extractIdTypes(discoveredIds);
+
+        var undiscoveredIds = new HashSet<>(focus.ids());
+        undiscoveredIds.removeAll(discoveredIds);
+
+        var undiscoveredTypes = EnumSet.noneOf(TId.Type.class);
+        undiscoveredTypes.addAll(focus.types());
+        undiscoveredTypes.removeAll(discoveredTypes);
+
+        return new DetectiveFocus(undiscoveredIds, undiscoveredTypes);
     }
 
     public static FocusedClueMatch matchClue(FocusedClueSpec clue, DetectiveFocus detectiveFocus) {
@@ -100,14 +111,14 @@ public class InvestigationUtil {
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
-    public static void revealEntitiesByClue(ClueSpec clue, InvestigationState state) {
-        for (var tId : clue.reveals) {
+    public static void uncoverEntitiesByClue(ClueSpec clue, InvestigationState state) {
+        for (var tId : clue.uncovers) {
             switch (tId) {
                 case ClueSpec.Id cId -> state.clues.get(cId).discovered = true;
                 case LocationSpec.Id lId -> state.scene.locations.get(lId).hidden = false;
                 case WaySpec.Id wId -> state.scene.ways.get(wId).hidden = false;
                 case PersonageSpec.Id pId -> state.personages.get(pId).hidden = false;
-                default -> throw new IllegalArgumentException("Unsupported revealed entity: " + tId);
+                default -> throw new IllegalArgumentException("Unsupported entity to be uncovered: " + tId);
             }
         }
     }

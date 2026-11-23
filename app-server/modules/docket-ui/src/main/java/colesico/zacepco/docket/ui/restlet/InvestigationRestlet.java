@@ -66,6 +66,6 @@ public class InvestigationRestlet {
         var result = investigationService
                 .search(investigationId, tid, detectiveFocus, d12);
 
-        return new LocationSearchResponse(detectiveFocus, d12, result, 0);
+        return new LocationSearchResponse(detectiveFocus, d12, result);
     }
 }

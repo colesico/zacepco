@@ -10,14 +10,12 @@ import colesico.zacepco.docket.srv.model.Investigation;
 import colesico.zacepco.docket.srv.model.InvestigationStatus;
 import colesico.zacepco.docket.srv.model.ScriptStatus;
 import colesico.zacepco.investigation.dto.DetectiveFocus;
-import colesico.zacepco.investigation.dto.action.ClueUncover;
-import colesico.zacepco.investigation.dto.action.CluesExhausted;
-import colesico.zacepco.investigation.dto.action.LocationSearchResult;
+import colesico.zacepco.investigation.dto.results.ClueDiscovered;
+import colesico.zacepco.investigation.dto.results.CluesExhausted;
+import colesico.zacepco.investigation.dto.results.SearchResult;
 import colesico.zacepco.investigation.manager.InvestigationManager;
 import colesico.zacepco.investigation.manager.InvestigationStateBuilder;
 import colesico.zacepco.investigation.manager.InvestigationStateEnricher;
-import colesico.zacepco.script.model.scriptdoc.LocationSpec;
-import colesico.zacepco.script.model.scriptdoc.PersonageSpec;
 import colesico.zacepco.script.model.scriptdoc.TId;
 import jakarta.inject.Provider;
 
@@ -106,7 +104,7 @@ public class InvestigationService {
         return inv;
     }
 
-    public LocationSearchResult search(Long investigationId, TId entityId, DetectiveFocus detectiveFocus, Integer d12) {
+    public SearchResult search(Long investigationId, TId entityId, DetectiveFocus detectiveFocus, Integer d12) {
 
         var investigation = investigationDao.findInvestigationById(investigationId).orElseThrow(() -> new IllegalArgumentException("Investigation not found. Id: " + investigationId));
         var script = scriptService.scriptPackage(investigation.getScriptId()).scriptDocument().read();
@@ -115,7 +113,7 @@ public class InvestigationService {
 
         var result = invManager.searchManager(entityId).search(detectiveFocus, d12);
 
-        if (result instanceof ClueUncover
+        if (result instanceof ClueDiscovered
                 || result instanceof CluesExhausted) {
             investigationDao.updateInvestigationState(investigationId, invManager.state);
         }

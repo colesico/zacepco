@@ -1,7 +1,7 @@
 package colesico.zacepco.investigation.manager;
 
 import colesico.zacepco.investigation.dto.*;
-import colesico.zacepco.investigation.dto.action.*;
+import colesico.zacepco.investigation.dto.results.*;
 import colesico.zacepco.investigation.model.state.InvestigationState;
 import colesico.zacepco.investigation.model.state.Searchable;
 import colesico.zacepco.script.model.scriptdoc.*;
@@ -21,7 +21,7 @@ public class SearchManager {
         this.entityId = entityId;
     }
 
-    private Set<FocusedClueSpec> findUnexposedFocusedClues(Set<ClueSpec.Id> entityClues) {
+    private Set<FocusedClueSpec> findUndiscoveredFocusedClues(Set<ClueSpec.Id> entityClues) {
         var focusedClues = script.investigation.search.clues;
 
         Set<FocusedClueSpec> result = new HashSet<>();
@@ -40,8 +40,8 @@ public class SearchManager {
         return result;
     }
 
-    private LocationSearchResult searchClue(Set<ClueSpec.Id> entityClues, DetectiveFocus detectiveFocus, Integer d12) {
-        Set<FocusedClueSpec> cluesToSearch = findUnexposedFocusedClues(entityClues);
+    private SearchResult searchClue(Set<ClueSpec.Id> entityClues, DetectiveFocus detectiveFocus, Integer d12) {
+        Set<FocusedClueSpec> cluesToSearch = findUndiscoveredFocusedClues(entityClues);
 
         if (cluesToSearch.isEmpty()) {
             return new CluesExhausted();
@@ -69,18 +69,18 @@ public class SearchManager {
             }
         }
 
-        ClueUncover result;
+        ClueDiscovered result;
         if (selectedMatch == null) {
-            // Accidental discovery: lowest threshold among unexposed clues.
+            // Accidental discovery: lowest threshold among undiscovered clues.
             var accidentalMatch = matchedClues.stream()
                     .min(Comparator.comparingDouble(fw -> fw.focusedClue().threshold))
                     .orElseThrow();
             var clue = script.crime.clues.get(accidentalMatch.focusedClue().clue);
-            return new ClueUncover(clue, matchedClues.size() - 1, 0);
+            return new ClueDiscovered(clue, matchedClues.size() - 1, 0);
         } else {
             // Focus matched discovery
             var clue = script.crime.clues.get(selectedMatch.focusedClue().clue);
-            return new ClueFocusedUncover(
+            return new ClueFocusDiscovered(
                     clue,
                     selectedMatch.matchedIds(),
                     selectedMatch.matchedTypes(),
@@ -91,7 +91,7 @@ public class SearchManager {
         }
     }
 
-    public LocationSearchResult search(DetectiveFocus detectiveFocus, Integer d12) {
+    public SearchResult search(DetectiveFocus detectiveFocus, Integer d12) {
 
         if (state.budget <= 0) {
             throw new IllegalArgumentException("Out of investigation budget" + entityId);
@@ -114,8 +114,14 @@ public class SearchManager {
             throw new IllegalArgumentException("Search not available");
         }
 
-        // Check params
-        var res = InvestigationUtil.checkActionRequest(detectiveFocus, d12, script, state);
+        // Check action params
+        var res = InvestigationUtil.checkActionRequest(
+                detectiveFocus,
+                d12,
+                script,
+                state,
+                script.investigation.search.focusLimit);
+
         if (res != null) return res;
 
         // Try to spend budget
@@ -133,7 +139,7 @@ public class SearchManager {
             return result;
         }
 
-        if (result instanceof ClueUncover cuResult) {
+        if (result instanceof ClueDiscovered cuResult) {
 
             state.clues.get(cuResult.clue.id).discovered = true;
 
@@ -142,7 +148,7 @@ public class SearchManager {
             }
 
             // Detective awarded points
-            if (result instanceof ClueFocusedUncover cfuResult) {
+            if (result instanceof ClueFocusDiscovered cfuResult) {
                 var detective = state.activeDetective();
                 var awardedPoints = script.investigation.search.points;
                 awardedPoints = awardedPoints + cfuResult.matchedIds.size();
@@ -153,8 +159,8 @@ public class SearchManager {
             // Shift to next detective
             state.nextDetective();
 
-            // Auto reveal entities
-            InvestigationUtil.revealEntitiesByClue(cuResult.clue, state);
+            // Auto uncover entities
+            InvestigationUtil.uncoverEntitiesByClue(cuResult.clue, state);
         }
 
         return result;
