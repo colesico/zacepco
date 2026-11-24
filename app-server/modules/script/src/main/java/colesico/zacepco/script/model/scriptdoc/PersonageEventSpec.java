@@ -3,6 +3,8 @@ package colesico.zacepco.script.model.scriptdoc;
 import colesico.zacepco.script.yaml.YamlComment;
 import colesico.zacepco.script.yaml.YamlIgnore;
 
+import java.util.Set;
+
 
 /**
  * Personage event.
@@ -27,7 +29,7 @@ public final class PersonageEventSpec {
     /**
      * The clue the character interacted with
      */
-    @YamlComment(text = "Clue linked to this personage during the tick")
-    public ClueSpec.Id clue;
+    @YamlComment(text = "Clues linked to this personage during the tick")
+    public Set<ClueSpec.Id> clue;
 
 }

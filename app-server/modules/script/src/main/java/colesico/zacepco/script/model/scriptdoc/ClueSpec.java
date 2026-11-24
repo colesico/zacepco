@@ -16,6 +16,7 @@ public final class ClueSpec extends EntitySpec<ClueSpec.Id> {
 
     @YamlComment(text = {
             "Initially discovered clue or not",
+            "(i.e. visible to detectives at investigation start)",
             "Default: false"
     })
     public Boolean discovered = false;
@@ -29,13 +30,14 @@ public final class ClueSpec extends EntitySpec<ClueSpec.Id> {
     public Boolean falsity = false;
 
     @YamlComment(text = {
-            "Entities that this clue uncovers (characters, locations, other clues)"
+            "Entities opened when this clue becomes discovered: ",
+            "characters, locations, ways, other clues"
     })
     @YamlCompact
     public Set<TId> uncovers = new LinkedHashSet<>();
 
     @YamlComment(text = {
-            "Target entities that this clue leads to",
+            "Target entities this clue logically points to",
             "Used as answers to verify the investigation results"
     })
     @YamlCompact
