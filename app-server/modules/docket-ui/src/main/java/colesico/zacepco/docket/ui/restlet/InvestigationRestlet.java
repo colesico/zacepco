@@ -15,7 +15,7 @@ import colesico.zacepco.docket.srv.model.Investigation;
 import colesico.zacepco.docket.srv.service.InvestigationService;
 import colesico.zacepco.docket.srv.service.ScriptService;
 import colesico.zacepco.docket.ui.dto.InvestigationContext;
-import colesico.zacepco.docket.ui.dto.LocationSearchResponse;
+import colesico.zacepco.docket.ui.dto.InspectionResponse;
 import colesico.zacepco.investigation.model.DetectiveFocus;
 import colesico.zacepco.script.model.scriptdoc.TId;
 
@@ -55,17 +55,17 @@ public class InvestigationRestlet {
 
     @Route("./:investigationId/search/:entityId")
     @RequestMethod(HttpMethod.PUT)
-    public LocationSearchResponse search(
+    public InspectionResponse search(
             @ParamOrigin(Origin.ROUTE) Long investigationId,
             @ParamOrigin(Origin.ROUTE) String entityId,
             @BeanField String focus,
             @BeanField Integer d12) {
 
         var detectiveFocus = DetectiveFocus.parse(focus);
-        TId tid = TId.parse(entityId);
+        TId tId = TId.parse(entityId);
         var result = investigationService
-                .search(investigationId, tid, detectiveFocus, d12);
+                .search(investigationId, tId, detectiveFocus, d12);
 
-        return new LocationSearchResponse(detectiveFocus, d12, result);
+        return new InspectionResponse(result);
     }
 }
