@@ -5,17 +5,18 @@ import colesico.framework.security.authorization.RequireIdentity;
 import colesico.framework.service.Service;
 import colesico.framework.transaction.Transactional;
 import colesico.zacepco.docket.srv.dao.InvestigationDao;
-import colesico.zacepco.docket.srv.dto.CreateInvestigationRequest;
+import colesico.zacepco.docket.srv.model.dto.CreateInvestigationRequest;
 import colesico.zacepco.docket.srv.model.Investigation;
 import colesico.zacepco.docket.srv.model.InvestigationStatus;
 import colesico.zacepco.docket.srv.model.ScriptStatus;
-import colesico.zacepco.investigation.dto.DetectiveFocus;
-import colesico.zacepco.investigation.dto.results.ClueDiscovered;
-import colesico.zacepco.investigation.dto.results.CluesExhausted;
+import colesico.zacepco.investigation.model.DetectiveFocus;
+import colesico.zacepco.investigation.model.results.ClueDiscovered;
+import colesico.zacepco.investigation.model.results.CluesExhausted;
 import colesico.zacepco.investigation.dto.results.SearchResult;
 import colesico.zacepco.investigation.manager.InvestigationManager;
 import colesico.zacepco.investigation.manager.InvestigationStateBuilder;
 import colesico.zacepco.investigation.manager.InvestigationStateEnricher;
+import colesico.zacepco.investigation.model.results.InspectionResult;
 import colesico.zacepco.script.model.scriptdoc.TId;
 import jakarta.inject.Provider;
 
@@ -104,7 +105,7 @@ public class InvestigationService {
         return inv;
     }
 
-    public SearchResult search(Long investigationId, TId entityId, DetectiveFocus detectiveFocus, Integer d12) {
+    public InspectionResult search(Long investigationId, TId entityId, DetectiveFocus detectiveFocus, Integer d12) {
 
         var investigation = investigationDao.findInvestigationById(investigationId).orElseThrow(() -> new IllegalArgumentException("Investigation not found. Id: " + investigationId));
         var script = scriptService.scriptPackage(investigation.getScriptId()).scriptDocument().read();

@@ -4,7 +4,7 @@ import colesico.framework.dslvalidator.ValidationContext;
 import colesico.framework.dslvalidator.builder.AbstractValidatorBuilder;
 import colesico.framework.dslvalidator.t9n.ValidatorMessages;
 import colesico.framework.validation.Validator;
-import colesico.zacepco.identity.srv.dto.RegUser;
+import colesico.zacepco.identity.srv.model.dto.RegUser;
 import colesico.zacepco.identity.srv.t9n.RegMessages;
 import jakarta.inject.Singleton;
 

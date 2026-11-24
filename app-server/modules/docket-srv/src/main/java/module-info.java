@@ -12,9 +12,8 @@ module colesico.zacepco.docket.srv {
 
     exports colesico.zacepco.docket.srv.ioc;
     exports colesico.zacepco.docket.srv.model;
+    exports colesico.zacepco.docket.srv.model.dto;
     exports colesico.zacepco.docket.srv.dao;
     exports colesico.zacepco.docket.srv.service;
-    exports colesico.zacepco.docket.srv.dto;
-    // exports colesico.zacepco.inquiry.srv.dto;
 
 }

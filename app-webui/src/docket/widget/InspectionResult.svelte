@@ -3,7 +3,7 @@
     inspectionResult = null,
     inspectionMode = null,
     inspectionTarget = null,
-	context = null,
+    context = null,
   } = $props();
 
   const MODE_LABELS = {
@@ -15,7 +15,7 @@
   let modalEl = $state(null);
 
   const result = $derived(inspectionResult?.result ?? null);
-  const scriptId = $derived(context.investigation.scriptId);
+  const scriptId = $derived(context?.investigation?.scriptId);
   
   const code = $derived(result?.code ?? '');
   const clue = $derived(result?.clue ?? null);
@@ -116,6 +116,19 @@
                   <div class="small text-muted text-break">{clue.description}</div>
                 {/if}
               </div>
+            </div>
+
+            {#if Array.isArray(clue.uncovers) && clue.uncovers.length > 0}
+              <div class="mt-3">
+                Которая открывает: <strong>{clue.uncovers.join(', ')}</strong>
+              </div>
+            {/if}
+          {/if}
+
+          {#if result?.awardedPoints != null}
+            <div class="mt-3 d-flex align-items-center gap-2">
+              <i class="fa-solid fa-medal text-warning"></i>
+              <span>Начислено очков: <strong>{result.awardedPoints}</strong></span>
             </div>
           {/if}
         {:else if code}

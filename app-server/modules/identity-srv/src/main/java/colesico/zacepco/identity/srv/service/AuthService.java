@@ -5,12 +5,10 @@ import colesico.framework.transaction.Transactional;
 import colesico.framework.validation.Validator;
 import colesico.zacepco.identity.srv.assist.HashUtils;
 import colesico.zacepco.identity.srv.dao.AuthDao;
-import colesico.zacepco.identity.srv.dto.AuthUser;
-import colesico.zacepco.identity.srv.dto.RegUser;
+import colesico.zacepco.identity.srv.model.dto.AuthUser;
 import colesico.zacepco.identity.srv.model.Auth;
 import colesico.zacepco.identity.srv.model.User;
 import colesico.zacepco.identity.srv.validation.AuthValidatorBuilder;
-import colesico.zacepco.identity.srv.validation.RegValidatorBuilder;
 
 import java.util.Optional;
 

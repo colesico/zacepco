@@ -1,7 +1,9 @@
 package colesico.zacepco.investigation.manager;
 
-import colesico.zacepco.investigation.dto.*;
-import colesico.zacepco.investigation.dto.results.*;
+import colesico.zacepco.investigation.model.DetectiveFocus;
+import colesico.zacepco.investigation.model.InspectionType;
+import colesico.zacepco.investigation.model.dto.FocusedClueMatch;
+import colesico.zacepco.investigation.model.results.*;
 import colesico.zacepco.investigation.model.state.InvestigationState;
 import colesico.zacepco.investigation.model.state.Searchable;
 import colesico.zacepco.script.model.scriptdoc.*;
@@ -13,12 +15,9 @@ public class SearchManager {
     private final ScriptDocument script;
     private final InvestigationState state;
 
-    private final TId entityId;
-
-    public SearchManager(InvestigationManager invManager, TId entityId) {
+    public SearchManager(InvestigationManager invManager) {
         this.script = invManager.script;
         this.state = invManager.state;
-        this.entityId = entityId;
     }
 
     private Set<FocusedClueSpec> findUndiscoveredFocusedClues(Set<ClueSpec.Id> entityClues) {
@@ -40,11 +39,12 @@ public class SearchManager {
         return result;
     }
 
-    private SearchResult searchClue(Set<ClueSpec.Id> entityClues, DetectiveFocus detectiveFocus, Integer d12) {
+    private InspectionResult searchClue(Set<ClueSpec.Id> entityClues, DetectiveFocus detectiveFocus, Integer d12) {
+
         Set<FocusedClueSpec> cluesToSearch = findUndiscoveredFocusedClues(entityClues);
 
         if (cluesToSearch.isEmpty()) {
-            return new CluesExhausted();
+            return CluesExhausted.of();
         }
 
         var matchedClues = InvestigationUtil.matchClues(cluesToSearch, detectiveFocus);
@@ -76,62 +76,72 @@ public class SearchManager {
                     .min(Comparator.comparingDouble(fw -> fw.focusedClue().threshold))
                     .orElseThrow();
             var clue = script.crime.clues.get(accidentalMatch.focusedClue().clue);
-            return new ClueDiscovered(clue, matchedClues.size() - 1, 0);
+            return ClueDiscovered.of(clue, matchedClues.size() - 1);
         } else {
             // Focus matched discovery
             var clue = script.crime.clues.get(selectedMatch.focusedClue().clue);
-            return new ClueFocusDiscovered(
+            return ClueFocusDiscovered.of(
                     clue,
+                    matchedClues.size() - 1,
                     selectedMatch.matchedIds(),
                     selectedMatch.matchedTypes(),
-                    selectedMatch.unmatchedTypes(),
-                    matchedClues.size() - 1,
-                    0
+                    selectedMatch.unmatchedTypes()
             );
         }
     }
 
-    public SearchResult search(DetectiveFocus detectiveFocus, Integer d12) {
-
-        if (state.budget <= 0) {
-            throw new IllegalArgumentException("Out of investigation budget" + entityId);
-        }
+    public InspectionResult search(TId searchedEntityId, DetectiveFocus detectiveFocus, Integer d12) {
 
         Searchable searchedEntity;
         Set<ClueSpec.Id> entityClues;
 
-        if (entityId instanceof LocationSpec.Id locationId) {
+        if (searchedEntityId instanceof LocationSpec.Id locationId) {
             searchedEntity = state.scene.locations.get(locationId);
             entityClues = script.crime.scene.locations.get(locationId).clues;
-        } else if (entityId instanceof PersonageSpec.Id personageId) {
+        } else if (searchedEntityId instanceof PersonageSpec.Id personageId) {
             searchedEntity = state.personages.get(personageId);
             entityClues = script.crime.personages.get(personageId).clues;
         } else {
-            throw new IllegalStateException("Unsupported entityId: " + entityId);
+            throw new IllegalStateException("Unsupported searched entity: " + searchedEntityId);
         }
 
         if (!searchedEntity.searchAvailable()) {
             throw new IllegalArgumentException("Search not available");
         }
 
-        // Check action params
-        var res = InvestigationUtil.checkActionRequest(
+        // Active detective
+        var detective = state.activeDetective();
+
+        InspectionResult resultBase = new InspectionResult() {
+        };
+
+        resultBase.inspectionType = InspectionType.SEARCH;
+        resultBase.inspectionSubject = (EntitySpec) searchedEntity;
+        resultBase.detectiveFocus = detectiveFocus;
+        resultBase.d12 = d12;
+        resultBase.activeDetective = detective;
+
+        // Check action param
+        var checkResult = InvestigationUtil.checkInspectionRequest(
                 detectiveFocus,
                 d12,
                 script,
                 state,
-                script.investigation.search.focusLimit);
+                InspectionType.SEARCH);
 
-        if (res != null) return res;
+        if (checkResult != null) return checkResult.assign(resultBase);
 
         // Try to spend budget
         var cost = script.investigation.search.cost;
         if (!state.spendBudget(cost)) {
-            return new InsufficientBudget();
+            return InsufficientBudget.of().assign(resultBase);
         }
 
         // Perform clue search
         var result = searchClue(entityClues, detectiveFocus, d12);
+        result.activeDetective = detective;
+        result.budgetSpending = cost;
+
 
         if (result instanceof CluesExhausted) {
             searchedEntity.makeUnsearchable();
@@ -149,7 +159,6 @@ public class SearchManager {
 
             // Detective awarded points
             if (result instanceof ClueFocusDiscovered cfuResult) {
-                var detective = state.activeDetective();
                 var awardedPoints = script.investigation.search.points;
                 awardedPoints = awardedPoints + cfuResult.matchedIds.size();
                 detective.addPoints(awardedPoints);

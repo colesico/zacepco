@@ -1,22 +1,20 @@
 package colesico.zacepco.investigation.manager;
 
-import colesico.zacepco.investigation.dto.results.FocusLimitExceeded;
-import colesico.zacepco.investigation.dto.results.SearchResult;
-import colesico.zacepco.investigation.dto.DetectiveFocus;
-import colesico.zacepco.investigation.dto.FocusedClueMatch;
-import colesico.zacepco.investigation.dto.results.InvalidD12;
-import colesico.zacepco.investigation.dto.results.UndiscoveredFocus;
+import colesico.zacepco.investigation.model.DetectiveFocus;
+import colesico.zacepco.investigation.model.InspectionType;
+import colesico.zacepco.investigation.model.dto.FocusedClueMatch;
+import colesico.zacepco.investigation.model.results.FocusLimitExceeded;
+import colesico.zacepco.investigation.model.results.InspectionResult;
+import colesico.zacepco.investigation.model.results.InvalidD12;
+import colesico.zacepco.investigation.model.results.UndiscoveredFocus;
 import colesico.zacepco.investigation.model.state.InvestigationState;
 import colesico.zacepco.script.model.scriptdoc.*;
 
 import java.util.*;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 public class InvestigationUtil {
-
-    public static boolean checkD12(int d12) {
-        return d12 > 0 && d12 <= 12;
-    }
 
     public static Set<TId.Type> extractIdTypes(Collection<TId> tids) {
         var types = EnumSet.noneOf(TId.Type.class);
@@ -24,24 +22,31 @@ public class InvestigationUtil {
         return types;
     }
 
-    public static SearchResult checkActionRequest(DetectiveFocus detectiveFocus,
-                                                  Integer d12,
-                                                  ScriptDocument script,
-                                                  InvestigationState state,
-                                                  int focusLimit) {
-        if (!checkD12(d12)) {
-            return new InvalidD12();
+    public static InspectionResult checkInspectionRequest(DetectiveFocus detectiveFocus,
+                                                          Integer d12,
+                                                          ScriptDocument script,
+                                                          InvestigationState state,
+                                                          InspectionType inspectionType) {
+        // Check D12
+        if (d12 < 0 || d12 > 12) {
+            return InvalidD12.of();
+        }
+
+        // Check focus limit
+        int focusLimit = switch (inspectionType) {
+            case SEARCH -> script.investigation.search.focusLimit;
+            case INTERROGATION -> script.investigation.interrogation.focusLimit;
+            case EXAMINATION -> script.investigation.examination.focusLimit;
+        };
+
+        if (detectiveFocus.size() > focusLimit) {
+            return FocusLimitExceeded.of(focusLimit);
         }
 
         // Check undiscovered id/types
         var undiscoveredFocus = undiscoveredFocus(detectiveFocus, state, script);
         if (!undiscoveredFocus.isEmpty()) {
-            return new UndiscoveredFocus(undiscoveredFocus);
-        }
-
-        // Check focus limit
-        if (detectiveFocus.size() > focusLimit) {
-            return new FocusLimitExceeded(focusLimit);
+            return UndiscoveredFocus.of(undiscoveredFocus);
         }
 
         return null;
@@ -122,4 +127,5 @@ public class InvestigationUtil {
             }
         }
     }
+
 }

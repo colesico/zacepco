@@ -1,8 +1,7 @@
-package colesico.zacepco.investigation.dto;
+package colesico.zacepco.investigation.model;
 
 import colesico.zacepco.script.model.scriptdoc.TId;
 
-import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.stream.Collectors;

@@ -5,7 +5,7 @@ import colesico.framework.service.ApplicationException;
 import colesico.framework.service.Service;
 import colesico.framework.transaction.Transactional;
 import colesico.framework.validation.Validator;
-import colesico.zacepco.identity.srv.dto.RegUser;
+import colesico.zacepco.identity.srv.model.dto.RegUser;
 import colesico.zacepco.identity.srv.model.User;
 import colesico.zacepco.identity.srv.validation.RegValidatorBuilder;
 

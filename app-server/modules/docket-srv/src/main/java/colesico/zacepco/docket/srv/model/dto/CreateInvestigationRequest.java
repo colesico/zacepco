@@ -1,4 +1,4 @@
-package colesico.zacepco.docket.srv.dto;
+package colesico.zacepco.docket.srv.model.dto;
 
 public class CreateInvestigationRequest {
     public Long scriptId;

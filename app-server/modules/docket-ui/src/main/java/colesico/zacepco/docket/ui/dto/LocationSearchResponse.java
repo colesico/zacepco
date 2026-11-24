@@ -1,6 +1,6 @@
 package colesico.zacepco.docket.ui.dto;
 
-import colesico.zacepco.investigation.dto.DetectiveFocus;
+import colesico.zacepco.investigation.model.DetectiveFocus;
 import colesico.zacepco.investigation.dto.results.SearchResult;
 
 public class LocationSearchResponse {

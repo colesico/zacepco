@@ -1,4 +1,4 @@
-package colesico.zacepco.identity.srv.dto;
+package colesico.zacepco.identity.srv.model.dto;
 
 public class RegUser {
 

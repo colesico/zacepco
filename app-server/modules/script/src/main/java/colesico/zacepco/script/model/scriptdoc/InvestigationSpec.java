@@ -40,7 +40,8 @@ public final class InvestigationSpec {
      */
     @YamlComment(text = {
             "",
-            "Location search specification",
+            "Search specification",
+            "for location or personage",
             ""
     })
     public SearchSpec search = new SearchSpec();

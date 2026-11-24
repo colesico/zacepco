@@ -3,7 +3,7 @@ package colesico.zacepco.identity.srv.validation;
 import colesico.framework.dslvalidator.builder.AbstractValidatorBuilder;
 import colesico.framework.dslvalidator.t9n.ValidatorMessages;
 import colesico.framework.validation.Validator;
-import colesico.zacepco.identity.srv.dto.AuthUser;
+import colesico.zacepco.identity.srv.model.dto.AuthUser;
 import jakarta.inject.Singleton;
 
 @Singleton

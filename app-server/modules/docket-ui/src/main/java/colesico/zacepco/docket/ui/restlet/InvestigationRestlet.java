@@ -10,13 +10,13 @@ import colesico.framework.service.BeanField;
 import colesico.framework.telehttp.ParamOrigin;
 import colesico.framework.telehttp.origin.Origin;
 import colesico.framework.telehttp.result.ValueResult;
-import colesico.zacepco.docket.srv.dto.CreateInvestigationRequest;
+import colesico.zacepco.docket.srv.model.dto.CreateInvestigationRequest;
 import colesico.zacepco.docket.srv.model.Investigation;
 import colesico.zacepco.docket.srv.service.InvestigationService;
 import colesico.zacepco.docket.srv.service.ScriptService;
 import colesico.zacepco.docket.ui.dto.InvestigationContext;
 import colesico.zacepco.docket.ui.dto.LocationSearchResponse;
-import colesico.zacepco.investigation.dto.DetectiveFocus;
+import colesico.zacepco.investigation.model.DetectiveFocus;
 import colesico.zacepco.script.model.scriptdoc.TId;
 
 @Restlet

@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * Examination specification
  */
-public final class ExaminationSpec extends InvestigationActionSpec {
+public final class ExaminationSpec extends InspectionSpec {
 
     @YamlComment(text = "Examination clues spec")
     public Map<ClueSpec.Id, FocusedClueSpec> clues = new LinkedHashMap<>();

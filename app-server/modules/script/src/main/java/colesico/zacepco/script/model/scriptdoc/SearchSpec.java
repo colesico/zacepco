@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * Search specification
  */
-public final class SearchSpec extends InvestigationActionSpec {
+public final class SearchSpec extends InspectionSpec {
 
     @YamlComment(text = "Location clues to be uncovered")
     public Map<ClueSpec.Id, FocusedClueSpec> clues = new LinkedHashMap<>();
