@@ -49,7 +49,7 @@
     try {
       const r = await investigationApi.search(investigationId, entityId, focus, d12);
       console.log('[Search] result: ', r);
-	  inspectionMode = "search";
+	  inspectionType = "SEARCH";
       inspectionResult = r;
 	  await tick();
       inspectionResultModal?.show();
@@ -162,7 +162,7 @@
       <div class="tab-content mb-4">
         {#if entityState.searchAvailable}
           <div class="tab-pane fade show active" id="tab-search" role="tabpanel">
-            <InspectionForm {context} inspectionMode="search" onInspect={handleSearch} />
+            <InspectionForm {context} inspectionType="SEARCH" onInspect={handleSearch} />
           </div>
         {/if}
 
@@ -174,7 +174,7 @@
             id="tab-interrogation"
             role="tabpanel"
           >
-            <InspectionForm {context} inspectionMode="interrogation" onInspect={handleInterrogation} />
+            <InspectionForm {context} inspectionType="INTERROGATION" onInspect={handleInterrogation} />
           </div>
         {/if}
       </div>
@@ -227,7 +227,7 @@
   {/if}
 
   {#if inspectionResult }
-    <InspectionResult bind:this={inspectionResultModal} {inspectionResult} {inspectionMode} {context} />
+    <InspectionResult bind:this={inspectionResultModal} {inspectionResult} {context} />
   {/if}
 </div>
 
