@@ -26,8 +26,8 @@ public class InvestigationManager {
         this.state = stateBuilder.build();
     }
 
-    public SearchManager searchManager(TId entityId) {
-        return new SearchManager(this, entityId);
+    public SearchManager searchManager() {
+        return new SearchManager(this);
     }
 
     public InvestigationState state() {

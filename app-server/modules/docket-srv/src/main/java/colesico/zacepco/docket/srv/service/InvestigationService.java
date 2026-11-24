@@ -5,17 +5,16 @@ import colesico.framework.security.authorization.RequireIdentity;
 import colesico.framework.service.Service;
 import colesico.framework.transaction.Transactional;
 import colesico.zacepco.docket.srv.dao.InvestigationDao;
-import colesico.zacepco.docket.srv.model.dto.CreateInvestigationRequest;
 import colesico.zacepco.docket.srv.model.Investigation;
 import colesico.zacepco.docket.srv.model.InvestigationStatus;
 import colesico.zacepco.docket.srv.model.ScriptStatus;
-import colesico.zacepco.investigation.model.DetectiveFocus;
-import colesico.zacepco.investigation.model.results.ClueDiscovered;
-import colesico.zacepco.investigation.model.results.CluesExhausted;
-import colesico.zacepco.investigation.dto.results.SearchResult;
+import colesico.zacepco.docket.srv.model.dto.CreateInvestigationRequest;
 import colesico.zacepco.investigation.manager.InvestigationManager;
 import colesico.zacepco.investigation.manager.InvestigationStateBuilder;
 import colesico.zacepco.investigation.manager.InvestigationStateEnricher;
+import colesico.zacepco.investigation.model.DetectiveFocus;
+import colesico.zacepco.investigation.model.results.ClueDiscovered;
+import colesico.zacepco.investigation.model.results.CluesExhausted;
 import colesico.zacepco.investigation.model.results.InspectionResult;
 import colesico.zacepco.script.model.scriptdoc.TId;
 import jakarta.inject.Provider;
@@ -112,7 +111,7 @@ public class InvestigationService {
 
         var invManager = new InvestigationManager(script, investigation.state);
 
-        var result = invManager.searchManager(entityId).search(detectiveFocus, d12);
+        var result = invManager.searchManager().search(entityId, detectiveFocus, d12);
 
         if (result instanceof ClueDiscovered
                 || result instanceof CluesExhausted) {

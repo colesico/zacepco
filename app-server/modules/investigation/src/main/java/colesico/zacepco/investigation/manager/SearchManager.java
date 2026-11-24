@@ -112,14 +112,15 @@ public class SearchManager {
         // Active detective
         var detective = state.activeDetective();
 
-        InspectionResult resultBase = new InspectionResult() {
+        // Prepare result base values
+        InspectionResult baseValues = new InspectionResult() {
         };
 
-        resultBase.inspectionType = InspectionType.SEARCH;
-        resultBase.inspectionSubject = (EntitySpec) searchedEntity;
-        resultBase.detectiveFocus = detectiveFocus;
-        resultBase.d12 = d12;
-        resultBase.activeDetective = detective;
+        baseValues.inspectionType = InspectionType.SEARCH;
+        baseValues.inspectionSubject = (EntitySpec) searchedEntity;
+        baseValues.detectiveFocus = detectiveFocus;
+        baseValues.d12 = d12;
+        baseValues.activeDetective = detective;
 
         // Check action param
         var checkResult = InvestigationUtil.checkInspectionRequest(
@@ -129,19 +130,19 @@ public class SearchManager {
                 state,
                 InspectionType.SEARCH);
 
-        if (checkResult != null) return checkResult.assign(resultBase);
+        if (checkResult != null) return checkResult.assign(baseValues);
 
         // Try to spend budget
         var cost = script.investigation.search.cost;
         if (!state.spendBudget(cost)) {
-            return InsufficientBudget.of().assign(resultBase);
+            return InsufficientBudget.of().assign(baseValues);
         }
 
         // Perform clue search
         var result = searchClue(entityClues, detectiveFocus, d12);
-        result.activeDetective = detective;
-        result.budgetSpending = cost;
+        result.assign(baseValues);
 
+        result.activeDetective = detective;
 
         if (result instanceof CluesExhausted) {
             searchedEntity.makeUnsearchable();
