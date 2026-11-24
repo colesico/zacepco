@@ -128,10 +128,9 @@
         </div>
         <div class="col-xl-9 col-lg-8 col-md-7">
           <select class="form-control me-sm-2" id="budgetScale" bind:value={budgetScale}>
-            <option value={0.7}>70%</option>
             <option value={1.0}>100%</option>
-            <option value={1.3}>130%</option>
-            <option value={1.6}>160%</option>
+            <option value={1.5}>150%</option>
+            <option value={2.0}>200%</option>
           </select>
         </div>
       </div>
