@@ -117,7 +117,7 @@ public class SearchManager {
         };
 
         baseValues.inspectionType = InspectionType.SEARCH;
-        baseValues.inspectionSubject = (EntitySpec) searchedEntity;
+        baseValues.inspectionSubjectId =  searchedEntityId;
         baseValues.detectiveFocus = detectiveFocus;
         baseValues.d12 = d12;
         baseValues.activeDetective = detective;

@@ -1,30 +1,30 @@
 <script>
   let {
     inspectionResult = null,
-    inspectionMode = null,
-    inspectionTarget = null,
     context = null,
   } = $props();
 
   const MODE_LABELS = {
-    search: 'Обыск',
-    interrogation: 'Допрос',
-    examination: 'Экспертиза'
+    SEARCH: 'Обыск',
+    INTERROGATION: 'Допрос',
+    EXAMINATION: 'Экспертиза'
   };
 
   let modalEl = $state(null);
 
+  const code = $derived(inspectionResult?.code ?? '');
   const result = $derived(inspectionResult?.result ?? null);
   const scriptId = $derived(context?.investigation?.scriptId);
-  
-  const code = $derived(result?.code ?? '');
+
   const clue = $derived(result?.clue ?? null);
   const assetId = $derived(clue?.id ?? '');
-  
-  const modeLabel = $derived(MODE_LABELS[inspectionMode] ?? inspectionMode ?? '');
+
+  const inspectionType = $derived(result?.inspectionType ?? '');
+  const inspectionTarget = $derived(result?.inspectionSubjectId ?? '');
+  const modeLabel = $derived(MODE_LABELS[inspectionType] ?? inspectionType ?? '');
 
   const formattedFocus = $derived.by(() => {
-    const f = inspectionResult?.focus;
+    const f = result?.detectiveFocus;
     const ids = Array.isArray(f?.ids) ? f.ids : [];
     const types = Array.isArray(f?.types) ? f.types : [];
     return [...ids, ...types].join(', ');
@@ -61,14 +61,14 @@
       <div class="modal-body">
         <div class="mb-3">
           Для фокуса: <strong>{formattedFocus || '—'}</strong> 
-          D12: <strong>{inspectionResult?.d12 ?? ''}</strong>
+          D12: <strong>{result?.d12 ?? ''}</strong>
         </div>
 
         {#if code === 'INVALID_D12'}
           <p class="mb-0 text-muted">Неверное значение D12</p>
         {:else if code === 'FOCUS_LIMIT_EXCEEDED'}
           <p class="mb-0 text-muted">
-            В фокусе детектива слишком много элементов, максимум : {result.focusLimit}
+            В фокусе детектива слишком много элементов, максимум : {result?.focusLimit}
           </p>
         {:else if code === 'UNDISCOVERED_FOCUS'}
           <p class="mb-0 text-muted">В фокусе детектива ранее не открытые сущности:</p>
