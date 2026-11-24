@@ -571,3 +571,19 @@ investigation:
       CEXN:
         focus: [CGUN, CKEY]
         threshold: 5.0
+  # 
+  # Detectives dictionary
+  # A subset of which can participate in the investigation
+  # 
+  detectives:
+    DHLS:
+      name: Sherlock Holmes
+      description: Famous detective
+    DPRO:
+      name: Hercule Poirot
+      description: Little grey cells
+    DBRN:
+      name: Father Brown
+      description: Catholic priest who solves crimes
+    DCOS:
+      name: Cosmonaut
