@@ -310,6 +310,7 @@ crime:
             personages: [PTRN]
       LMNT:
         name: Hill
+        description: Green hill
         pos: {col: 2, row: 3}
         
         # Initially hidden location or not

@@ -13,6 +13,7 @@ public class RestletGsonOptions extends GsonOptionsPrototype {
     public GsonBuilder configure(GsonBuilder gsonBuilder) {
         gsonBuilder
                 .registerTypeAdapter(LocationSpec.Id.class, new TIdAdapter())
+                .registerTypeAdapter(WaySpec.Id.class, new TIdAdapter())
                 .registerTypeAdapter(PersonageSpec.Id.class, new TIdAdapter())
                 .registerTypeAdapter(ClueSpec.Id.class, new TIdAdapter())
                 .registerTypeAdapter(TickSpec.Id.class, new TIdAdapter())

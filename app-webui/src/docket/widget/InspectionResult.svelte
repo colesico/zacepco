@@ -26,16 +26,16 @@
 
   const inspectionType = $derived(result?.inspectionType ?? '');
   const inspectionTarget = $derived(result?.inspectionTarget ?? '');
-  const modeLabel = $derived(INSPECTION_LABELS[inspectionType] ?? inspectionType ?? '');
+  const inspectionLabel = $derived(INSPECTION_LABELS[inspectionType] ?? inspectionType ?? '?');
 
   const targetName = $derived.by(() => {
     if (!inspectionTarget) return '';
     const crime = context?.script?.crime;
     if (inspectionTarget.startsWith('L')) {
-      return crime?.scene?.locations?.[inspectionTarget]?.name ?? inspectionTarget;
+      return crime?.scene?.locations?.[inspectionTarget]?.name + ' (' + inspectionTarget + ')';
     }
     if (inspectionTarget.startsWith('P')) {
-      return crime?.personages?.[inspectionTarget]?.name ?? inspectionTarget;
+      return crime?.personages?.[inspectionTarget]?.name + ' (' + inspectionTarget + ')';
     }
     return inspectionTarget;
   });
@@ -70,39 +70,18 @@
   function resolveUncoveredItem(rawItem) {
     const crime = context?.script?.crime;
 
-    if (rawItem && typeof rawItem === 'object' && rawItem.key) {
-      const wayId = `W${rawItem.key}`;
-      const way = crime?.scene?.ways?.[wayId] ?? {};
-      const locs = Array.isArray(way.locations) ? way.locations : [];
-      const fromId = locs[0] ?? '?';
-      const toId = locs[1] ?? '?';
-      return {
-        type: 'W',
-        id: wayId,
-        fromId,
-        toId,
-        fromName: resolveEntityName(fromId),
-        toName: resolveEntityName(toId),
-        description: way.description ?? ''
-      };
-    }
-
     const id = String(rawItem ?? '');
 
     if (id.startsWith('L')) {
       const loc = crime?.scene?.locations?.[id] ?? {};
-      const pos = loc.pos ?? loc.position ?? loc.coords ?? (loc.row != null && loc.col != null ? { row: loc.row, col: loc.col } : null);
+      const pos = loc.pos ?? {};
       return {
         type: 'L',
         id,
-        assetId: loc.asset ?? id,
+        assetId: id,
         name: loc.name ?? id,
         description: loc.description ?? '',
-        position: Array.isArray(pos)
-          ? `[${pos[0]}, ${pos[1]}]`
-          : pos && typeof pos === 'object'
-            ? `[${pos.row ?? pos.y ?? '?'}, ${pos.col ?? pos.x ?? '?'}]`
-            : null
+        position: `[${pos.col ?? '?'}, ${pos.row ?? '?'}]`
       };
     }
 
@@ -111,7 +90,7 @@
       return {
         type: 'P',
         id,
-        assetId: pers.asset ?? id,
+        assetId: id,
         name: pers.name ?? id,
         description: pers.description ?? ''
       };
@@ -130,9 +109,9 @@
 
     if (id.startsWith('W')) {
       const way = crime?.scene?.ways?.[id] ?? {};
-      const locs = Array.isArray(way.locations) ? way.locations : [];
-      const fromId = locs[0] ?? way.from ?? '?';
-      const toId = locs[1] ?? way.to ?? '?';
+      const locs =  way.locations;
+      const fromId = locs[0] ?? '?';
+      const toId = locs[1] ?? '?';
       return {
         type: 'W',
         id,
@@ -169,7 +148,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="inspectionResultModalLabel">
-          {modeLabel}{targetName ? `: ${targetName}` : ''}
+          {inspectionLabel}{targetName ? `: ${targetName}` : ''}
         </h5>
         <button
           type="button"
@@ -201,6 +180,34 @@
             <span>D12: <strong>{result.d12}</strong></span>
           {/if}
         </div>
+	
+	 {#if result?.awardedPoints != null}
+		<div class="mb-2 d-flex align-items-center gap-2">
+		  <i class="fa-solid fa-medal text-warning"></i>
+		  <span>Начислено очков: <strong>{result.awardedPoints}</strong></span>
+		</div>
+	  {/if}
+
+	  {#if result?.budgetSpend != null || result?.currentBudget != null}
+		<div class="mb-2 d-flex align-items-center gap-2">
+		  <i class="fa-solid fa-coins text-success"></i>
+		  <span>
+			Потрачено бюджета: <strong>{result?.budgetSpend ?? 0}</strong>, остаток: <strong>{result?.currentBudget ?? 0}</strong>
+		  </span>
+		</div>
+	  {/if}
+
+	  {#if matchedFocusText || unmatchedFocusText}
+		<div class="mb-3 d-flex align-items-center gap-2">
+		  <i class="fa-solid fa-crosshairs text-info"></i>
+		  <span>
+			Соответствие фокуса:
+			{#if matchedFocusText} <strong class="text-success">{matchedFocusText}</strong>{/if}
+			{#if matchedFocusText && unmatchedFocusText}, {/if}
+			{#if unmatchedFocusText} <strong class="text-danger">{unmatchedFocusText}</strong>{/if}
+		  </span>
+		</div>
+	  {/if}
 
         {#if code === 'INVALID_D12'}
           <p class="mb-0 text-muted">Неверное значение D12</p>
@@ -221,33 +228,7 @@
         {:else if code === 'CLUES_NOT_FOUND' || code === 'NOTHING_FOUND'}
           <p class="mb-0 text-muted">Новых улик не обнаружено.</p>
         {:else if code === 'CLUE_DISCOVERED' || code === 'CLUE_FOCUS_DISCOVERED'}
-          {#if result?.awardedPoints != null}
-            <div class="mb-2 d-flex align-items-center gap-2">
-              <i class="fa-solid fa-medal text-warning"></i>
-              <span>Начислено очков: <strong>{result.awardedPoints}</strong></span>
-            </div>
-          {/if}
-
-          {#if result?.budgetSpend != null || result?.currentBudget != null}
-            <div class="mb-2 d-flex align-items-center gap-2">
-              <i class="fa-solid fa-coins text-success"></i>
-              <span>
-                Потрачено бюджета: <strong>{result?.budgetSpend ?? 0}</strong>, остаток: <strong>{result?.currentBudget ?? 0}</strong>
-              </span>
-            </div>
-          {/if}
-
-          {#if matchedFocusText || unmatchedFocusText}
-            <div class="mb-3 d-flex align-items-center gap-2">
-              <i class="fa-solid fa-crosshairs text-info"></i>
-              <span>
-                Соответствие фокуса:
-				{#if matchedFocusText} <strong class="text-success">{matchedFocusText}</strong>{/if}
-				{#if matchedFocusText && unmatchedFocusText}, {/if}
-				{#if unmatchedFocusText} <strong class="text-danger">{unmatchedFocusText}</strong>{/if}
-              </span>
-            </div>
-          {/if}
+         
 
           <p class="mb-2 text-muted">
             {code === 'CLUE_DISCOVERED'
@@ -329,7 +310,7 @@
                           {/if}
                           {#if item.type === 'L' && item.position}
                             <div class="small text-secondary mt-1">
-                              Ячейка сцены: <strong>{item.position}</strong>
+                              Столбцец и строка: <strong>{item.position}</strong>
                             </div>
                           {/if}
                         </div>
