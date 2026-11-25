@@ -181,19 +181,19 @@
           {/if}
         </div>
 
-        {#if result?.awardedPoints != null}
-          <div class="mb-2 d-flex align-items-center gap-2">
-            <i class="fa-solid fa-medal text-warning"></i>
-            <span>Начислено очков: <strong>{result.awardedPoints}</strong></span>
-          </div>
-        {/if}
-
         {#if result?.budgetSpend != null || result?.currentBudget != null}
           <div class="mb-2 d-flex align-items-center gap-2">
             <i class="fa-solid fa-coins text-success"></i>
             <span>
               Потрачено бюджета: <strong>{result?.budgetSpend ?? 0}</strong>, остаток: <strong>{result?.currentBudget ?? 0}</strong>
             </span>
+          </div>
+        {/if}
+		
+        {#if result?.awardedPoints != null}
+          <div class="mb-2 d-flex align-items-center gap-2">
+            <i class="fa-solid fa-medal text-warning"></i>
+            <span>Начислено очков: <strong>{result.awardedPoints}</strong></span>
           </div>
         {/if}
 
