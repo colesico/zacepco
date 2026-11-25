@@ -56,7 +56,7 @@
     if (!id || !crime) return id;
     if (id.startsWith('L')) return crime.scene?.locations?.[id]?.name + ' (' + id + ')';
     if (id.startsWith('P')) return crime.personages?.[id]?.name + ' (' + id + ')';
-    if (id.startsWith('C')) return crime.clues?.[id]?.name  + ' (' + id + ')';
+    if (id.startsWith('C')) return crime.clues?.[id]?.name + ' (' + id + ')';
     return id;
   }
 
@@ -306,13 +306,27 @@
                         </div>
                       </div>
                     {:else if item.type === 'W'}
-                      <div class="p-2 rounded border bg-light">
-                        <div class="fw-semibold">
-                          Путь [{item.fromName} — {item.toName}]
+                      <div class="d-flex align-items-center gap-3 p-2 rounded border bg-light">
+                        <div
+                          class="position-relative flex-shrink-0 rounded border bg-secondary-subtle d-flex align-items-center justify-content-center text-secondary"
+                          style="width: 64px; height: 64px;"
+                        >
+                          <i class="fa-solid fa-route fs-4 text-danger"></i>
+                          <span
+                            class="badge text-bg-secondary position-absolute top-0 start-0 m-1"
+                            style="font-size: 0.65em; z-index: 2;"
+                          >
+                            {item.id}
+                          </span>
                         </div>
-                        {#if item.description}
-                          <div class="small text-muted text-break">{item.description}</div>
-                        {/if}
+
+                        <div class="min-w-0">
+                          <div class="text-break">{item.fromName}</div>
+                          <div class="text-break">{item.toName}</div>
+                          {#if item.description}
+                            <div class="small text-muted text-break">{item.description}</div>
+                          {/if}
+                        </div>
                       </div>
                     {:else}
                       <div><strong>{item.id}</strong></div>
