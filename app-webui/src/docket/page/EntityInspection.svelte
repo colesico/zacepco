@@ -49,7 +49,6 @@
     try {
       const r = await investigationApi.search(investigationId, entityId, focus, d12);
       console.log('[Search] result: ', r);
-	  inspectionType = "SEARCH";
       inspectionResult = r;
 	  await tick();
       inspectionResultModal?.show();

@@ -1,29 +1,30 @@
 <script>
   let { context, inspectionType = 'SEARCH', onInspect } = $props();
 
-  const MODE_META = {
+  const INSPECTION_META = {
     SEARCH: {
       title: 'Обыск',
       buttonLabel: 'Обыскать',
-      icon: 'fa-magnifying-glass'
+      icon: 'fa-magnifying-glass',
+	  config: context.script.investigation.search
     },
     INTERROGATION: {
       title: 'Допрос',
       buttonLabel: 'Допросить',
-      icon: 'fa-comment'
+      icon: 'fa-comment',
+	  config: context.script.investigation.interrogation
     },
     EXAMINATION: {
       title: 'Экспертиза',
       buttonLabel: 'Провести экспертизу',
-      icon: 'fa-microscope'
+      icon: 'fa-microscope',
+	  config: context.script.investigation.examination
     }
   };
 
-  const currentMeta = $derived(MODE_META[inspectionType] ?? MODE_META.search);
+  const currentMeta = $derived(INSPECTION_META[inspectionType]);
 
-  const modeConfig = $derived(
-    context.script?.investigation?.[inspectionType] ?? {}
-  );
+  const inspectionConfig =  $derived(INSPECTION_META[inspectionType].config);
 
   const activeDetectiveId = $derived(
     context.investigation.state.activeDetectiveId
@@ -33,9 +34,9 @@
     context.script.investigation.detectives[activeDetectiveId]
   );
 
-  const focusLimit = $derived(modeConfig.focusLimit);
-  const actionCost = $derived(modeConfig.cost);
-  const actionPoints = $derived(modeConfig.points);
+  const focusLimit = $derived(inspectionConfig.focusLimit);
+  const actionCost = $derived(inspectionConfig.cost);
+  const actionPoints = $derived(inspectionConfig.points);
 
   const budget = $derived(context.investigation.state.budget);
 

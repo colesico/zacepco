@@ -1,0 +1,1058 @@
+{
+    "investigation": {
+        "id": 25,
+        "scriptId": 7,
+        "userId": 1,
+        "status": "OPEN",
+        "createdAt": "2026-11-25T12:37:16",
+        "state": {
+            "script": {
+                "uid": "ZACEPCO",
+                "version": 1
+            },
+            "budget": 32,
+            "randFactor": 1,
+            "activeDetectiveId": "DBRN",
+            "personages": {
+                "PFCE": {
+                    "id": "PFCE",
+                    "hidden": false,
+                    "searchAvailable": true,
+                    "interrogationAvailable": true
+                },
+                "PJOY": {
+                    "id": "PJOY",
+                    "hidden": false,
+                    "searchAvailable": true,
+                    "interrogationAvailable": true
+                },
+                "PTRN": {
+                    "id": "PTRN",
+                    "hidden": false,
+                    "searchAvailable": true,
+                    "interrogationAvailable": true
+                },
+                "PSLD": {
+                    "id": "PSLD",
+                    "hidden": true,
+                    "searchAvailable": true,
+                    "interrogationAvailable": true
+                }
+            },
+            "scene": {
+                "locations": {
+                    "LCST": {
+                        "id": "LCST",
+                        "hidden": false,
+                        "searchAvailable": true
+                    },
+                    "LBCH": {
+                        "id": "LBCH",
+                        "hidden": false,
+                        "searchAvailable": true
+                    },
+                    "LCMP": {
+                        "id": "LCMP",
+                        "hidden": false,
+                        "searchAvailable": true
+                    },
+                    "LWOD": {
+                        "id": "LWOD",
+                        "hidden": false,
+                        "searchAvailable": true
+                    },
+                    "LHSE": {
+                        "id": "LHSE",
+                        "hidden": false,
+                        "searchAvailable": true
+                    },
+                    "LRIV": {
+                        "id": "LRIV",
+                        "hidden": false,
+                        "searchAvailable": true
+                    },
+                    "LMNT": {
+                        "id": "LMNT",
+                        "hidden": true,
+                        "searchAvailable": true
+                    }
+                },
+                "ways": {
+                    "WCB": {
+                        "id": {
+                            "key": "CB"
+                        },
+                        "hidden": false
+                    },
+                    "WBR": {
+                        "id": {
+                            "key": "BR"
+                        },
+                        "hidden": false
+                    },
+                    "WBH": {
+                        "id": {
+                            "key": "BH"
+                        },
+                        "hidden": false
+                    },
+                    "WRC": {
+                        "id": {
+                            "key": "RC"
+                        },
+                        "hidden": false
+                    },
+                    "WCW": {
+                        "id": {
+                            "key": "CW"
+                        },
+                        "hidden": false
+                    },
+                    "WBM": {
+                        "id": {
+                            "key": "BM"
+                        },
+                        "hidden": true
+                    },
+                    "WMC": {
+                        "id": {
+                            "key": "MC"
+                        },
+                        "hidden": true
+                    }
+                }
+            },
+            "clues": {
+                "CFPR": {
+                    "id": "CFPR",
+                    "discovered": true
+                },
+                "CSGT": {
+                    "id": "CSGT",
+                    "discovered": true
+                },
+                "CHMR": {
+                    "id": "CHMR",
+                    "discovered": false
+                },
+                "CCLK": {
+                    "id": "CCLK",
+                    "discovered": false
+                },
+                "CKEY": {
+                    "id": "CKEY",
+                    "discovered": false
+                },
+                "CGLS": {
+                    "id": "CGLS",
+                    "discovered": false
+                },
+                "CPEN": {
+                    "id": "CPEN",
+                    "discovered": false
+                },
+                "CGUN": {
+                    "id": "CGUN",
+                    "discovered": false
+                },
+                "CBRY": {
+                    "id": "CBRY",
+                    "discovered": false
+                },
+                "CEXP": {
+                    "id": "CEXP",
+                    "discovered": false
+                },
+                "CEXN": {
+                    "id": "CEXN",
+                    "discovered": false
+                }
+            },
+            "detectives": {
+                "DBRN": {
+                    "id": "DBRN",
+                    "points": 0
+                },
+                "DHLS": {
+                    "id": "DHLS",
+                    "points": 0
+                },
+                "DPRO": {
+                    "id": "DPRO",
+                    "points": 0
+                },
+                "DCOS": {
+                    "id": "DCOS",
+                    "points": 0
+                }
+            }
+        }
+    },
+    "script": {
+        "metainfo": {
+            "schema": "1.0.0",
+            "uid": "ZACEPCO",
+            "version": 1,
+            "title": "Script example",
+            "annotation": "Demonstrates script document model.\n\nMorning at Maryino came too quietly. Someone did not come down\nto breakfast. On the grounds fresh earth showed dark, and on\nthe table a glass still stood untouched. The estate remembers\nmore than its residents will say.\n",
+            "authors": [
+                "Vladlen V. Larionov"
+            ],
+            "licence": "CC BY 4.0",
+            "creationDate": "2026-01-01",
+            "difficulty": 0,
+            "estimatedTime": {
+                "min": 1,
+                "max": 5
+            },
+            "playersNum": {
+                "min": 1,
+                "max": 4
+            },
+            "age": "18+"
+        },
+        "crime": {
+            "fabula": "Solid (PSLD) met Transparent (PTRN) in the castle (LCST),\nkilled him, carried the body across the sunny beach (LBCH)\nto the hill (LMNT) and buried it there, then disposed of\nthe remaining evidence at the camping (LCMP).\n",
+            "timeline": {
+                "T1": {
+                    "id": "T1",
+                    "timestamp": "1970-01-01T10:00:00"
+                },
+                "T2": {
+                    "id": "T2",
+                    "timestamp": "1970-01-01T10:30:00"
+                },
+                "T3": {
+                    "id": "T3",
+                    "timestamp": "1970-01-01T11:15:00"
+                },
+                "T4": {
+                    "id": "T4",
+                    "timestamp": "1970-01-01T12:45:00"
+                },
+                "T5": {
+                    "id": "T5",
+                    "timestamp": "1970-01-01T14:00:00"
+                },
+                "T6": {
+                    "id": "T6",
+                    "timestamp": "1970-01-01T15:30:00"
+                },
+                "T7": {
+                    "id": "T7",
+                    "timestamp": "1970-01-01T17:00:00"
+                }
+            },
+            "personages": {
+                "PFCE": {
+                    "hidden": false,
+                    "clues": [
+                        "CFPR",
+                        "CPEN"
+                    ],
+                    "log": {
+                        "T1": {
+                            "tick": "T1",
+                            "location": "LCST",
+                            "clues": [
+                                "CFPR"
+                            ]
+                        },
+                        "T2": {
+                            "tick": "T2",
+                            "location": "LCST",
+                            "clues": [
+                                "CPEN"
+                            ]
+                        },
+                        "T3": {
+                            "tick": "T3",
+                            "location": "LBCH"
+                        },
+                        "T4": {
+                            "tick": "T4",
+                            "location": "LHSE"
+                        },
+                        "T5": {
+                            "tick": "T5",
+                            "location": "LHSE"
+                        },
+                        "T6": {
+                            "tick": "T6",
+                            "location": "LHSE"
+                        },
+                        "T7": {
+                            "tick": "T7",
+                            "location": "LHSE"
+                        }
+                    },
+                    "id": "PFCE",
+                    "name": "Happy face",
+                    "description": "Emoji happy face\n",
+                    "ref": "ZACEPCO"
+                },
+                "PJOY": {
+                    "hidden": false,
+                    "clues": [
+                        "CKEY"
+                    ],
+                    "log": {
+                        "T1": {
+                            "tick": "T1",
+                            "location": "LBCH"
+                        },
+                        "T2": {
+                            "tick": "T2",
+                            "location": "LBCH"
+                        },
+                        "T3": {
+                            "tick": "T3",
+                            "location": "LBCH"
+                        },
+                        "T4": {
+                            "tick": "T4",
+                            "location": "LBCH"
+                        },
+                        "T5": {
+                            "tick": "T5",
+                            "location": "LHSE",
+                            "clues": [
+                                "CKEY"
+                            ]
+                        },
+                        "T6": {
+                            "tick": "T6",
+                            "location": "LHSE"
+                        },
+                        "T7": {
+                            "tick": "T7",
+                            "location": "LHSE"
+                        }
+                    },
+                    "id": "PJOY",
+                    "name": "Joyful man",
+                    "description": "Joyful personage"
+                },
+                "PTRN": {
+                    "hidden": false,
+                    "clues": [
+                        "CGUN"
+                    ],
+                    "log": {
+                        "T1": {
+                            "tick": "T1",
+                            "location": "LCMP",
+                            "clues": [
+                                "CGUN"
+                            ]
+                        },
+                        "T2": {
+                            "tick": "T2",
+                            "location": "LRIV"
+                        },
+                        "T3": {
+                            "tick": "T3",
+                            "location": "LBCH"
+                        },
+                        "T4": {
+                            "tick": "T4",
+                            "location": "LCST"
+                        },
+                        "T5": {
+                            "tick": "T5",
+                            "location": "LBCH"
+                        },
+                        "T6": {
+                            "tick": "T6",
+                            "location": "LMNT"
+                        },
+                        "T7": {
+                            "tick": "T7",
+                            "location": "LMNT"
+                        }
+                    },
+                    "id": "PTRN",
+                    "name": "Transparent",
+                    "description": "Transparent personage"
+                },
+                "PSLD": {
+                    "hidden": true,
+                    "clues": [],
+                    "log": {
+                        "T1": {
+                            "tick": "T1",
+                            "location": "LCST"
+                        },
+                        "T2": {
+                            "tick": "T2",
+                            "location": "LCST"
+                        },
+                        "T3": {
+                            "tick": "T3",
+                            "location": "LCST"
+                        },
+                        "T4": {
+                            "tick": "T4",
+                            "location": "LCST"
+                        },
+                        "T5": {
+                            "tick": "T5",
+                            "location": "LBCH"
+                        },
+                        "T6": {
+                            "tick": "T6",
+                            "location": "LMNT"
+                        },
+                        "T7": {
+                            "tick": "T7",
+                            "location": "LCMP"
+                        }
+                    },
+                    "id": "PSLD",
+                    "name": "Solid",
+                    "description": "Solid round personage"
+                }
+            },
+            "scene": {
+                "name": "Maryino Estate",
+                "size": {
+                    "cols": 4,
+                    "rows": 3
+                },
+                "locations": {
+                    "LCST": {
+                        "pos": {
+                            "col": 2,
+                            "row": 1
+                        },
+                        "hidden": false,
+                        "clues": [
+                            "CSGT",
+                            "CHMR",
+                            "CGLS"
+                        ],
+                        "log": {
+                            "T1": {
+                                "tick": "T1",
+                                "personages": [
+                                    "PFCE",
+                                    "PSLD"
+                                ],
+                                "clues": [
+                                    "CSGT"
+                                ]
+                            },
+                            "T2": {
+                                "tick": "T2",
+                                "personages": [
+                                    "PFCE",
+                                    "PSLD"
+                                ],
+                                "clues": []
+                            },
+                            "T3": {
+                                "tick": "T3",
+                                "personages": [
+                                    "PJOY",
+                                    "PSLD"
+                                ],
+                                "clues": []
+                            },
+                            "T4": {
+                                "tick": "T4",
+                                "personages": [
+                                    "PSLD",
+                                    "PTRN"
+                                ],
+                                "clues": [
+                                    "CHMR",
+                                    "CGLS"
+                                ]
+                            }
+                        },
+                        "id": "LCST",
+                        "name": "Castle",
+                        "description": "Castle with red flag\n",
+                        "ref": "ZACEPCO"
+                    },
+                    "LBCH": {
+                        "pos": {
+                            "col": 2,
+                            "row": 2
+                        },
+                        "hidden": false,
+                        "clues": [],
+                        "log": {
+                            "T1": {
+                                "tick": "T1",
+                                "personages": [
+                                    "PJOY"
+                                ],
+                                "clues": []
+                            },
+                            "T2": {
+                                "tick": "T2",
+                                "personages": [
+                                    "PJOY"
+                                ],
+                                "clues": []
+                            },
+                            "T3": {
+                                "tick": "T3",
+                                "personages": [
+                                    "PFCE",
+                                    "PTRN"
+                                ],
+                                "clues": []
+                            },
+                            "T4": {
+                                "tick": "T4",
+                                "personages": [
+                                    "PJOY"
+                                ],
+                                "clues": []
+                            },
+                            "T5": {
+                                "tick": "T5",
+                                "personages": [
+                                    "PSLD",
+                                    "PTRN"
+                                ],
+                                "clues": []
+                            }
+                        },
+                        "id": "LBCH",
+                        "name": "Sunny beach",
+                        "description": "Three sun loungers and a beach umbrella\n"
+                    },
+                    "LCMP": {
+                        "pos": {
+                            "col": 3,
+                            "row": 3
+                        },
+                        "hidden": false,
+                        "clues": [],
+                        "log": {
+                            "T1": {
+                                "tick": "T1",
+                                "personages": [
+                                    "PTRN"
+                                ],
+                                "clues": []
+                            },
+                            "T7": {
+                                "tick": "T7",
+                                "personages": [
+                                    "PSLD"
+                                ],
+                                "clues": []
+                            }
+                        },
+                        "id": "LCMP",
+                        "name": "Camping",
+                        "description": "Two camping tents and a campfire pit\nwith smoldering embers\n"
+                    },
+                    "LWOD": {
+                        "pos": {
+                            "col": 4,
+                            "row": 3
+                        },
+                        "hidden": false,
+                        "clues": [],
+                        "log": {},
+                        "id": "LWOD",
+                        "name": "Pine woods",
+                        "description": "A small pinewood with a glade\n"
+                    },
+                    "LHSE": {
+                        "pos": {
+                            "col": 1,
+                            "row": 2
+                        },
+                        "hidden": false,
+                        "clues": [
+                            "CCLK"
+                        ],
+                        "log": {
+                            "T1": {
+                                "tick": "T1",
+                                "personages": [],
+                                "clues": [
+                                    "CCLK"
+                                ]
+                            },
+                            "T4": {
+                                "tick": "T4",
+                                "personages": [
+                                    "PFCE"
+                                ],
+                                "clues": []
+                            },
+                            "T5": {
+                                "tick": "T5",
+                                "personages": [
+                                    "PFCE",
+                                    "PJOY"
+                                ],
+                                "clues": []
+                            },
+                            "T6": {
+                                "tick": "T6",
+                                "personages": [
+                                    "PFCE",
+                                    "PJOY"
+                                ],
+                                "clues": []
+                            },
+                            "T7": {
+                                "tick": "T7",
+                                "personages": [
+                                    "PFCE",
+                                    "PJOY"
+                                ],
+                                "clues": []
+                            }
+                        },
+                        "id": "LHSE",
+                        "name": "Abandoned house",
+                        "description": "People say there are ghosts here\n"
+                    },
+                    "LRIV": {
+                        "pos": {
+                            "col": 3,
+                            "row": 2
+                        },
+                        "hidden": false,
+                        "clues": [],
+                        "log": {
+                            "T2": {
+                                "tick": "T2",
+                                "personages": [
+                                    "PTRN"
+                                ],
+                                "clues": []
+                            }
+                        },
+                        "id": "LRIV",
+                        "name": "River",
+                        "description": "Fast current, deep bottom\n"
+                    },
+                    "LMNT": {
+                        "pos": {
+                            "col": 2,
+                            "row": 3
+                        },
+                        "hidden": true,
+                        "clues": [
+                            "CBRY"
+                        ],
+                        "log": {
+                            "T6": {
+                                "tick": "T6",
+                                "personages": [
+                                    "PSLD",
+                                    "PTRN"
+                                ],
+                                "clues": [
+                                    "CBRY"
+                                ]
+                            },
+                            "T7": {
+                                "tick": "T7",
+                                "personages": [
+                                    "PTRN"
+                                ],
+                                "clues": []
+                            }
+                        },
+                        "id": "LMNT",
+                        "name": "Hill"
+                    }
+                },
+                "ways": {
+                    "WCB": {
+                        "locations": [
+                            "LCST",
+                            "LBCH"
+                        ],
+                        "hidden": false,
+                        "id": {
+                            "key": "CB"
+                        },
+                        "description": "length 10m"
+                    },
+                    "WBR": {
+                        "locations": [
+                            "LBCH",
+                            "LRIV"
+                        ],
+                        "hidden": false,
+                        "id": {
+                            "key": "BR"
+                        }
+                    },
+                    "WBH": {
+                        "locations": [
+                            "LBCH",
+                            "LHSE"
+                        ],
+                        "hidden": false,
+                        "id": {
+                            "key": "BH"
+                        }
+                    },
+                    "WRC": {
+                        "locations": [
+                            "LRIV",
+                            "LCMP"
+                        ],
+                        "hidden": false,
+                        "id": {
+                            "key": "RC"
+                        }
+                    },
+                    "WCW": {
+                        "locations": [
+                            "LCMP",
+                            "LWOD"
+                        ],
+                        "hidden": false,
+                        "id": {
+                            "key": "CW"
+                        }
+                    },
+                    "WBM": {
+                        "locations": [
+                            "LBCH",
+                            "LMNT"
+                        ],
+                        "hidden": true,
+                        "id": {
+                            "key": "BM"
+                        }
+                    },
+                    "WMC": {
+                        "locations": [
+                            "LMNT",
+                            "LCMP"
+                        ],
+                        "hidden": true,
+                        "id": {
+                            "key": "MC"
+                        }
+                    }
+                }
+            },
+            "clues": {
+                "CFPR": {
+                    "discovered": true,
+                    "falsity": true,
+                    "uncovers": [],
+                    "leadsTo": [],
+                    "id": "CFPR",
+                    "name": "Fingerprint",
+                    "description": "Left on a spoon\n",
+                    "ref": "ZACEPCO"
+                },
+                "CSGT": {
+                    "discovered": true,
+                    "falsity": false,
+                    "uncovers": [],
+                    "leadsTo": [],
+                    "id": "CSGT",
+                    "name": "Cigarette butt"
+                },
+                "CHMR": {
+                    "discovered": false,
+                    "falsity": false,
+                    "uncovers": [
+                        "LMNT",
+                        {
+                            "key": "BM"
+                        },
+                        {
+                            "key": "MC"
+                        }
+                    ],
+                    "leadsTo": [
+                        "LMNT",
+                        "PSLD"
+                    ],
+                    "id": "CHMR",
+                    "name": "Hammer",
+                    "description": "A fingerprint on the handle"
+                },
+                "CCLK": {
+                    "discovered": false,
+                    "falsity": false,
+                    "uncovers": [],
+                    "leadsTo": [
+                        "LHSE"
+                    ],
+                    "id": "CCLK",
+                    "name": "Clock",
+                    "description": "The clock hands stopped at 5:15"
+                },
+                "CKEY": {
+                    "discovered": false,
+                    "falsity": false,
+                    "uncovers": [],
+                    "leadsTo": [
+                        "PJOY",
+                        "LHSE"
+                    ],
+                    "id": "CKEY",
+                    "name": "Key",
+                    "description": "An old rusty key"
+                },
+                "CGLS": {
+                    "discovered": false,
+                    "falsity": false,
+                    "uncovers": [],
+                    "leadsTo": [
+                        "PTRN",
+                        "LCST"
+                    ],
+                    "id": "CGLS",
+                    "name": "Glass",
+                    "description": "A full martini glass"
+                },
+                "CPEN": {
+                    "discovered": false,
+                    "falsity": false,
+                    "uncovers": [
+                        "PSLD"
+                    ],
+                    "leadsTo": [
+                        "PSLD"
+                    ],
+                    "id": "CPEN",
+                    "name": "Yellow pen",
+                    "description": "A metal body"
+                },
+                "CGUN": {
+                    "discovered": false,
+                    "falsity": true,
+                    "uncovers": [],
+                    "leadsTo": [
+                        "PTRN"
+                    ],
+                    "id": "CGUN",
+                    "name": "Gun",
+                    "description": "Calibre .25"
+                },
+                "CBRY": {
+                    "discovered": false,
+                    "falsity": false,
+                    "uncovers": [
+                        "CGUN"
+                    ],
+                    "leadsTo": [
+                        "PTRN",
+                        "LMNT",
+                        "PSLD"
+                    ],
+                    "id": "CBRY",
+                    "name": "Buried body",
+                    "description": "A hand protrudes from the fresh earth"
+                },
+                "CEXP": {
+                    "discovered": false,
+                    "falsity": false,
+                    "uncovers": [],
+                    "leadsTo": [
+                        "CFPR",
+                        "CGLS"
+                    ],
+                    "id": "CEXP",
+                    "name": "Expert report",
+                    "description": "The evidence matches"
+                },
+                "CEXN": {
+                    "discovered": false,
+                    "falsity": false,
+                    "uncovers": [],
+                    "leadsTo": [
+                        "CGUN",
+                        "CKEY"
+                    ],
+                    "id": "CEXN",
+                    "name": "Expert report",
+                    "description": "The evidence does not match",
+                    "asset": "CEXP"
+                }
+            }
+        },
+        "investigation": {
+            "budget": 16,
+            "strategy": [
+                {
+                    "inspection": "INTERROGATION",
+                    "target": "PFCE",
+                    "focus": [
+                        "T2",
+                        "LCST"
+                    ],
+                    "result": "CPEN"
+                },
+                {
+                    "inspection": "SEARCH",
+                    "target": "LCST",
+                    "focus": [
+                        "T4",
+                        "PSLD"
+                    ],
+                    "result": "CHMR"
+                },
+                {
+                    "inspection": "SEARCH",
+                    "target": "LMNT",
+                    "focus": [
+                        "T6",
+                        "PSLD"
+                    ],
+                    "result": "CBRY"
+                },
+                {
+                    "inspection": "INTERROGATION",
+                    "target": "PJOY",
+                    "focus": [
+                        "T5",
+                        "LHSE"
+                    ],
+                    "result": "CKEY"
+                },
+                {
+                    "inspection": "SEARCH",
+                    "target": "LHSE",
+                    "focus": [
+                        "T1",
+                        "LHSE"
+                    ],
+                    "result": "CCLK"
+                }
+            ],
+            "search": {
+                "clues": {
+                    "CHMR": {
+                        "clue": "CHMR",
+                        "focus": [
+                            "T4",
+                            "PSLD",
+                            "PTRN"
+                        ],
+                        "threshold": 6.5
+                    },
+                    "CGLS": {
+                        "clue": "CGLS",
+                        "focus": [
+                            "T4",
+                            "PTRN"
+                        ],
+                        "threshold": 3.5
+                    },
+                    "CCLK": {
+                        "clue": "CCLK",
+                        "focus": [
+                            "T1",
+                            "LHSE"
+                        ],
+                        "threshold": 4
+                    },
+                    "CBRY": {
+                        "clue": "CBRY",
+                        "focus": [
+                            "T6",
+                            "PSLD",
+                            "PTRN"
+                        ],
+                        "threshold": 7
+                    },
+                    "CGUN": {
+                        "clue": "CGUN",
+                        "focus": [
+                            "T1",
+                            "LCMP",
+                            "PTRN"
+                        ],
+                        "threshold": 2
+                    }
+                },
+                "cost": 3,
+                "points": 3,
+                "focusLimit": 2,
+                "statCost": -1
+            },
+            "interrogation": {
+                "clues": {
+                    "CPEN": {
+                        "clue": "CPEN",
+                        "focus": [
+                            "T2",
+                            "LCST"
+                        ],
+                        "threshold": 4.5
+                    },
+                    "CKEY": {
+                        "clue": "CKEY",
+                        "focus": [
+                            "T5",
+                            "PJOY",
+                            "LHSE"
+                        ],
+                        "threshold": 3.5
+                    }
+                },
+                "cost": 2,
+                "points": 2,
+                "focusLimit": 2,
+                "statCost": 0
+            },
+            "examination": {
+                "clues": {
+                    "CEXP": {
+                        "clue": "CEXP",
+                        "focus": [
+                            "CFPR",
+                            "CGLS"
+                        ],
+                        "threshold": 4
+                    },
+                    "CEXN": {
+                        "clue": "CEXN",
+                        "focus": [
+                            "CGUN",
+                            "CKEY"
+                        ],
+                        "threshold": 5
+                    }
+                },
+                "cost": 2,
+                "points": 2,
+                "focusLimit": 2,
+                "statCost": 1
+            },
+            "detectives": {
+                "DHLS": {
+                    "id": "DHLS",
+                    "name": "Sherlock Holmes",
+                    "description": "Famous detective"
+                },
+                "DPRO": {
+                    "id": "DPRO",
+                    "name": "Hercule Poirot",
+                    "description": "Little grey cells"
+                },
+                "DBRN": {
+                    "id": "DBRN",
+                    "name": "Father Brown",
+                    "description": "Catholic priest who solves crimes"
+                },
+                "DCOS": {
+                    "id": "DCOS",
+                    "name": "Cosmonaut"
+                }
+            }
+        }
+    }
+}
