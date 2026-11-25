@@ -29,6 +29,6 @@ public final class PersonageEventSpec {
 
     @YamlComment(text = "Clues linked to this personage during the tick")
     @YamlCompact
-    public Set<ClueSpec.Id> clue;
+    public Set<ClueSpec.Id> clues;
 
 }

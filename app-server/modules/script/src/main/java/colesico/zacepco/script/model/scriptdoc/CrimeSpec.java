@@ -53,6 +53,7 @@ public final class CrimeSpec {
             "Clues dictionary",
             "Defines all clues involved in the crime",
             "their initial investigation state, and answer data",
+            "Each clue must be discoverable via search, interrogation, examination, or auto-discovery",
             "Clue ID - unique within script",
             "ID format: C[A-Z0-9]{1,3}",
             ""

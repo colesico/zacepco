@@ -119,11 +119,11 @@ crime:
           # Initial character location not specified - it refers to the previous tick
           location: LCST
           
-          # Clue linked to this personage during the tick
-          clue: [CFPR]
+          # Clues linked to this personage during the tick
+          clues: [CFPR]
         T2:
           location: LCST
-          clue: [CPEN]
+          clues: [CPEN]
         T3:
           location: LBCH
         T4:
@@ -149,7 +149,7 @@ crime:
           location: LBCH
         T5:
           location: LHSE
-          clue: [CKEY]
+          clues: [CKEY]
         T6:
           location: LHSE
         T7:
@@ -161,7 +161,7 @@ crime:
       log:
         T1:
           location: LCMP
-          clue: [CGUN]
+          clues: [CGUN]
         T2:
           location: LRIV
         T3:
@@ -375,6 +375,7 @@ crime:
   # Clues dictionary
   # Defines all clues involved in the crime
   # their initial investigation state, and answer data
+  # Each clue must be discoverable via search, interrogation, examination, or auto-discovery
   # Clue ID - unique within script
   # ID format: C[A-Z0-9]{1,3}
   # 
@@ -456,58 +457,61 @@ investigation:
   
   # Investigation budget in resource units
   # Default: 2147483647
-  budget: 13
+  budget: 16
   
   # Planned crime solving strategy.
-  # Specify field:
-  # 'location' for search;
-  # 'personage' for interrogation;
-  # nothing for expertise
-  # 
   # Example for location search:
-  # - location: L2
+  # - inspection: SEARCH
+  # target: L2
   # focus: [T4,C2]
   # result: C5
   strategy:
   - 
-    # Personage ID to interrogate
-    personage: PFCE
+    # Inspection type
+    # Possible values: SEARCH, INTERROGATION, EXAMINATION
+    inspection: INTERROGATION
+    
+    # Entity ID to inspect
+    target: PFCE
     
     # Detective focus
     focus: [T2, LCST]
     
     # Clue obtained
     result: CPEN
-  - 
-    # Location ID to search
-    location: LCST
+  - inspection: SEARCH
+    target: LCST
     focus: [T4, PSLD]
     result: CHMR
-  - location: LMNT
+  - inspection: SEARCH
+    target: LMNT
     focus: [T6, PSLD]
     result: CBRY
-  - personage: PJOY
+  - inspection: INTERROGATION
+    target: PJOY
     focus: [T5, LHSE]
     result: CKEY
-  - location: LHSE
+  - inspection: SEARCH
+    target: LHSE
     focus: [T1, LHSE]
     result: CCLK
   
   # 
-  # Location search specification
+  # Search specification
+  # for location or personage
   # 
   search:
     
-    # Cost in resource units of investigation action on subject (int)
+    # Cost in resource units of inspection on subject (int)
     cost: 3
     
-    # Base points for investigation action (int)
+    # Base points for inspection (int)
     points: 3
     
     # Maximum number of elements in detective focus
     focusLimit: 2
     
-    # Cost of obtaining investigation subject statistics
+    # Cost of obtaining inspection subject statistics
     # (-1) - statistics is prohibited
     # (0) - free statistics
     # Default:  0
@@ -561,7 +565,7 @@ investigation:
     cost: 2
     points: 2
     focusLimit: 2
-    statCost: 0
+    statCost: 1
     
     # Examination clues spec
     clues:
@@ -571,6 +575,7 @@ investigation:
       CEXN:
         focus: [CGUN, CKEY]
         threshold: 5.0
+  
   # 
   # Detectives dictionary
   # A subset of which can participate in the investigation

@@ -23,13 +23,9 @@ public final class InvestigationSpec {
 
     @YamlComment(text = {
             "Planned crime solving strategy. ",
-            " Specify field: ",
-            " 'location' for search; ",
-            " 'personage' for interrogation; ",
-            " nothing for expertise",
-            "",
             "Example for location search: ",
-            "   - location: L2",
+            "   - inspection: SEARCH",
+            "   target: L2",
             "   focus: [T4,C2]",
             "   result: C5"
     })
