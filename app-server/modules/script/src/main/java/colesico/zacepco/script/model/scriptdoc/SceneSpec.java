@@ -22,6 +22,7 @@ public final class SceneSpec {
     @YamlComment(text = {
             "",
             "Locations dictionary",
+            "",
             "Defines all crime locations,",
             "their initial investigation state, and answer data",
             "Location ID - unique within script",

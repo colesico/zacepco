@@ -2,6 +2,7 @@ package colesico.zacepco.script.model.scriptdoc;
 
 import colesico.zacepco.script.yaml.YamlComment;
 import colesico.zacepco.script.yaml.YamlCompact;
+import colesico.zacepco.script.yaml.YamlIgnore;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -15,7 +16,7 @@ import java.util.Set;
  */
 public final class LocationEventSpec {
 
-    @YamlComment(text = "Time tick id")
+    @YamlIgnore
     public TickSpec.Id tick;
 
     @YamlComment(text = "Personages whose destination is this location for the given tick")

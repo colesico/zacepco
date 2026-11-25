@@ -87,6 +87,7 @@ crime:
   
   # 
   # Character definitions
+  # 
   # Defines all characters involved in the crime,
   # their initial investigation state, and answer data
   # Character ID - unique within the script
@@ -212,6 +213,7 @@ crime:
     
     # 
     # Locations dictionary
+    # 
     # Defines all crime locations,
     # their initial investigation state, and answer data
     # Location ID - unique within script
@@ -237,22 +239,16 @@ crime:
         log:
           T1:
             
-            # Time tick id
-            tick: T1
-            
             # Personages whose destination is this location for the given tick
             personages: [PFCE, PSLD]
             
             # Clues linked to this location during the tick
             clues: [CSGT]
           T2:
-            tick: T2
             personages: [PFCE, PSLD]
           T3:
-            tick: T3
             personages: [PJOY, PSLD]
           T4:
-            tick: T4
             personages: [PSLD, PTRN]
             clues: [CHMR, CGLS]
       LBCH:
@@ -262,19 +258,14 @@ crime:
         pos: {col: 2, row: 2}
         log:
           T1:
-            tick: T1
             personages: [PJOY]
           T2:
-            tick: T2
             personages: [PJOY]
           T3:
-            tick: T3
             personages: [PFCE, PTRN]
           T4:
-            tick: T4
             personages: [PJOY]
           T5:
-            tick: T5
             personages: [PSLD, PTRN]
       LCMP:
         name: Camping
@@ -284,10 +275,8 @@ crime:
         pos: {col: 3, row: 3}
         log:
           T1:
-            tick: T1
             personages: [PTRN]
           T7:
-            tick: T7
             personages: [PSLD]
       LWOD:
         name: Pine woods
@@ -302,19 +291,14 @@ crime:
         clues: [CCLK]
         log:
           T1:
-            tick: T1
             clues: [CCLK]
           T4:
-            tick: T4
             personages: [PFCE]
           T5:
-            tick: T5
             personages: [PFCE, PJOY]
           T6:
-            tick: T6
             personages: [PFCE, PJOY]
           T7:
-            tick: T7
             personages: [PFCE, PJOY]
       LRIV:
         name: River
@@ -323,7 +307,6 @@ crime:
         pos: {col: 3, row: 2}
         log:
           T2:
-            tick: T2
             personages: [PTRN]
       LMNT:
         name: Hill
@@ -335,11 +318,9 @@ crime:
         clues: [CBRY]
         log:
           T6:
-            tick: T6
             personages: [PSLD, PTRN]
             clues: [CBRY]
           T7:
-            tick: T7
             personages: [PTRN]
     
     # Ways between two locations
@@ -373,9 +354,13 @@ crime:
   
   # 
   # Clues dictionary
+  # 
   # Defines all clues involved in the crime
   # their initial investigation state, and answer data
   # Each clue must be discoverable via search, interrogation, examination, or auto-discovery
+  # The same clue can be linked by the script to different discovery sources
+  # and, accordingly, to different entities
+  # 
   # Clue ID - unique within script
   # ID format: C[A-Z0-9]{1,3}
   # 

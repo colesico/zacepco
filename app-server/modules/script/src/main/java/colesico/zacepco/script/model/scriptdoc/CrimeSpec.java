@@ -27,6 +27,7 @@ public final class CrimeSpec {
     @YamlComment(text = {
             "",
             "Character definitions",
+            "",
             "Defines all characters involved in the crime,",
             "their initial investigation state, and answer data",
             "Character ID - unique within the script",
@@ -51,9 +52,13 @@ public final class CrimeSpec {
     @YamlComment(text = {
             "",
             "Clues dictionary",
+            "",
             "Defines all clues involved in the crime",
             "their initial investigation state, and answer data",
             "Each clue must be discoverable via search, interrogation, examination, or auto-discovery",
+            "The same clue can be linked by the script to different discovery sources",
+            "and, accordingly, to different entities",
+            "",
             "Clue ID - unique within script",
             "ID format: C[A-Z0-9]{1,3}",
             ""
