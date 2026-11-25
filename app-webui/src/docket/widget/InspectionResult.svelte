@@ -51,6 +51,14 @@
     return types.join(', ');
   });
 
+  const undiscoveredFocusText = $derived.by(() => {
+    const u = result?.undiscovered;
+    if (Array.isArray(u)) return u.join(', ');
+    const ids = Array.isArray(u?.ids) ? u.ids : [];
+    const types = Array.isArray(u?.types) ? u.types : [];
+    return [...ids, ...types].join(', ');
+  });
+
   function resolveEntityName(id) {
     const crime = context?.script?.crime;
     if (!id || !crime) return id;
@@ -209,9 +217,7 @@
           </p>
         {:else if code === 'UNDISCOVERED_FOCUS'}
           <p class="mb-0 text-muted">
-            В фокусе детектива ранее не открытые сущности{Array.isArray(result?.undiscoveredFocus) && result.undiscoveredFocus.length
-              ? `: ${result.undiscoveredFocus.join(', ')}`
-              : '.'}
+            В фокусе детектива ранее не открытые сущности{#if undiscoveredFocusText}: <strong>{undiscoveredFocusText}</strong>{:else}.{/if}
           </p>
         {:else if code === 'INSUFFICIENT_BUDGET'}
           <p class="mb-0 text-muted">Недостаточно бюджета расследования</p>
