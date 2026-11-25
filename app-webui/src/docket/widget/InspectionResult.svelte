@@ -30,14 +30,7 @@
 
   const targetName = $derived.by(() => {
     if (!inspectionTarget) return '';
-    const crime = context?.script?.crime;
-    if (inspectionTarget.startsWith('L')) {
-      return crime?.scene?.locations?.[inspectionTarget]?.name + ' (' + inspectionTarget + ')';
-    }
-    if (inspectionTarget.startsWith('P')) {
-      return crime?.personages?.[inspectionTarget]?.name + ' (' + inspectionTarget + ')';
-    }
-    return inspectionTarget;
+    return resolveEntityName(inspectionTarget);
   });
 
   const formattedFocus = $derived.by(() => {
@@ -61,15 +54,14 @@
   function resolveEntityName(id) {
     const crime = context?.script?.crime;
     if (!id || !crime) return id;
-    if (id.startsWith('L')) return crime.scene?.locations?.[id]?.name ?? id;
-    if (id.startsWith('P')) return crime.personages?.[id]?.name ?? id;
-    if (id.startsWith('C')) return crime.clues?.[id]?.name ?? id;
+    if (id.startsWith('L')) return crime.scene?.locations?.[id]?.name + ' (' + id + ')';
+    if (id.startsWith('P')) return crime.personages?.[id]?.name + ' (' + id + ')';
+    if (id.startsWith('C')) return crime.clues?.[id]?.name  + ' (' + id + ')';
     return id;
   }
 
   function resolveUncoveredItem(rawItem) {
     const crime = context?.script?.crime;
-
     const id = String(rawItem ?? '');
 
     if (id.startsWith('L')) {
@@ -109,7 +101,7 @@
 
     if (id.startsWith('W')) {
       const way = crime?.scene?.ways?.[id] ?? {};
-      const locs =  way.locations;
+      const locs = way.locations ?? [];
       const fromId = locs[0] ?? '?';
       const toId = locs[1] ?? '?';
       return {
@@ -180,34 +172,34 @@
             <span>D12: <strong>{result.d12}</strong></span>
           {/if}
         </div>
-	
-	 {#if result?.awardedPoints != null}
-		<div class="mb-2 d-flex align-items-center gap-2">
-		  <i class="fa-solid fa-medal text-warning"></i>
-		  <span>Начислено очков: <strong>{result.awardedPoints}</strong></span>
-		</div>
-	  {/if}
 
-	  {#if result?.budgetSpend != null || result?.currentBudget != null}
-		<div class="mb-2 d-flex align-items-center gap-2">
-		  <i class="fa-solid fa-coins text-success"></i>
-		  <span>
-			Потрачено бюджета: <strong>{result?.budgetSpend ?? 0}</strong>, остаток: <strong>{result?.currentBudget ?? 0}</strong>
-		  </span>
-		</div>
-	  {/if}
+        {#if result?.awardedPoints != null}
+          <div class="mb-2 d-flex align-items-center gap-2">
+            <i class="fa-solid fa-medal text-warning"></i>
+            <span>Начислено очков: <strong>{result.awardedPoints}</strong></span>
+          </div>
+        {/if}
 
-	  {#if matchedFocusText || unmatchedFocusText}
-		<div class="mb-3 d-flex align-items-center gap-2">
-		  <i class="fa-solid fa-crosshairs text-info"></i>
-		  <span>
-			Соответствие фокуса:
-			{#if matchedFocusText} <strong class="text-success">{matchedFocusText}</strong>{/if}
-			{#if matchedFocusText && unmatchedFocusText}, {/if}
-			{#if unmatchedFocusText} <strong class="text-danger">{unmatchedFocusText}</strong>{/if}
-		  </span>
-		</div>
-	  {/if}
+        {#if result?.budgetSpend != null || result?.currentBudget != null}
+          <div class="mb-2 d-flex align-items-center gap-2">
+            <i class="fa-solid fa-coins text-success"></i>
+            <span>
+              Потрачено бюджета: <strong>{result?.budgetSpend ?? 0}</strong>, остаток: <strong>{result?.currentBudget ?? 0}</strong>
+            </span>
+          </div>
+        {/if}
+
+        {#if matchedFocusText || unmatchedFocusText}
+          <div class="mb-3 d-flex align-items-center gap-2">
+            <i class="fa-solid fa-crosshairs text-info"></i>
+            <span>
+              Соответствие фокуса:
+              {#if matchedFocusText} <strong class="text-success">{matchedFocusText}</strong>{/if}
+              {#if matchedFocusText && unmatchedFocusText}, {/if}
+              {#if unmatchedFocusText} <strong class="text-danger">{unmatchedFocusText}</strong>{/if}
+            </span>
+          </div>
+        {/if}
 
         {#if code === 'INVALID_D12'}
           <p class="mb-0 text-muted">Неверное значение D12</p>
@@ -228,8 +220,6 @@
         {:else if code === 'CLUES_NOT_FOUND' || code === 'NOTHING_FOUND'}
           <p class="mb-0 text-muted">Новых улик не обнаружено.</p>
         {:else if code === 'CLUE_DISCOVERED' || code === 'CLUE_FOCUS_DISCOVERED'}
-         
-
           <p class="mb-2 text-muted">
             {code === 'CLUE_DISCOVERED'
               ? 'Случайно обнаружена подозрительная улика:'
@@ -310,7 +300,7 @@
                           {/if}
                           {#if item.type === 'L' && item.position}
                             <div class="small text-secondary mt-1">
-                              Столбцец и строка: <strong>{item.position}</strong>
+                              Столбец и строка: <strong>{item.position}</strong>
                             </div>
                           {/if}
                         </div>
