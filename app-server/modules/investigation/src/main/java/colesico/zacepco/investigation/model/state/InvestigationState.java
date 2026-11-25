@@ -75,11 +75,11 @@ public class InvestigationState {
     }
 
     public boolean spendBudget(int value) {
-        if (budget <= 0) {
-            return false;
+        if (budget > 0) {
+            this.budget = this.budget - value;
+            return true;
         }
-        budget = budget - value;
-        return true;
+        return false;
     }
 
     /**

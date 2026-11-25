@@ -1,7 +1,6 @@
 package colesico.zacepco.investigation.manager;
 
 import colesico.zacepco.investigation.model.DetectiveFocus;
-import colesico.zacepco.investigation.model.InspectionType;
 import colesico.zacepco.investigation.model.dto.FocusedClueMatch;
 import colesico.zacepco.investigation.model.results.FocusLimitExceeded;
 import colesico.zacepco.investigation.model.results.InspectionResult;
@@ -11,7 +10,6 @@ import colesico.zacepco.investigation.model.state.InvestigationState;
 import colesico.zacepco.script.model.scriptdoc.*;
 
 import java.util.*;
-import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 public class InvestigationUtil {
@@ -26,7 +24,7 @@ public class InvestigationUtil {
                                                           Integer d12,
                                                           ScriptDocument script,
                                                           InvestigationState state,
-                                                          InspectionType inspectionType) {
+                                                          InspectionTypeSpec inspectionType) {
         // Check D12
         if (d12 < 0 || d12 > 12) {
             return InvalidD12.of();

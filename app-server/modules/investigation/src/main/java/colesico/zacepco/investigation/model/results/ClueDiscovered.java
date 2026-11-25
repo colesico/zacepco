@@ -9,23 +9,17 @@ public sealed class ClueDiscovered
     public final ClueSpec clue;
 
     /**
-     * Clues remaining to discover
-     */
-    public final Integer cluesRemaining;
-
-    /**
      * Points awarded to the detective
      */
     public Integer awardedPoints;
 
     public Integer budgetSpending;
 
-    protected ClueDiscovered(ClueSpec clue, Integer cluesRemaining) {
+    protected ClueDiscovered(ClueSpec clue) {
         this.clue = clue;
-        this.cluesRemaining = cluesRemaining;
     }
 
-    public static ClueDiscovered of(ClueSpec clue, Integer cluesRemaining) {
-        return new ClueDiscovered(clue, cluesRemaining);
+    public static ClueDiscovered of(ClueSpec clue) {
+        return new ClueDiscovered(clue);
     }
 }

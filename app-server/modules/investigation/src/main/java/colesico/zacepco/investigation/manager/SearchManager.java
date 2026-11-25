@@ -1,7 +1,6 @@
 package colesico.zacepco.investigation.manager;
 
 import colesico.zacepco.investigation.model.DetectiveFocus;
-import colesico.zacepco.investigation.model.InspectionType;
 import colesico.zacepco.investigation.model.dto.FocusedClueMatch;
 import colesico.zacepco.investigation.model.results.*;
 import colesico.zacepco.investigation.model.state.InvestigationState;
@@ -76,13 +75,12 @@ public class SearchManager {
                     .min(Comparator.comparingDouble(fw -> fw.focusedClue().threshold))
                     .orElseThrow();
             var clue = script.crime.clues.get(accidentalMatch.focusedClue().clue);
-            return ClueDiscovered.of(clue, matchedClues.size() - 1);
+            return ClueDiscovered.of(clue);
         } else {
             // Focus matched discovery
             var clue = script.crime.clues.get(selectedMatch.focusedClue().clue);
             return ClueFocusDiscovered.of(
                     clue,
-                    matchedClues.size() - 1,
                     selectedMatch.matchedIds(),
                     selectedMatch.matchedTypes(),
                     selectedMatch.unmatchedTypes()
@@ -116,21 +114,23 @@ public class SearchManager {
         InspectionResult baseValues = new InspectionResult() {
         };
 
-        baseValues.inspectionType = InspectionType.SEARCH;
-        baseValues.inspectionSubjectId =  searchedEntityId;
+        baseValues.inspectionType = InspectionTypeSpec.SEARCH;
+        baseValues.inspectionTarget = searchedEntityId;
+        baseValues.activeDetective = detective;
         baseValues.detectiveFocus = detectiveFocus;
         baseValues.d12 = d12;
-        baseValues.activeDetective = detective;
+        baseValues.budgetSpend = 0;
+        baseValues.currentBudget = state.budget;
 
-        // Check action param
-        var checkResult = InvestigationUtil.checkInspectionRequest(
+        // Check inspection params
+        var checkParamsResult = InvestigationUtil.checkInspectionRequest(
                 detectiveFocus,
                 d12,
                 script,
                 state,
-                InspectionType.SEARCH);
+                InspectionTypeSpec.SEARCH);
 
-        if (checkResult != null) return checkResult.assign(baseValues);
+        if (checkParamsResult != null) return checkParamsResult.assign(baseValues);
 
         // Try to spend budget
         var cost = script.investigation.search.cost;
@@ -138,11 +138,12 @@ public class SearchManager {
             return InsufficientBudget.of().assign(baseValues);
         }
 
+        baseValues.budgetSpend = cost;
+        baseValues.currentBudget = state.budget;
+
         // Perform clue search
         var result = searchClue(entityClues, detectiveFocus, d12);
         result.assign(baseValues);
-
-        result.activeDetective = detective;
 
         if (result instanceof CluesExhausted) {
             searchedEntity.makeUnsearchable();
@@ -154,9 +155,8 @@ public class SearchManager {
 
             state.clues.get(cuResult.clue.id).discovered = true;
 
-            if (cuResult.cluesRemaining == 0) {
-                searchedEntity.makeUnsearchable();
-            }
+            // Auto uncover entities
+            InvestigationUtil.uncoverEntitiesByClue(cuResult.clue, state);
 
             // Detective awarded points
             if (result instanceof ClueFocusDiscovered cfuResult) {
@@ -168,9 +168,6 @@ public class SearchManager {
 
             // Shift to next detective
             state.nextDetective();
-
-            // Auto uncover entities
-            InvestigationUtil.uncoverEntitiesByClue(cuResult.clue, state);
         }
 
         return result;
