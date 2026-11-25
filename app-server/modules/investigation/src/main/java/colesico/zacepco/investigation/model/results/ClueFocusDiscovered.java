@@ -7,8 +7,19 @@ import java.util.Set;
 
 public final class ClueFocusDiscovered extends ClueDiscovered {
 
+    /**
+     * Inspection table entities matched with detective focus
+     */
     public final Set<TId> matchedIds;
+
+    /**
+     * Inspection table entity types matched with detective focus
+     */
     public final Set<TId.Type> matchedTypes;
+
+    /**
+     * Inspection table entity types NOT matched with detective focus
+     */
     public final Set<TId.Type> unmatchedTypes;
 
     private ClueFocusDiscovered(ClueSpec clue, Set<TId> matchedIds, Set<TId.Type> matchedTypes, Set<TId.Type> unmatchedTypes) {

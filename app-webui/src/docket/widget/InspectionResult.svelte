@@ -197,17 +197,6 @@
           </div>
         {/if}
 
-        {#if matchedFocusText || unmatchedFocusText}
-          <div class="mb-3 d-flex align-items-center gap-2">
-            <i class="fa-solid fa-crosshairs text-info"></i>
-            <span>
-              Соответствие фокуса:
-              {#if matchedFocusText} <strong class="text-success">{matchedFocusText}</strong>{/if}
-              {#if matchedFocusText && unmatchedFocusText}, {/if}
-              {#if unmatchedFocusText} <strong class="text-danger">{unmatchedFocusText}</strong>{/if}
-            </span>
-          </div>
-        {/if}
 
         {#if code === 'INVALID_D12'}
           <p class="mb-0 text-muted">Неверное значение D12</p>
@@ -226,6 +215,7 @@
         {:else if code === 'CLUES_NOT_FOUND' || code === 'NOTHING_FOUND'}
           <p class="mb-0 text-muted">Новых улик не обнаружено.</p>
         {:else if code === 'CLUE_DISCOVERED' || code === 'CLUE_FOCUS_DISCOVERED'}
+		  
           <p class="mb-2 text-muted">
             {code === 'CLUE_DISCOVERED'
               ? 'Случайно обнаружена подозрительная улика:'
@@ -267,9 +257,22 @@
               </div>
             </div>
 
+			{#if matchedFocusText || unmatchedFocusText}
+				<div class="mb-3 d-flex align-items-center gap-2">
+					<i class="fa-solid fa-crosshairs text-info"></i>
+					<span>
+						Улика связана с:
+						{#if matchedFocusText} <strong class="text-success">{matchedFocusText}</strong>{/if}
+						{#if matchedFocusText && unmatchedFocusText}, {/if}
+						{#if unmatchedFocusText} <strong class="text-danger">{unmatchedFocusText}</strong>{/if}
+					</span>
+				</div>
+			{/if}
+		
+
             {#if uncoveredItems.length > 0}
               <div class="mt-3">
-                <div class="mb-2 text-muted">Также открывает:</div>
+                <div class="mb-2 text-muted">Также обнаружено:</div>
                 <div class="d-flex flex-column gap-2">
                   {#each uncoveredItems as item}
                     {#if item.type === 'L' || item.type === 'C' || item.type === 'P'}
