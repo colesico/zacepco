@@ -82,6 +82,7 @@ public class SearchManager {
             return ClueFocusDiscovered.of(
                     clue,
                     selectedMatch.matchedIds(),
+                    selectedMatch.unmatchedIds(),
                     selectedMatch.matchedTypes(),
                     selectedMatch.unmatchedTypes()
             );

@@ -12,12 +12,17 @@ public record FocusedClueMatch(
         long ne,
 
         /**
-         * Inspection table entities matched with detective focus
+         * Entities matched between the detective and inspection table focus.
          */
         Set<TId> matchedIds,
 
         /**
-         * Inspection table entity types matched with detective focus
+         * Entities from the DETECTIVE focus unmatched with inspection table focus.
+         */
+        Set<TId> unmatchedIds,
+
+        /**
+         * Entity types matched between the detective and inspection table focus.
          */
         Set<TId.Type> matchedTypes,
 

@@ -77,36 +77,54 @@ public class InvestigationUtil {
         var detectiveTypes = detectiveFocus.types();
         var focus = clue.focus;
 
-        // EQ: exact ID matches between detective focus and table focus
+        // 1-2. EQ: exact ID matches between detective focus and inspection table focus (set U)
         var matchedIds = new HashSet<TId>(detectiveIds);
         matchedIds.retainAll(focus);
+        long eq = matchedIds.size();
 
-        // Table IDs left after EQ is excluded from both sides
-        var tableIds = new HashSet<>(focus);
-        tableIds.removeAll(matchedIds);
+        // 3a. Detective IDs left after EQ matches are excluded
+        var unmatchedIds = new HashSet<TId>(detectiveIds);
+        unmatchedIds.removeAll(matchedIds);
 
-        // Types of the remaining table IDs
+        // 3b. Table IDs left after EQ matches are excluded
+        var remainingTableIds = new HashSet<>(focus);
+        remainingTableIds.removeAll(matchedIds);
+
+        // 4. Unique types of the remaining table IDs (set T)
         var tableTypes = EnumSet.noneOf(TId.Type.class);
-        tableIds.forEach(id -> tableTypes.add(id.type()));
+        remainingTableIds.forEach(id -> tableTypes.add(id.type()));
 
-        // EQT: detective types matching types of the remaining table IDs
+        // 5-6. EQT: detective types matching types of the remaining table IDs (set V)
         var matchedTypes = EnumSet.noneOf(TId.Type.class);
         matchedTypes.addAll(detectiveTypes);
         matchedTypes.retainAll(tableTypes);
+        long eqt = matchedTypes.size();
 
-        // Types of the remaining table IDs that were NOT matched by detective types
+        // Inspection table entity types NOT matched with detective focus
         var unmatchedTypes = tableTypes.clone();
         unmatchedTypes.removeAll(matchedTypes);
 
-        // NE: unmatched detective IDs + unmatched detective types + unmatched table IDs
-        long eq = matchedIds.size();
-        long eqt = matchedTypes.size();
-        long ne = (detectiveIds.size() - eq)
-                + (detectiveTypes.size() - eqt)
-                + (tableIds.size() - eqt);
+        // 7. Exclude table IDs whose types are present in matchedTypes (set V)
+        remainingTableIds.removeIf(id -> matchedTypes.contains(id.type()));
 
-        return new FocusedClueMatch(clue, eq, eqt, ne, matchedIds, matchedTypes, unmatchedTypes);
+        // 8. NE: unmatched detective IDs + unmatched detective types + unmatched table IDs
+        long ne = unmatchedIds.size()
+                + (detectiveTypes.size() - eqt)
+                + remainingTableIds.size();
+
+        return new FocusedClueMatch(
+                clue,
+                eq,
+                eqt,
+                ne,
+                matchedIds,
+                unmatchedIds,
+                matchedTypes,
+                unmatchedTypes
+        );
     }
+
+
 
     public static List<FocusedClueMatch> matchClues(Set<FocusedClueSpec> clues, DetectiveFocus detectiveFocus) {
         return clues.stream()
