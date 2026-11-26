@@ -68,21 +68,20 @@ public class SearchManager {
             }
         }
 
-        ClueDiscovered result;
+        SearchClueDiscovered result;
         if (selectedMatch == null) {
             // Accidental discovery: lowest threshold among undiscovered clues.
             var accidentalMatch = matchedClues.stream()
                     .min(Comparator.comparingDouble(fw -> fw.focusedClue().threshold))
                     .orElseThrow();
             var clue = script.crime.clues.get(accidentalMatch.focusedClue().clue);
-            return ClueDiscovered.of(clue);
+            return SearchClueDiscovered.of(clue);
         } else {
             // Focus matched discovery
             var clue = script.crime.clues.get(selectedMatch.focusedClue().clue);
-            return ClueFocusDiscovered.of(
+            return SearchFocusedClueDiscovered.of(
                     clue,
                     selectedMatch.matchedIds(),
-                    selectedMatch.unmatchedIds(),
                     selectedMatch.matchedTypes(),
                     selectedMatch.unmatchedTypes()
             );
@@ -152,7 +151,7 @@ public class SearchManager {
             return result;
         }
 
-        if (result instanceof ClueDiscovered cuResult) {
+        if (result instanceof SearchClueDiscovered cuResult) {
 
             state.clues.get(cuResult.clue.id).discovered = true;
 
@@ -160,7 +159,7 @@ public class SearchManager {
             InvestigationUtil.uncoverEntitiesByClue(cuResult.clue, state);
 
             // Detective awarded points
-            if (result instanceof ClueFocusDiscovered cfuResult) {
+            if (result instanceof SearchFocusedClueDiscovered cfuResult) {
                 var awardedPoints = script.investigation.search.points;
                 awardedPoints = awardedPoints + cfuResult.matchedIds.size();
                 detective.addPoints(awardedPoints);

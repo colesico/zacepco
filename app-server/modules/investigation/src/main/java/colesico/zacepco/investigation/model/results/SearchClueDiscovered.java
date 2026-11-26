@@ -2,9 +2,9 @@ package colesico.zacepco.investigation.model.results;
 
 import colesico.zacepco.script.model.scriptdoc.ClueSpec;
 
-public sealed class ClueDiscovered
+public sealed class SearchClueDiscovered
         extends InspectionResult
-        permits ClueFocusDiscovered {
+        permits SearchFocusedClueDiscovered {
 
     public final ClueSpec clue;
 
@@ -13,13 +13,11 @@ public sealed class ClueDiscovered
      */
     public Integer awardedPoints;
 
-    public Integer budgetSpending;
-
-    protected ClueDiscovered(ClueSpec clue) {
+    protected SearchClueDiscovered(ClueSpec clue) {
         this.clue = clue;
     }
 
-    public static ClueDiscovered of(ClueSpec clue) {
-        return new ClueDiscovered(clue);
+    public static SearchClueDiscovered of(ClueSpec clue) {
+        return new SearchClueDiscovered(clue);
     }
 }

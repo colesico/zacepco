@@ -53,9 +53,8 @@
   );
 
   const focusValid = $derived(
-    focusTokens.length > 0 &&
-      (focusLimit === undefined || focusTokens.length <= focusLimit) &&
-      focusTokens.every((t) => FOCUS_TOKEN.test(t))
+    focusTokens.length > 0 
+      && focusTokens.every((t) => FOCUS_TOKEN.test(t))
   );
 
   const d12Valid = $derived(

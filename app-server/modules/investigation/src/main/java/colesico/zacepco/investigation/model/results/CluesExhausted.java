@@ -3,8 +3,6 @@ package colesico.zacepco.investigation.model.results;
 public final class CluesExhausted
         extends InspectionResult {
 
-    public Integer budgetSpending;
-
     private CluesExhausted() {
     }
 
