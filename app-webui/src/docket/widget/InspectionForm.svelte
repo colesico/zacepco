@@ -115,7 +115,9 @@
   <span>·</span>
   <span>Очки: <strong>{actionPoints}</strong></span>
   <span>·</span>
-  <span>Бюджет: <strong>{budget}</strong></span>
+  <span title="Текущий бюджет расследования">Бюджет: <strong>{budget}</strong></span>
+  <span>·</span>
+  <span title="Лимит фокуса">Фокус: <strong>{focusLimit}</strong></span>
 </div>
 
 <div
@@ -149,7 +151,7 @@
           id="inspect-focus-{inspectionType}"
           type="text"
           class="form-control {focusError ? 'is-invalid' : ''}"
-          placeholder="Лимит:{focusLimit}"
+          placeholder="?"
           autocapitalize="characters"
           autocomplete="off"
           spellcheck="false"
