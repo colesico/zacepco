@@ -28,6 +28,10 @@
       : context?.script?.crime?.scene?.locations?.[entityId]
   );
 
+  const entityType = $derived(
+    entityId?.charAt(0)
+  );
+  
   const entityState = $derived(
     entityId?.startsWith('P')
       ? context?.investigation?.state?.personages?.[entityId]
@@ -178,6 +182,10 @@
         {/if}
       </div>
     {/if}
+	
+	{#if entityType == 'L'}
+		<h2 class="mt-4">Пути</h2>
+	{/if}
 
     {#if exposedClues.length}
       <h2 class="mt-4">Обнаруженные улики</h2>
