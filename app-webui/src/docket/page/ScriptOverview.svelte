@@ -123,6 +123,16 @@
       </div>
     </div>
 
+    <div class="d-flex justify-content-start mt-5 mb-4">
+      <a
+        href="/investigation/start/{id}"
+        use:link
+        class="btn btn-primary btn-lg px-5"
+      >
+        <i class="fas fa-magnifying-glass me-2"></i>Расследовать
+      </a>
+    </div>
+	
     <h2 class="mt-5 mb-4">Персонажи</h2>
 
     <!-- Сетка для карточек: 2 в ряд на мобильных, 3 на планшетах, 4 или 6 на десктопах -->
@@ -220,16 +230,6 @@
       {/each}
     </div>
 
-    <!-- Кнопка «Расследовать» внизу по центру -->
-    <div class="d-flex justify-content-start mt-5 mb-4">
-      <a
-        href="/investigation/start/{id}"
-        use:link
-        class="btn btn-primary btn-lg px-5"
-      >
-        <i class="fas fa-magnifying-glass me-2"></i>Расследовать
-      </a>
-    </div>
   {/if}
 </div>
 
