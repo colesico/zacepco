@@ -65,8 +65,8 @@
   const waysToDraw = $derived.by(() => {
     const ways = scene.ways ?? {};
     const result = [];
-    for (const [wayKey, way] of Object.entries(ways)) {
-      const isHidden = (investigationWays[wayKey]?.hidden ?? way.hidden) === true;
+    for (const way of Object.values(ways)) {
+      const isHidden = (investigationWays[way.id]?.hidden ?? way.hidden) === true;
       if (isHidden) continue;
 
       const [aId, bId] = way.locations ?? [];
@@ -98,12 +98,12 @@
 
       const description = way.description ?? '';
       result.push({
-        way: { ...way, hidden: isHidden },
-        wayKey,
-        key: way.id?.key ?? '',
+        id: way.id,
         description,
         clickable: description.trim().length > 0,
-        mx, my, vertical
+        mx,
+        my,
+        vertical
       });
     }
     return result;
@@ -172,7 +172,6 @@
     if (!text) return 0;
 
     if (typeof document === 'undefined') {
-      // SSR fallback: приблизительно
       let w = 0;
       for (const ch of text) {
         if (ch >= 'A' && ch <= 'Z') w += 0.68;
@@ -209,7 +208,6 @@
     if (measureTextWidth(text, FONT_SIZE, FONT_WEIGHT_NAME) <= available) {
       return text;
     }
-    const ellipsisW = measureTextWidth('…', FONT_SIZE, FONT_WEIGHT_NAME);
     let lo = 0, hi = text.length;
     while (lo < hi) {
       const mid = Math.ceil((lo + hi) / 2);
@@ -235,7 +233,6 @@
     if (measureTextWidth(name, CLUE_FONT_SIZE, FONT_WEIGHT_NAME) <= available) {
       return name;
     }
-    const ellipsisW = measureTextWidth('…', CLUE_FONT_SIZE, FONT_WEIGHT_NAME);
     let lo = 0, hi = name.length;
     while (lo < hi) {
       const mid = Math.ceil((lo + hi) / 2);
@@ -269,8 +266,8 @@
     return activeSelection.type === 'location' && activeSelection.id === locId;
   }
 
-  function isWaySelected(wayKey) {
-    return activeSelection.type === 'way' && activeSelection.id === wayKey;
+  function isWaySelected(wayId) {
+    return activeSelection.type === 'way' && activeSelection.id === wayId;
   }
 
   function handleLocationClick(locId) {
@@ -286,16 +283,16 @@
     }
   }
 
-  function handleWayClick(wayKey, way) {
-    internalSelection = { type: 'way', id: wayKey };
-    onWayClick?.(way);
+  function handleWayClick(wayId) {
+    internalSelection = { type: 'way', id: wayId };
+    onWayClick?.(wayId);
   }
 
-  function handleWayKeydown(e, wayKey, way) {
+  function handleWayKeydown(e, wayId) {
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
-      internalSelection = { type: 'way', id: wayKey };
-      onWayClick?.(way);
+      internalSelection = { type: 'way', id: wayId };
+      onWayClick?.(wayId);
     }
   }
 
@@ -443,16 +440,16 @@
         {/if}
       {/each}
 
-      {#each waysToDraw as w}
+      {#each waysToDraw as w (w.id)}
         <g
           class={w.clickable ? 'way-clickable' : 'way-static'}
           transform={`translate(${w.mx} ${w.my}) rotate(${w.vertical ? 90 : 0})`}
           role={w.clickable ? 'button' : undefined}
           tabindex={w.clickable ? '0' : undefined}
-          onclick={w.clickable ? () => handleWayClick(w.wayKey, w.way) : undefined}
-          onkeydown={w.clickable ? (e) => handleWayKeydown(e, w.wayKey, w.way) : undefined}
+          onclick={w.clickable ? () => handleWayClick(w.id) : undefined}
+          onkeydown={w.clickable ? (e) => handleWayKeydown(e, w.id) : undefined}
         >
-          <title>{w.key}{w.description ? ' — ' + w.description : ''}</title>
+          <title>{w.id}{w.description ? ' — ' + w.description : ''}</title>
           <rect
             x={-WAY_HALF_X}
             y={-WAY_HALF_Y}
@@ -472,7 +469,7 @@
             stroke="none"
             pointer-events="none"
           />
-          {#if isWaySelected(w.wayKey)}
+          {#if isWaySelected(w.id)}
             <rect
               x={-WAY_HALF_X}
               y={-WAY_HALF_Y}
