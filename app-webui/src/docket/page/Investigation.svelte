@@ -11,6 +11,7 @@
   import * as investigationApi from '../api/InvestigationApi.js';
   import SceneMap from '../widget/SceneMap.svelte';
   import PersonagesBar from '../widget/PersonagesBar.svelte';
+  import WayInfo from '../widget/WayInfo.svelte';
 
   let { params = {} } = $props();
   const id = $derived(params.id);
@@ -18,6 +19,8 @@
   let error = $state(null);
   let loading = $state(true);
   let context = $state(null);
+  
+  let wayModal = $state(null);
 
   const activeDetectiveId = $derived(
     context.investigation.state.activeDetectiveId
@@ -51,6 +54,10 @@
     push(`/investigation/${id}/inspection/${personageId}`);
   }
 
+  function handleWayClick(wayId) {
+    wayModal?.open(wayId);
+  }
+  
   $effect(() => {
     async function loadData() {
       loading = true;
@@ -175,8 +182,10 @@
 
     <h2 class="mb-1">{context.script.crime.scene.name}</h2>
     <div class="scene-map-wrapper">
-      <SceneMap {context} onLocationClick={handleLocationClick} />
+      <SceneMap {context} onLocationClick={handleLocationClick} onWayClick={handleWayClick} />
     </div>
+
+   <WayInfo bind:this={wayModal} {context} />
 
     <h2 class="mb-1">Персонажи</h2>
     <PersonagesBar
