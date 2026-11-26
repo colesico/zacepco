@@ -420,6 +420,7 @@ crime:
     CBRY:
       name: Buried body
       description: A hand protrudes from the fresh earth
+      asset: CEXP
       uncovers: [CGUN]
       leadsTo: [PTRN, LMNT, PSLD]
     CEXP:
