@@ -3,7 +3,6 @@ package colesico.zacepco.docket.srv.dao;
 import colesico.framework.jdbirec.RecordView;
 import colesico.framework.service.Service;
 import colesico.framework.transaction.Transactional;
-import colesico.zacepco.docket.srv.jdbi.InvestigationStateMediator;
 import colesico.zacepco.docket.srv.model.Investigation;
 import colesico.zacepco.investigation.model.state.InvestigationState;
 import jakarta.inject.Named;
@@ -58,7 +57,7 @@ public class InvestigationDao {
         return handle.get().createQuery(sql).bind("id", id).map(investigationFullRk.mapper()).findOne();
     }
 
-    public Optional<Investigation> findUserInvestigation(Long userId, Long scriptId) {
+    public Optional<Investigation> findPersonalInvestigation(Long userId, Long scriptId) {
         String sql = investigationFullRk.sql("select @columns from @table where user_id = :userId and script_id = :scriptId");
         return handle.get()
                 .createQuery(sql)

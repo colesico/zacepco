@@ -56,7 +56,7 @@ public class InvestigationService {
             throw new RuntimeException("Script is archived");
         }
 
-        var prevInvEntry = investigationDao.findUserInvestigation(userId, request.scriptId);
+        var prevInvEntry = investigationDao.findPersonalInvestigation(userId, request.scriptId);
         if (prevInvEntry.isPresent()) {
             throw new RuntimeException("Investigation on script already started by user. Id: " + request.scriptId);
         }
@@ -84,8 +84,14 @@ public class InvestigationService {
 
     }
 
-    public Optional<Investigation> findUserInvestigation(Long userId, Long scriptEntryId) {
-        return investigationDao.findUserInvestigation(userId, scriptEntryId);
+    @RequireIdentity
+    public Optional<Investigation> findPersonalInvestigation(Long scriptEntryId) {
+        Long userId = identity.get().longId();
+        return investigationDao.findPersonalInvestigation(userId, scriptEntryId);
+    }
+
+    public Optional<Investigation> findPersonalInvestigation(Long userId, Long scriptEntryId) {
+        return investigationDao.findPersonalInvestigation(userId, scriptEntryId);
     }
 
     public Optional<Investigation> findInvestigationById(Long id) {

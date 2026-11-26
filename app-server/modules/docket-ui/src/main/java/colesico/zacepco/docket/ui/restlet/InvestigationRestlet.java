@@ -7,6 +7,7 @@ import colesico.framework.jjwt.WebJwt;
 import colesico.framework.restlet.Restlet;
 import colesico.framework.security.authentication.Authentication;
 import colesico.framework.service.BeanField;
+import colesico.framework.telehttp.ParamName;
 import colesico.framework.telehttp.ParamOrigin;
 import colesico.framework.telehttp.origin.Origin;
 import colesico.framework.telehttp.result.ValueResult;
@@ -31,14 +32,21 @@ public class InvestigationRestlet {
         this.scriptService = scriptService;
     }
 
+    @Authentication(WebJwt.class)
+    @Route("./personal")
+    public Investigation findPersonalInvestigation(@ParamOrigin(Origin.QUERY) @ParamName("script") Long scriptId) {
+        var invOpt = investigationService.findPersonalInvestigation(scriptId);
+        return invOpt.orElse(null);
+    }
+
     @RequestMethod(HttpMethod.POST)
-    @Route("./")
+    @Route("./new")
     @Authentication(WebJwt.class)
     public Investigation createInvestigation(@ParamOrigin(Origin.BODY) CreateInvestigationRequest request) {
         return investigationService.createInvestigation(request);
     }
 
-    @Route("./:id")
+    @Route("./:id/context")
     public ValueResult<InvestigationContext> findInvestigationContext(@ParamOrigin(Origin.ROUTE) Long id) {
         var invOpt = investigationService.findInvestigationById(id);
 
@@ -55,7 +63,7 @@ public class InvestigationRestlet {
 
     @Route("./:investigationId/search/:entityId")
     @RequestMethod(HttpMethod.PUT)
-    public InspectionResponse search(
+    public InspectionResponse entitySearch(
             @ParamOrigin(Origin.ROUTE) Long investigationId,
             @ParamOrigin(Origin.ROUTE) String entityId,
             @BeanField String focus,

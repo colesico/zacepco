@@ -16,6 +16,8 @@
   let loading = $state(true);
 
   let script = $state(null);
+  let investigation = $state(null);
+  	   
 
   // Состояние полей формы
   let detectivesNum = $state(1);
@@ -37,6 +39,13 @@
       error = null;
 
       try {
+	    investigation = await investigationApi.findPersonalInvestigation(id);
+		
+		console.log(investigation);
+		if (investigation !== null){
+			 replace(`/investigation/${investigation.id}`);
+		}
+		 
         script = await scriptApi.scriptDocument(id);
         detectivesNum = script.metainfo.playersNum.min;
       } catch (ex) {

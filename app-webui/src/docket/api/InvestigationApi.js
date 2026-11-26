@@ -1,11 +1,11 @@
 import  * as restletUtils from "@core/assist/RestletUtils.js"; 
 
 export async function createInvestigation(request){
-	return await restletUtils.restletPost("/docket/api/investigation",request,{});
+	return await restletUtils.restletPost("/docket/api/investigation/new",request,{});
 }
 
 export async function findInvestigationContext(id){
-	return await restletUtils.restletGet("/docket/api/investigation/"+id);
+	return await restletUtils.restletGet(`/docket/api/investigation/${id}/context`);
 }
 
 export async function search(investigationId, entityId, detectiveFocus, d12) {
@@ -15,5 +15,9 @@ export async function search(investigationId, entityId, detectiveFocus, d12) {
     return restletUtils.restletPut(url, request);
 }
 
-
+export async function findPersonalInvestigation(scriptId) {
+	const params = { script : scriptId }
+    const url = `/docket/api/investigation/personal`;
+    return restletUtils.restletGet(url, params);
+}
 

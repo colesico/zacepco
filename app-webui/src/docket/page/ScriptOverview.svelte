@@ -11,6 +11,7 @@
   let error = $state(null);
   let loading = $state(true);
   let script = $state(null);
+  let investigation = $state(null);
 
   $inspect(error);
   $inspect(script);
