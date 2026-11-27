@@ -62,6 +62,7 @@ public class InvestigationRestlet {
         }
     }
 
+    @Authentication(WebJwt.class)
     @Route("./:investigationId/search/:entityId")
     @RequestMethod(HttpMethod.PUT)
     public InspectionResponse searchEntity(
@@ -78,6 +79,7 @@ public class InvestigationRestlet {
         return new InspectionResponse(result);
     }
 
+    @Authentication(WebJwt.class)
     @Route("./:investigationId/interrogation/:personageId")
     @RequestMethod(HttpMethod.PUT)
     public InspectionResponse interrogatePersonage(
