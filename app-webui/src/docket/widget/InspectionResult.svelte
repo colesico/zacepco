@@ -2,6 +2,7 @@
   let {
     inspectionResult = null,
     context = null,
+    onClose = null,
   } = $props();
 
   const INSPECTION_LABELS = {
@@ -11,6 +12,7 @@
   };
 
   let modalEl = $state(null);
+  let bootstrapModal = $state(null);
 
   const code = $derived(inspectionResult?.code ?? '');
   const result = $derived(inspectionResult?.result ?? null);
@@ -42,9 +44,9 @@
 
   const matchedIdsText = $derived.by(() => {
     const ids = Array.isArray(result?.matchedIds) ? result.matchedIds : [];
-     return ids.join(' ');
+    return ids.join(' ');
   });
-  
+
   const matchedTypesText = $derived.by(() => {
     const types = Array.isArray(result?.matchedTypes) ? result.matchedTypes : [];
     return types.join(' ');
@@ -54,10 +56,10 @@
     const ids = Array.isArray(result?.unmatchedIds) ? result.unmatchedIds : [];
     return ids.join(' ');
   });
-  
+
   const unmatchedTypesText = $derived.by(() => {
     const types = Array.isArray(result?.unmatchedTypes) ? result.unmatchedTypes : [];
-    return types.join('  ');
+    return types.join(' ');
   });
 
   const undiscoveredFocusText = $derived.by(() => {
@@ -138,10 +140,33 @@
     Array.isArray(clue?.uncovers) ? clue.uncovers.map(resolveUncoveredItem) : []
   );
 
+  // Регистрация bootstrap-инстанса и подписка на закрытие
+  $effect(() => {
+    if (!modalEl || typeof window === 'undefined' || !window.bootstrap) return;
+
+    bootstrapModal = window.bootstrap.Modal.getOrCreateInstance(modalEl);
+
+    const handler = () => {
+      onClose?.(inspectionResult);
+    };
+
+    modalEl.addEventListener('hidden.bs.modal', handler);
+
+    return () => {
+      modalEl.removeEventListener('hidden.bs.modal', handler);
+    };
+  });
+
   export function show() {
-    if (modalEl && window.bootstrap) {
-      window.bootstrap.Modal.getOrCreateInstance(modalEl).show();
-    }
+    bootstrapModal?.show();
+  }
+
+  export function hide() {
+    bootstrapModal?.hide();
+  }
+
+  function handleClose() {
+    hide();
   }
 </script>
 
@@ -158,12 +183,6 @@
         <h5 class="modal-title" id="inspectionResultModalLabel">
           {inspectionLabel}{targetName ? `: ${targetName}` : ''}
         </h5>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Закрыть"
-        ></button>
       </div>
 
       <div class="modal-body">
@@ -206,34 +225,33 @@
         {/if}
 
         {#if code === 'INVALID_D12'}
-          <p class="mb-0  alert  alert-danger">
-		    Неверное значение D12
-		  </p>
+          <p class="mb-0 alert alert-danger">
+            Неверное значение D12
+          </p>
         {:else if code === 'FOCUS_LIMIT_EXCEEDED'}
-          <p class="mb-0 alert  alert-danger">
+          <p class="mb-0 alert alert-danger">
             В фокусе детектива слишком много элементов ({result?.itemsCount}), максимум: {result?.focusLimit}
           </p>
-        {:else if code === 'ENTITY_ID_REQUIRED' || code === 'FOCUS_IDS_REQUIRED'}
-          <p class="mb-0 alert  alert-danger">
+        {:else if code === 'FOCUS_IDS_REQUIRED'}
+          <p class="mb-0 alert alert-danger">
             Требуется указать минимум
             <strong>{result?.minItems}</strong>
             ID в фокусе детектива.
           </p>
         {:else if code === 'UNDISCOVERED_FOCUS'}
-          <p class="mb-0 alert  alert-danger">
+          <p class="mb-0 alert alert-danger">
             В фокусе детектива нельзя указывать ранее не открытые сущности: <strong>{undiscoveredFocusText}</strong>.
           </p>
         {:else if code === 'INSUFFICIENT_BUDGET'}
-          <p class="mb-0 alert  alert-danger">
-			Недостаточно бюджета расследования
-		  </p>
-	    {:else if code === 'CLUES_EXHAUSTED'}
-          <p class="mb-0 alert  alert-info">
-			Этот источник улик исчерпан
-	      </p>
-       
+          <p class="mb-0 alert alert-danger">
+            Недостаточно бюджета расследования
+          </p>
+        {:else if code === 'CLUES_EXHAUSTED'}
+          <p class="mb-0 alert alert-info">
+            Этот источник улик исчерпан
+          </p>
         {:else if code === 'INTERROGATION_IGNORANCE'}
-          <p class="mb-2 alert  alert-warning">
+          <p class="mb-2 alert alert-warning">
             Новая улика не выявлена. У персонажа нет нужной информации.
           </p>
 
@@ -250,29 +268,29 @@
             <div class="mb-2 d-flex align-items-start gap-2">
               <i class="fa-solid fa-check text-success mt-1"></i>
               <span>
-                Персонаж упомянул: 
-				<strong class="text-success">{matchedTypesText} <span class="text-secondary">{unmatchedTypesText}</span></strong>	
+                Персонаж упомянул:
+                <strong class="text-success">{matchedTypesText} <span class="text-secondary">{unmatchedTypesText}</span></strong>
               </span>
             </div>
           {/if}
 
         {:else if code === 'INTERROGATION_REFUSAL'}
-          <p class="mb-2 alert  alert-warning">
+          <p class="mb-2 alert alert-warning">
             Новая улика не выявлена. Персонаж отказался делиться подробностями.
           </p>
 
-          {#if matchedIdsText || matchedTypesText || unmatchedTypesText }
-             <div class="mb-2 d-flex align-items-start gap-2">
+          {#if matchedIdsText || matchedTypesText || unmatchedTypesText}
+            <div class="mb-2 d-flex align-items-start gap-2">
               <i class="fa-solid fa-check text-success mt-1"></i>
               <span>
-                Персонаж знает о: 
-				<strong class="text-success">{matchedIdsText} {matchedTypesText} <span class="text-secondary">{unmatchedTypesText}</span></strong>	
+                Персонаж знает о:
+                <strong class="text-success">{matchedIdsText} {matchedTypesText} <span class="text-secondary">{unmatchedTypesText}</span></strong>
               </span>
             </div>
           {/if}
-          
-         {:else if code === 'SEARCH_CLUE' || code === 'SEARCH_FOCUSED_CLUE' || code === 'INTERROGATION_CLUE'}
-          <p class="mb-2 alert  alert-success">
+
+        {:else if code === 'SEARCH_CLUE' || code === 'SEARCH_FOCUSED_CLUE' || code === 'INTERROGATION_CLUE'}
+          <p class="mb-2 alert alert-success">
             {#if code === 'SEARCH_CLUE'}
               Случайно обнаружена подозрительная улика
             {:else if code === 'SEARCH_FOCUSED_CLUE'}
@@ -288,11 +306,11 @@
                 class="position-relative flex-shrink-0"
                 style="width: 64px; height: 64px;"
               >
-                  <img
-                    src="/docket/script/images/thumb/{scriptId}/{assetId}"
-                    alt={clue.name ?? clue.id}
-                    class="w-100 h-100 rounded border object-fit-cover d-block"
-                  />
+                <img
+                  src="/docket/script/images/thumb/{scriptId}/{assetId}"
+                  alt={clue.name ?? clue.id}
+                  class="w-100 h-100 rounded border object-fit-cover d-block"
+                />
                 <span
                   class="badge text-bg-secondary position-absolute top-0 start-0 m-1"
                   style="font-size: 0.65em; z-index: 2;"
@@ -399,7 +417,11 @@
       </div>
 
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
+        <button
+          type="button"
+          class="btn btn-primary"
+          onclick={handleClose}
+        >
           ОК
         </button>
       </div>

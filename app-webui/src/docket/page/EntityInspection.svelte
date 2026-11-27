@@ -40,12 +40,23 @@
 
   const budget = $derived(context?.investigation?.state?.budget ?? 0);
 
-  // Улики сущности по сценарию, отфильтрованные по факту открытия
+  // Entity clues declared in the script, filtered by discovered flag
   const exposedClues = $derived(
     (Array.isArray(entity?.clues) ? entity.clues : []).filter(
       (cid) => context?.investigation?.state?.clues?.[cid]?.discovered === true
     )
   );
+
+  // Result codes that trigger navigation back to the map on modal close
+  const RESULT_ON_CLOSE_CODES = new Set([
+    'INSUFFICIENT_BUDGET',
+    'CLUES_EXHAUSTED',
+    'INTERROGATION_IGNORANCE',
+    'INTERROGATION_REFUSAL',
+	'INTERROGATION_CLUE',
+    'SEARCH_CLUE',
+    'SEARCH_FOCUSED_CLUE'
+  ]);
 
   async function handleSearch(focus, d12) {
     loading = true;
@@ -54,7 +65,7 @@
       const r = await investigationApi.search(investigationId, entityId, focus, d12);
       console.log('[Search] result: ', r);
       inspectionResult = r;
-	  await tick();
+      await tick();
       inspectionResultModal?.show();
     } catch (ex) {
       error = ex.data;
@@ -70,7 +81,7 @@
       const r = await investigationApi.interrogate(investigationId, entityId, focus, d12);
       console.log('[Interrogation] result: ', r);
       inspectionResult = r;
-	  await tick();
+      await tick();
       inspectionResultModal?.show();
     } catch (ex) {
       error = ex.data;
@@ -108,6 +119,13 @@
       cancelled = true;
     };
   });
+
+  function onCloseResult(res) {
+    console.log('[InspectionResult] closed:', res);
+    if (RESULT_ON_CLOSE_CODES.has(res?.code)) {
+      pop();
+    }
+  }
 </script>
 
 <div class="container">
@@ -246,7 +264,7 @@
   {/if}
 
   {#if inspectionResult }
-    <InspectionResult bind:this={inspectionResultModal} {inspectionResult} {context} />
+    <InspectionResult bind:this={inspectionResultModal} {inspectionResult} {context} onClose={onCloseResult} />
   {/if}
 </div>
 

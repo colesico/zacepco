@@ -46,7 +46,7 @@ public class InvestigationUtil {
         };
 
         if (detectiveFocus.ids().size() < minIdItems) {
-            return EntityIdRequired.of(minIdItems);
+            return FocusIdsRequired.of(minIdItems);
         }
 
         // Check undiscovered id/types
