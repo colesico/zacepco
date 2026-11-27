@@ -17,7 +17,7 @@ abstract public class InspectionResult {
 
     public Integer d12;
 
-    public Integer budgetSpend;
+    public Integer budgetSpend = 0;
 
     public Integer currentBudget;
 

@@ -13,10 +13,7 @@ import colesico.zacepco.investigation.manager.InvestigationManager;
 import colesico.zacepco.investigation.manager.InvestigationStateBuilder;
 import colesico.zacepco.investigation.manager.InvestigationStateEnricher;
 import colesico.zacepco.investigation.model.DetectiveFocus;
-import colesico.zacepco.investigation.model.results.InterrogationClue;
-import colesico.zacepco.investigation.model.results.SearchClue;
-import colesico.zacepco.investigation.model.results.CluesExhausted;
-import colesico.zacepco.investigation.model.results.InspectionResult;
+import colesico.zacepco.investigation.model.results.*;
 import colesico.zacepco.script.model.scriptdoc.PersonageSpec;
 import colesico.zacepco.script.model.scriptdoc.TId;
 import jakarta.inject.Provider;
@@ -141,6 +138,8 @@ public class InvestigationService {
         var result = invManager.interrogationManager().interrogate(personageId, detectiveFocus, d12);
 
         if (result instanceof InterrogationClue
+                || result instanceof InterrogationIgnorance
+                || result instanceof InterrogationRefusal
                 || result instanceof CluesExhausted) {
             investigationDao.updateInvestigationState(investigationId, invManager.state);
         }
