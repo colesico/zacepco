@@ -112,6 +112,7 @@ public class InvestigationService {
         return inv;
     }
 
+    @RequireIdentity
     public InspectionResult search(Long investigationId, TId entityId, DetectiveFocus detectiveFocus, Integer d12) {
 
         var investigation = investigationDao.findInvestigationById(investigationId).orElseThrow(() -> new IllegalArgumentException("Investigation not found. Id: " + investigationId));
@@ -129,6 +130,7 @@ public class InvestigationService {
         return result;
     }
 
+    @RequireIdentity
     public InspectionResult interrogate(Long investigationId, PersonageSpec.Id personageId, DetectiveFocus detectiveFocus, Integer d12) {
 
         var investigation = investigationDao.findInvestigationById(investigationId).orElseThrow(() -> new IllegalArgumentException("Investigation not found. Id: " + investigationId));
