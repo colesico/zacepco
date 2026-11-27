@@ -42,23 +42,22 @@
 
   const matchedIdsText = $derived.by(() => {
     const ids = Array.isArray(result?.matchedIds) ? result.matchedIds : [];
-    const types = Array.isArray(result?.matchedTypes) ? result.matchedTypes : [];
-    return [...ids, ...types].join(', ');
+     return ids.join(' ');
   });
   
   const matchedTypesText = $derived.by(() => {
     const types = Array.isArray(result?.matchedTypes) ? result.matchedTypes : [];
-    return types.join(', ');
+    return types.join(' ');
   });
 
   const unmatchedIdsText = $derived.by(() => {
     const ids = Array.isArray(result?.unmatchedIds) ? result.unmatchedIds : [];
-    return ids.join(', ');
+    return ids.join(' ');
   });
   
   const unmatchedTypesText = $derived.by(() => {
     const types = Array.isArray(result?.unmatchedTypes) ? result.unmatchedTypes : [];
-    return types.join(', ');
+    return types.join('  ');
   });
 
   const undiscoveredFocusText = $derived.by(() => {
@@ -228,9 +227,14 @@
           <p class="mb-0 alert  alert-danger">
 			Недостаточно бюджета расследования
 		  </p>
+	    {:else if code === 'CLUES_EXHAUSTED'}
+          <p class="mb-0 alert  alert-info">
+			Этот источник улик исчерпан
+	      </p>
+       
         {:else if code === 'INTERROGATION_UNPRODUCTIVE'}
           <p class="mb-2 alert  alert-warning">
-            Допрос не выявил новую улику
+            Новая улика не выявлена. У персонажа нет нужной информации.
           </p>
 
           {#if unmatchedIdsText}
@@ -242,30 +246,39 @@
             </div>
           {/if}
 
-          {#if matchedTypesText}
+          {#if matchedTypesText || unmatchedTypesText}
             <div class="mb-2 d-flex align-items-start gap-2">
               <i class="fa-solid fa-check text-success mt-1"></i>
               <span>
                 Персонаж упомянул: 
-				<strong class="text-success">{matchedTypesText}</strong>
-				{#if unmatchedTypesText}
-					<strong class="text-warning">{unmatchedTypesText}</strong>
-                {/if}	
+				<strong class="text-success">{matchedTypesText} {unmatchedTypesText}</strong>	
               </span>
             </div>
           {/if}
 
+        {:else if code === 'INTERROGATION_INCOMPLETE'}
+          <p class="mb-2 alert  alert-warning">
+            Новая улика не выявлена. Персонаж отказался делиться подробностями.
+          </p>
+
+          {#if matchedIdsText || matchedTypesText || unmatchedTypesText }
+             <div class="mb-2 d-flex align-items-start gap-2">
+              <i class="fa-solid fa-check text-success mt-1"></i>
+              <span>
+                Персонаж знает о: 
+				<strong class="text-success">{matchedIdsText} {matchedTypesText} {unmatchedTypesText}</strong>	
+              </span>
+            </div>
+          {/if}
           
-        {:else if code === 'CLUES_EXHAUSTED'}
-          <p class="mb-0 alert  alert-info">Этот источник улик исчерпан.</p>
-        {:else if code === 'SEARCH_CLUE' || code === 'SEARCH_FOCUSED_CLUE' || code === 'INTERROGATION_CLUE'}
+         {:else if code === 'SEARCH_CLUE' || code === 'SEARCH_FOCUSED_CLUE' || code === 'INTERROGATION_CLUE'}
           <p class="mb-2 alert  alert-success">
             {#if code === 'SEARCH_CLUE'}
               Случайно обнаружена подозрительная улика:
             {:else if code === 'SEARCH_FOCUSED_CLUE'}
               Целенаправленно обнаружена улика:
             {:else if code === 'INTERROGATION_CLUE'}
-              Обнаружена улика при допросе:
+              Выявлена улика при допросе:
             {/if}
           </p>
 
