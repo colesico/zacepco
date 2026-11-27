@@ -123,7 +123,7 @@
   function onCloseResult(res) {
     console.log('[InspectionResult] closed:', res);
     if (RESULT_ON_CLOSE_CODES.has(res?.code)) {
-      pop();
+       push(`/investigation/${investigationId}?scroll=0`);
     }
   }
 </script>

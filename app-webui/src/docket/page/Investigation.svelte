@@ -15,6 +15,7 @@
 
   let { params = {} } = $props();
   const id = $derived(params.id);
+  const scroll = $derived(params.scroll);
 
   let error = $state(null);
   let loading = $state(true);
@@ -69,6 +70,9 @@
 
         // Restore scroll
         await tick();
+		if (scroll != null) {
+          investigationScrollY = Number(scroll);
+        }
         window.scrollTo({ top: investigationScrollY, behavior: 'instant' });
         investigationScrollY = 0;
       } catch (ex) {
