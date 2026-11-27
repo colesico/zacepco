@@ -211,7 +211,7 @@
           <p class="mb-0 text-muted">Неверное значение D12</p>
         {:else if code === 'FOCUS_LIMIT_EXCEEDED'}
           <p class="mb-0 alert  alert-danger">
-            В фокусе детектива слишком много элементов, максимум: {result?.focusLimit}
+            В фокусе детектива слишком много элементов ({result?.itemsCount}), максимум: {result?.focusLimit}
           </p>
         {:else if code === 'ENTITY_ID_REQUIRED' || code === 'FOCUS_IDS_REQUIRED'}
           <p class="mb-0 alert  alert-danger">
@@ -245,19 +245,16 @@
             <div class="mb-2 d-flex align-items-start gap-2">
               <i class="fa-solid fa-check text-success mt-1"></i>
               <span>
-                Персонаж знает о: <strong class="text-success">{matchedTypesText}</strong>
+                Персонаж упомянул: 
+				<strong class="text-success">{matchedTypesText}</strong>
+				{#if unmatchedFocusText}
+					<strong class="text-warning">{unmatchedFocusText}</strong>
+                {/if}	
               </span>
             </div>
           {/if}
 
-          {#if unmatchedFocusText}
-            <div class="mb-0 d-flex align-items-start gap-2">
-              <i class="fa-solid fa-circle-minus text-warning mt-1"></i>
-              <span>
-                Персонаж упомняул: <strong class="text-warning">{unmatchedFocusText}</strong>
-              </span>
-            </div>
-          {/if}
+          
         {:else if code === 'CLUES_EXHAUSTED'}
           <p class="mb-0 alert  alert-info">Этот источник улик исчерпан.</p>
         {:else if code === 'SEARCH_CLUE' || code === 'SEARCH_FOCUSED_CLUE' || code === 'INTERROGATION_CLUE'}
