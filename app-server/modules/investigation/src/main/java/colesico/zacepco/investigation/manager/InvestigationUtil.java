@@ -2,10 +2,7 @@ package colesico.zacepco.investigation.manager;
 
 import colesico.zacepco.investigation.model.DetectiveFocus;
 import colesico.zacepco.investigation.model.dto.FocusedClueMatch;
-import colesico.zacepco.investigation.model.results.FocusLimitExceeded;
-import colesico.zacepco.investigation.model.results.InspectionResult;
-import colesico.zacepco.investigation.model.results.InvalidD12;
-import colesico.zacepco.investigation.model.results.UndiscoveredFocus;
+import colesico.zacepco.investigation.model.results.*;
 import colesico.zacepco.investigation.model.state.InvestigationState;
 import colesico.zacepco.script.model.scriptdoc.*;
 
@@ -39,6 +36,17 @@ public class InvestigationUtil {
 
         if (detectiveFocus.size() > focusLimit) {
             return FocusLimitExceeded.of(focusLimit);
+        }
+
+        // Check ID items count in detective focus
+        var minIdItems = switch (inspectionType) {
+            case SEARCH -> 0;
+            case INTERROGATION -> 1;
+            case EXAMINATION -> 2;
+        };
+
+        if (detectiveFocus.ids().size() < minIdItems) {
+            return EntityIdRequired.of(minIdItems);
         }
 
         // Check undiscovered id/types

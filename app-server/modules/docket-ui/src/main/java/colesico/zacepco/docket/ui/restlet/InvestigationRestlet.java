@@ -18,6 +18,7 @@ import colesico.zacepco.docket.srv.service.ScriptService;
 import colesico.zacepco.docket.ui.dto.InvestigationContext;
 import colesico.zacepco.docket.ui.dto.InspectionResponse;
 import colesico.zacepco.investigation.model.DetectiveFocus;
+import colesico.zacepco.script.model.scriptdoc.PersonageSpec;
 import colesico.zacepco.script.model.scriptdoc.TId;
 
 @Restlet
@@ -73,6 +74,22 @@ public class InvestigationRestlet {
         TId tId = TId.parse(entityId);
         var result = investigationService
                 .search(investigationId, tId, detectiveFocus, d12);
+
+        return new InspectionResponse(result);
+    }
+
+    @Route("./:investigationId/interrogation/:personageId")
+    @RequestMethod(HttpMethod.PUT)
+    public InspectionResponse personageInterrogation(
+            @ParamOrigin(Origin.ROUTE) Long investigationId,
+            @ParamOrigin(Origin.ROUTE) String personageId,
+            @BeanField String focus,
+            @BeanField Integer d12) {
+
+        var detectiveFocus = DetectiveFocus.parse(focus);
+        PersonageSpec.Id tId = TId.parse(personageId);
+        var result = investigationService
+                .interrogate(investigationId, tId, detectiveFocus, d12);
 
         return new InspectionResponse(result);
     }

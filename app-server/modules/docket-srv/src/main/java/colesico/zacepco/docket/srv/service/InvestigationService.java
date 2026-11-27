@@ -13,9 +13,11 @@ import colesico.zacepco.investigation.manager.InvestigationManager;
 import colesico.zacepco.investigation.manager.InvestigationStateBuilder;
 import colesico.zacepco.investigation.manager.InvestigationStateEnricher;
 import colesico.zacepco.investigation.model.DetectiveFocus;
+import colesico.zacepco.investigation.model.results.InterrogationClue;
 import colesico.zacepco.investigation.model.results.SearchClue;
 import colesico.zacepco.investigation.model.results.CluesExhausted;
 import colesico.zacepco.investigation.model.results.InspectionResult;
+import colesico.zacepco.script.model.scriptdoc.PersonageSpec;
 import colesico.zacepco.script.model.scriptdoc.TId;
 import jakarta.inject.Provider;
 
@@ -120,6 +122,23 @@ public class InvestigationService {
         var result = invManager.searchManager().search(entityId, detectiveFocus, d12);
 
         if (result instanceof SearchClue
+                || result instanceof CluesExhausted) {
+            investigationDao.updateInvestigationState(investigationId, invManager.state);
+        }
+
+        return result;
+    }
+
+    public InspectionResult interrogate(Long investigationId, PersonageSpec.Id personageId, DetectiveFocus detectiveFocus, Integer d12) {
+
+        var investigation = investigationDao.findInvestigationById(investigationId).orElseThrow(() -> new IllegalArgumentException("Investigation not found. Id: " + investigationId));
+        var script = scriptService.scriptPackage(investigation.getScriptId()).scriptDocument().read();
+
+        var invManager = new InvestigationManager(script, investigation.state);
+
+        var result = invManager.interrogationManager().interrogate(personageId, detectiveFocus, d12);
+
+        if (result instanceof InterrogationClue
                 || result instanceof CluesExhausted) {
             investigationDao.updateInvestigationState(investigationId, invManager.state);
         }

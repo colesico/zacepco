@@ -1,14 +1,13 @@
 package colesico.zacepco.investigation.manager;
 
 import colesico.zacepco.investigation.model.DetectiveFocus;
-import colesico.zacepco.investigation.model.results.CluesExhausted;
-import colesico.zacepco.investigation.model.results.InspectionResult;
-import colesico.zacepco.investigation.model.results.InsufficientBudget;
-import colesico.zacepco.investigation.model.results.InterrogationClue;
+import colesico.zacepco.investigation.model.dto.FocusedClueMatch;
+import colesico.zacepco.investigation.model.results.*;
 import colesico.zacepco.investigation.model.state.InvestigationState;
 import colesico.zacepco.investigation.model.state.PersonageState;
 import colesico.zacepco.script.model.scriptdoc.*;
 
+import java.util.Comparator;
 import java.util.Set;
 
 public class InterrogationManager {
@@ -22,7 +21,61 @@ public class InterrogationManager {
     }
 
     private InspectionResult performInterrogation(Set<ClueSpec.Id> personageClues, DetectiveFocus detectiveFocus, Integer d12) {
-        return null;
+
+        // Undiscovered focused clues for this personage
+        Set<FocusedClueSpec> cluesToInterrogate = InvestigationUtil.findUndiscoveredFocusedClues(
+                state,
+                personageClues,
+                script.investigation.interrogation.clues
+        );
+
+        // Interrogation table exhausted for this personage
+        if (cluesToInterrogate.isEmpty()) {
+            return CluesExhausted.of();
+        }
+
+        var matchedClues = InvestigationUtil.matchClues(cluesToInterrogate, detectiveFocus);
+
+        // Order: EQ desc, EQT desc, NE asc, threshold asc
+        matchedClues.sort(
+                Comparator.comparingLong(FocusedClueMatch::eq).reversed()
+                        .thenComparing(Comparator.comparingLong(FocusedClueMatch::eqt).reversed())
+                        .thenComparingLong(FocusedClueMatch::ne)
+                        .thenComparingDouble((FocusedClueMatch m) -> m.focusedClue().threshold)
+        );
+
+        // Target row — first after ordering
+        var selectedMatch = matchedClues.getFirst();
+
+        // EQ = 0: personage knows nothing about what the detective is asking about.
+        // All detective IDs are reported as unmatched.
+        if (selectedMatch.eq() == 0) {
+            return new InterrogationUnproductive(
+                    detectiveFocus.ids(),
+                    selectedMatch.matchedTypes(),
+                    selectedMatch.unmatchedTypes()
+            );
+        }
+
+        double rf = state.randFactor;
+
+        // EQ > 0: personage knows about the focus; D12 vs threshold decides if the clue opens
+        if (d12 >= selectedMatch.focusedClue().threshold * rf) {
+            var clue = script.crime.clues.get(selectedMatch.focusedClue().clue);
+            return new InterrogationClue(
+                    clue,
+                    selectedMatch.matchedIds(),
+                    selectedMatch.matchedTypes(),
+                    selectedMatch.unmatchedTypes()
+            );
+        }
+
+        // EQ > 0 but D12 < threshold — personage knows but won't reveal details
+        return new InterrogationIncomplete(
+                selectedMatch.matchedIds(),
+                selectedMatch.matchedTypes(),
+                selectedMatch.unmatchedTypes()
+        );
     }
 
     public InspectionResult interrogate(PersonageSpec.Id personageId, DetectiveFocus detectiveFocus, Integer d12) {
