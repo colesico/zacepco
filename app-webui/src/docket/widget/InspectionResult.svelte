@@ -51,6 +51,16 @@
     return types.join(', ');
   });
 
+  const unmatchedIdsText = $derived.by(() => {
+    const ids = Array.isArray(result?.unmatchedIds) ? result.unmatchedIds : [];
+    return ids.join(', ');
+  });
+
+  const matchedTypesText = $derived.by(() => {
+    const types = Array.isArray(result?.matchedTypes) ? result.matchedTypes : [];
+    return types.join(', ');
+  });
+
   const undiscoveredFocusText = $derived.by(() => {
     const u = result?.undiscovered;
     if (Array.isArray(u)) return u.join(', ');
@@ -189,7 +199,7 @@
             </span>
           </div>
         {/if}
-		
+
         {#if result?.awardedPoints != null}
           <div class="mb-2 d-flex align-items-center gap-2">
             <i class="fa-solid fa-medal text-warning"></i>
@@ -197,29 +207,68 @@
           </div>
         {/if}
 
-
         {#if code === 'INVALID_D12'}
           <p class="mb-0 text-muted">Неверное значение D12</p>
         {:else if code === 'FOCUS_LIMIT_EXCEEDED'}
-          <p class="mb-0 text-muted">
+          <p class="mb-0 alert  alert-danger">
             В фокусе детектива слишком много элементов, максимум: {result?.focusLimit}
           </p>
+        {:else if code === 'ENTITY_ID_REQUIRED' || code === 'FOCUS_IDS_REQUIRED'}
+          <p class="mb-0 alert  alert-danger">
+            Требуется указать минимум
+            <strong>{result?.minItems ?? '?'}</strong>
+            ID в фокусе детектива.
+          </p>
         {:else if code === 'UNDISCOVERED_FOCUS'}
-          <p class="mb-0 text-muted">
+          <p class="mb-0 alert  alert-danger">
             В фокусе детектива ранее не открытые сущности{#if undiscoveredFocusText}: <strong>{undiscoveredFocusText}</strong>{:else}.{/if}
           </p>
         {:else if code === 'INSUFFICIENT_BUDGET'}
-          <p class="mb-0 text-muted">Недостаточно бюджета расследования</p>
+          <p class="mb-0alert  alert-danger">
+			Недостаточно бюджета расследования
+		  </p>
+        {:else if code === 'INTERROGATION_UNPRODUCTIVE'}
+          <p class="mb-2 alert  alert-warning">
+            Допрос не выявил новую улику.
+          </p>
+
+          {#if unmatchedIdsText}
+            <div class="mb-2 d-flex align-items-start gap-2">
+              <i class="fa-solid fa-xmark text-danger mt-1"></i>
+              <span>
+                Персонаж не знает о: <strong class="text-danger">{unmatchedIdsText}</strong>
+              </span>
+            </div>
+          {/if}
+
+          {#if matchedTypesText}
+            <div class="mb-2 d-flex align-items-start gap-2">
+              <i class="fa-solid fa-check text-success mt-1"></i>
+              <span>
+                Персонаж знает о: <strong class="text-success">{matchedTypesText}</strong>
+              </span>
+            </div>
+          {/if}
+
+          {#if unmatchedFocusText}
+            <div class="mb-0 d-flex align-items-start gap-2">
+              <i class="fa-solid fa-circle-minus text-warning mt-1"></i>
+              <span>
+                Персонаж упомняул: <strong class="text-warning">{unmatchedFocusText}</strong>
+              </span>
+            </div>
+          {/if}
         {:else if code === 'CLUES_EXHAUSTED'}
-          <p class="mb-0 text-muted">Этот источник улик исчерпан.</p>
-        {:else if code === 'CLUES_NOT_FOUND' || code === 'NOTHING_FOUND'}
-          <p class="mb-0 text-muted">Новых улик не обнаружено.</p>
-        {:else if code === 'SEARCH_CLUE' || code === 'SEARCH_FOCUSED_CLUE'}
-		  
-          <p class="mb-2 text-muted">
-            {code === 'SEARCH_CLUE'
-              ? 'Случайно обнаружена подозрительная улика:'
-              : 'Целенаправленно обнаружена улика:'}
+          <p class="mb-0 alert  alert-info">Этот источник улик исчерпан.</p>
+        {:else if code === 'SEARCH_CLUE' || code === 'SEARCH_FOCUSED_CLUE' || code === 'INTERROGATION_CLUE'}
+          <p class="mb-2 alert  alert-success">
+            {#if code === 'SEARCH_CLUE'}
+              Случайно обнаружена подозрительная улика:
+            {:else if code === 'SEARCH_FOCUSED_CLUE'}
+              Целенаправленно обнаружена улика:
+            {:else if code === 'INTERROGATION_CLUE'}
+              Обнаружена улика при допросе:
+            {/if}
           </p>
 
           {#if clue}
@@ -257,18 +306,17 @@
               </div>
             </div>
 
-			{#if matchedFocusText || unmatchedFocusText}
-				<div class="mb-3 d-flex align-items-center gap-2">
-					<i class="fa-solid fa-crosshairs text-info"></i>
-					<span>
-						Улика связана с:
-						{#if matchedFocusText} <strong class="text-success">{matchedFocusText}</strong>{/if}
-						{#if matchedFocusText && unmatchedFocusText}, {/if}
-						{#if unmatchedFocusText} <strong class="text-danger">{unmatchedFocusText}</strong>{/if}
-					</span>
-				</div>
-			{/if}
-		
+            {#if matchedFocusText || unmatchedFocusText}
+              <div class="mt-3 d-flex align-items-center gap-2">
+                <i class="fa-solid fa-crosshairs text-info"></i>
+                <span>
+                  Улика связана с:
+                  {#if matchedFocusText} <strong class="text-success">{matchedFocusText}</strong>{/if}
+                  {#if matchedFocusText && unmatchedFocusText}, {/if}
+                  {#if unmatchedFocusText} <strong class="text-danger">{unmatchedFocusText}</strong>{/if}
+                </span>
+              </div>
+            {/if}
 
             {#if uncoveredItems.length > 0}
               <div class="mt-3">

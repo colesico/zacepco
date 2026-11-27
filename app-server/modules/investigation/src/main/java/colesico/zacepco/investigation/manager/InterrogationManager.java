@@ -92,7 +92,7 @@ public class InterrogationManager {
 
         // Prepare result base values
         InspectionResult baseValues = InspectionResult.of()
-                .inspectionType(InspectionTypeSpec.SEARCH)
+                .inspectionType(InspectionTypeSpec.INTERROGATION)
                 .inspectionTarget(personageId)
                 .activeDetective(detective)
                 .detectiveFocus(detectiveFocus)
@@ -106,7 +106,7 @@ public class InterrogationManager {
                 d12,
                 script,
                 state,
-                InspectionTypeSpec.SEARCH);
+                InspectionTypeSpec.INTERROGATION);
 
         if (checkParamsResult != null) return checkParamsResult.assign(baseValues);
 

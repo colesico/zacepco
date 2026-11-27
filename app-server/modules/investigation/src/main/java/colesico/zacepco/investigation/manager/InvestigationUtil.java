@@ -35,7 +35,7 @@ public class InvestigationUtil {
         };
 
         if (detectiveFocus.size() > focusLimit) {
-            return FocusLimitExceeded.of(focusLimit);
+            return FocusLimitExceeded.of(detectiveFocus.size(), focusLimit);
         }
 
         // Check ID items count in detective focus
