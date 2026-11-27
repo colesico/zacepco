@@ -20,14 +20,8 @@ public class InterrogationIgnorance extends InspectionResult {
      */
     public final Set<TId.Type> matchedTypes;
 
-    /**
-     * Inspection TABLE entity types NOT matched with detective focus
-     */
-    public final Set<TId.Type> unmatchedTypes;
-
-    public InterrogationIgnorance(Set<TId> unmatchedIds, Set<TId.Type> matchedTypes, Set<TId.Type> unmatchedTypes) {
+    public InterrogationIgnorance(Set<TId> unmatchedIds, Set<TId.Type> matchedTypes) {
         this.unmatchedIds = unmatchedIds;
         this.matchedTypes = matchedTypes;
-        this.unmatchedTypes = unmatchedTypes;
     }
 }

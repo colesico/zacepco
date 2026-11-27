@@ -52,8 +52,7 @@ public class InterrogationManager {
         if (selectedMatch.eq() == 0) {
             return new InterrogationIgnorance(
                     detectiveFocus.ids(),
-                    selectedMatch.matchedTypes(),
-                    selectedMatch.unmatchedTypes()
+                    selectedMatch.matchedTypes()
             );
         }
 

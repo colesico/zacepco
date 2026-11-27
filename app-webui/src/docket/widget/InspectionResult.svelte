@@ -264,12 +264,12 @@
             </div>
           {/if}
 
-          {#if matchedTypesText || unmatchedTypesText}
+          {#if matchedTypesText}
             <div class="mb-2 d-flex align-items-start gap-2">
               <i class="fa-solid fa-check text-success mt-1"></i>
               <span>
                 Персонаж упомянул:
-                <strong class="text-success">{matchedTypesText} <span class="text-secondary">{unmatchedTypesText}</span></strong>
+                <strong class="text-success">{matchedTypesText}</strong>
               </span>
             </div>
           {/if}
@@ -327,11 +327,12 @@
               </div>
             </div>
 
-            {#if matchedIdsText || unmatchedTypesText}
+            {#if matchedIdsText || matchedTypesText || unmatchedTypesText}
               <div class="mt-3 d-flex align-items-center gap-2">
                 <i class="fa-solid fa-link text-info"></i>
                 <span>
-                  Определяется связь с: <strong class="text-success">{matchedIdsText} <span class="text-secondary">{unmatchedTypesText}</span></strong>
+                  Определяется связь с: <strong class="text-success">{matchedIdsText} {matchedTypesText} 
+				  <span class="text-secondary">{unmatchedTypesText}</span></strong>
                 </span>
               </div>
             {/if}
