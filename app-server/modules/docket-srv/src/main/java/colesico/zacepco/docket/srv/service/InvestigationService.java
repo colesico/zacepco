@@ -13,7 +13,7 @@ import colesico.zacepco.investigation.manager.InvestigationManager;
 import colesico.zacepco.investigation.manager.InvestigationStateBuilder;
 import colesico.zacepco.investigation.manager.InvestigationStateEnricher;
 import colesico.zacepco.investigation.model.DetectiveFocus;
-import colesico.zacepco.investigation.model.results.SearchClueDiscovered;
+import colesico.zacepco.investigation.model.results.SearchClue;
 import colesico.zacepco.investigation.model.results.CluesExhausted;
 import colesico.zacepco.investigation.model.results.InspectionResult;
 import colesico.zacepco.script.model.scriptdoc.TId;
@@ -119,7 +119,7 @@ public class InvestigationService {
 
         var result = invManager.searchManager().search(entityId, detectiveFocus, d12);
 
-        if (result instanceof SearchClueDiscovered
+        if (result instanceof SearchClue
                 || result instanceof CluesExhausted) {
             investigationDao.updateInvestigationState(investigationId, invManager.state);
         }

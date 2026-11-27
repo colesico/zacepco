@@ -30,6 +30,10 @@ public class InvestigationManager {
         return new SearchManager(this);
     }
 
+    public InterrogationManager interrogationManager() {
+        return new InterrogationManager(this);
+    }
+
     public InvestigationState state() {
         return state;
     }

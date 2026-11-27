@@ -19,28 +19,10 @@ public class SearchManager {
         this.state = invManager.state;
     }
 
-    private Set<FocusedClueSpec> findUndiscoveredFocusedClues(Set<ClueSpec.Id> entityClues) {
-        var focusedClues = script.investigation.search.clues;
 
-        Set<FocusedClueSpec> result = new HashSet<>();
-        for (var clueId : entityClues) {
-            var clueState = state.clues.get(clueId);
-            if (clueState.discovered) {
-                continue;
-            }
-            var focusedClue = focusedClues.get(clueId);
-            if (focusedClue == null) {
-                continue;
-            }
-            result.add(focusedClue);
-        }
+    private InspectionResult performSearch(Set<ClueSpec.Id> entityClues, DetectiveFocus detectiveFocus, Integer d12) {
 
-        return result;
-    }
-
-    private InspectionResult searchClue(Set<ClueSpec.Id> entityClues, DetectiveFocus detectiveFocus, Integer d12) {
-
-        Set<FocusedClueSpec> cluesToSearch = findUndiscoveredFocusedClues(entityClues);
+        Set<FocusedClueSpec> cluesToSearch = InvestigationUtil.findUndiscoveredFocusedClues(state, entityClues, script.investigation.search.clues);
 
         if (cluesToSearch.isEmpty()) {
             return CluesExhausted.of();
@@ -68,18 +50,17 @@ public class SearchManager {
             }
         }
 
-        SearchClueDiscovered result;
         if (selectedMatch == null) {
             // Accidental discovery: lowest threshold among undiscovered clues.
             var accidentalMatch = matchedClues.stream()
                     .min(Comparator.comparingDouble(fw -> fw.focusedClue().threshold))
                     .orElseThrow();
             var clue = script.crime.clues.get(accidentalMatch.focusedClue().clue);
-            return SearchClueDiscovered.of(clue);
+            return SearchClue.of(clue);
         } else {
             // Focus matched discovery
             var clue = script.crime.clues.get(selectedMatch.focusedClue().clue);
-            return SearchFocusedClueDiscovered.of(
+            return SearchFocusedClue.of(
                     clue,
                     selectedMatch.matchedIds(),
                     selectedMatch.matchedTypes(),
@@ -88,39 +69,44 @@ public class SearchManager {
         }
     }
 
-    public InspectionResult search(TId searchedEntityId, DetectiveFocus detectiveFocus, Integer d12) {
+    /**
+     * Search on entity
+     *
+     * @param entityId       entity to be searched
+     * @param detectiveFocus
+     * @param d12
+     */
+    public InspectionResult search(TId entityId, DetectiveFocus detectiveFocus, Integer d12) {
 
-        Searchable searchedEntity;
+        Searchable entity;
         Set<ClueSpec.Id> entityClues;
 
-        if (searchedEntityId instanceof LocationSpec.Id locationId) {
-            searchedEntity = state.scene.locations.get(locationId);
+        if (entityId instanceof LocationSpec.Id locationId) {
+            entity = state.scene.locations.get(locationId);
             entityClues = script.crime.scene.locations.get(locationId).clues;
-        } else if (searchedEntityId instanceof PersonageSpec.Id personageId) {
-            searchedEntity = state.personages.get(personageId);
+        } else if (entityId instanceof PersonageSpec.Id personageId) {
+            entity = state.personages.get(personageId);
             entityClues = script.crime.personages.get(personageId).clues;
         } else {
-            throw new IllegalStateException("Unsupported searched entity: " + searchedEntityId);
+            throw new IllegalStateException("Unsupported searched entity: " + entityId);
         }
 
-        if (!searchedEntity.searchAvailable()) {
-            throw new IllegalArgumentException("Search not available");
+        if (!entity.searchAvailable()) {
+            throw new IllegalArgumentException("Search not available for entity: " + entityId);
         }
 
         // Active detective
         var detective = state.activeDetective();
 
         // Prepare result base values
-        InspectionResult baseValues = new InspectionResult() {
-        };
-
-        baseValues.inspectionType = InspectionTypeSpec.SEARCH;
-        baseValues.inspectionTarget = searchedEntityId;
-        baseValues.activeDetective = detective;
-        baseValues.detectiveFocus = detectiveFocus;
-        baseValues.d12 = d12;
-        baseValues.budgetSpend = 0;
-        baseValues.currentBudget = state.budget;
+        InspectionResult baseValues = InspectionResult.of()
+                .inspectionType(InspectionTypeSpec.SEARCH)
+                .inspectionTarget(entityId)
+                .activeDetective(detective)
+                .detectiveFocus(detectiveFocus)
+                .d12(d12)
+                .budgetSpend(0)
+                .currentBudget(state.budget);
 
         // Check inspection params
         var checkParamsResult = InvestigationUtil.checkInspectionRequest(
@@ -142,28 +128,28 @@ public class SearchManager {
         baseValues.currentBudget = state.budget;
 
         // Perform clue search
-        var result = searchClue(entityClues, detectiveFocus, d12);
+        var result = performSearch(entityClues, detectiveFocus, d12);
         result.assign(baseValues);
 
         if (result instanceof CluesExhausted) {
-            searchedEntity.makeUnsearchable();
+            entity.makeUnsearchable();
             state.nextDetective();
             return result;
         }
 
-        if (result instanceof SearchClueDiscovered cuResult) {
+        if (result instanceof SearchClue scdResult) {
 
-            state.clues.get(cuResult.clue.id).discovered = true;
+            state.clues.get(scdResult.clue.id).discovered = true;
 
             // Auto uncover entities
-            InvestigationUtil.uncoverEntitiesByClue(cuResult.clue, state);
+            InvestigationUtil.uncoverEntitiesByClue(scdResult.clue, state);
 
             // Detective awarded points
-            if (result instanceof SearchFocusedClueDiscovered cfuResult) {
+            if (result instanceof SearchFocusedClue sfcdResult) {
                 var awardedPoints = script.investigation.search.points;
-                awardedPoints = awardedPoints + cfuResult.matchedIds.size();
+                awardedPoints = awardedPoints + sfcdResult.matchedIds.size();
                 detective.addPoints(awardedPoints);
-                cfuResult.awardedPoints = awardedPoints;
+                sfcdResult.awardedPoints = awardedPoints;
             }
 
             // Shift to next detective

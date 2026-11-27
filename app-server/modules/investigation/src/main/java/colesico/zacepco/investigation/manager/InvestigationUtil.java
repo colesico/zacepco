@@ -125,7 +125,6 @@ public class InvestigationUtil {
     }
 
 
-
     public static List<FocusedClueMatch> matchClues(Set<FocusedClueSpec> clues, DetectiveFocus detectiveFocus) {
         return clues.stream()
                 .map(focusedClue -> matchClue(focusedClue, detectiveFocus))
@@ -142,6 +141,24 @@ public class InvestigationUtil {
                 default -> throw new IllegalArgumentException("Unsupported entity to be uncovered: " + tId);
             }
         }
+    }
+
+    public static Set<FocusedClueSpec> findUndiscoveredFocusedClues(InvestigationState state, Set<ClueSpec.Id> entityClues, Map<ClueSpec.Id, FocusedClueSpec> focusedClues) {
+
+        Set<FocusedClueSpec> result = new HashSet<>();
+        for (var clueId : entityClues) {
+            var clueState = state.clues.get(clueId);
+            if (clueState.discovered) {
+                continue;
+            }
+            var focusedClue = focusedClues.get(clueId);
+            if (focusedClue == null) {
+                continue;
+            }
+            result.add(focusedClue);
+        }
+
+        return result;
     }
 
 }

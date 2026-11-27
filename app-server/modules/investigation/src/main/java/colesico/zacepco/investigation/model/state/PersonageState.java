@@ -39,8 +39,16 @@ public class PersonageState implements Searchable {
         return searchAvailable;
     }
 
+    public boolean interrogationAvailable() {
+        return interrogationAvailable;
+    }
+
     @Override
     public void makeUnsearchable() {
         searchAvailable = false;
+    }
+
+    public void makeUninterrogatable() {
+        interrogationAvailable = false;
     }
 }
