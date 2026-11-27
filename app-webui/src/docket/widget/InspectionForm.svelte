@@ -117,7 +117,7 @@
   <span>·</span>
   <span title="Текущий бюджет расследования">Бюджет: <strong>{budget}</strong></span>
   <span>·</span>
-  <span title="Лимит фокуса">Фокус: <strong>{focusLimit}</strong></span>
+  <span title="Лимит фокуса детектива">Фокус: <strong>{focusLimit}</strong></span>
 </div>
 
 <div
@@ -217,7 +217,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="focusHelpModalLabel-{inspectionType}">
-          Формат поля «Фокус»
+          Формат поля «Фокус» детектива
         </h5>
         <button
           type="button"

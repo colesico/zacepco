@@ -221,7 +221,7 @@
           </p>
         {:else if code === 'UNDISCOVERED_FOCUS'}
           <p class="mb-0 alert  alert-danger">
-            В фокусе детектива ранее не открытые сущности: <strong>{undiscoveredFocusText}</strong>.
+            В фокусе детектива нельзя указывать ранее не открытые сущности: <strong>{undiscoveredFocusText}</strong>.
           </p>
         {:else if code === 'INSUFFICIENT_BUDGET'}
           <p class="mb-0 alert  alert-danger">
@@ -251,7 +251,7 @@
               <i class="fa-solid fa-check text-success mt-1"></i>
               <span>
                 Персонаж упомянул: 
-				<strong class="text-success">{matchedTypesText} {unmatchedTypesText}</strong>	
+				<strong class="text-success">{matchedTypesText} <span class="text-secondary">{unmatchedTypesText}</span></strong>	
               </span>
             </div>
           {/if}
@@ -266,7 +266,7 @@
               <i class="fa-solid fa-check text-success mt-1"></i>
               <span>
                 Персонаж знает о: 
-				<strong class="text-success">{matchedIdsText} {matchedTypesText} {unmatchedTypesText}</strong>	
+				<strong class="text-success">{matchedIdsText} {matchedTypesText} <span class="text-secondary">{unmatchedTypesText}</span></strong>	
               </span>
             </div>
           {/if}
@@ -274,11 +274,11 @@
          {:else if code === 'SEARCH_CLUE' || code === 'SEARCH_FOCUSED_CLUE' || code === 'INTERROGATION_CLUE'}
           <p class="mb-2 alert  alert-success">
             {#if code === 'SEARCH_CLUE'}
-              Случайно обнаружена подозрительная улика:
+              Случайно обнаружена подозрительная улика
             {:else if code === 'SEARCH_FOCUSED_CLUE'}
-              Целенаправленно обнаружена улика:
+              Целенаправленно обнаружена улика
             {:else if code === 'INTERROGATION_CLUE'}
-              Выявлена улика при допросе:
+              Выявлена улика при допросе
             {/if}
           </p>
 
@@ -288,19 +288,11 @@
                 class="position-relative flex-shrink-0"
                 style="width: 64px; height: 64px;"
               >
-                {#if scriptId && assetId}
                   <img
                     src="/docket/script/images/thumb/{scriptId}/{assetId}"
                     alt={clue.name ?? clue.id}
                     class="w-100 h-100 rounded border object-fit-cover d-block"
                   />
-                {:else}
-                  <div
-                    class="w-100 h-100 rounded border bg-secondary-subtle d-flex align-items-center justify-content-center text-muted small"
-                  >
-                    ?
-                  </div>
-                {/if}
                 <span
                   class="badge text-bg-secondary position-absolute top-0 start-0 m-1"
                   style="font-size: 0.65em; z-index: 2;"
@@ -319,11 +311,9 @@
 
             {#if matchedIdsText || unmatchedTypesText}
               <div class="mt-3 d-flex align-items-center gap-2">
-                <i class="fa-solid fa-crosshairs text-info"></i>
+                <i class="fa-solid fa-link text-info"></i>
                 <span>
-                  Улика связана с:
-                  {#if matchedIdsText} <strong class="text-success">{matchedIdsText}</strong>{/if}
-                  {#if unmatchedTypesText} <strong class="text-danger">{unmatchedTypesText}</strong>{/if}
+                  Определяется связь с: <strong>{matchedIdsText} <span class="text-secondary">{unmatchedTypesText}</span></strong>
                 </span>
               </div>
             {/if}
