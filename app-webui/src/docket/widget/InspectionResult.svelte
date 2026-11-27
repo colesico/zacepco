@@ -33,21 +33,21 @@
     return resolveEntityName(inspectionTarget);
   });
 
-  const formattedFocus = $derived.by(() => {
+  const detectiveFocusText = $derived.by(() => {
     const f = result?.detectiveFocus;
     const ids = Array.isArray(f?.ids) ? f.ids : [];
     const types = Array.isArray(f?.types) ? f.types : [];
     return [...ids, ...types].join(', ');
   });
 
-  const matchedFocusText = $derived.by(() => {
+  const matchedIdsText = $derived.by(() => {
     const ids = Array.isArray(result?.matchedIds) ? result.matchedIds : [];
     const types = Array.isArray(result?.matchedTypes) ? result.matchedTypes : [];
     return [...ids, ...types].join(', ');
   });
-
-  const unmatchedFocusText = $derived.by(() => {
-    const types = Array.isArray(result?.unmatchedTypes) ? result.unmatchedTypes : [];
+  
+  const matchedTypesText = $derived.by(() => {
+    const types = Array.isArray(result?.matchedTypes) ? result.matchedTypes : [];
     return types.join(', ');
   });
 
@@ -55,15 +55,14 @@
     const ids = Array.isArray(result?.unmatchedIds) ? result.unmatchedIds : [];
     return ids.join(', ');
   });
-
-  const matchedTypesText = $derived.by(() => {
-    const types = Array.isArray(result?.matchedTypes) ? result.matchedTypes : [];
+  
+  const unmatchedTypesText = $derived.by(() => {
+    const types = Array.isArray(result?.unmatchedTypes) ? result.unmatchedTypes : [];
     return types.join(', ');
   });
 
   const undiscoveredFocusText = $derived.by(() => {
     const u = result?.undiscovered;
-    if (Array.isArray(u)) return u.join(', ');
     const ids = Array.isArray(u?.ids) ? u.ids : [];
     const types = Array.isArray(u?.types) ? u.types : [];
     return [...ids, ...types].join(', ');
@@ -184,7 +183,7 @@
             </span>
             <span class="text-muted">·</span>
           {/if}
-          <span>Фокус: <strong>{formattedFocus || '—'}</strong></span>
+          <span>Фокус: <strong>{detectiveFocusText || '—'}</strong></span>
           {#if result?.d12 != null}
             <span class="text-muted">·</span>
             <span>D12: <strong>{result.d12}</strong></span>
@@ -208,7 +207,9 @@
         {/if}
 
         {#if code === 'INVALID_D12'}
-          <p class="mb-0 text-muted">Неверное значение D12</p>
+          <p class="mb-0  alert  alert-danger">
+		    Неверное значение D12
+		  </p>
         {:else if code === 'FOCUS_LIMIT_EXCEEDED'}
           <p class="mb-0 alert  alert-danger">
             В фокусе детектива слишком много элементов ({result?.itemsCount}), максимум: {result?.focusLimit}
@@ -216,20 +217,20 @@
         {:else if code === 'ENTITY_ID_REQUIRED' || code === 'FOCUS_IDS_REQUIRED'}
           <p class="mb-0 alert  alert-danger">
             Требуется указать минимум
-            <strong>{result?.minItems ?? '?'}</strong>
+            <strong>{result?.minItems}</strong>
             ID в фокусе детектива.
           </p>
         {:else if code === 'UNDISCOVERED_FOCUS'}
           <p class="mb-0 alert  alert-danger">
-            В фокусе детектива ранее не открытые сущности{#if undiscoveredFocusText}: <strong>{undiscoveredFocusText}</strong>{:else}.{/if}
+            В фокусе детектива ранее не открытые сущности: <strong>{undiscoveredFocusText}</strong>.
           </p>
         {:else if code === 'INSUFFICIENT_BUDGET'}
-          <p class="mb-0alert  alert-danger">
+          <p class="mb-0 alert  alert-danger">
 			Недостаточно бюджета расследования
 		  </p>
         {:else if code === 'INTERROGATION_UNPRODUCTIVE'}
           <p class="mb-2 alert  alert-warning">
-            Допрос не выявил новую улику.
+            Допрос не выявил новую улику
           </p>
 
           {#if unmatchedIdsText}
@@ -247,8 +248,8 @@
               <span>
                 Персонаж упомянул: 
 				<strong class="text-success">{matchedTypesText}</strong>
-				{#if unmatchedFocusText}
-					<strong class="text-warning">{unmatchedFocusText}</strong>
+				{#if unmatchedTypesText}
+					<strong class="text-warning">{unmatchedTypesText}</strong>
                 {/if}	
               </span>
             </div>
@@ -303,14 +304,13 @@
               </div>
             </div>
 
-            {#if matchedFocusText || unmatchedFocusText}
+            {#if matchedIdsText || unmatchedTypesText}
               <div class="mt-3 d-flex align-items-center gap-2">
                 <i class="fa-solid fa-crosshairs text-info"></i>
                 <span>
                   Улика связана с:
-                  {#if matchedFocusText} <strong class="text-success">{matchedFocusText}</strong>{/if}
-                  {#if matchedFocusText && unmatchedFocusText}, {/if}
-                  {#if unmatchedFocusText} <strong class="text-danger">{unmatchedFocusText}</strong>{/if}
+                  {#if matchedIdsText} <strong class="text-success">{matchedIdsText}</strong>{/if}
+                  {#if unmatchedTypesText} <strong class="text-danger">{unmatchedTypesText}</strong>{/if}
                 </span>
               </div>
             {/if}
