@@ -214,10 +214,10 @@
           <p class="mb-0 text-muted">Этот источник улик исчерпан.</p>
         {:else if code === 'CLUES_NOT_FOUND' || code === 'NOTHING_FOUND'}
           <p class="mb-0 text-muted">Новых улик не обнаружено.</p>
-        {:else if code === 'SEARCH_CLUE_DISCOVERED' || code === 'SEARCH_FOCUSED_CLUE_DISCOVERED'}
+        {:else if code === 'SEARCH_CLUE' || code === 'SEARCH_FOCUSED_CLUE'}
 		  
           <p class="mb-2 text-muted">
-            {code === 'SEARCH_CLUE_DISCOVERED'
+            {code === 'SEARCH_CLUE'
               ? 'Случайно обнаружена подозрительная улика:'
               : 'Целенаправленно обнаружена улика:'}
           </p>

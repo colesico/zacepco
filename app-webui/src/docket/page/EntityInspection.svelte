@@ -64,7 +64,19 @@
   }
 
   async function handleInterrogation(focus, d12) {
-    console.log('[Interrogation]', focus, d12);
+    loading = true;
+    error = null;
+    try {
+      const r = await investigationApi.interrogate(investigationId, entityId, focus, d12);
+      console.log('[Interrogation] result: ', r);
+      inspectionResult = r;
+	  await tick();
+      inspectionResultModal?.show();
+    } catch (ex) {
+      error = ex.data;
+    } finally {
+      loading = false;
+    }
   }
 
   function goBack() {

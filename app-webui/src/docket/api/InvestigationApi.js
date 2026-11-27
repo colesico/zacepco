@@ -15,6 +15,13 @@ export async function search(investigationId, entityId, detectiveFocus, d12) {
     return restletUtils.restletPut(url, request);
 }
 
+export async function interrogate(investigationId, personageId, detectiveFocus, d12) {
+    const request = { focus: detectiveFocus, d12 };
+    const url = `/docket/api/investigation/${investigationId}/interrogation/${personageId}`;
+    
+    return restletUtils.restletPut(url, request);
+}
+
 export async function findPersonalInvestigation(scriptId) {
 	const params = { script : scriptId }
     const url = `/docket/api/investigation/personal`;

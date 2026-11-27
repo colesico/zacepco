@@ -64,7 +64,7 @@ public class InvestigationRestlet {
 
     @Route("./:investigationId/search/:entityId")
     @RequestMethod(HttpMethod.PUT)
-    public InspectionResponse entitySearch(
+    public InspectionResponse searchEntity(
             @ParamOrigin(Origin.ROUTE) Long investigationId,
             @ParamOrigin(Origin.ROUTE) String entityId,
             @BeanField String focus,
@@ -80,7 +80,7 @@ public class InvestigationRestlet {
 
     @Route("./:investigationId/interrogation/:personageId")
     @RequestMethod(HttpMethod.PUT)
-    public InspectionResponse personageInterrogation(
+    public InspectionResponse interrogatePersonage(
             @ParamOrigin(Origin.ROUTE) Long investigationId,
             @ParamOrigin(Origin.ROUTE) String personageId,
             @BeanField String focus,
