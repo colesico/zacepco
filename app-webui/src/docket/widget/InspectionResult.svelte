@@ -313,7 +313,7 @@
               <div class="mt-3 d-flex align-items-center gap-2">
                 <i class="fa-solid fa-link text-info"></i>
                 <span>
-                  Определяется связь с: <strong>{matchedIdsText} <span class="text-secondary">{unmatchedTypesText}</span></strong>
+                  Определяется связь с: <strong class="text-success">{matchedIdsText} <span class="text-secondary">{unmatchedTypesText}</span></strong>
                 </span>
               </div>
             {/if}
