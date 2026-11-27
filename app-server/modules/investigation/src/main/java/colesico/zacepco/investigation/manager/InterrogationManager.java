@@ -50,7 +50,7 @@ public class InterrogationManager {
         // EQ = 0: personage knows nothing about what the detective is asking about.
         // All detective IDs are reported as unmatched.
         if (selectedMatch.eq() == 0) {
-            return new InterrogationUnproductive(
+            return new InterrogationIgnorance(
                     detectiveFocus.ids(),
                     selectedMatch.matchedTypes(),
                     selectedMatch.unmatchedTypes()
@@ -71,7 +71,7 @@ public class InterrogationManager {
         }
 
         // EQ > 0 but D12 < threshold — personage knows but won't reveal details
-        return new InterrogationIncomplete(
+        return new InterrogationRefusal(
                 selectedMatch.matchedIds(),
                 selectedMatch.matchedTypes(),
                 selectedMatch.unmatchedTypes()

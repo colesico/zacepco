@@ -4,12 +4,16 @@ import colesico.zacepco.script.model.scriptdoc.TId;
 
 import java.util.Set;
 
-public class InterrogationUnproductive extends InspectionResult {
+/**
+ * Represents an interrogation result indicating that the subject
+ * knows about the matter but refuses to share any details.
+ */
+public class InterrogationRefusal extends InspectionResult {
 
     /**
-     * Entities from detective focus not matched with table focus.
+     * Entities matched between the detective and inspection table focus.
      */
-    public final Set<TId> unmatchedIds;
+    public final Set<TId> matchedIds;
 
     /**
      * Entity types matched between the detective and inspection table focus.
@@ -21,8 +25,8 @@ public class InterrogationUnproductive extends InspectionResult {
      */
     public final Set<TId.Type> unmatchedTypes;
 
-    public InterrogationUnproductive(Set<TId> unmatchedIds, Set<TId.Type> matchedTypes, Set<TId.Type> unmatchedTypes) {
-        this.unmatchedIds = unmatchedIds;
+    public InterrogationRefusal(Set<TId> matchedIds, Set<TId.Type> matchedTypes, Set<TId.Type> unmatchedTypes) {
+        this.matchedIds = matchedIds;
         this.matchedTypes = matchedTypes;
         this.unmatchedTypes = unmatchedTypes;
     }

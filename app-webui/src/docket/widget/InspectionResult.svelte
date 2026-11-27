@@ -232,7 +232,7 @@
 			Этот источник улик исчерпан
 	      </p>
        
-        {:else if code === 'INTERROGATION_UNPRODUCTIVE'}
+        {:else if code === 'INTERROGATION_IGNORANCE'}
           <p class="mb-2 alert  alert-warning">
             Новая улика не выявлена. У персонажа нет нужной информации.
           </p>
@@ -256,7 +256,7 @@
             </div>
           {/if}
 
-        {:else if code === 'INTERROGATION_INCOMPLETE'}
+        {:else if code === 'INTERROGATION_REFUSAL'}
           <p class="mb-2 alert  alert-warning">
             Новая улика не выявлена. Персонаж отказался делиться подробностями.
           </p>

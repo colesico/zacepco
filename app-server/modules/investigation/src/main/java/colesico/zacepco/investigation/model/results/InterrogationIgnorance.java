@@ -4,12 +4,16 @@ import colesico.zacepco.script.model.scriptdoc.TId;
 
 import java.util.Set;
 
-public class InterrogationIncomplete extends InspectionResult {
+/**
+ * Represents an interrogation result indicating that the subject
+ * has no knowledge or awareness of the interrogation subject matter.
+ */
+public class InterrogationIgnorance extends InspectionResult {
 
     /**
-     * Entities matched between the detective and inspection table focus.
+     * Entities from detective focus not matched with table focus.
      */
-    public final Set<TId> matchedIds;
+    public final Set<TId> unmatchedIds;
 
     /**
      * Entity types matched between the detective and inspection table focus.
@@ -21,8 +25,8 @@ public class InterrogationIncomplete extends InspectionResult {
      */
     public final Set<TId.Type> unmatchedTypes;
 
-    public InterrogationIncomplete(Set<TId> matchedIds, Set<TId.Type> matchedTypes, Set<TId.Type> unmatchedTypes) {
-        this.matchedIds = matchedIds;
+    public InterrogationIgnorance(Set<TId> unmatchedIds, Set<TId.Type> matchedTypes, Set<TId.Type> unmatchedTypes) {
+        this.unmatchedIds = unmatchedIds;
         this.matchedTypes = matchedTypes;
         this.unmatchedTypes = unmatchedTypes;
     }
