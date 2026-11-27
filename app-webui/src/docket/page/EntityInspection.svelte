@@ -2,6 +2,8 @@
   import { push } from 'svelte-spa-router';
   import { pop } from 'svelte-spa-router';
   import { tick } from 'svelte';
+  
+  import { resetInvestigationScroll } from './Investigation.svelte';
 
   import UiErrorMessage from '@core/widget/UiErrorMessage.svelte';
   import UiLoadingIndicator from '@core/widget/UiLoadingIndicator.svelte';
@@ -123,7 +125,8 @@
   function onCloseResult(res) {
     console.log('[InspectionResult] closed:', res);
     if (RESULT_ON_CLOSE_CODES.has(res?.code)) {
-       push(`/investigation/${investigationId}?scroll=0`);
+	   resetInvestigationScroll();
+       push(`/investigation/${investigationId}`);
     }
   }
 </script>

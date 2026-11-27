@@ -1,5 +1,11 @@
 <script module>
+ 
   let investigationScrollY = 0;
+  
+  export function resetInvestigationScroll() {
+    investigationScrollY = 0;
+  }
+  
 </script>
 
 <script>
@@ -15,8 +21,7 @@
 
   let { params = {} } = $props();
   const id = $derived(params.id);
-  const scroll = $derived(params.scroll);
-
+ 
   let error = $state(null);
   let loading = $state(true);
   let context = $state(null);
@@ -70,9 +75,7 @@
 
         // Restore scroll
         await tick();
-		if (scroll != null) {
-          investigationScrollY = Number(scroll);
-        }
+		console.log('scroll=',investigationScrollY);
         window.scrollTo({ top: investigationScrollY, behavior: 'instant' });
         investigationScrollY = 0;
       } catch (ex) {
